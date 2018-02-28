@@ -1,0 +1,4 @@
+#cnblogs_post_body{padding-bottom: 50px;}
+#site_nav_under,#ad_under_post_holder{display:none;}
+#blog-sidecolumn .catListTag ul {overflow:auto;}
+#blog-sidecolumn .catListTag ul li{float:left;margin-right:10px;}

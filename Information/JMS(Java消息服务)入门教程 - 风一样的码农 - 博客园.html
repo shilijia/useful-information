@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<!-- saved from url=(0044)http://www.cnblogs.com/chenpi/p/5559349.html -->
+<html lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JMS(Java消息服务)入门教程 - 风一样的码农 - 博客园</title>
+<link type="text/css" rel="stylesheet" href="./JMS(Java消息服务)入门教程 - 风一样的码农 - 博客园_files/blog-common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="./JMS(Java消息服务)入门教程 - 风一样的码农 - 博客园_files/bundle-darkgreentrip.css">
+<link type="text/css" rel="stylesheet" href="./JMS(Java消息服务)入门教程 - 风一样的码农 - 博客园_files/263212.css">
+<link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="./JMS(Java消息服务)入门教程 - 风一样的码农 - 博客园_files/bundle-darkgreentrip-mobile.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/chenpi/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/chenpi/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/chenpi/wlwmanifest.xml">
+<script async="" src="./JMS(Java消息服务)入门教程 - 风一样的码农 - 博客园_files/analytics.js.下载"></script><script type="text/javascript" src="./JMS(Java消息服务)入门教程 - 风一样的码农 - 博客园_files/encoder.js.下载"></script><script src="./JMS(Java消息服务)入门教程 - 风一样的码农 - 博客园_files/hm.js.下载"></script><script src="./JMS(Java消息服务)入门教程 - 风一样的码农 - 博客园_files/jquery-2.2.0.min.js.下载"></script>
+<script type="text/javascript">var currentBlogApp = 'chenpi', cb_enable_mathjax=false;var isLogined=true;</script>
+<script src="./JMS(Java消息服务)入门教程 - 风一样的码农 - 博客园_files/blog-common.js.下载" type="text/javascript"></script>
+</head>
+<body>
+<a name="top"></a>
+<!--PageBeginHtml Block Begin-->
+<style>
+
+#back-top {
+
+     position: fixed;
+
+     bottom: 10px;
+
+     right: 5px;
+
+     z-index: 99;
+
+}
+
+#back-top span {
+
+     width: 50px;
+
+     height: 64px;
+
+     display: block;
+
+     background:url(http://images.cnblogs.com/cnblogs_com/chenpi/809071/o_o_rocket.png) no-repeat center center;
+
+}
+
+#back-top a{outline:none}
+
+</style>
+
+<script type="text/javascript">
+
+$(function() {
+
+	// hide #back-top first
+
+
+	$("#back-top").hide();
+
+	// fade in #back-top
+
+	$(window).scroll(function() {
+
+		if ($(this).scrollTop() > 500) {
+
+			$('#back-top').fadeIn();
+
+		} else {
+
+			$('#back-top').fadeOut();
+
+		}
+
+	});
+
+	// scroll body to 0px on click
+
+	$('#back-top a').click(function() {
+
+		$('body,html').animate({
+
+			scrollTop: 0
+
+		}, 800);
+
+		return false;
+
+	});
+
+});
+
+</script>
+
+<p id="back-top" style="display:none"><a href="http://www.cnblogs.com/chenpi/p/5559349.html#top"><span></span></a></p>
+<!--PageBeginHtml Block End-->
+
+<!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+	<a id="lnkBlogLogo" href="http://www.cnblogs.com/chenpi/"><img id="blogLogo" src="./JMS(Java消息服务)入门教程 - 风一样的码农 - 博客园_files/logo.gif" alt="返回主页"></a>			
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/chenpi/"></a></h1>
+<h2></h2>
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li><a id="blog_nav_sitehome" class="menu" href="http://www.cnblogs.com/">博客园</a></li>
+<li><a id="blog_nav_myhome" class="menu" href="http://www.cnblogs.com/chenpi/">首页</a></li>
+<li><a id="blog_nav_newpost" class="menu" rel="nofollow" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a></li>
+<li><a id="blog_nav_contact" class="menu" rel="nofollow" href="https://msg.cnblogs.com/send/%E9%A3%8E%E4%B8%80%E6%A0%B7%E7%9A%84%E7%A0%81%E5%86%9C">联系</a></li>
+<li><a id="blog_nav_rss" class="menu" href="http://www.cnblogs.com/chenpi/rss">订阅</a>
+<!--<a id="blog_nav_rss_image" class="aHeaderXML" href="http://www.cnblogs.com/chenpi/rss"><img src="//www.cnblogs.com/images/xml.gif" alt="订阅" /></a>--></li>
+<li><a id="blog_nav_admin" class="menu" rel="nofollow" href="https://i.cnblogs.com/">管理</a></li>
+</ul>
+		<div class="blogStats">
+			
+			<div id="blog_stats">
+<span id="stats_post_count">随笔 - 189&nbsp; </span>
+<span id="stats_article_count">文章 - 8&nbsp; </span>
+<span id="stats-comment_count">评论 - 206</span>
+</div>
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		
+<div id="post_detail">
+<!--done-->
+<div id="topics">
+	<div class="post">
+		<h1 class="postTitle">
+			<a id="cb_post_title_url" class="postTitle2" href="http://www.cnblogs.com/chenpi/p/5559349.html">JMS(Java消息服务)入门教程</a>
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			<div id="cnblogs_post_body" class="blogpost-body"><a name="_labelTop"></a><div id="navCategory"><h1>阅读目录</h1><ul><li><a href="http://www.cnblogs.com/chenpi/p/5559349.html#_label0">什么是Java消息服务　</a></li><li><a href="http://www.cnblogs.com/chenpi/p/5559349.html#_label1">为什么需要JMS</a></li><li><a href="http://www.cnblogs.com/chenpi/p/5559349.html#_label2">JMS的优势</a></li><li><a href="http://www.cnblogs.com/chenpi/p/5559349.html#_label3">JMS消息传送模型</a></li><li><a href="http://www.cnblogs.com/chenpi/p/5559349.html#_label4">接收消息</a></li><li><a href="http://www.cnblogs.com/chenpi/p/5559349.html#_label5">JMS编程接口</a></li><li><a href="http://www.cnblogs.com/chenpi/p/5559349.html#_label6">JMS消息结构</a></li><li><a href="http://www.cnblogs.com/chenpi/p/5559349.html#_label7">JMS使用示例</a></li><li><a href="http://www.cnblogs.com/chenpi/p/5559349.html#_label8">译文链接（做了部分修改~~）</a></li></ul></div><div style="text-align: right;height:1px;"><a href="http://www.cnblogs.com/chenpi/p/5559349.html#_labelTop"></a><a name="_label0"></a></div><h1>什么是Java消息服务　</h1>
+<p>　　Java消息服务指的是两个应用程序之间进行异步通信的API，它为标准消息协议和消息服务提供了一组通用接口，包括创建、发送、读取消息等，用于支持JAVA应用程序开发。在J2EE中，当两个应用程序使用JMS进行通信时，它们之间并不是直接相连的，而是通过一个共同的消息收发服务连接起来，可以达到解耦的效果，我们将会在接下来的教程中详细介绍。</p>
+<div style="text-align: right;height:1px;"><a href="http://www.cnblogs.com/chenpi/p/5559349.html#_labelTop"></a><a name="_label1"></a></div><h1><span class="web-item">为什么需要JMS</span></h1>
+<p><span class="web-item">　　在JAVA中，如果两个应用程序之间对各自都不了解，甚至这两个程序可能部署在不同的大洲上，那么它们之间如何发送消息呢？举个例子，一个应用程序A部署在印度，另一个应用程序部署在美国，然后每当A触发某件事后，B想从A获取一些更新信息。当然，也有可能不止一个B对A的更新信息感兴趣，可能会有N个类似B的应用程序想从A中获取更新的信息。</span></p>
+<p><span class="web-item">　　在这种情况下，JAVA提供了最佳的解决方案-JMS，完美解决了上面讨论的问题。</span></p>
+<p><span class="web-item">　　JMS同样适用于基于事件的应用程序，如聊天服务，它需要一种发布事件机制向所有与服务器连接的客户端发送消息。JMS与RMI不同，发送消息的时候，接收者不需要在线。服务器发送了消息，然后就不管了；等到客户端上线的时候，能保证接收到服务器发送的消息。这是一个很强大的解决方案，能处理当今世界很多普遍问题。</span></p>
+<div style="text-align: right;height:1px;"><a href="http://www.cnblogs.com/chenpi/p/5559349.html#_labelTop"></a><a name="_label2"></a></div><h1><span class="web-item">JMS的优势</span></h1>
+<h2><span class="web-item">异步</span></h2>
+<p><span class="web-item">　　JMS天生就是异步的，客户端获取消息的时候，不需要主动发送请求，消息会自动发送给可用的客户端。</span></p>
+<h2><span class="web-item">可靠</span></h2>
+<p><span class="web-item">　　JMS保证消息只会递送一次。大家都遇到过重复创建消息问题，而JMS能帮你避免该问题。</span></p>
+<div style="text-align: right;height:1px;"><a href="http://www.cnblogs.com/chenpi/p/5559349.html#_labelTop"></a><a name="_label3"></a></div><h1><span class="web-item">JMS消息传送模型</span></h1>
+<p><span class="web-item">　　在JMS API出现之前，大部分产品使用“点对点”和“发布/订阅”中的任一方式来进行消息通讯。JMS定义了这两种消息发送模型的规范，它们相互独立。任何JMS的提供者可以实现其中的一种或两种模型，这是它们自己的选择。JMS规范提供了通用接口保证我们基于JMS API编写的程序适用于任何一种模型。</span></p>
+<p><span class="web-item">　　让我们更加详细的看下这两种消息传送模型：</span></p>
+<h2><span class="web-item">点对点消息传送模型</span></h2>
+<p><span class="web-item">　　在点对点消息传送模型中，应用程序由消息队列，发送者，接收者组成。每一个消息发送给一个特殊的消息队列，该队列保存了所有发送给它的消息(<span class="web-item">除了被接收者消费掉的和过期的消息</span>)。点对点消息模型有一些特性，如下：</span></p>
+<ul>
+<li><span class="web-item">每个消息只有一个接收者；</span></li>
+<li><span class="web-item">消息发送者和接收者并没有时间依赖性；</span></li>
+<li><span class="web-item">当消息发送者发送消息的时候，无论接收者程序在不在运行，都能获取到消息；</span></li>
+<li><span class="web-item">当接收者收到消息的时候，会发送确认收到通知（acknowledgement）。</span></li>
+</ul>
+<p><span class="web-item"><img src="./JMS(Java消息服务)入门教程 - 风一样的码农 - 博客园_files/879896-20160604194640227-215496499.gif" alt=""></span></p>
+<h2><span class="web-item">发布/<span class="web-item">订阅</span>消息传递模型</span></h2>
+<p>　　在发布/订阅消息模型中，发布者发布一个消息，该消息通过topic传递给所有的客户端。在这种模型中，发布者和订阅者彼此不知道对方，是匿名的且可以动态发布和订阅topic。topic主要用于保存和传递消息，且会一直保存消息直到消息被传递给客户端。</p>
+<p>发布/订阅消息模型特性如下：</p>
+<ul>
+<li>一个消息可以传递给多个订阅者</li>
+<li>发布者和订阅者有时间依赖性，只有当客户端创建订阅后才能接受消息，且订阅者需一直保持活动状态以接收消息。</li>
+<li>
+<p>为了缓和这样严格的时间相关性，JMS允许订阅者创建一个可持久化的订阅。这样，即使订阅者没有被激活（运行），它也能接收到发布者的消息。</p>
+</li>
+</ul>
+<p><img src="./JMS(Java消息服务)入门教程 - 风一样的码农 - 博客园_files/879896-20160604232610055-1944763982.gif" alt=""></p>
+<div style="text-align: right;height:1px;"><a href="http://www.cnblogs.com/chenpi/p/5559349.html#_labelTop"></a><a name="_label4"></a></div><h1>接收消息</h1>
+<p>　　在JMS中，消息的接收可以使用以下两种方式：</p>
+<h2>同步</h2>
+<p>　　使用同步方式接收消息的话，消息订阅者调用receive()方法。在receive()中，消息未到达或在到达指定时间之前，方法会阻塞，直到消息可用。</p>
+<h2>异步</h2>
+<p>　　使用异步方式接收消息的话，消息订阅者需注册一个消息监听者，类似于事件监听器，只要消息到达，JMS服务提供者会通过调用监听器的onMessage()递送消息。</p>
+<div style="text-align: right;height:1px;"><a href="http://www.cnblogs.com/chenpi/p/5559349.html#_labelTop"></a><a name="_label5"></a></div><h1>JMS编程接口</h1>
+<p>　　JMS应用程序由如下基本模块组成：</p>
+<ol>
+<li>管理对象（Administered objects）-连接工厂（Connection Factories）和目的地（Destination）</li>
+<li>连接对象（Connections）</li>
+<li>会话（Sessions）</li>
+<li>消息生产者（Message Producers）</li>
+<li>消息消费者（Message Consumers）</li>
+<li>消息监听者（Message Listeners）</li>
+</ol>
+<p><img src="./JMS(Java消息服务)入门教程 - 风一样的码农 - 博客园_files/879896-20160604234140321-1865897064.png" alt=""></p>
+<h2>JMS管理对象</h2>
+<p>管理对象（Administered objects）是预先配置的JMS对象，由系统管理员为使用JMS的客户端创建，主要有两个被管理的对象：</p>
+<ul>
+<li>连接工厂（ConnectionFactory）</li>
+<li>目的地（Destination）</li>
+</ul>
+<p>这两个管理对象由JMS系统管理员通过使用Application Server管理控制台创建，存储在应用程序服务器的JNDI名字空间或JNDI注册表。</p>
+<h2>连接工厂（ConnectionFactory）</h2>
+<p>客户端使用一个连接工厂对象连接到JMS服务提供者，它创建了JMS服务提供者和客户端之间的连接。JMS客户端（如发送者或接受者）会在JNDI名字空间中搜索并获取该连接。使用该连接，客户端能够与目的地通讯，往队列或话题发送/接收消息。让我们用一个例子来理解如何发送消息：</p>
+<div class="cnblogs_code">
+<pre>QueueConnectionFactory queueConnFactory = (QueueConnectionFactory) initialCtx.lookup ("primaryQCF"<span style="color: #000000;">);
+Queue purchaseQueue </span>= (Queue) initialCtx.lookup ("Purchase_Queue"<span style="color: #000000;">);
+Queue returnQueue </span>= (Queue) initialCtx.lookup ("Return_Queue");</pre>
+</div>
+<h2>目的地（Destination）</h2>
+<p>目的地指明消息被发送的目的地以及客户端接收消息的来源。JMS使用两种目的地，队列和话题。如下代码指定了一个队列和话题。</p>
+<p><strong>创建一个队列Session</strong></p>
+<div class="cnblogs_code">
+<pre>QueueSession ses = con.createQueueSession (<span style="color: #0000ff;">false</span>, Session.AUTO_ACKNOWLEDGE);  <span style="color: #008000;">//</span><span style="color: #008000;">get the Queue object  </span>
+Queue t = (Queue) ctx.lookup ("myQueue");  <span style="color: #008000;">//</span><span style="color: #008000;">create QueueReceiver  </span>
+QueueReceiver receiver = ses.createReceiver(t); </pre>
+</div>
+<p><strong>创建一个话题Session</strong></p>
+<div class="cnblogs_code">
+<pre>TopicSession ses = con.createTopicSession (<span style="color: #0000ff;">false</span>, Session.AUTO_ACKNOWLEDGE); <span style="color: #008000;">//</span><span style="color: #008000;"> get the Topic object  </span>
+Topic t = (Topic) ctx.lookup ("myTopic");  <span style="color: #008000;">//</span><span style="color: #008000;">create TopicSubscriber  </span>
+TopicSubscriber receiver = ses.createSubscriber(t);  </pre>
+</div>
+<h2>JMS连接</h2>
+<p>连接对象封装了与JMS提供者之间的虚拟连接，如果我们有一个ConnectionFactory对象，可以使用它来创建一个连接。</p>
+<div class="cnblogs_code">
+<pre>Connection connection = connectionFactory.createConnection();</pre>
+</div>
+<p>创建完连接后，需要在程序使用结束后关闭它：</p>
+<div class="cnblogs_code">
+<pre>connection.close();</pre>
+</div>
+<h2>JMS&nbsp;会话（Session）</h2>
+<p>Session是一个单线程上下文，用于生产和消费消息，可以创建出消息生产者和消息消费者。</p>
+<p>Session对象实现了Session接口，在创建完连接后，我们可以使用它创建Session。</p>
+<div class="cnblogs_code">
+<pre>Session session = connection.createSession(<span style="color: #0000ff;">false</span>, Session.AUTO_ACKNOWLEDGE);</pre>
+</div>
+<h2>JMS消息生产者</h2>
+<p>消息生产者由Session创建，用于往目的地发送消息。生产者实现MessageProducer接口，我们可以为目的地、队列或话题创建生产者；</p>
+<div class="cnblogs_code">
+<pre>MessageProducer producer =<span style="color: #000000;"> session.createProducer(dest);
+MessageProducer producer </span>=<span style="color: #000000;"> session.createProducer(queue);
+MessageProducer producer </span>= session.createProducer(topic);</pre>
+</div>
+<p>创建完消息生产者后，可以使用send方法发送消息：</p>
+<div class="cnblogs_code">
+<pre>producer.send(message);</pre>
+</div>
+<h2>JMS消息消费者</h2>
+<p>消息消费者由Session创建，用于接受目的地发送的消息。消费者实现MessageConsumer接口，，我们可以为目的地、队列或话题创建消费者；</p>
+<div class="cnblogs_code">
+<pre>MessageConsumer consumer =<span style="color: #000000;"> session.createConsumer(dest);
+MessageConsumer consumer </span>=<span style="color: #000000;"> session.createConsumer(queue);
+MessageConsumer consumer </span>= session.createConsumer(topic);</pre>
+</div>
+<h2>JMS消息监听器</h2>
+<p>JMS消息监听器是消息的默认事件处理者，他实现了MessageListener接口，该接口包含一个onMessage方法，在该方法中需要定义消息达到后的具体动作。通过调用setMessageListener方法我们给指定消费者定义了消息监听器</p>
+<div class="cnblogs_code">
+<pre>Listener myListener = <span style="color: #0000ff;">new</span><span style="color: #000000;"> Listener();
+consumer.setMessageListener(myListener);</span></pre>
+</div>
+<div style="text-align: right;height:1px;"><a href="http://www.cnblogs.com/chenpi/p/5559349.html#_labelTop"></a><a name="_label6"></a></div><h1>JMS消息结构</h1>
+<p>JMS客户端使用JMS消息与系统通讯，JMS消息虽然格式简单但是非常灵活， JMS消息由三部分组成：</p>
+<h2>消息头</h2>
+<p>JMS消息头预定义了若干字段用于客户端与JMS提供者之间识别和发送消息，预编译头如下：</p>
+<p>– JMSDestination<br> – JMSDeliveryMode<br> – JMSMessageID<br> – JMSTimestamp<br> – JMSCorrelationID<br> – JMSReplyTo<br> – JMSRedelivered<br> – JMSType<br> – JMSExpiration<br> – JMSPriority</p>
+<h2>消息属性</h2>
+<p>我们可以给消息设置自定义属性，这些属性主要是提供给应用程序的。对于实现消息过滤功能，消息属性非常有用，JMS API定义了一些标准属性，JMS服务提供者可以选择性的提供部分标准属性。</p>
+<h2>消息体</h2>
+<p>在消息体中，JMS API定义了五种类型的消息格式，让我们可以以不同的形式发送和接受消息，并提供了对已有消息格式的兼容。不同的消息类型如下：</p>
+<p><strong>Text message</strong> : javax.jms.TextMessage，表示一个文本对象。<br> <strong>Object message</strong> : javax.jms.ObjectMessage，表示一个JAVA对象。<br> <strong>Bytes message</strong> : javax.jms.BytesMessage，表示字节数据。<br> <strong>Stream message</strong> :javax.jms.StreamMessage，表示java原始值数据流。<br> <strong>Map message</strong> : javax.jms.MapMessage，表示键值对。</p>
+<p>&nbsp;</p>
+<p>最后补充一下，常见的开源JMS服务的提供者，如下：</p>
+<ul>
+<li>JBoss 社区所研发的 HornetQ</li>
+<li>Joram</li>
+<li>Coridan的MantaRay</li>
+<li>The OpenJMS Group的OpenJMS</li>
+
+
+
+
+
+
+
+
+
+
+</ul>
+<div style="text-align: right;height:1px;"><a href="http://www.cnblogs.com/chenpi/p/5559349.html#_labelTop"></a><a name="_label7"></a></div><h1>JMS使用示例</h1>
+<h2>
+<a id="cb_post_title_url" class="postTitle2" href="http://www.cnblogs.com/chenpi/p/5565618.html">基于Tomcat + JNDI + ActiveMQ实现JMS的点对点消息传送</a>
+</h2>
+<h2><a id="cb_post_title_url" class="postTitle2" href="http://www.cnblogs.com/chenpi/p/5566983.html">JMS发布/订阅消息传送例子</a></h2>
+<div style="text-align: right;height:1px;"><a href="http://www.cnblogs.com/chenpi/p/5559349.html#_labelTop"></a><a name="_label8"></a></div><h1>译文链接（做了部分修改~~）</h1>
+<p><a href="http://howtodoinjava.com/jms/jms-java-message-service-tutorial/" target="_blank">http://howtodoinjava.com/jms/jms-java-message-service-tutorial/</a></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>以上就是JMS的入门教程，学习愉快~</p>
+<p>&nbsp;</p></div><div id="MySignature" style="display: block;"><br>
+@Author &nbsp;&nbsp;&nbsp;&nbsp;         <a href="http://www.cnblogs.com/chenpi/">风一样的码农</a><br>
+@HomePageUrl     <a href="http://www.cnblogs.com/chenpi/">http://www.cnblogs.com/chenpi/</a>
+<br>
+@Copyright &nbsp;&nbsp;&nbsp;&nbsp;   <a href="http://www.cnblogs.com/chenpi/">转载请注明出处，谢谢~</a>
+<br></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory">分类: <a href="http://www.cnblogs.com/chenpi/category/859956.html" target="_blank">Redis&amp;Jms</a></div>
+<div id="EntryTag">标签: <a href="http://www.cnblogs.com/chenpi/tag/JAVA/">JAVA</a>, <a href="http://www.cnblogs.com/chenpi/tag/jms/">jms</a>, <a href="http://www.cnblogs.com/chenpi/tag/ActiveMQ/">ActiveMQ</a>, <a href="http://www.cnblogs.com/chenpi/tag/JNDI/">JNDI</a></div>
+<div id="blog_post_info"><div id="green_channel">
+        <a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(5559349,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+            <a id="green_channel_follow" onclick="follow(&#39;ea044fe9-b8b9-e511-9fc1-ac853d9f53cc&#39;);" href="javascript:void(0);">关注我</a>
+    <a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a>
+    <a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./JMS(Java消息服务)入门教程 - 风一样的码农 - 博客园_files/icon_weibo_24.png" alt=""></a>
+    <a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="./JMS(Java消息服务)入门教程 - 风一样的码农 - 博客园_files/wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+    <div id="author_profile_info" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/chenpi/" target="_blank"><img src="./JMS(Java消息服务)入门教程 - 风一样的码农 - 博客园_files/20170529215953.png" class="author_avatar" alt=""></a>
+        <div id="author_profile_detail" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/chenpi/">风一样的码农</a><br>
+            <a href="http://home.cnblogs.com/u/chenpi/followees">关注 - 3</a><br>
+            <a href="http://home.cnblogs.com/u/chenpi/followers">粉丝 - 439</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div id="author_profile_honor"></div>
+    <div id="author_profile_follow">
+                <a href="javascript:void(0);" onclick="follow(&#39;ea044fe9-b8b9-e511-9fc1-ac853d9f53cc&#39;);return false;">+加关注</a>
+    </div>
+</div>
+<div id="div_digg">
+    <div class="diggit" onclick="votePost(5559349,&#39;Digg&#39;)">
+        <span class="diggnum" id="digg_count">9</span>
+    </div>
+    <div class="buryit" onclick="votePost(5559349,&#39;Bury&#39;)">
+        <span class="burynum" id="bury_count">0</span>
+    </div>
+    <div class="clear"></div>
+    <div class="diggword" id="digg_tips">
+    </div>
+</div>
+<script type="text/javascript">
+    currentDiggType = 0;
+</script></div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/chenpi/p/5555608.html" class="p_n_p_prefix">« </a> 上一篇：<a href="http://www.cnblogs.com/chenpi/p/5555608.html" title="发布于2016-06-03 11:14">二叉树的先序、中序、后序遍历</a><br><a href="http://www.cnblogs.com/chenpi/p/5565618.html" class="p_n_p_prefix">» </a> 下一篇：<a href="http://www.cnblogs.com/chenpi/p/5565618.html" title="发布于2016-06-07 00:06">基于Tomcat + JNDI + ActiveMQ实现JMS的点对点消息传送</a><br></div>
+</div>
+
+
+		</div>
+		<div class="postDesc">posted @ <span id="post-date">2016-06-06 17:23</span> <a href="http://www.cnblogs.com/chenpi/">风一样的码农</a> 阅读(<span id="post_view_count">32845</span>) 评论(<span id="post_comment_count">3</span>)  <a href="https://i.cnblogs.com/EditPosts.aspx?postid=5559349" rel="nofollow">编辑</a> <a href="http://www.cnblogs.com/chenpi/p/5559349.html#" onclick="AddToWz(5559349);return false;">收藏</a></div>
+	</div>
+	<script type="text/javascript">var allowComments=true,cb_blogId=263212,cb_entryId=5559349,cb_blogApp=currentBlogApp,cb_blogUserGuid='ea044fe9-b8b9-e511-9fc1-ac853d9f53cc',cb_entryCreatedDate='2016/6/6 17:23:00';loadViewCount(cb_entryId);var cb_postType=1;</script>
+	
+</div><!--end: topics 文章、评论容器-->
+</div><a name="!comments"></a><div id="blog-comments-placeholder"><div id="comments_pager_top"></div>
+<br>
+<div class="feedback_area_title">评论列表</div>
+<div class="feedbackNoItems"></div>	
+
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"><a href="javascript:void(0);" onclick="return ReplyComment(3625774,&#39;oGvphfQF+1bbSw66KpEwPng/2evVZEi8/fIPGHbZF24A+HcGDDG1ew==&#39;)">回复</a><a href="javascript:void(0);" onclick="return QuoteComment(3625774,&#39;oGvphfQF+1bbSw66KpEwPng/2evVZEi8/fIPGHbZF24A+HcGDDG1ew==&#39;)">引用</a></span>
+				</div>
+				<a href="http://www.cnblogs.com/chenpi/p/5559349.html#3625774" class="layer">#1楼</a><a name="3625774" id="comment_anchor_3625774"></a>  <span class="comment_date">2017-02-24 14:17</span> <a id="a_comment_author_3625774" href="http://www.cnblogs.com/luckyqiao/" target="_blank">我不是外星人</a> <a href="http://msg.cnblogs.com/send/%E6%88%91%E4%B8%8D%E6%98%AF%E5%A4%96%E6%98%9F%E4%BA%BA" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3625774" class="blog_comment_body">看起来好复杂，还是不太理解</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3625774,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3625774,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3625774_avatar" style="display:none;">http://pic.cnblogs.com/face/583096/20131117132928.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"><a href="javascript:void(0);" onclick="return ReplyComment(3744364,&#39;xcowBb3qdFB+A39PguZtR1s+LHqT/4KQ+3tvSW8iyXcS4KzYyW2XFw==&#39;)">回复</a><a href="javascript:void(0);" onclick="return QuoteComment(3744364,&#39;xcowBb3qdFB+A39PguZtR1s+LHqT/4KQ+3tvSW8iyXcS4KzYyW2XFw==&#39;)">引用</a></span>
+				</div>
+				<a href="http://www.cnblogs.com/chenpi/p/5559349.html#3744364" class="layer">#2楼</a><a name="3744364" id="comment_anchor_3744364"></a>  <span class="comment_date">2017-07-27 09:16</span> <a id="a_comment_author_3744364" href="http://www.cnblogs.com/yincan2014/" target="_blank">o好久不见o</a> <a href="http://msg.cnblogs.com/send/o%E5%A5%BD%E4%B9%85%E4%B8%8D%E8%A7%81o" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3744364" class="blog_comment_body">分析的很透彻，不错。</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3744364,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3744364,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3744364_avatar" style="display:none;">http://pic.cnblogs.com/face/591421/20151014151042.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"><a href="javascript:void(0);" onclick="return ReplyComment(3817180,&#39;0MrAO75ReketWoqM8uEN6LrVpH/UYpLpwvf0kteWWmB16RBYWwKohg==&#39;)">回复</a><a href="javascript:void(0);" onclick="return QuoteComment(3817180,&#39;0MrAO75ReketWoqM8uEN6LrVpH/UYpLpwvf0kteWWmB16RBYWwKohg==&#39;)">引用</a></span>
+				</div>
+				<a href="http://www.cnblogs.com/chenpi/p/5559349.html#3817180" class="layer">#3楼</a><a name="3817180" id="comment_anchor_3817180"></a><span id="comment-maxId" style="display:none;">3817180</span><span id="comment-maxDate" style="display:none;">2017/10/20 23:26:23</span>  <span class="comment_date">2017-10-20 23:26</span> <a id="a_comment_author_3817180" href="http://home.cnblogs.com/u/1242291/" target="_blank">final变量</a> <a href="http://msg.cnblogs.com/send/final%E5%8F%98%E9%87%8F" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3817180" class="blog_comment_body">JMS(Java消息服务)入门教程- 风一样的码农- 博客园，写的不错不错，收藏了。<br><br>推荐下，分库分表中间件 Sharding-JDBC 源码解析 17 篇：<a href="http://www.yunai.me/categories/Sharding-JDBC/?cnblog" target="_blank">http://www.yunai.me/categories/Sharding-JDBC/?cnblog</a>&amp;602<br><br><br>淞</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3817180,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3817180,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	<div id="comments_pager_bottom"></div></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="http://www.cnblogs.com/chenpi/p/5559349.html#" onclick="return RefreshPage();">刷新页面</a><a href="http://www.cnblogs.com/chenpi/p/5559349.html#top">返回顶部</a></div>
+<div id="comment_form_container"><script type="text/javascript" src="./JMS(Java消息服务)入门教程 - 风一样的码农 - 博客园_files/mention.js.下载"></script>
+<div id="commentform_title">发表评论</div>
+<span id="tip_comment" style="color:Red"></span>
+<p>
+昵称：<input type="text" id="tbCommentAuthor" class="author" disabled="disabled" size="50" value="daoning">
+</p>
+<div class="commentbox_main">
+<div class="commentbox_title">
+<div class="commentbox_title_left">评论内容：</div>
+<div class="commentbox_title_right">
+<img id="ubb_quote" class="comment_icon" src="./JMS(Java消息服务)入门教程 - 风一样的码农 - 博客园_files/quote.gif" alt="引用" title="添加引用" onclick="insertUBB(&#39;tbCommentBody&#39;,&#39;quote&#39;)">
+<img id="ubb_bold" class="comment_icon" src="./JMS(Java消息服务)入门教程 - 风一样的码农 - 博客园_files/b.png" alt="粗体" title="添加粗体" onclick="insertUBB(&#39;tbCommentBody&#39;,&#39;b&#39;)">
+<img id="ubb_url" class="comment_icon" src="./JMS(Java消息服务)入门教程 - 风一样的码农 - 博客园_files/lk.png" alt="链接" title="添加链接" onclick="insertUbbUrl(&#39;tbCommentBody&#39;)">
+<img id="ubb_indent" class="comment_icon" src="./JMS(Java消息服务)入门教程 - 风一样的码农 - 博客园_files/indent.png" alt="缩进" title="添加首行缩进" onclick="insertIndent(&#39;tbCommentBody&#39;)">
+<img id="ubb_code" class="comment_icon" src="./JMS(Java消息服务)入门教程 - 风一样的码农 - 博客园_files/InsertCode.gif" alt="代码" title="添加代码" onclick="insertUbbCode()">
+<img id="ubb_img" class="comment_icon" src="./JMS(Java消息服务)入门教程 - 风一样的码农 - 博客园_files/img.gif" alt="图片" title="上传图片" onclick="OpenImageUploadWindow();">
+</div>
+</div>
+<div class="clear"></div>
+<textarea id="tbCommentBody" class="comment_textarea"></textarea>
+</div>
+<p id="commentbox_opt">
+<input id="btn_comment_submit" type="button" class="comment_btn" value="提交评论">
+<span id="span_comment_canceledit" style="display:none"><a href="javascript:void(0);" onclick="return CancelCommentEdit()">不改了</a></span>
+<a href="javascript:void(0);" onclick="return logout();">退出</a>
+        <a id="commentbox_opt_sub" href="javascript:void(0);" title="订阅后有新评论时会邮件通知您" onclick="commentManager.Subscribe()">订阅评论</a>
+</p>
+<div id="tip_comment2" style="color:Red"></div>
+<p>
+[Ctrl+Enter快捷键提交]
+</p>
+<div style="display:none">
+<span id="comment_edit_id"></span><span id="span_parentcomment_id"></span>
+<span id="span_parent_id"></span>
+<span id="span_comment_replyto"></span>
+<span id="span_comment_posted"></span>
+</div>
+</div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="ad_t2"><a href="http://www.ucancode.com/index.htm" target="_blank">【推荐】超50万VC++源码: 大型工控、组态\仿真、建模CAD源码2018！</a><br><a href="https://cloud.tencent.com/solution/la?fromSource=gwzcw.766790.766790.766790" target="_blank">【推荐】微信小程序一站式部署 多场景模板定制</a><br></div>
+<div id="opt_under_post"></div>
+<div id="cnblogs_c1" class="c_ad_block"><a href="http://www.gcpowertools.com.cn/products/spreadjs/?utm_source=cnblogs&amp;utm_medium=blogpage&amp;utm_term=bottom&amp;utm_content=SpreadJS2&amp;utm_campaign=community" target="_blank"><img width="300" height="250" src="./JMS(Java消息服务)入门教程 - 风一样的码农 - 博客园_files/24442-20171206093644566-325426505.png" alt="SpreadJS2_1206"></a></div>
+<div id="under_post_news"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="https://news.cnblogs.com/n/590220/" target="_blank">微软在南爱尔兰Leopardstown开设新总部</a><br> ·  <a href="https://news.cnblogs.com/n/590219/" target="_blank">摩托罗拉的研究揭示了我们对手机的上瘾程度</a><br> ·  <a href="https://news.cnblogs.com/n/590218/" target="_blank">开发者现可向App Store上传10张应用截图</a><br> ·  <a href="https://news.cnblogs.com/n/590217/" target="_blank">为提升用户体验 苹果地图故意延长预估达到时间</a><br> ·  <a href="https://news.cnblogs.com/n/590216/" target="_blank">港媒：香港同股不同权公司上市或于4月份生效</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div></div>
+<div id="cnblogs_c2" class="c_ad_block"><a href="http://click.aliyun.com/m/34770/" target="_blank"><img width="468" height="60" src="./JMS(Java消息服务)入门教程 - 风一样的码农 - 博客园_files/24442-20171208101900738-116140477.jpg" alt="阿里云C2-1208"></a></div>
+<div id="under_post_kb"><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="http://kb.cnblogs.com/page/590141/" target="_blank">作为一个程序员，数学对你到底有多重要</a><br> ·  <a href="http://kb.cnblogs.com/page/586236/" target="_blank">领域驱动设计在互联网业务开发中的实践</a><br> ·  <a href="http://kb.cnblogs.com/page/585502/" target="_blank">步入云计算</a><br> ·  <a href="http://kb.cnblogs.com/page/531409/" target="_blank">以操作系统的角度述说线程与进程</a><br> ·  <a href="http://kb.cnblogs.com/page/141729/" target="_blank">软件测试转型之路</a><br></div>» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+    fixPostBody();
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverAdT2();
+    deliverAdC1();
+    deliverAdC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate, cb_postType);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);   
+</script>
+</div>
+
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<!--done-->
+<div class="newsItem">
+<h3 class="catListTitle">公告</h3>
+	<div id="blog-news"><img src="./JMS(Java消息服务)入门教程 - 风一样的码农 - 博客园_files/20170529215953(1).png" alt="头像" class="img_avatar" width="210px" style="border-radius:5%">
+
+<a class="header-logo-invertocat" target="_blank" href="https://github.com/peterchenhdu" data-hotkey="g d" aria-label="Homepage" data-ga-click="Header, go to dashboard, icon:logo">
+<svg aria-hidden="true" class="octicon octicon-mark-github" height="28" version="1.1" viewBox="0 0 16 16" width="28"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg></a>
+<a href="https://www.cnzz.com/stat/website.php?web_id=1263394805" target="_blank" title="站长统计"><img src="./JMS(Java消息服务)入门教程 - 风一样的码农 - 博客园_files/pic1.gif" vspace="0" hspace="0" border="0"></a>
+<!--
+<a class="header-logo-invertocat" target="_blank" href="http://weibo.com/woshichenpi" data-hotkey="g d" aria-label="Homepage" data-ga-click="Header, go to dashboard, icon:logo">
+<img id="ViewPicture1_GalleryImage" src="http://weibo.com/favicon.ico" style="border-width:0px;height:28px;width:28px;"></a>-->
+<!--
+<a class="header-logo-invertocat" href="https://git.oschina.net/pi.chen" data-hotkey="g d" aria-label="Homepage" data-ga-click="Header, go to dashboard, icon:logo">-->
+<!--
+<img id="ViewPicture1_GalleryImage" src="https://git.oschina.net/assets/favicon-f6562a1bc6a110e32367f6e0cab4ba89.ico" style="border-width:0px;height:28px;width:28px;"></a>
+
+<a class="header-logo-invertocat" href="https://segmentfault.com/u/iamchenpi" data-hotkey="g d" aria-label="Homepage" data-ga-click="Header, go to dashboard, icon:logo">
+<img id="ViewPicture1_GalleryImage" src="https://sf-static.b0.upaiyun.com/v-587db303/global/img/favicon.ico" style="border-width:0px;height:28px;width:28px;"></a>
+<h1>Follow my heart.</h1>-->
+
+<script type="text/javascript">window['__document_write_ajax_callbacks__']['3']();</script><script>window['__document_write_ajax_callbacks__']['1']();</script><div id="profile_block">昵称：<a href="https://home.cnblogs.com/u/chenpi/">风一样的码农</a><br>园龄：<a href="https://home.cnblogs.com/u/chenpi/" title="入园时间：2016-01-13">2年1个月</a><br>粉丝：<a href="https://home.cnblogs.com/u/chenpi/followers/">439</a><br>关注：<a href="https://home.cnblogs.com/u/chenpi/followees/">3</a><div id="p_b_follow"><a href="javascript:void(0);" onclick="follow(&#39;ea044fe9-b8b9-e511-9fc1-ac853d9f53cc&#39;)">+加关注</a></div><script type="text/javascript">window['__document_write_ajax_callbacks__']['4']();</script><script>window['__document_write_ajax_callbacks__']['2']();</script></div></div><script type="text/javascript">loadBlogNews();</script>
+</div>
+
+			<div id="blog-calendar" style="display:none"></div><script type="text/javascript">loadBlogDefaultCalendar();</script>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"><div id="sidebar_search" class="sidebar-block">
+<div id="sidebar_search" class="mySearch">
+<h3 class="catListTitle">搜索</h3>
+<div id="sidebar_search_box">
+<div id="widget_my_zzk" class="div_my_zzk"><input type="text" id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk">&nbsp;<input onclick="zzk_go()" type="button" value="找找看" id="btnZzk" class="btn_my_zzk"></div>
+
+</div>
+</div>
+
+</div><div id="sidebar_categories">
+<div id="sidebar_postcategory" class="catListPostCategory sidebar-block">
+<h3 class="catListTitle">随笔分类<span style="font-size:11px;font-weight:normal">(204)</span></h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_0_Link_0" href="http://www.cnblogs.com/chenpi/category/1115459.html">ActiveMQ</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_1" href="http://www.cnblogs.com/chenpi/category/1010248.html">Apache Commons(6)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_2" href="http://www.cnblogs.com/chenpi/category/1039418.html">Apache Flume(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_3" href="http://www.cnblogs.com/chenpi/category/883829.html">JAVA 8(7)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_4" href="http://www.cnblogs.com/chenpi/category/946091.html">JAVA 9(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_5" href="http://www.cnblogs.com/chenpi/category/839310.html">JAVA IO&amp;NIO(8)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_6" href="http://www.cnblogs.com/chenpi/category/900332.html">JAVA SOA(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_7" href="http://www.cnblogs.com/chenpi/category/839300.html">JAVA Web(10)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_8" href="http://www.cnblogs.com/chenpi/category/839297.html">JAVA 并发(11)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_9" href="http://www.cnblogs.com/chenpi/category/778984.html">Java 持续集成(7)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_10" href="http://www.cnblogs.com/chenpi/category/839301.html">JAVA 底层(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_11" href="http://www.cnblogs.com/chenpi/category/839303.html">JAVA 工具(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_12" href="http://www.cnblogs.com/chenpi/category/783125.html">JAVA 基础(11)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_13" href="http://www.cnblogs.com/chenpi/category/839318.html">JAVA 集合(8)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_14" href="http://www.cnblogs.com/chenpi/category/839298.html">JAVA 应用(4)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_15" href="http://www.cnblogs.com/chenpi/category/907294.html">Lucene&amp;Solr(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_16" href="http://www.cnblogs.com/chenpi/category/859956.html">Redis&amp;Jms(7)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_17" href="http://www.cnblogs.com/chenpi/category/938450.html">Spring Boot(5)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_18" href="http://www.cnblogs.com/chenpi/category/939972.html">Spring Data(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_19" href="http://www.cnblogs.com/chenpi/category/915351.html">Spring Framework(16)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_20" href="http://www.cnblogs.com/chenpi/category/940266.html">Spring IO Platform(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_21" href="http://www.cnblogs.com/chenpi/category/904133.html">不断更新系列(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_22" href="http://www.cnblogs.com/chenpi/category/932448.html">常见问题(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_23" href="http://www.cnblogs.com/chenpi/category/900757.html">环境搭建(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_24" href="http://www.cnblogs.com/chenpi/category/778595.html">前端开发(5)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_25" href="http://www.cnblogs.com/chenpi/category/780173.html">设计模式(25)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_26" href="http://www.cnblogs.com/chenpi/category/893294.html">生活随笔(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_27" href="http://www.cnblogs.com/chenpi/category/778960.html">数据库(6)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_28" href="http://www.cnblogs.com/chenpi/category/778594.html">未分类(9)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_29" href="http://www.cnblogs.com/chenpi/category/829463.html">英文翻译(32)</a> </li>
+
+</ul>
+
+</div>
+
+<div id="sidebar_postarchive" class="catListPostArchive sidebar-block">
+<h3 class="catListTitle">随笔档案<span style="font-size:11px;font-weight:normal">(189)</span></h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_1_Link_0" href="http://www.cnblogs.com/chenpi/archive/2017/08.html">2017年8月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_1" href="http://www.cnblogs.com/chenpi/archive/2017/07.html">2017年7月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_2" href="http://www.cnblogs.com/chenpi/archive/2017/06.html">2017年6月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_3" href="http://www.cnblogs.com/chenpi/archive/2017/05.html">2017年5月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_4" href="http://www.cnblogs.com/chenpi/archive/2017/03.html">2017年3月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_5" href="http://www.cnblogs.com/chenpi/archive/2017/02.html">2017年2月 (5)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_6" href="http://www.cnblogs.com/chenpi/archive/2017/01.html">2017年1月 (8)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_7" href="http://www.cnblogs.com/chenpi/archive/2016/12.html">2016年12月 (12)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_8" href="http://www.cnblogs.com/chenpi/archive/2016/11.html">2016年11月 (11)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_9" href="http://www.cnblogs.com/chenpi/archive/2016/10.html">2016年10月 (9)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_10" href="http://www.cnblogs.com/chenpi/archive/2016/09.html">2016年9月 (7)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_11" href="http://www.cnblogs.com/chenpi/archive/2016/08.html">2016年8月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_12" href="http://www.cnblogs.com/chenpi/archive/2016/07.html">2016年7月 (6)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_13" href="http://www.cnblogs.com/chenpi/archive/2016/06.html">2016年6月 (13)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_14" href="http://www.cnblogs.com/chenpi/archive/2016/05.html">2016年5月 (34)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_15" href="http://www.cnblogs.com/chenpi/archive/2016/04.html">2016年4月 (13)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_16" href="http://www.cnblogs.com/chenpi/archive/2016/03.html">2016年3月 (14)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_17" href="http://www.cnblogs.com/chenpi/archive/2016/02.html">2016年2月 (21)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_18" href="http://www.cnblogs.com/chenpi/archive/2016/01.html">2016年1月 (15)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_19" href="http://www.cnblogs.com/chenpi/archive/2015/08.html">2015年8月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_20" href="http://www.cnblogs.com/chenpi/archive/2015/06.html">2015年6月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_21" href="http://www.cnblogs.com/chenpi/archive/2015/03.html">2015年3月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_22" href="http://www.cnblogs.com/chenpi/archive/2014/12.html">2014年12月 (5)</a> </li>
+
+</ul>
+
+</div>
+
+</div><div id="sidebar_scorerank" class="sidebar-block">
+<div class="catListBlogRank">
+<h3 class="catListTitle">积分与排名</h3>
+<ul>
+	<li class="liScore">
+		积分 -	282391
+	</li>
+	<li class="liRank">
+		排名 -	654
+	</li>
+</ul>
+</div>
+
+
+</div><div id="sidebar_recentcomments" class="sidebar-block"><div id="recent_comments_wrap">
+<div class="catListComment">
+<h3 class="catListTitle">最新评论</h3>
+
+	<div id="RecentCommentsBlock"><ul>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/chenpi/p/5434537.html#3895147">1. Re:Tomcat中的Session小结</a></li>
+        <li class="recent_comment_body">@dracularking通过Redis等分布式缓存实现集中式管理...</li>
+        <li class="recent_comment_author">--wxyjuly</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/chenpi/p/5602171.html#3895026">2. Re:一个简单的Java web服务器实现</a></li>
+        <li class="recent_comment_body">output.write("HTTP/1.1 200 OK\n".getBytes()); output.write("Content-Type: text/html; charset=UTF-8\n......</li>
+        <li class="recent_comment_author">--秋风之后</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/chenpi/p/5139050.html#3890240">3. Re:【设计模式】简单工厂模式</a></li>
+        <li class="recent_comment_body">@Override public void printName() { System.out.println(this.getClass().getName() + ":" + t.........</li>
+        <li class="recent_comment_author">--房上的猫!</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/chenpi/p/5534595.html#3886438">4. Re:使用iText库创建PDF文件</a></li>
+        <li class="recent_comment_body">如何将一个动态的jsp页面转成PDF文件导出或者下载？</li>
+        <li class="recent_comment_author">--冲关一路为红颜</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/chenpi/p/5602171.html#3885970">5. Re:一个简单的Java web服务器实现</a></li>
+        <li class="recent_comment_body">java实现一个简单的Web服务器<br><a href="http://www.cnblogs.com/chenpi/p/5559349.html" target="_blank"></a><br>兄台你们的代码为何如此相似。</li>
+        <li class="recent_comment_author">--日行一步</li>
+</ul>
+</div>
+</div>
+</div></div><div id="sidebar_topcommentedposts" class="sidebar-block"><div id="topfeedback_posts_wrap">
+<div class="catListFeedback">
+<h3 class="catListTitle">评论排行榜</h3>
+	<div id="TopFeedbackPostsBlock"><ul><li><a href="http://www.cnblogs.com/chenpi/p/5652555.html">1. spring + spring mvc + mybatis + react + reflux + webpack Web工程例子(27)</a></li><li><a href="http://www.cnblogs.com/chenpi/p/5280304.html">2. HashMap源码分析(14)</a></li><li><a href="http://www.cnblogs.com/chenpi/p/5986215.html">3. 发现一个国内牛逼的maven仓库，速度真的太快了(14)</a></li><li><a href="http://www.cnblogs.com/chenpi/p/5434537.html">4. Tomcat中的Session小结(13)</a></li><li><a href="http://www.cnblogs.com/chenpi/p/6110040.html">5. Spring 4 集成Apache CXF开发JAX-RS Web Service(11)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topdiggedposts" class="sidebar-block"><div id="topdigg_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">推荐排行榜</h3>
+<div id="TopDiggPostsBlock"><ul><li><a href="http://www.cnblogs.com/chenpi/p/5986215.html">1. 发现一个国内牛逼的maven仓库，速度真的太快了(11)</a></li><li><a href="http://www.cnblogs.com/chenpi/p/5136483.html">2. Mysql中的存储过程(10)</a></li><li><a href="http://www.cnblogs.com/chenpi/p/5559349.html">3. JMS(Java消息服务)入门教程(9)</a></li><li><a href="http://www.cnblogs.com/chenpi/p/5614290.html">4. JAVA并发编程J.U.C学习总结(9)</a></li><li><a href="http://www.cnblogs.com/chenpi/p/5434537.html">5. Tomcat中的Session小结(9)</a></li><li><a href="http://www.cnblogs.com/chenpi/p/5534595.html">6. 使用iText库创建PDF文件(7)</a></li><li><a href="http://www.cnblogs.com/chenpi/p/5133648.html">7. Mysql中的视图(5)</a></li><li><a href="http://www.cnblogs.com/chenpi/p/5652555.html">8. spring + spring mvc + mybatis + react + reflux + webpack Web工程例子(5)</a></li><li><a href="http://www.cnblogs.com/chenpi/p/5280304.html">9. HashMap源码分析(5)</a></li><li><a href="http://www.cnblogs.com/chenpi/p/5199226.html">10. 基于ARM处理器的反汇编器软件简单设计及实现(5)</a></li><li><a href="http://www.cnblogs.com/chenpi/p/5269737.html">11. LinkedList(4)</a></li><li><a href="http://www.cnblogs.com/chenpi/p/5247946.html">12. ArrayList(4)</a></li><li><a href="http://www.cnblogs.com/chenpi/p/5565618.html">13. 基于Tomcat + JNDI + ActiveMQ实现JMS的点对点消息传送(3)</a></li><li><a href="http://www.cnblogs.com/chenpi/p/6295855.html">14. Spring IO Platform简介及示例(3)</a></li><li><a href="http://www.cnblogs.com/chenpi/p/5490114.html">15. Java内存泄露简述(3)</a></li></ul></div>
+</div></div></div></div><script type="text/javascript">loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		
+<!--done-->
+Copyright ©2018 风一样的码农
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+<!--PageEndHtml Block Begin-->
+
+
+<script type="text/javascript">
+
+//生成目录索引列表
+
+function GenerateContentList()
+
+{
+
+    var jquery_h3_list = $('#cnblogs_post_body h1');//如果你的章节标题不是h3,只需要将这里的h3换掉即可
+
+    if(jquery_h3_list.length>0)
+
+    {
+
+        var content = '<a name="_labelTop"></a>';
+
+        content    += '<div id="navCategory">';     
+
+        content    += '<h1>阅读目录</h1>';
+
+        content    += '<ul>';
+
+        for(var i =0;i<jquery_h3_list.length;i++)
+
+        {
+
+            var go_to_top = '<div style="text-align: right;height:1px;"><a href="#_labelTop"></a><a name="_label' + i + '"></a></div>';
+
+            $(jquery_h3_list[i]).before(go_to_top);
+
+            var li_content = '<li><a href="#_label' + i + '">' + $(jquery_h3_list[i]).text() + '</a></li>';
+
+            content += li_content;
+
+        }
+
+        content    += '</ul>';
+
+        content    += '</div>';
+
+        if($('#cnblogs_post_body').length != 0 )
+
+        {
+
+            $($('#cnblogs_post_body')[0]).prepend(content);
+
+        }
+
+    }    
+
+}
+
+GenerateContentList();
+
+</script>
+<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1263394805'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s22.cnzz.com/z_stat.php%3Fid%3D1263394805%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));</script><span id="cnzz_stat_icon_1263394805"><a href="http://www.cnzz.com/stat/website.php?web_id=1263394805" target="_blank" title="站长统计"><img border="0" hspace="0" vspace="0" src="./JMS(Java消息服务)入门教程 - 风一样的码农 - 博客园_files/pic1(1).gif"></a></span><script src="./JMS(Java消息服务)入门教程 - 风一样的码农 - 博客园_files/z_stat.php" type="text/javascript"></script><script src="./JMS(Java消息服务)入门教程 - 风一样的码农 - 博客园_files/core.php" charset="utf-8" type="text/javascript"></script><script type="text/javascript">
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?a0aa196d3d4ecc011cdafa70d2028ba4";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script type="text/javascript">getFollowStatus('ea044fe9-b8b9-e511-9fc1-ac853d9f53cc')</script>
+<!--PageEndHtml Block End-->
+
+
+</body></html>

@@ -1,0 +1,1559 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- saved from url=(0056)http://blog.csdn.net/u014132659/article/details/56489375 -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script charset="utf-8" src="./JNI 和 JNA，java和其他语言的互调 - 不止于代码 - CSDN博客_files/b.js.下载"></script><script type="text/javascript" async="" src="./JNI 和 JNA，java和其他语言的互调 - 不止于代码 - CSDN博客_files/pr.js.下载"></script>
+        <link rel="canonical" href="http://blog.csdn.net/u014132659/article/details/56489375">
+
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <link rel="alternate" media="handheld" href="http://blog.csdn.net/u014132659/article/details/56489375#">
+
+    <meta name="shenma-site-verification" content="5a59773ab8077d4a62bf469ab966a63b_1497598848">
+
+    <title>JNI 和 JNA，java和其他语言的互调 - 不止于代码 - CSDN博客</title>
+    
+    <meta name="description" content="声明：工作需要java调用C语言的方法：1、JNI --- java native interface2、JNA3、runtime.exec() ，没有研究4、CORBA ， 没有研究JNI和JNA是什么东西？JNI是java和其他语言相互调用的机制，c 或者 c++写的库，java想使用，需要调用dll库，这就使用JNI或者JNA去封装库提供的">
+
+    <meta name="keywords" content="jni,jna">
+    <script src="./JNI 和 JNA，java和其他语言的互调 - 不止于代码 - CSDN博客_files/hm.js.下载"></script><script type="text/javascript" async="" src="./JNI 和 JNA，java和其他语言的互调 - 不止于代码 - CSDN博客_files/fzdhxdi.js.下载"></script><script src="./JNI 和 JNA，java和其他语言的互调 - 不止于代码 - CSDN博客_files/blog_static_head.min.js.下载" type="text/javascript"></script>
+
+
+        <link rel="Stylesheet" type="text/css" href="./JNI 和 JNA，java和其他语言的互调 - 不止于代码 - CSDN博客_files/style.css">
+
+    
+
+    <link id="RSSLink" title="RSS" type="application/rss+xml" rel="alternate" href="http://blog.csdn.net/u014132659/rss/list">
+    <link rel="shortcut icon" href="http://c.csdnimg.cn/public/favicon.ico">
+    <link type="text/css" rel="stylesheet" href="./JNI 和 JNA，java和其他语言的互调 - 不止于代码 - CSDN博客_files/default.css">
+
+
+
+
+
+    <link href="./JNI 和 JNA，java和其他语言的互调 - 不止于代码 - CSDN博客_files/csdn_public_blog_detail.min.css" type="text/css" rel="stylesheet">
+
+        <link rel="stylesheet" href="./JNI 和 JNA，java和其他语言的互调 - 不止于代码 - CSDN博客_files/csdn_blog_detail.min.css">
+
+    <!-- 请置于所有广告位代码之前 -->
+    <script src="./JNI 和 JNA，java和其他语言的互调 - 不止于代码 - CSDN博客_files/ds.js.下载"></script>
+
+<style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Hover_Arrow {position: absolute; width: 15px; height: 11px; cursor: pointer}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; color: #666666}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_Menu_Close {position: absolute; width: 31px; height: 31px; top: -15px; left: -15px}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style></head>
+
+
+<body><div id="BAIDU_DUP_fp_wrapper" style="position: absolute; left: -1px; bottom: -1px; z-index: 0; width: 0px; height: 0px; overflow: hidden; visibility: hidden; display: none;"><iframe id="BAIDU_DUP_fp_iframe" src="./JNI 和 JNA，java和其他语言的互调 - 不止于代码 - CSDN博客_files/o.html" style="width: 0px; height: 0px; visibility: hidden; display: none;"></iframe></div><div id="MathJax_Message" style="display: none;"></div><svg aria-hidden="true" style="position: absolute; width: 0px; height: 0px; overflow: hidden;"><symbol id="icon-xiajiantou" viewBox="0 0 1024 1024"><path d="M328.208 346.062h368.494c20.393 0 36.887 16.366 36.887 36.757 0 9.484-3.637 18.056-9.483 24.55L541.873 650.522c-12.211 16.105-35.2 19.484-51.438 7.275-2.859-2.08-5.324-4.547-7.274-7.275L298.853 404.772c-12.08-16.106-8.83-39.225 7.404-51.306 6.626-5.066 14.289-7.404 21.95-7.404z"></path></symbol><symbol id="icon-shouji" viewBox="0 0 1024 1024"><path d="M537.754 795.889c-26.41 0-47.893 21.478-47.893 47.892s21.484 47.893 47.893 47.893 47.892-21.479 47.892-47.893-21.483-47.892-47.892-47.892z"></path><path d="M774.697 42.071H300.815c-39.864 0-72.3 32.43-72.3 72.3v795.264c0 39.869 32.43 72.3 72.3 72.3h473.872c39.87 0 72.3-32.431 72.3-72.3v-795.27c0.004-39.864-32.426-72.294-72.29-72.294zM300.815 90.266h473.872a24.125 24.125 0 0 1 24.1 24.1v595.809H276.72v-595.81a24.125 24.125 0 0 1 24.094-24.1z m473.882 843.463H300.815a24.125 24.125 0 0 1-24.1-24.1V762.501h522.072V909.63a24.115 24.115 0 0 1-24.09 24.1z"></path></symbol><symbol id="icon-tianxie" viewBox="0 0 1024 1024"><path d="M121.905 780.19h780.19v97.524h-780.19V780.19zM823.296 298.496l-68.974-68.974-344.795 344.796-34.475 103.448 103.424-34.475zM875.008 246.76l17.237-17.238-68.949-68.949-17.262 17.237-17.237 17.238 68.974 68.973z"></path></symbol><symbol id="icon-sousuo" viewBox="0 0 1024 1024"><path d="M1023.972002 964.002812l-59.981188 59.981189-271.443276-271.459276c-166.600191 136.489602-412.812649 126.986048-568.309361-28.494664-165.624236-165.624236-165.624236-434.187647 0-599.859881 165.624236-165.592238 434.187647-165.592238 599.827883 0 155.52871 155.52871 164.984266 401.789166 28.462666 568.389356L1023.972002 964.002812zM663.364906 184.007375c-132.585785-132.585785-347.327719-132.761777-479.705514-0.43198-132.329797 132.345796-132.121807 347.119729 0.463978 479.705514s347.375717 132.793775 479.705514 0.41598c132.329797-132.281799 132.169805-347.10373-0.463978-479.689514z"></path></symbol><symbol id="icon-guanbi" viewBox="0 0 1024 1024"><path d="M1002.211316 933.90818c24.46369 24.46369 29.007633 59.583246 10.159871 78.447007-18.863761 18.863761-53.983317 14.303819-78.447007-10.159871L21.807724 90.09486C-2.655966 65.631169-7.199909 30.495614 11.647853 11.647853c18.863761-18.863761 53.983317-14.303819 78.447007 10.159871L1002.211316 933.90818z"></path><path d="M933.92418 21.807724C958.38787-2.655966 993.507426-7.199909 1012.371187 11.647853c18.863761 18.863761 14.303819 53.983317-10.159871 78.447007L90.09486 1002.211316c-24.46369 24.46369-59.583246 29.007633-78.447007 10.159871-18.847761-18.863761-14.303819-53.983317 10.159871-78.463007L933.92418 21.807724z"></path></symbol><symbol id="icon-caidan" viewBox="0 0 1024 1024"><path d="M0 132.8a48.496 48.496 0 0 0 48.496 48.496h927.008a48.496 48.496 0 1 0 0-96.992H48.496A48.496 48.496 0 0 0 0 132.8s0-26.784 0 0zM0 512.016a48.48 48.48 0 0 0 48.48 48.48h927.04a48.48 48.48 0 0 0 0-96.96H48.48A48.48 48.48 0 0 0 0 512.016s0-26.784 0 0zM0 891.2a48.496 48.496 0 0 0 48.496 48.496h927.008a48.496 48.496 0 1 0 0-96.992H48.496A48.496 48.496 0 0 0 0 891.2s0-26.784 0 0z"></path></symbol><symbol id="icon-yonghudenglu" viewBox="0 0 1024 1024"><path d="M1022.26704 962.432c-43.888-157.584-162.16-281.216-312.064-340.144 92.8-61.376 153.92-164.496 153.92-281.168C864.12304 153.04 706.04304 0 511.70704 0 317.35504 0 159.19504 153.04 159.19504 341.136c0 116.704 61.152 219.84 154.064 281.184C164.13904 681.024 46.18704 803.792 1.80304 960.16c-7.344 26.016 8.464 52.864 35.36 60.032a52.016 52.016 0 0 0 38.4-4.608 49.072 49.072 0 0 0 23.712-29.568c50.768-178.96 220.352-303.92 412.448-303.92 193.04 0 362.848 125.712 412.944 305.744 7.296 26.048 34.992 41.456 61.952 34.48 26.912-7.04 42.88-33.824 35.648-59.888zM260.25104 341.136c0-134.256 112.816-243.424 251.472-243.424 138.576 0 251.328 109.184 251.328 243.424 0 133.904-112.768 242.864-251.328 242.864-138.672 0-251.472-108.976-251.472-242.864z m0 0"></path></symbol><symbol id="toolbar-csdnlogo" viewBox="0 0 1024 1024"><path d="M533.941333 419.264c14.709333-1.621333 37.290667-3.264 68.352-3.264 51.872 0 93.802667 9.152 119.776 28.416 23.338667 17.952 38.858667 47.008 34.56 89.130667-3.978667 39.189333-24.042667 66.634667-53.312 83.594666C676.544 633.152 642.837333 640 592.106667 640c-29.888 0-58.421333-1.642667-80.106667-4.896l21.941333-215.84z m42.869334 172.938667c4.981333 0.992 11.562667 1.973333 24.533333 1.973333 51.882667 0 88.469333-25.877333 92.16-62.24 5.333333-52.554667-27.125333-70.944-81.802667-70.624-7.072 0-16.917333 0-22.133333 0.970667L576.8 592.213333h0.010667z m223.498666-164.704c210.954667-39.872 229.162667 31.776 222.645334 95.189333L1010.656 640h-66.944l11.210667-106.986667c2.421333-23.562667 17.504-69.653333-55.338667-67.914666-25.184 0.608-37.706667 4.064-37.706667 4.064s-2.186667 28.469333-4.832 49.514666L844.32 640H778.666667l13.024-119.573333" fill="#231916"></path><path d="M226.634667 632.682667c-12.373333 4.341333-38.037333 7.317333-73.909334 7.317333C49.6 640-6.048 590.933333 0.522667 526.090667 8.416 448.810667 90.858667 405.333333 181.141333 405.333333c34.976 0 55.552 2.858667 74.858667 7.637334l-6.208 52.064c-12.821333-4.384-42.890667-8.405333-67.232-8.405334-53.141333 0-98.250667 16.042667-103.424 66.762667-4.608 45.354667 27.061333 67.04 86.816 67.04 20.8 0 51.477333-3.018667 65.653333-7.370667l-4.992 49.6 0.021334 0.021334z" fill="#C92027"></path><path d="M272.714667 580.021333c19.285333 6.762667 59.488 13.504 92 13.504 35.029333 0 54.528-9.333333 56.096-23.797333 1.418667-13.205333-12.928-14.986667-52.490667-24.010667-54.666667-12.896-89.546667-32.842667-86.133333-64.704C286.176 443.989333 337.685333 416 416.725333 416c38.56 0 75.914667 2.613333 95.274667 8.714667l-6.656 46.666666c-12.565333-4.202667-60.672-10.037333-93.205333-10.037333-32.992 0-50.069333 9.973333-51.253334 20.917333-1.493333 13.845333 15.658667 14.485333 58.528 25.450667 58.026667 14.154667 83.402667 34.090667 80.085334 64.992C495.605333 609.109333 449.258667 640 356.714667 640c-38.528 0-71.744-6.762667-90.048-13.525333l6.048-46.453334z" fill="#231916"></path></symbol><symbol id="icon-morentouxiang" viewBox="0 0 1024 1024"><path d="M512 512m-512 0a512 512 0 1 0 1024 0 512 512 0 1 0-1024 0Z" fill="#A0C3FF"></path><path d="M691.2 887.466667c-55.466667-25.6-123.733333-51.2-123.733333-51.2v-38.4c68.266667-25.6 119.466667-89.6 132.266666-166.4 12.8-4.266667 38.4-17.066667 46.933334-55.466667l8.533333-46.933333s4.266667-59.733333-42.666667-46.933334c4.266667-38.4 4.266667-81.066667 4.266667-115.2-4.266667-64-89.6-98.133333-89.6-98.133333l12.8-17.066667s-42.666667-12.8-59.733333-4.266666l12.8-29.866667s-85.333333 0-132.266667 38.4h-4.266667v-17.066667s-145.066667 21.333333-140.8 243.2c-46.933333-12.8-42.666667 46.933333-42.666666 46.933334l8.533333 46.933333c4.266667 38.4 29.866667 51.2 46.933333 55.466667 12.8 81.066667 64 145.066667 132.266667 166.4v38.4s-68.266667 29.866667-123.733333 51.2c-29.866667 12.8-59.733333 34.133333-81.066667 59.733333 68.266667 51.2 157.866667 76.8 256 76.8s187.733333-25.6 264.533333-72.533333c-21.333333-29.866667-51.2-46.933333-85.333333-64z" fill="#4374E0"></path></symbol><symbol id="icon-icon_boke" viewBox="0 0 1024 1024"><path d="M512 1024C229.248 1024 0 794.752 0 512S229.248 0 512 0s512 229.248 512 512-229.248 512-512 512z m298.667-256H213.333v42.667h597.334V768z m-21.334-448L704 234.667 341.333 597.333l-42.666 128 128-42.666L789.333 320z"></path></symbol><symbol id="icon-icon_gitchatx" viewBox="0 0 1024 1024"><path d="M810.667 533.333v-64h-384v85.334h298.666v128h85.334V533.333zM256 810.667h426.667v-85.334h-384V298.667h426.666V384h85.334V213.333H213.333v597.334H256zM512 1024C229.248 1024 0 794.752 0 512S229.248 0 512 0s512 229.248 512 512-229.248 512-512 512z m213.333-298.667v85.334h85.334v-85.334h-85.334z"></path></symbol><symbol id="icon-guanbi1" viewBox="0 0 1024 1024"><path d="M512 1024A512 512 0 1 1 512 0a512 512 0 0 1 0 1024z m160-768L512 416 352 256l-96 96 160 160-160 160 96 96 160-160 160 160 96-96-160-160 160-160-96-96z"></path></symbol></svg><div class="csdn-toolbar csdn-toolbar tb_disnone ">        <div class="container row center-block ">          <ul class="pull-left left-menu clearfix">            <li>              <a href="http://www.csdn.net/" title="CSDN首页" target="_blank">              <svg class="icon" aria-hidden="true">                  <use xlink:href="#toolbar-csdnlogo"></use>              </svg>                </a>            </li>            <li><a href="http://blog.csdn.net/" class="toolbar_to_feed" title="博客" target="_blank">博客</a></li>            <li><a href="http://edu.csdn.net/" title="学院" target="_blank">学院</a></li>            <li><a href="http://download.csdn.net/" title="下载" target="_blank">下载</a></li>            <li><a href="http://gitbook.cn/?ref=csdn" title="GitChat" target="_blank">GitChat</a></li>            <li class="tb_is1090hide"><a href="http://bbs.csdn.net/" title="论坛" target="_blank">论坛</a></li>            <li class="tb_is1150hide"><a href="http://ask.csdn.net/" title="问答" target="_blank">问答</a></li>            <li class="tb_is1210hide"><a href="http://mall.csdn.net/" title="商城" target="_blank">商城</a></li>            <li class="tb_is1270hide"><a href="http://geek.csdn.net/" title="极客头条" target="_blank">头条</a></li>            <li class="tb_is1330hide"><a href="http://huiyi.csdn.net/" title="活动" target="_blank">活动</a></li>            <li class="tb_is1400hide"><a href="http://job.csdn.net/" title="招聘" target="_blank">招聘</a></li>            <li class="tb_is1452hide"><a href="http://www.iteye.com/" title="ITeye" target="_blank">ITeye</a></li>            <li class="tb_is1513hide"><a href="http://www.gitee.com/" title="码云" target="_blank">码云</a></li>            <li class="tb_is1513hide"><a href="http://www.csto.com/" title="CSTO" target="_blank">CSTO</a></li>            <li class="show-more">            <a href="javascript:;" class="show-more-a"><svg width="22" height="4" xmlns="http://www.w3.org/2000/svg"><path d="M2 4a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm9 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm9 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4z" fill="#4F4F4F" fill-rule="evenodd"></path></svg></a>              <div class="more">                <div class="tb_is1090show"><a href="http://bbs.csdn.net/" target="_blank">论坛</a></div>                <div class="tb_is1150show"><a href="http://ask.csdn.net/" target="_blank">问答</a></div>                <div class="tb_is1210show"><a href="http://mall.csdn.net/" target="_blank">商城</a></div>                <div class="tb_is1270show"><a href="http://geek.csdn.net/" target="_blank">极客头条</a></div>                <div class="tb_is1330show"><a href="http://huiyi.csdn.net/" target="_blank">活动</a></div>                <div class="tb_is1400show"><a href="http://job.csdn.net/" target="_blank">招聘</a></div>                <div class="tb_is1452show"><a href="http://www.iteye.com/" target="_blank">ITeye</a></div>                <div class="tb_is1513show"><a href="http://www.gitee.com/" target="_blank">码云</a></div>                <div class="tb_is1513show"><a href="http://www.csto.com/" target="_blank">CSTO</a></div>              </div>            </li>          </ul>          <div class="pull-right login-wrap ">            <ul class="btns">            <li class="toolbar-tracking csdn-tracking-statistics tracking-click" data-mod="popu_369"><a href="http://blog.csdn.net/u014132659/article/details/56489375#" style="padding:0" target="_blank"></a></li>              <li>                <div class="search_bar csdn-tracking-statistics tracking-click" data-mod="popu_366">                  <input type="text" class="input_search" name="">                  <a href="http://so.csdn.net/so/" target="_blank" class="btn-nobg-noborder btn-search"><i class="iconfont-toolbar toolbar-sousuo"></i></a>                </div>              </li>              <li class="write-bolg-btn csdn-tracking-statistics tracking-click" data-mod="popu_370"><a class="" href="http://mp.blog.csdn.net/postedit" target="_blank"><i class="iconfont-toolbar toolbar-icon_boke"></i><span>写博客</span></a></li>              <li class="gitChat"><a class="" href="http://gitbook.cn/new/gitchat/activity?utm_source=csdnblog1" target="_blank"><i class="iconfont-toolbar toolbar-icon_gitchatx"></i><span>发Chat</span></a></li>              <li class="userinfo"><a href="https://passport.csdn.net/account/login">登录</a><span></span><a href="https://passport.csdn.net/account/mobileregister?action=mobileRegister">注册</a></li>              <li class="userLogin">                <div class="loginCenter"><a href="http://my.csdn.net/" target="_blank"><img class="login_img" src="./JNI 和 JNA，java和其他语言的互调 - 不止于代码 - CSDN博客_files/2_daoning.jpg"><div class="toolbar-circle" style="display: block;"></div></a></div>                <div class="userControl">                  <div><a href="http://blog.csdn.net/daoning" target="_blank">我的博客</a></div>                  <div><a class="xiaoxi" href="http://msg.csdn.net/" target="_blank">消息<span class="toolbar-newsL" style="margin-left: 4px; display: inline;">(22)</span></a></div>                  <div><a href="http://my.csdn.net/my/account/changepwd" target="_blank">设置</a></div>                  <div><a href="http://bbs.csdn.net/forums/Service" target="_blank">反馈</a></div>                  <div><a href="http://oldblog.csdn.net/home/help.html" target="_blank">帮助</a></div>                  <div><a href="http://passport.csdn.net/account/logout">退出</a></div>                </div>              </li>            </ul>          </div>        </div>    </div><script class="toolbar-s" type="text/javascript" src="./JNI 和 JNA，java和其他语言的互调 - 不止于代码 - CSDN博客_files/iconfont.js.下载"></script>
+        <div class="csdn-tracking-statistics" data-pid="blog" data-view="true" data-mod="ad_popu_72" data-mtp="62" data-order="40" data-con="ad_content_2072">
+            <script id="popuLayer_js_q" src="./JNI 和 JNA，java和其他语言的互调 - 不止于代码 - CSDN博客_files/popuLayer.js.下载" defer="defer" type="text/javascript"></script>
+            <div id="layerd" style="position: fixed; bottom: 0px; right: 0px; line-height: 0px; z-index: 1000; width: 300px; height: 278px; display: none;">
+                <div class="J_close layer_close" style="display:;background-color:#efefef;padding:0px;color:#333;font:12px/24px Helvetica,Tahoma,Arial,sans-serif;text-align:right;">关闭</div><!-- 广告占位容器 -->
+                <div id="cpro_u2895327">
+                    <!-- 投放代码 -->
+                            <div id="_sn199r5pyhc" style=""><iframe width="300" frameborder="0" height="250" scrolling="no" src="./JNI 和 JNA，java和其他语言的互调 - 不止于代码 - CSDN博客_files/s.html"></iframe></div><script type="text/javascript" src="./JNI 和 JNA，java和其他语言的互调 - 不止于代码 - CSDN博客_files/ojylrgbyk.js.下载"></script>
+
+
+
+                </div>
+            </div>
+            <script>
+                                document.getElementById("popuLayer_js_q").onload = function ()
+                                {
+                                    var styObjd = styObj = { width: "300px", "height": parseInt(250) + 28 };
+                                    window.CSDN.Layer.PopuLayer("#layerd", { storageName: "layerd", styleObj: styObjd, total: 50, expoire: 1000 * 60 });
+                                }</script>
+
+
+        </div>
+
+
+    <!--new top-->
+    <script id="toolbar-tpl-scriptId" src="./JNI 和 JNA，java和其他语言的互调 - 不止于代码 - CSDN博客_files/content_toolbar.js.下载" type="text/javascript" domain="http://blog.csdn.net"></script>
+
+    <link rel="stylesheet" href="./JNI 和 JNA，java和其他语言的互调 - 不止于代码 - CSDN博客_files/content_toolbar.css">
+    <!--new top-->
+    <div id="container">
+        
+<div id="header">
+    <div class="header">
+        <div id="blog_title">
+            <h2>
+                <a href="http://blog.csdn.net/u014132659">不止于代码</a></h2>
+            <h3></h3>
+            <div class="clear">
+            </div>
+        </div>
+        <div class="clear">
+        </div>
+        
+    
+    </div>
+</div>
+<div id="navigator">
+    <div class="navigator_bg">
+    </div>
+    <div class="navigator">
+        <ul>           
+                <li id="btnContents"><a href="http://blog.csdn.net/u014132659?viewmode=contents"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_mulu&#39;])">
+                    <img src="./JNI 和 JNA，java和其他语言的互调 - 不止于代码 - CSDN博客_files/ico_list.gif">目录视图</span></a></li>
+                <li id="btnView"><a href="http://blog.csdn.net/u014132659?viewmode=list"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_zhaiyao&#39;])">
+                    <img src="./JNI 和 JNA，java和其他语言的互调 - 不止于代码 - CSDN博客_files/ico_summary.gif">摘要视图</span></a></li>
+                <li id="btnRss"><a href="http://blog.csdn.net/u014132659/rss/list"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_RSS&#39;])">
+                    <img src="./JNI 和 JNA，java和其他语言的互调 - 不止于代码 - CSDN博客_files/ico_rss.gif">订阅</span></a></li>                   
+            
+
+            </ul>
+    </div>
+</div>
+<script type="text/javascript">
+    var username = "u014132659";
+    var _blogger = username;
+    var blog_address = "http://blog.csdn.net/u014132659";
+    var static_host = "http://static.blog.csdn.net";
+    var currentUserName = "daoning";  
+</script>
+
+        <div id="body">
+            <div id="main">
+                <div class="main">
+                    <div class="ad_class">
+
+
+
+                    </div>
+
+                    
+
+ <script src="./JNI 和 JNA，java和其他语言的互调 - 不止于代码 - CSDN博客_files/main-1.0.5.js.下载"></script>
+
+<script type="text/javascript" src="./JNI 和 JNA，java和其他语言的互调 - 不止于代码 - CSDN博客_files/category.js.下载"></script>
+
+  <script type="text/ecmascript">
+      window.quickReplyflag = true;
+      var isBole = false; 
+      var fasrc="http://my.csdn.net/my/favorite/miniadd?t=JNI+%e5%92%8c+JNA%ef%bc%8cjava%e5%92%8c%e5%85%b6%e4%bb%96%e8%af%ad%e8%a8%80%e7%9a%84%e4%ba%92%e8%b0%83&u=http://blog.csdn.net/u014132659/article/details/56489375"
+    </script>
+<div id="article_details" class="details">
+    
+<div class="article_title">   
+         <span class="ico ico_type_Original"></span>
+
+    <h1>
+        <span class="link_title"><a href="http://blog.csdn.net/u014132659/article/details/56489375">
+        JNI 和 JNA，java和其他语言的互调        
+           
+        </a>
+        </span>
+
+         
+    </h1>
+</div>
+
+
+    
+    <div class="article_manage clearfix">
+        <div class="article_l">
+            <span class="link_categories">
+            标签：
+              <a href="http://www.csdn.net/tag/jni" target="_blank" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_tag&#39;]);">jni</a><a href="http://www.csdn.net/tag/jna" target="_blank" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_tag&#39;]);">jna</a>
+            </span>
+        </div>
+        <div class="article_r">
+            <span class="link_postdate">2017-02-22 19:00</span>
+            <span class="link_view" title="阅读次数">780人阅读</span>
+            <span class="link_comments" title="评论次数"> <a href="http://blog.csdn.net/u014132659/article/details/56489375#comments" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_pinglun&#39;])">评论</a>(1)</span>
+            <span class="link_collect csdn-tracking-statistics" data-pid="blog" data-mod="popu_171"> <a href="javascript:void(0);" onclick="javascript:collectArticle(&#39;JNI+%e5%92%8c+JNA%ef%bc%8cjava%e5%92%8c%e5%85%b6%e4%bb%96%e8%af%ad%e8%a8%80%e7%9a%84%e4%ba%92%e8%b0%83&#39;,&#39;56489375&#39;);return false;" title="收藏" target="_blank">收藏</a></span>
+             <span class="link_report"> <a href="http://blog.csdn.net/u014132659/article/details/56489375#report" onclick="javascript:report(56489375,2);return false;" title="举报">举报</a></span>
+
+        </div>
+    </div>    <style type="text/css">        
+            .embody{
+                padding:10px 10px 10px;
+                margin:0 -20px;
+                border-bottom:solid 1px #ededed;                
+            }
+            .embody_b{
+                margin:0 ;
+                padding:10px 0;
+            }
+            .embody .embody_t,.embody .embody_c{
+                display: inline-block;
+                margin-right:10px;
+            }
+            .embody_t{
+                font-size: 12px;
+                color:#999;
+            }
+            .embody_c{
+                font-size: 12px;
+            }
+            .embody_c img,.embody_c em{
+                display: inline-block;
+                vertical-align: middle;               
+            }
+             .embody_c img{               
+                width:30px;
+                height:30px;
+            }
+            .embody_c em{
+                margin: 0 20px 0 10px;
+                color:#333;
+                font-style: normal;
+            }
+    </style>
+    <script type="text/javascript">
+        $(function () {
+            try
+            {
+                var lib = eval("("+$("#lib").attr("value")+")");
+                var html = "";
+                if (lib.err == 0) {
+                    $.each(lib.data, function (i) {
+                        var obj = lib.data[i];
+                        //html += '<img src="' + obj.logo + '"/>' + obj.name + "&nbsp;&nbsp;";
+                        html += ' <a href="' + obj.url + '" target="_blank">';
+                        html += ' <img src="' + obj.logo + '">';
+                        html += ' <em><b>' + obj.name + '</b></em>';
+                        html += ' </a>';
+                    });
+                    if (html != "") {
+                        setTimeout(function () {
+                            $("#lib").html(html);                      
+                            $("#embody").show();
+                        }, 100);
+                    }
+                }      
+            } catch (err)
+            { }
+            
+        });
+    </script>
+      <div class="category clearfix">
+        <div class="category_l">
+           <img src="./JNI 和 JNA，java和其他语言的互调 - 不止于代码 - CSDN博客_files/category_icon.jpg">
+            <span>分类：</span>
+        </div>
+        <div class="category_r">
+                    <label onclick="GetCategoryArticles(&#39;6677953&#39;,&#39;u014132659&#39;,&#39;top&#39;,&#39;56489375&#39;);">
+                        <span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_fenlei&#39;]);">Java<em>（3）</em></span>
+                      <img class="arrow-down" src="./JNI 和 JNA，java和其他语言的互调 - 不止于代码 - CSDN博客_files/arrow_triangle _down.jpg" style="display:inline;">
+                      <img class="arrow-up" src="./JNI 和 JNA，java和其他语言的互调 - 不止于代码 - CSDN博客_files/arrow_triangle_up.jpg" style="display:none;">
+                        <div class="subItem">
+                            <div class="subItem_t"><a href="http://blog.csdn.net/u014132659/article/category/6677953" target="_blank">作者同类文章</a><i class="J_close">X</i></div>
+                            <ul class="subItem_l" id="top_6677953">                            
+                            </ul>
+                        </div>
+                    </label>                    
+        </div>
+    </div>
+        <div class="bog_copyright">         
+            <p class="copyright_p">版权声明：本文为博主原创文章，未经博主允许不得转载。</p>
+        </div>
+
+
+
+
+
+
+<div style="clear:both"></div><div style="border:solid 1px #ccc; background:#eee; float:left; min-width:200px;padding:4px 10px;"><p style="text-align:right;margin:0;"><span style="float:left;">目录<a href="http://blog.csdn.net/u014132659/article/details/56489375#" title="系统根据文章中H1到H6标签自动生成文章目录">(?)</a></span><a href="http://blog.csdn.net/u014132659/article/details/56489375#" onclick="javascript:return openct(this);" title="展开">[+]</a></p><ol style="display:none;margin-left:14px;padding-left:14px;line-height:160%;"><li><a href="http://blog.csdn.net/u014132659/article/details/56489375#t0">JNI和JNA是什么东西</a></li><li><a href="http://blog.csdn.net/u014132659/article/details/56489375#t1">
+为什么要用这个</a></li><li><a href="http://blog.csdn.net/u014132659/article/details/56489375#t2">JNI&nbsp;</a></li><li><a href="http://blog.csdn.net/u014132659/article/details/56489375#t3">JNA</a></li></ol></div><div style="clear:both"></div><div id="article_content" class="article_content csdn-tracking-statistics" data-pid="blog" data-mod="popu_307" data-dsm="post" style="overflow: hidden;">
+
+<p><span style="font-size:14px"><span style="color:rgb(255,0,0); font-family:&quot;microsoft yahei&quot;">仅工作中使用到，现查现用，理解不到位，请持怀疑态度查看本文。如有问题请联系邮件：tyut_lb@163.com; 以便交流。</span></span></p>
+<p><br>
+<span style="font-size:14px">java调用C语言的方法：</span></p>
+<span style="font-size:14px">1、JNI --- java native interface<br>
+2、JNA<br>
+3、runtime.exec() ，没有研究<br>
+4、CORBA ， 没有研究<br>
+<br>
+</span>
+<h2><a name="t0"></a><span style="font-size:14px">JNI和JNA是什么东西？</span></h2>
+<p></p>
+<p><span style="font-size:14px">JNI是java和其他语言相互调用的机制，c 或者 c++写的库，java想使用，需要调用dll库，这就使用JNI或者JNA去封装库提供的API。JNA是JNI的更高封装，JNA使用很方便，JNI使用就相对麻烦，需要把dll中的每个API封装一次，封装的函数去调用dll中的API。JNA则直接声明一下dll中的API，对应工作JNA都做了，我理解就是JNI的封装本来是自己写，但是JNA都帮你做了，所有使用起来JNA方便。</span></p>
+<p><span style="font-size:14px">深入理解，以后在研究。</span></p>
+<h2><a name="t1"></a><span style="font-size:14px"><br>
+为什么要用这个？</span></h2>
+<p><span style="font-size:14px">工作中需要用java调用c的dll完成一些工作。了解一些，java中框架也是用JNI封装c或者c++的库。因为底层用c或者c++实现效率高，而java应用程序的开发，框架的开发只是更多去关注逻辑的实现，不在需要自己实现类，而是学会如何使用已有的类。c和c++的工作者去想如何实现比如网络通信，等等。</span></p>
+<p><span style="font-size:14px"><br>
+</span></p>
+<h2><a name="t2"></a><span style="font-size:14px">1、JNI&nbsp;</span></h2>
+<p></p>
+<p><span style="font-size:14px">&nbsp; &nbsp; &nbsp; JNI是Java SDK中的一部分。</span></p>
+<p><span style="font-size:14px">&nbsp; &nbsp; &nbsp; JNI编程步骤：</span></p>
+<p><span style="font-size:14px">&nbsp; &nbsp; &nbsp; 参考网址：&nbsp;<a target="_blank" href="http://www.cnblogs.com/moon1992/p/5260226.html">http://www.cnblogs.com/moon1992/p/5260226.html</a></span></p>
+<p><span style="font-size:14px">&nbsp; &nbsp; &nbsp; 1、java代码</span></p>
+<p><span style="font-size:14px"></span></p><div class="dp-highlighter bg_java"><div class="bar"><div class="tools"><b>[java]</b> <a href="http://blog.csdn.net/u014132659/article/details/56489375#" class="ViewSource" title="view plain" onclick="dp.sh.Toolbar.Command(&#39;ViewSource&#39;,this);return false;">view plain</a><span data-mod="popu_168"> <a href="http://blog.csdn.net/u014132659/article/details/56489375#" class="CopyToClipboard" title="copy" onclick="dp.sh.Toolbar.Command(&#39;CopyToClipboard&#39;,this);return false;">copy</a><div style="position: absolute; left: 484px; top: 1341px; width: 18px; height: 18px; z-index: 99;"><embed id="ZeroClipboardMovie_1" src="http://static.blog.csdn.net/scripts/ZeroClipboard/ZeroClipboard.swf" loop="false" menu="false" quality="best" bgcolor="#ffffff" width="18" height="18" name="ZeroClipboardMovie_1" align="middle" allowscriptaccess="always" allowfullscreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" flashvars="id=1&amp;width=18&amp;height=18" wmode="transparent"></div></span><span data-mod="popu_169"> <a href="http://blog.csdn.net/u014132659/article/details/56489375#" class="PrintSource" title="print" onclick="dp.sh.Toolbar.Command(&#39;PrintSource&#39;,this);return false;">print</a></span><a href="http://blog.csdn.net/u014132659/article/details/56489375#" class="About" title="?" onclick="dp.sh.Toolbar.Command(&#39;About&#39;,this);return false;">?</a></div></div><ol start="1" class="dp-j"><li class="alt"><span><span class="keyword">package</span><span>&nbsp;com.eclipse.example;&nbsp;&nbsp;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span><span class="keyword">public</span><span>&nbsp;</span><span class="keyword">class</span><span>&nbsp;JNITest&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">public</span><span>&nbsp;</span><span class="keyword">static</span><span>&nbsp;</span><span class="keyword">void</span><span>&nbsp;main(String[]&nbsp;args){&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.loadLibrary(<span class="string">"jniTest"</span><span>);&nbsp;&nbsp;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NativeMethod&nbsp;nm&nbsp;=&nbsp;<span class="keyword">new</span><span>&nbsp;NativeMethod();&nbsp;&nbsp;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">int</span><span>&nbsp;ret&nbsp;=&nbsp;nm.jniFuncTest(</span><span class="string">"hello&nbsp;world"</span><span>);&nbsp;&nbsp;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println(ret);&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>}&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span><span class="keyword">class</span><span>&nbsp;NativeMethod&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">/*&nbsp;native&nbsp;原生态方法声明&nbsp;&nbsp;*/</span><span>&nbsp;&nbsp;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">/**&nbsp;</span>&nbsp;</span></li><li class=""><span><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;函数名称：&nbsp;int&nbsp;jniFuncTest(String&nbsp;string)&nbsp;</span>&nbsp;</span></li><li class="alt"><span><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;&nbsp;返回值：&nbsp;无&nbsp;</span>&nbsp;</span></li><li class=""><span><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;&nbsp;&nbsp;描述：&nbsp;&nbsp;指定目录加载skyeye模块。加载模块之后才能获取设备类的信息。&nbsp;</span>&nbsp;</span></li><li class="alt"><span><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span><span>&nbsp;&nbsp;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">public</span><span>&nbsp;</span><span class="keyword">native</span><span>&nbsp;</span><span class="keyword">int</span><span>&nbsp;jniFuncTest(String&nbsp;string);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//&nbsp;native关键字说明其修饰的方法是一个原生态方法，方法对应的实现不是在当前文件，而是在用其他语言（如C和C++）实现的文件中。&nbsp;&nbsp;</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>}&nbsp;&nbsp;</span></li></ol></div><pre code_snippet_id="2221559" snippet_file_name="blog_20170223_1_4447501" name="code" class="java" style="display: none;">package com.eclipse.example;  
+
+public class JNITest {  
+    public static void main(String[] args){
+		System.loadLibrary("jniTest");  
+        NativeMethod nm = new NativeMethod();  
+          
+        int ret = nm.jniFuncTest("hello world");  
+        System.out.println(ret);  
+          
+    }  
+  
+}  
+  
+class NativeMethod {  
+    /* native 原生态方法声明  */  
+    /** 
+     * 函数名称： int jniFuncTest(String string) 
+     *  返回值： 无 
+     *   描述：  指定目录加载skyeye模块。加载模块之后才能获取设备类的信息。 
+     */  
+    public native int jniFuncTest(String string);   
+    // native关键字说明其修饰的方法是一个原生态方法，方法对应的实现不是在当前文件，而是在用其他语言（如C和C++）实现的文件中。  
+}</pre><p></p>
+<span style="font-size:14px">&nbsp; &nbsp; &nbsp; 用javac命令 或者 eclipse编译代码，生成NativeMethod.class &nbsp;和 JNITest.class 中间字节码文件，也是java跨平台的原因。</span>
+<p></p>
+<p><span style="font-size:14px">&nbsp; &nbsp; &nbsp; 用javah命令生成头文件，头文件里是声明的函数就是你自己需要在c中实现的函数，也就是需要封装dll库中的函数。</span></p>
+<p><span style="font-size:14px"></span></p><div class="dp-highlighter bg_java"><div class="bar"><div class="tools"><b>[java]</b> <a href="http://blog.csdn.net/u014132659/article/details/56489375#" class="ViewSource" title="view plain" onclick="dp.sh.Toolbar.Command(&#39;ViewSource&#39;,this);return false;">view plain</a><span data-mod="popu_168"> <a href="http://blog.csdn.net/u014132659/article/details/56489375#" class="CopyToClipboard" title="copy" onclick="dp.sh.Toolbar.Command(&#39;CopyToClipboard&#39;,this);return false;">copy</a><div style="position: absolute; left: 484px; top: 1912px; width: 18px; height: 18px; z-index: 99;"><embed id="ZeroClipboardMovie_2" src="http://static.blog.csdn.net/scripts/ZeroClipboard/ZeroClipboard.swf" loop="false" menu="false" quality="best" bgcolor="#ffffff" width="18" height="18" name="ZeroClipboardMovie_2" align="middle" allowscriptaccess="always" allowfullscreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" flashvars="id=2&amp;width=18&amp;height=18" wmode="transparent"></div></span><span data-mod="popu_169"> <a href="http://blog.csdn.net/u014132659/article/details/56489375#" class="PrintSource" title="print" onclick="dp.sh.Toolbar.Command(&#39;PrintSource&#39;,this);return false;">print</a></span><a href="http://blog.csdn.net/u014132659/article/details/56489375#" class="About" title="?" onclick="dp.sh.Toolbar.Command(&#39;About&#39;,this);return false;">?</a></div></div><ol start="1" class="dp-j"><li class="alt"><span><span>javah&nbsp;-classpath&nbsp;/d/workspace_eclipse/testjava/bin&nbsp;&nbsp;-jni&nbsp;&nbsp;com.eclipse.example.NativeMethod&nbsp;&nbsp;</span></span></li></ol></div><pre code_snippet_id="2221559" snippet_file_name="blog_20170223_2_4022390" name="code" class="java" style="display: none;">javah -classpath /d/workspace_eclipse/testjava/bin  -jni  com.eclipse.example.NativeMethod</pre><br>
+<p></p>
+<p><span style="font-size:14px">&nbsp; &nbsp; &nbsp;生成头文件：com_eclipse_example_NativeMethod.h。头文件：</span></p>
+<p><span style="font-size:14px"></span></p><div class="dp-highlighter bg_cpp"><div class="bar"><div class="tools"><b>[cpp]</b> <a href="http://blog.csdn.net/u014132659/article/details/56489375#" class="ViewSource" title="view plain" onclick="dp.sh.Toolbar.Command(&#39;ViewSource&#39;,this);return false;">view plain</a><span data-mod="popu_168"> <a href="http://blog.csdn.net/u014132659/article/details/56489375#" class="CopyToClipboard" title="copy" onclick="dp.sh.Toolbar.Command(&#39;CopyToClipboard&#39;,this);return false;">copy</a><div style="position: absolute; left: 479px; top: 2069px; width: 18px; height: 18px; z-index: 99;"><embed id="ZeroClipboardMovie_3" src="http://static.blog.csdn.net/scripts/ZeroClipboard/ZeroClipboard.swf" loop="false" menu="false" quality="best" bgcolor="#ffffff" width="18" height="18" name="ZeroClipboardMovie_3" align="middle" allowscriptaccess="always" allowfullscreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" flashvars="id=3&amp;width=18&amp;height=18" wmode="transparent"></div></span><span data-mod="popu_169"> <a href="http://blog.csdn.net/u014132659/article/details/56489375#" class="PrintSource" title="print" onclick="dp.sh.Toolbar.Command(&#39;PrintSource&#39;,this);return false;">print</a></span><a href="http://blog.csdn.net/u014132659/article/details/56489375#" class="About" title="?" onclick="dp.sh.Toolbar.Command(&#39;About&#39;,this);return false;">?</a></div></div><ol start="1" class="dp-cpp"><li class="alt"><span><span class="comment">/*&nbsp;DO&nbsp;NOT&nbsp;EDIT&nbsp;THIS&nbsp;FILE&nbsp;-&nbsp;it&nbsp;is&nbsp;machine&nbsp;generated&nbsp;*/</span><span>&nbsp;&nbsp;&nbsp;&nbsp;</span></span></li><li class=""><span><span class="preprocessor">#include&nbsp;&lt;jni.h&gt;&nbsp;&nbsp;</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span><span class="comment">/*&nbsp;Header&nbsp;for&nbsp;class&nbsp;com_eclipse_example_NativeMethod&nbsp;*/</span><span>&nbsp;&nbsp;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span><span class="preprocessor">#ifndef&nbsp;_Included_com_eclipse_example_NativeMethod&nbsp;&nbsp;</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span><span class="preprocessor">#define&nbsp;_Included_com_eclipse_example_NativeMethod&nbsp;&nbsp;</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span><span class="preprocessor">#ifdef&nbsp;__cplusplus&nbsp;&nbsp;</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span><span class="keyword">extern</span><span>&nbsp;</span><span class="string">"C"</span><span>&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;</span></span></li><li class="alt"><span><span class="preprocessor">#endif&nbsp;&nbsp;</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span><span class="comment">/*&nbsp;</span>&nbsp;</span></li><li class="alt"><span><span class="comment">&nbsp;*&nbsp;Class:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;com_eclipse_example_NativeMethod&nbsp;</span>&nbsp;</span></li><li class=""><span><span class="comment">&nbsp;*&nbsp;Method:&nbsp;&nbsp;&nbsp;&nbsp;jniFuncTest&nbsp;</span>&nbsp;</span></li><li class="alt"><span><span class="comment">&nbsp;*&nbsp;Signature:&nbsp;(Ljava/lang/String;)I&nbsp;</span>&nbsp;</span></li><li class=""><span><span class="comment">&nbsp;*/</span><span>&nbsp;&nbsp;&nbsp;&nbsp;</span></span></li><li class="alt"><span>JNIEXPORT&nbsp;jint&nbsp;JNICALL&nbsp;Java_com_eclipse_example_NativeMethod_jniFuncTest&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;(JNIEnv&nbsp;*,&nbsp;jobject,&nbsp;jstring);&nbsp;&nbsp;&nbsp;<span class="comment">//c需要实现的函数。&nbsp;&nbsp;</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class=""><span><span class="preprocessor">#ifdef&nbsp;__cplusplus&nbsp;&nbsp;</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>}&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class=""><span><span class="preprocessor">#endif&nbsp;&nbsp;</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span><span class="preprocessor">#endif</span><span>&nbsp;&nbsp;</span></span></li></ol></div><pre code_snippet_id="2221559" snippet_file_name="blog_20170223_3_1546372" name="code" class="cpp" style="display: none;">/* DO NOT EDIT THIS FILE - it is machine generated */  
+#include &lt;jni.h&gt;  
+/* Header for class com_eclipse_example_NativeMethod */  
+  
+#ifndef _Included_com_eclipse_example_NativeMethod  
+#define _Included_com_eclipse_example_NativeMethod  
+#ifdef __cplusplus  
+extern "C" {  
+#endif  
+/* 
+ * Class:     com_eclipse_example_NativeMethod 
+ * Method:    jniFuncTest 
+ * Signature: (Ljava/lang/String;)I 
+ */  
+JNIEXPORT jint JNICALL Java_com_eclipse_example_NativeMethod_jniFuncTest  
+  (JNIEnv *, jobject, jstring);   //c需要实现的函数。  
+  
+#ifdef __cplusplus  
+}  
+#endif  
+#endif</pre><p></p>
+<p></p>
+<p><span style="font-size:14px"></span></p>
+<span style="font-size:14px">&nbsp; &nbsp; &nbsp; vs创建一个dll工程，参考地址：<a target="_blank" href="http://blog.csdn.net/bejustice/article/details/38294253">http://blog.csdn.net/bejustice/article/details/38294253</a></span>
+<p></p>
+<p><span style="font-size:14px">com_eclipse_example_NativeMethod.h 文件：</span></p>
+<p><span style="font-size:14px"></span></p><div class="dp-highlighter bg_cpp"><div class="bar"><div class="tools"><b>[cpp]</b> <a href="http://blog.csdn.net/u014132659/article/details/56489375#" class="ViewSource" title="view plain" onclick="dp.sh.Toolbar.Command(&#39;ViewSource&#39;,this);return false;">view plain</a><span data-mod="popu_168"> <a href="http://blog.csdn.net/u014132659/article/details/56489375#" class="CopyToClipboard" title="copy" onclick="dp.sh.Toolbar.Command(&#39;CopyToClipboard&#39;,this);return false;">copy</a><div style="position: absolute; left: 479px; top: 2586px; width: 18px; height: 18px; z-index: 99;"><embed id="ZeroClipboardMovie_4" src="http://static.blog.csdn.net/scripts/ZeroClipboard/ZeroClipboard.swf" loop="false" menu="false" quality="best" bgcolor="#ffffff" width="18" height="18" name="ZeroClipboardMovie_4" align="middle" allowscriptaccess="always" allowfullscreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" flashvars="id=4&amp;width=18&amp;height=18" wmode="transparent"></div></span><span data-mod="popu_169"> <a href="http://blog.csdn.net/u014132659/article/details/56489375#" class="PrintSource" title="print" onclick="dp.sh.Toolbar.Command(&#39;PrintSource&#39;,this);return false;">print</a></span><a href="http://blog.csdn.net/u014132659/article/details/56489375#" class="About" title="?" onclick="dp.sh.Toolbar.Command(&#39;About&#39;,this);return false;">?</a></div></div><ol start="1" class="dp-cpp"><li class="alt"><span><span class="comment">/*&nbsp;DO&nbsp;NOT&nbsp;EDIT&nbsp;THIS&nbsp;FILE&nbsp;-&nbsp;it&nbsp;is&nbsp;machine&nbsp;generated&nbsp;*/</span><span>&nbsp;&nbsp;&nbsp;&nbsp;</span></span></li><li class=""><span><span class="preprocessor">#include&nbsp;"jni.h"&nbsp;&nbsp;</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span><span class="comment">/*&nbsp;Header&nbsp;for&nbsp;class&nbsp;com_eclipse_example_NativeMethod&nbsp;*/</span><span>&nbsp;&nbsp;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span><span class="preprocessor">#ifndef&nbsp;_Included_com_eclipse_example_NativeMethod&nbsp;&nbsp;</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span><span class="preprocessor">#define&nbsp;_Included_com_eclipse_example_NativeMethod&nbsp;&nbsp;</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span><span class="preprocessor">#ifdef&nbsp;__cplusplus&nbsp;&nbsp;</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span><span class="keyword">extern</span><span>&nbsp;</span><span class="string">"C"</span><span>&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;</span></span></li><li class="alt"><span><span class="preprocessor">#endif&nbsp;&nbsp;</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span><span class="comment">/*&nbsp;</span>&nbsp;</span></li><li class="alt"><span><span class="comment">&nbsp;*&nbsp;Class:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;com_eclipse_example_NativeMethod&nbsp;</span>&nbsp;</span></li><li class=""><span><span class="comment">&nbsp;*&nbsp;Method:&nbsp;&nbsp;&nbsp;&nbsp;jniFuncTest&nbsp;</span>&nbsp;</span></li><li class="alt"><span><span class="comment">&nbsp;*&nbsp;Signature:&nbsp;(Ljava/lang/String;)I&nbsp;</span>&nbsp;</span></li><li class=""><span><span class="comment">&nbsp;*/</span><span>&nbsp;&nbsp;&nbsp;&nbsp;</span></span></li><li class="alt"><span>JNIEXPORT&nbsp;jint&nbsp;JNICALL&nbsp;Java_com_eclipse_example_NativeMethod_jniFuncTest&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;(JNIEnv&nbsp;*,&nbsp;jobject,&nbsp;jstring);&nbsp;&nbsp;&nbsp;<span class="comment">//c需要实现的函数。&nbsp;&nbsp;</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class=""><span><span class="preprocessor">#ifdef&nbsp;__cplusplus&nbsp;&nbsp;</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>}&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class=""><span><span class="preprocessor">#endif&nbsp;&nbsp;</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span><span class="preprocessor">#endif</span><span>&nbsp;&nbsp;</span></span></li></ol></div><pre code_snippet_id="2221559" snippet_file_name="blog_20170223_4_3738199" name="code" class="cpp" style="display: none;">/* DO NOT EDIT THIS FILE - it is machine generated */  
+#include "jni.h"  
+/* Header for class com_eclipse_example_NativeMethod */  
+  
+#ifndef _Included_com_eclipse_example_NativeMethod  
+#define _Included_com_eclipse_example_NativeMethod  
+#ifdef __cplusplus  
+extern "C" {  
+#endif  
+/* 
+ * Class:     com_eclipse_example_NativeMethod 
+ * Method:    jniFuncTest 
+ * Signature: (Ljava/lang/String;)I 
+ */  
+JNIEXPORT jint JNICALL Java_com_eclipse_example_NativeMethod_jniFuncTest  
+  (JNIEnv *, jobject, jstring);   //c需要实现的函数。  
+  
+#ifdef __cplusplus  
+}  
+#endif  
+#endif</pre><br>
+<span style="font-size:14px">com_eclipse_example_NativeMethod.c 文件：</span><p></p>
+<p></p>
+<div class="dp-highlighter bg_java"><div class="bar"><div class="tools"><b>[java]</b> <a href="http://blog.csdn.net/u014132659/article/details/56489375#" class="ViewSource" title="view plain" onclick="dp.sh.Toolbar.Command(&#39;ViewSource&#39;,this);return false;">view plain</a><span data-mod="popu_168"> <a href="http://blog.csdn.net/u014132659/article/details/56489375#" class="CopyToClipboard" title="copy" onclick="dp.sh.Toolbar.Command(&#39;CopyToClipboard&#39;,this);return false;">copy</a><div style="position: absolute; left: 484px; top: 3103px; width: 18px; height: 18px; z-index: 99;"><embed id="ZeroClipboardMovie_5" src="http://static.blog.csdn.net/scripts/ZeroClipboard/ZeroClipboard.swf" loop="false" menu="false" quality="best" bgcolor="#ffffff" width="18" height="18" name="ZeroClipboardMovie_5" align="middle" allowscriptaccess="always" allowfullscreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" flashvars="id=5&amp;width=18&amp;height=18" wmode="transparent"></div></span><span data-mod="popu_169"> <a href="http://blog.csdn.net/u014132659/article/details/56489375#" class="PrintSource" title="print" onclick="dp.sh.Toolbar.Command(&#39;PrintSource&#39;,this);return false;">print</a></span><a href="http://blog.csdn.net/u014132659/article/details/56489375#" class="About" title="?" onclick="dp.sh.Toolbar.Command(&#39;About&#39;,this);return false;">?</a></div></div><ol start="1" class="dp-j"><li class="alt"><span><span>#include&nbsp;&lt;stdio.h&gt;&nbsp;&nbsp;</span></span></li><li class=""><span>#include&nbsp;&lt;string.h&gt;&nbsp;&nbsp;</span></li><li class="alt"><span>#include&nbsp;&lt;stdlib.h&gt;&nbsp;&nbsp;</span></li><li class=""><span>#include&nbsp;&lt;Windows.h&gt;&nbsp;&nbsp;</span></li><li class="alt"><span>#include&nbsp;&lt;direct.h&gt;&nbsp;&nbsp;</span></li><li class=""><span>#include&nbsp;&lt;tchar.h&gt;&nbsp;&nbsp;</span></li><li class="alt"><span>#include&nbsp;<span class="string">"com_eclipse_example_NativeMethod.h"</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span><span class="comment">/*&nbsp;函数指针&nbsp;*/</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>typedef&nbsp;<span class="keyword">int</span><span>&nbsp;(*FUNC)(</span><span class="keyword">char</span><span>&nbsp;*);&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span><span class="keyword">static</span><span>&nbsp;HMODULE&nbsp;hdll&nbsp;=&nbsp;NULL;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>JNIEXPORT&nbsp;jint&nbsp;JNICALL&nbsp;Java_com_eclipse_example_NativeMethod_jniFuncTest&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;(JNIEnv&nbsp;*&nbsp;env,&nbsp;jobject&nbsp;obj,&nbsp;jstring&nbsp;str){&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;hdll&nbsp;=&nbsp;LoadLibraryEx(_T(<span class="string">"C:\\cTest.dll"</span><span>),&nbsp;NULL,&nbsp;LOAD_WITH_ALTERED_SEARCH_PATH);&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span><span>&nbsp;(NULL&nbsp;!=&nbsp;hdll)&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FUNC&nbsp;func&nbsp;=&nbsp;(FUNC)GetProcAddress(hdll,&nbsp;<span class="string">"func"</span><span>);&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span><span>&nbsp;(NULL&nbsp;!=&nbsp;func)&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span><span>&nbsp;func(str);&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span><span>&nbsp;</span><span class="number">0</span><span>;&nbsp;&nbsp;</span></span></li><li class="alt"><span>}&nbsp;&nbsp;</span></li></ol></div><pre code_snippet_id="2221559" snippet_file_name="blog_20170222_6_4914058" name="code" class="java" style="display: none;">#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;Windows.h&gt;
+#include &lt;direct.h&gt;
+#include &lt;tchar.h&gt;
+#include "com_eclipse_example_NativeMethod.h"
+
+/* 函数指针 */
+typedef int (*FUNC)(char *);
+
+static HMODULE hdll = NULL;
+
+JNIEXPORT jint JNICALL Java_com_eclipse_example_NativeMethod_jniFuncTest
+	(JNIEnv * env, jobject obj, jstring str){
+		hdll = LoadLibraryEx(_T("C:\\cTest.dll"), NULL, LOAD_WITH_ALTERED_SEARCH_PATH);
+		if (NULL != hdll)
+		{
+			FUNC func = (FUNC)GetProcAddress(hdll, "func");
+			if (NULL != func)
+			{
+				return func(str);
+			}
+		}
+
+		return 0;
+}</pre>
+<p></p>
+<p><span style="font-size:14px">&nbsp; &nbsp; &nbsp; &nbsp;编译，生成库jniTest.dll。也就是再一次封装了一个库给java使用。确实有点麻烦了。<br>
+&nbsp; &nbsp; &nbsp; &nbsp;这里的麻烦在：c的类型需要和jni提供的类型对上，基本类型还好，但是复杂类型，就比较棘手。<br>
+&nbsp; &nbsp; &nbsp; &nbsp;生成的jniTest.dll给Java调用使用。<br>
+</span></p>
+<p><span style="font-size:14px"><br>
+</span></p>
+<h2><a name="t3"></a><span style="font-size:14px">2、JNA</span></h2>
+<p><span style="font-size:14px">&nbsp; &nbsp; &nbsp;JNA是JNI更高的封装，如何封装不清楚。</span></p>
+<p><span style="font-size:14px">&nbsp; &nbsp; &nbsp; 代码：</span></p>
+<p><span style="font-size:14px"></span></p>
+<div class="dp-highlighter bg_java"><div class="bar"><div class="tools"><b>[java]</b> <a href="http://blog.csdn.net/u014132659/article/details/56489375#" class="ViewSource" title="view plain" onclick="dp.sh.Toolbar.Command(&#39;ViewSource&#39;,this);return false;">view plain</a><span data-mod="popu_168"> <a href="http://blog.csdn.net/u014132659/article/details/56489375#" class="CopyToClipboard" title="copy" onclick="dp.sh.Toolbar.Command(&#39;CopyToClipboard&#39;,this);return false;">copy</a><div style="position: absolute; left: 484px; top: 3903px; width: 18px; height: 18px; z-index: 99;"><embed id="ZeroClipboardMovie_6" src="http://static.blog.csdn.net/scripts/ZeroClipboard/ZeroClipboard.swf" loop="false" menu="false" quality="best" bgcolor="#ffffff" width="18" height="18" name="ZeroClipboardMovie_6" align="middle" allowscriptaccess="always" allowfullscreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" flashvars="id=6&amp;width=18&amp;height=18" wmode="transparent"></div></span><span data-mod="popu_169"> <a href="http://blog.csdn.net/u014132659/article/details/56489375#" class="PrintSource" title="print" onclick="dp.sh.Toolbar.Command(&#39;PrintSource&#39;,this);return false;">print</a></span><a href="http://blog.csdn.net/u014132659/article/details/56489375#" class="About" title="?" onclick="dp.sh.Toolbar.Command(&#39;About&#39;,this);return false;">?</a></div></div><ol start="1" class="dp-j"><li class="alt"><span><span class="keyword">package</span><span>&nbsp;com.eclipse.example;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span><span class="keyword">import</span><span>&nbsp;com.sun.jna.Library;&nbsp;&nbsp;</span></span></li><li class=""><span><span class="keyword">import</span><span>&nbsp;com.sun.jna.Native;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span><span class="keyword">interface</span><span>&nbsp;CLibrary&nbsp;</span><span class="keyword">extends</span><span>&nbsp;Library&nbsp;{&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;CLibrary&nbsp;INSTANCE&nbsp;=&nbsp;(CLibrary)Native.loadLibrary(<span class="string">"cTest"</span><span>,&nbsp;CLibrary.</span><span class="keyword">class</span><span>);&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">int</span><span>&nbsp;func(String&nbsp;str);&nbsp;&nbsp;&nbsp;</span><span class="comment">//类型，函数名，参数完全一致，声明一下c&nbsp;的dll库中API就可以</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>}&nbsp;&nbsp;</span></li></ol></div><pre code_snippet_id="2221559" snippet_file_name="blog_20170222_7_8709068" name="code" class="java" style="display: none;">package com.eclipse.example;
+
+import com.sun.jna.Library;
+import com.sun.jna.Native;
+
+interface CLibrary extends Library {
+    CLibrary INSTANCE = (CLibrary)Native.loadLibrary("cTest", CLibrary.class);
+    
+	int func(String str);   //类型，函数名，参数完全一致，声明一下c 的dll库中API就可以
+}</pre><br>
+java调用：
+<p></p>
+<p><span style="font-size:14px"></span></p>
+<div class="dp-highlighter bg_java"><div class="bar"><div class="tools"><b>[java]</b> <a href="http://blog.csdn.net/u014132659/article/details/56489375#" class="ViewSource" title="view plain" onclick="dp.sh.Toolbar.Command(&#39;ViewSource&#39;,this);return false;">view plain</a><span data-mod="popu_168"> <a href="http://blog.csdn.net/u014132659/article/details/56489375#" class="CopyToClipboard" title="copy" onclick="dp.sh.Toolbar.Command(&#39;CopyToClipboard&#39;,this);return false;">copy</a><div style="position: absolute; left: 484px; top: 4222px; width: 18px; height: 18px; z-index: 99;"><embed id="ZeroClipboardMovie_7" src="http://static.blog.csdn.net/scripts/ZeroClipboard/ZeroClipboard.swf" loop="false" menu="false" quality="best" bgcolor="#ffffff" width="18" height="18" name="ZeroClipboardMovie_7" align="middle" allowscriptaccess="always" allowfullscreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" flashvars="id=7&amp;width=18&amp;height=18" wmode="transparent"></div></span><span data-mod="popu_169"> <a href="http://blog.csdn.net/u014132659/article/details/56489375#" class="PrintSource" title="print" onclick="dp.sh.Toolbar.Command(&#39;PrintSource&#39;,this);return false;">print</a></span><a href="http://blog.csdn.net/u014132659/article/details/56489375#" class="About" title="?" onclick="dp.sh.Toolbar.Command(&#39;About&#39;,this);return false;">?</a></div></div><ol start="1" class="dp-j"><li class="alt"><span><span class="keyword">package</span><span>&nbsp;com.eclipse.example;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span><span class="keyword">public</span><span>&nbsp;</span><span class="keyword">class</span><span>&nbsp;JNITest&nbsp;{&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">public</span><span>&nbsp;</span><span class="keyword">static</span><span>&nbsp;</span><span class="keyword">void</span><span>&nbsp;main(String[]&nbsp;args){&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLibrary.INSTANCE.func(<span class="string">"hello"</span><span>);&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class="alt"><span>}&nbsp;&nbsp;</span></li></ol></div><pre code_snippet_id="2221559" snippet_file_name="blog_20170222_8_4455927" name="code" class="java" style="display: none;">package com.eclipse.example;
+
+public class JNITest {
+	public static void main(String[] args){
+		CLibrary.INSTANCE.func("hello");
+	}
+}</pre><br>
+<br>
+<p></p>
+<p><span style="font-size:14px">一些补充：<br>
+Lib dll h三者的关系：<br>
+h是声明函数<br>
+dll是实现函数，运行时需要连接的<br>
+lib是桥梁，指明h中的函数在哪个dll中， 以及函数在dll的什么位置。lib是链接时需要使用的。<br>
+vs中使用第三方库的时候，属性 --&gt; 附加依赖项是.lib，不是.dll.<br>
+如果只是编译链接程序，那么h和lib就够用了，运行只需要dll就可以了。<br>
+http://blog.csdn.net/paddybear/article/details/44058045<br>
+<br>
+Java命名规则<br>
+http://www.cnblogs.com/wengfumin/articles/2337095.html<br>
+<br>
+javah命令<br>
+http://www.cnblogs.com/kissazi2/p/3298884.html<br>
+<br>
+elipse导入dll<br>
+http://bbs.csdn.net/topics/390650733<br>
+</span></p>
+<p><span style="font-size:14px"><br>
+</span></p>
+<p><span style="font-size:14px"><br>
+</span></p>
+<p><span style="font-size:14px"><br>
+</span></p>
+   
+</div>
+
+
+
+
+
+
+
+
+    <div class="readall_box csdn-tracking-statistics tracking-click readall_box_nobg" data-pid="blog" data-mod="popu_596" style="display: none;">
+        <div class="read_more_mask"></div>
+        <a class="btn btn-large btn-gray-fred read_more_btn" target="_self">阅读全文</a>
+    </div>
+
+    <div class="csdn-tracking-statistics" data-pid="blog" data-mod="popu_222"><a href="javascript:void(0);" target="_blank">&nbsp;</a>   </div>
+    <div class="csdn-tracking-statistics" data-pid="blog" data-mod="popu_223"> <a href="javascript:void(0);" target="_blank">&nbsp;</a></div>
+        <div id="digg" articleid="56489375">
+            <dl id="btnDigg" class="digg digg_enable" onclick="btndigga();">
+               
+                 <dt>顶</dt>
+                <dd>0</dd>
+            </dl>
+           
+              
+            <dl id="btnBury" class="digg digg_enable" onclick="btnburya();">
+              
+                  <dt>踩</dt>
+                <dd>0</dd>               
+            </dl>
+            
+        </div>
+    <script type="text/javascript">
+        function btndigga() {
+            $(".csdn-tracking-statistics[data-mod='popu_222'] a").click();
+        }
+        function btnburya() {
+            $(".csdn-tracking-statistics[data-mod='popu_223'] a").click();
+        }
+            </script>
+
+   <ul class="article_next_prev">
+                <li class="prev_article"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_shangyipian&#39;]);location.href=&#39;http://blog.csdn.net/u014132659/article/details/54800088&#39;;">上一篇</span><a href="http://blog.csdn.net/u014132659/article/details/54800088" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_shangyipian&#39;])">vimdiff比较两个文件</a></li>
+                <li class="next_article"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_xiayipian&#39;]);location.href=&#39;http://blog.csdn.net/u014132659/article/details/56666884&#39;;">下一篇</span><a href="http://blog.csdn.net/u014132659/article/details/56666884" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_xiayipian&#39;])">java 扫盲</a></li>
+    </ul>
+
+    <div style="clear:both; height:10px;"></div>
+
+   
+      
+</div>
+
+     <div>
+         
+         <!-- 广告位：PC端-博客详情页底部banner-960*90 -->
+            <script>
+                (function() {
+                    var s = "_" + Math.random().toString(36).slice(2);
+                    document.write('<div id="' + s + '"></div>');
+                    (window.slotbydup=window.slotbydup || []).push({
+                        id: '4770928',
+                        container: s,
+                        size: '960,90',
+                        display: 'inlay-fix'
+                    });
+                })();
+            </script><div id="_pt84cfu02ea"></div><script charset="utf-8" src="./JNI 和 JNA，java和其他语言的互调 - 不止于代码 - CSDN博客_files/ucmm"></script><div><iframe width="960" frameborder="0" height="90" scrolling="no" src="./JNI 和 JNA，java和其他语言的互调 - 不止于代码 - CSDN博客_files/s(1).html"></iframe></div><script type="text/javascript" src="./JNI 和 JNA，java和其他语言的互调 - 不止于代码 - CSDN博客_files/kfunnhoouimhnlou.js.下载"></script>
+    </div>
+
+<div id="suggest">
+
+
+
+</div>
+         <script language="javascript" type="text/javascript">     
+             $(function(){
+                 $.get("/u014132659/svc/GetSuggestContent/56489375",function(data){
+                     $("#suggest").html(data);
+                 });     
+             });             
+         </script>  
+
+
+
+
+            
+                                    
+            
+                                    
+
+        <!-- 广告位开始 -->
+        <!-- 广告位结束 -->
+
+
+
+<div class="comment_class">
+    <div id="comment_title" class="panel_head">
+        <span class="see_comment">查看评论</span><a name="comments"></a></div>
+    <div id="comment_list"><dl class="comment_item comment_topic" id="comment_item_7215369"><dt class="comment_head" floor="1">1楼 <span class="user"><a class="username" href="http://blog.csdn.net/ygrssm" target="_blank">ygrssm</a> <span class="ptime">2017-09-26 15:46发表</span>  <a href="http://blog.csdn.net/u014132659/article/details/56489375#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="7215369" username="ygrssm"> <a href="http://blog.csdn.net/u014132659/article/details/56489375#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/u014132659/article/details/56489375#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/ygrssm" target="_blank"><img src="./JNI 和 JNA，java和其他语言的互调 - 不止于代码 - CSDN博客_files/3_ygrssm.jpg" width="40" height="40"></a></dd><dd class="comment_body">讲的很好。</dd></dl><div class="clear"></div></div>
+    <div id="comment_bar" style="display: none;">
+    </div>
+<div class="commentform"><div class="panel_head">发表评论</div></div>
+    <div id="comment_form"><a name="commentbox"></a><a name="reply"></a><a name="quote"></a><form action="http://blog.csdn.net/u014132659/phoenix/comment/submit?id=56489375" method="post" onsubmit="return subform(this);"><div class="commentform"><ul><li class="left">用 户 名：</li><li class="right">daoning</li></ul><ul><li class="left">评论内容：</li><li class="right" style="position:relative;"><div id="ubbtools"><a href="http://blog.csdn.net/u014132659/article/details/56489375#insertcode" code="code"><img src="./JNI 和 JNA，java和其他语言的互调 - 不止于代码 - CSDN博客_files/code.gif" border="0" alt="插入代码" title="插入代码"></a></div><div id="lang_list" style="position: absolute; top: 28px; left: 0px; display: none;"><a class="long_name" href="http://blog.csdn.net/u014132659/article/details/56489375#html">HTML/XML</a><a class="long_name" href="http://blog.csdn.net/u014132659/article/details/56489375#objc">objective-c</a><a class="zhong_name" href="http://blog.csdn.net/u014132659/article/details/56489375#delphi">Delphi</a><a class="zhong_name" href="http://blog.csdn.net/u014132659/article/details/56489375#ruby">Ruby</a><a href="http://blog.csdn.net/u014132659/article/details/56489375#php">PHP</a><a class="duan_name" href="http://blog.csdn.net/u014132659/article/details/56489375#csharp">C#</a><a style=" border-right: none;" class="duan_name" href="http://blog.csdn.net/u014132659/article/details/56489375#cpp">C++</a><a style=" border-bottom:none;" class="long_name" href="http://blog.csdn.net/u014132659/article/details/56489375#javascript">JavaScript</a><a style=" border-bottom:none;" class="long_name" href="http://blog.csdn.net/u014132659/article/details/56489375#vb">Visual Basic</a><a style=" border-bottom:none;" class="zhong_name" href="http://blog.csdn.net/u014132659/article/details/56489375#python">Python</a><a style=" border-bottom:none;" class="zhong_name" href="http://blog.csdn.net/u014132659/article/details/56489375#java">Java</a><a style="border-bottom:none;" class="duan_name" href="http://blog.csdn.net/u014132659/article/details/56489375#css">CSS</a><a style="border-bottom:none;" class="duan_name" href="http://blog.csdn.net/u014132659/article/details/56489375#sql">SQL</a><a style="border:none;" class="duan_name" href="http://blog.csdn.net/u014132659/article/details/56489375#plain">其它</a></div><textarea class="comment_content" name="comment_content" id="comment_content" style="width: 400px; height: 24px;"></textarea></li></ul><ul><input type="hidden" id="comment_replyId" name="comment_replyId"><input type="hidden" id="comment_userId" name="comment_userId" value="521203"><input type="hidden" id="commentId" name="commentId" value=""><input type="submit" class="comment_btn" value="提交">&nbsp;&nbsp;<span id="tip_comment" style="color: Red; display: none;"></span></ul></div></form></div>
+    <div class="announce">
+        * 以上用户言论只代表其个人观点，不代表CSDN网站的观点或立场<a name="reply"></a><a name="quote"></a></div>
+</div>
+<div class="recommend_list">
+
+    
+            <dl class="clearfix csdn-tracking-statistics recommend_article recommend_article_out" data-mod="popu_36" data-poputype="feed" data-feed-show="false" data-dsm="post">
+<a href="http://blog.csdn.net/lanran2/article/details/50529426" target="_blank" strategy="BlogCommendFromBaidu_0">
+                <dd>
+                    <h2 style="margin-bottom: 0px;">使用JNA，让java调用原生代码</h2>
+                    <ul class="floatR">
+                        <li class="avatar_img"><img src="./JNI 和 JNA，java和其他语言的互调 - 不止于代码 - CSDN博客_files/2_lanran2.jpg" alt="lanran2" title="lanran2"></li>
+                        <li class="user_name">lanran2</li>
+                        <li class="time">2016-01-16 19:48</li>
+                        <li class="visited_num"><svg class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#ccc"><defs><style></style></defs><path d="M988.16 240.64c0-5.12-2.56-11.52-6.4-15.36-2.56-2.56-51.2-55.04-135.68-81.92-32-10.24-64-15.36-96-15.36-97.28 0-181.76 46.08-235.52 84.48-55.04-39.68-139.52-85.76-236.8-85.76-32 0-65.28 5.12-96 15.36C97.28 168.96 49.92 224 47.36 226.56c-3.84 3.84-5.12 8.96-5.12 15.36v546.56l60.16 71.68c3.84 8.96 12.8 15.36 21.76 15.36 3.84 0 7.68 0 10.24-2.56 19.2-5.12 120.32-29.44 199.68-29.44 37.12 0 64 5.12 79.36 15.36 7.68 5.12 11.52 10.24 12.8 16.64 0 12.8 10.24 23.04 23.04 23.04h21.76c24.32 0 61.44 0 98.56-2.56h5.12c10.24 0 20.48-7.68 23.04-17.92 2.56-10.24 7.68-16.64 17.92-23.04 16.64-8.96 42.24-14.08 76.8-14.08 78.08 0 171.52 24.32 198.4 32 3.84 1.28 7.68 2.56 11.52 2.56 8.96 0 17.92-5.12 21.76-14.08l64-72.96V240.64zM88.32 744.96V250.88c14.08-14.08 52.48-46.08 107.52-64 26.88-8.96 53.76-12.8 81.92-12.8 70.4 0 142.08 26.88 213.76 79.36v477.44c-38.4-23.04-88.32-34.56-149.76-34.56-32 0-66.56 3.84-102.4 10.24-60.16 8.96-115.2 26.88-151.04 38.4zm805.12 79.36c-20.48-5.12-61.44-15.36-106.24-23.04-35.84-5.12-66.56-7.68-94.72-7.68-43.52 0-76.8 6.4-101.12 20.48-15.36 8.96-26.88 20.48-33.28 34.56-33.28 1.28-65.28 2.56-87.04 2.56h-3.84c-6.4-12.8-15.36-24.32-29.44-32-23.04-15.36-58.88-21.76-106.24-21.76-76.8 0-165.12 19.2-200.96 28.16l-29.44-35.84c51.2-17.92 148.48-47.36 240.64-47.36 70.4 0 122.88 17.92 153.6 52.48l2.56 2.56 1.28 1.28 1.28 1.28 1.28 1.28h1.28l2.56 1.28h11.52l2.56-1.28h1.28s1.28 0 1.28-1.28h1.28s1.28 0 1.28-1.28h1.28l2.56-2.56c30.72-37.12 81.92-56.32 152.32-56.32 39.68 0 122.88 6.4 240.64 49.92l-28.16 34.56zm47.36-79.36c-35.84-14.08-90.88-32-152.32-43.52-37.12-6.4-71.68-10.24-103.68-10.24-60.16 0-110.08 12.8-148.48 37.12V253.44c70.4-51.2 142.08-78.08 212.48-78.08 28.16 0 55.04 3.84 81.92 12.8 56.32 17.92 94.72 49.92 110.08 64v492.8z"></path></svg><span>5098</span></li>
+                    </ul><div class="summary">
+                        JNA定义：JNA：java Native Access，是SUN公司开发的基于JNI的框架，JNI使得Java能够调用原生的c或者c++代码。JNA与JNI的区别：性能：JNA在性能上不如JNI，由...
+                    </div>
+                    
+                </dd>
+</a>
+            </dl>
+            
+            <dl class="clearfix csdn-tracking-statistics recommend_article recommend_article_out" data-mod="popu_36" data-poputype="feed" data-feed-show="false" data-dsm="post">
+<a href="http://blog.csdn.net/gcangle/article/details/8504629" target="_blank" strategy="BlogCommendFromBaidu_1">
+                <dd>
+                    <h2 style="margin-bottom: 0px;">JNA：JAVA调用DLL 超详细代码实战</h2>
+                    <ul class="floatR">
+                        <li class="avatar_img"><img src="./JNI 和 JNA，java和其他语言的互调 - 不止于代码 - CSDN博客_files/2_gcangle.jpg" alt="gcangle" title="gcangle"></li>
+                        <li class="user_name">gcangle</li>
+                        <li class="time">2013-01-15 11:19</li>
+                        <li class="visited_num"><svg class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#ccc"><defs><style></style></defs><path d="M988.16 240.64c0-5.12-2.56-11.52-6.4-15.36-2.56-2.56-51.2-55.04-135.68-81.92-32-10.24-64-15.36-96-15.36-97.28 0-181.76 46.08-235.52 84.48-55.04-39.68-139.52-85.76-236.8-85.76-32 0-65.28 5.12-96 15.36C97.28 168.96 49.92 224 47.36 226.56c-3.84 3.84-5.12 8.96-5.12 15.36v546.56l60.16 71.68c3.84 8.96 12.8 15.36 21.76 15.36 3.84 0 7.68 0 10.24-2.56 19.2-5.12 120.32-29.44 199.68-29.44 37.12 0 64 5.12 79.36 15.36 7.68 5.12 11.52 10.24 12.8 16.64 0 12.8 10.24 23.04 23.04 23.04h21.76c24.32 0 61.44 0 98.56-2.56h5.12c10.24 0 20.48-7.68 23.04-17.92 2.56-10.24 7.68-16.64 17.92-23.04 16.64-8.96 42.24-14.08 76.8-14.08 78.08 0 171.52 24.32 198.4 32 3.84 1.28 7.68 2.56 11.52 2.56 8.96 0 17.92-5.12 21.76-14.08l64-72.96V240.64zM88.32 744.96V250.88c14.08-14.08 52.48-46.08 107.52-64 26.88-8.96 53.76-12.8 81.92-12.8 70.4 0 142.08 26.88 213.76 79.36v477.44c-38.4-23.04-88.32-34.56-149.76-34.56-32 0-66.56 3.84-102.4 10.24-60.16 8.96-115.2 26.88-151.04 38.4zm805.12 79.36c-20.48-5.12-61.44-15.36-106.24-23.04-35.84-5.12-66.56-7.68-94.72-7.68-43.52 0-76.8 6.4-101.12 20.48-15.36 8.96-26.88 20.48-33.28 34.56-33.28 1.28-65.28 2.56-87.04 2.56h-3.84c-6.4-12.8-15.36-24.32-29.44-32-23.04-15.36-58.88-21.76-106.24-21.76-76.8 0-165.12 19.2-200.96 28.16l-29.44-35.84c51.2-17.92 148.48-47.36 240.64-47.36 70.4 0 122.88 17.92 153.6 52.48l2.56 2.56 1.28 1.28 1.28 1.28 1.28 1.28h1.28l2.56 1.28h11.52l2.56-1.28h1.28s1.28 0 1.28-1.28h1.28s1.28 0 1.28-1.28h1.28l2.56-2.56c30.72-37.12 81.92-56.32 152.32-56.32 39.68 0 122.88 6.4 240.64 49.92l-28.16 34.56zm47.36-79.36c-35.84-14.08-90.88-32-152.32-43.52-37.12-6.4-71.68-10.24-103.68-10.24-60.16 0-110.08 12.8-148.48 37.12V253.44c70.4-51.2 142.08-78.08 212.48-78.08 28.16 0 55.04 3.84 81.92 12.8 56.32 17.92 94.72 49.92 110.08 64v492.8z"></path></svg><span>54500</span></li>
+                    </ul><div class="summary">
+                        0 &nbsp;JNA安装
+0.1 JNA是什么
+JNA(JavaNativeAccess)框架是一个开源的Java框架，是SUN公司主导开发的，建立在
+经典的JNI的基础之上的一个框架。
+JNA项目地...
+                    </div>
+                    
+                </dd>
+</a>
+            </dl>
+            <script>(function() {var s = "_" + Math.random().toString(36).slice(2);document.write('<div id="' + s + '"></div>');(window.slotbydup = window.slotbydup || []).push({id: '4765209',container: s,size: '808,120',display: 'inlay-fix'});})();</script><div id="_cwnj3s65f7"></div><script charset="utf-8" src="./JNI 和 JNA，java和其他语言的互调 - 不止于代码 - CSDN博客_files/ucmm(1)"></script><iframe scrolling="no" style="width: 100%; height: 123px; border: 0px;" src="./JNI 和 JNA，java和其他语言的互调 - 不止于代码 - CSDN博客_files/saved_resource.html"></iframe> 
+            <dl class="clearfix csdn-tracking-statistics downloadElement" data-mod="popu_36" data-poputype="feed" data-feed-show="false" data-dsm="post">
+        <a href="http://download.csdn.net/download/alancaiyl/4160319" target="_blank" strategy="searchFromBaidu_2">       
+		<dd class="floatL">
+			<div class="summary">
+				<h2>最新JNA JAR包</h2>
+				<div class="summary">
+				  <ul>
+					  <li class="time">2012-03-21 16:49</li>
+					  <li class="visited_num fileSize">1.20MB</li>
+					  <li class="download_btn">下载</li>
+				  </ul>
+				</div> 
+			</div>
+		</dd>
+	</a><dt class="floatR"><a href="http://download.csdn.net/download/alancaiyl/4160319" target="_blank" strategy="searchFromBaidu_2"></a><a href="http://download.csdn.net/download/alancaiyl/4160319" target="_blank" strategy="searchFromBaidu_2"><img class="maxwidth" src="./JNI 和 JNA，java和其他语言的互调 - 不止于代码 - CSDN博客_files/zip.svg" alt="" title=""></a></dt>
+            </dl>
+            
+            <dl class="clearfix csdn-tracking-statistics recommend_article recommend_article_out" data-mod="popu_36" data-poputype="feed" data-feed-show="false" data-dsm="post">
+<a href="http://blog.csdn.net/daven_java/article/details/7721404" target="_blank" strategy="searchFromBaidu_3">
+                <dd>
+                    <h2 style="margin-bottom: 0px;">关于JAVA中的JNA</h2>
+                    <ul class="floatR">
+                        <li class="avatar_img"><img src="./JNI 和 JNA，java和其他语言的互调 - 不止于代码 - CSDN博客_files/2_daven_java.jpg" alt="daven_java" title="daven_java"></li>
+                        <li class="user_name">daven_java</li>
+                        <li class="time">2012-07-06 10:59</li>
+                        <li class="visited_num"><svg class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#ccc"><defs><style></style></defs><path d="M988.16 240.64c0-5.12-2.56-11.52-6.4-15.36-2.56-2.56-51.2-55.04-135.68-81.92-32-10.24-64-15.36-96-15.36-97.28 0-181.76 46.08-235.52 84.48-55.04-39.68-139.52-85.76-236.8-85.76-32 0-65.28 5.12-96 15.36C97.28 168.96 49.92 224 47.36 226.56c-3.84 3.84-5.12 8.96-5.12 15.36v546.56l60.16 71.68c3.84 8.96 12.8 15.36 21.76 15.36 3.84 0 7.68 0 10.24-2.56 19.2-5.12 120.32-29.44 199.68-29.44 37.12 0 64 5.12 79.36 15.36 7.68 5.12 11.52 10.24 12.8 16.64 0 12.8 10.24 23.04 23.04 23.04h21.76c24.32 0 61.44 0 98.56-2.56h5.12c10.24 0 20.48-7.68 23.04-17.92 2.56-10.24 7.68-16.64 17.92-23.04 16.64-8.96 42.24-14.08 76.8-14.08 78.08 0 171.52 24.32 198.4 32 3.84 1.28 7.68 2.56 11.52 2.56 8.96 0 17.92-5.12 21.76-14.08l64-72.96V240.64zM88.32 744.96V250.88c14.08-14.08 52.48-46.08 107.52-64 26.88-8.96 53.76-12.8 81.92-12.8 70.4 0 142.08 26.88 213.76 79.36v477.44c-38.4-23.04-88.32-34.56-149.76-34.56-32 0-66.56 3.84-102.4 10.24-60.16 8.96-115.2 26.88-151.04 38.4zm805.12 79.36c-20.48-5.12-61.44-15.36-106.24-23.04-35.84-5.12-66.56-7.68-94.72-7.68-43.52 0-76.8 6.4-101.12 20.48-15.36 8.96-26.88 20.48-33.28 34.56-33.28 1.28-65.28 2.56-87.04 2.56h-3.84c-6.4-12.8-15.36-24.32-29.44-32-23.04-15.36-58.88-21.76-106.24-21.76-76.8 0-165.12 19.2-200.96 28.16l-29.44-35.84c51.2-17.92 148.48-47.36 240.64-47.36 70.4 0 122.88 17.92 153.6 52.48l2.56 2.56 1.28 1.28 1.28 1.28 1.28 1.28h1.28l2.56 1.28h11.52l2.56-1.28h1.28s1.28 0 1.28-1.28h1.28s1.28 0 1.28-1.28h1.28l2.56-2.56c30.72-37.12 81.92-56.32 152.32-56.32 39.68 0 122.88 6.4 240.64 49.92l-28.16 34.56zm47.36-79.36c-35.84-14.08-90.88-32-152.32-43.52-37.12-6.4-71.68-10.24-103.68-10.24-60.16 0-110.08 12.8-148.48 37.12V253.44c70.4-51.2 142.08-78.08 212.48-78.08 28.16 0 55.04 3.84 81.92 12.8 56.32 17.92 94.72 49.92 110.08 64v492.8z"></path></svg><span>3452</span></li>
+                    </ul><div class="summary">
+                        1、jna是什么
+
+jna是java native access的简称，用他可以调用C、C++代码，特别是windows中强大的库文件（dll，在linux下是so文件），这样java就可以操控底...
+                    </div>
+                    
+                </dd>
+</a>
+            </dl>
+            
+            <dl class="clearfix csdn-tracking-statistics recommend_article recommend_article_out" data-mod="popu_36" data-poputype="feed" data-feed-show="false" data-dsm="post">
+<a href="http://blog.csdn.net/shendl/article/details/3589676" target="_blank" strategy="BlogCommendFromBaidu_4">
+                <dd>
+                    <h2 style="margin-bottom: 0px;">JNA—JNI终结者</h2>
+                    <ul class="floatR">
+                        <li class="avatar_img"><img src="./JNI 和 JNA，java和其他语言的互调 - 不止于代码 - CSDN博客_files/2_shendl.jpg" alt="shendl" title="shendl"></li>
+                        <li class="user_name">shendl</li>
+                        <li class="time">2008-12-23 15:03</li>
+                        <li class="visited_num"><svg class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#ccc"><defs><style></style></defs><path d="M988.16 240.64c0-5.12-2.56-11.52-6.4-15.36-2.56-2.56-51.2-55.04-135.68-81.92-32-10.24-64-15.36-96-15.36-97.28 0-181.76 46.08-235.52 84.48-55.04-39.68-139.52-85.76-236.8-85.76-32 0-65.28 5.12-96 15.36C97.28 168.96 49.92 224 47.36 226.56c-3.84 3.84-5.12 8.96-5.12 15.36v546.56l60.16 71.68c3.84 8.96 12.8 15.36 21.76 15.36 3.84 0 7.68 0 10.24-2.56 19.2-5.12 120.32-29.44 199.68-29.44 37.12 0 64 5.12 79.36 15.36 7.68 5.12 11.52 10.24 12.8 16.64 0 12.8 10.24 23.04 23.04 23.04h21.76c24.32 0 61.44 0 98.56-2.56h5.12c10.24 0 20.48-7.68 23.04-17.92 2.56-10.24 7.68-16.64 17.92-23.04 16.64-8.96 42.24-14.08 76.8-14.08 78.08 0 171.52 24.32 198.4 32 3.84 1.28 7.68 2.56 11.52 2.56 8.96 0 17.92-5.12 21.76-14.08l64-72.96V240.64zM88.32 744.96V250.88c14.08-14.08 52.48-46.08 107.52-64 26.88-8.96 53.76-12.8 81.92-12.8 70.4 0 142.08 26.88 213.76 79.36v477.44c-38.4-23.04-88.32-34.56-149.76-34.56-32 0-66.56 3.84-102.4 10.24-60.16 8.96-115.2 26.88-151.04 38.4zm805.12 79.36c-20.48-5.12-61.44-15.36-106.24-23.04-35.84-5.12-66.56-7.68-94.72-7.68-43.52 0-76.8 6.4-101.12 20.48-15.36 8.96-26.88 20.48-33.28 34.56-33.28 1.28-65.28 2.56-87.04 2.56h-3.84c-6.4-12.8-15.36-24.32-29.44-32-23.04-15.36-58.88-21.76-106.24-21.76-76.8 0-165.12 19.2-200.96 28.16l-29.44-35.84c51.2-17.92 148.48-47.36 240.64-47.36 70.4 0 122.88 17.92 153.6 52.48l2.56 2.56 1.28 1.28 1.28 1.28 1.28 1.28h1.28l2.56 1.28h11.52l2.56-1.28h1.28s1.28 0 1.28-1.28h1.28s1.28 0 1.28-1.28h1.28l2.56-2.56c30.72-37.12 81.92-56.32 152.32-56.32 39.68 0 122.88 6.4 240.64 49.92l-28.16 34.56zm47.36-79.36c-35.84-14.08-90.88-32-152.32-43.52-37.12-6.4-71.68-10.24-103.68-10.24-60.16 0-110.08 12.8-148.48 37.12V253.44c70.4-51.2 142.08-78.08 212.48-78.08 28.16 0 55.04 3.84 81.92 12.8 56.32 17.92 94.72 49.92 110.08 64v492.8z"></path></svg><span>85663</span></li>
+                    </ul><div class="summary">
+                        JNA—JNI终结者&nbsp;介绍给大家介绍一个最新的访问本机代码的Java框架—JNA。JNA(Java Native Access)框架是一个开源的Java框架，是SUN公司主导开发的，建立在经典的JNI...
+                    </div>
+                    
+                </dd>
+</a>
+            </dl>
+            <!-- 广告位：PC端-博客详情通栏7（feed流）-808*120 --><iframe scrolling="no" style="width: 100%; height: 123px; border: 0px;" src="./JNI 和 JNA，java和其他语言的互调 - 不止于代码 - CSDN博客_files/saved_resource(1).html"></iframe>
+            <dl class="clearfix csdn-tracking-statistics recommend_article recommend_article_out" data-mod="popu_36" data-poputype="feed" data-feed-show="false" data-dsm="post">
+<a href="http://blog.csdn.net/conquer0715/article/details/33728113" target="_blank" strategy="BlogCommendFromBaidu_5">
+                <dd>
+                    <h2 style="margin-bottom: 0px;">java本地调用 - JNA技术</h2>
+                    <ul class="floatR">
+                        <li class="avatar_img"><img src="./JNI 和 JNA，java和其他语言的互调 - 不止于代码 - CSDN博客_files/2_conquer0715.jpg" alt="conquer0715" title="conquer0715"></li>
+                        <li class="user_name">conquer0715</li>
+                        <li class="time">2014-06-23 12:56</li>
+                        <li class="visited_num"><svg class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#ccc"><defs><style></style></defs><path d="M988.16 240.64c0-5.12-2.56-11.52-6.4-15.36-2.56-2.56-51.2-55.04-135.68-81.92-32-10.24-64-15.36-96-15.36-97.28 0-181.76 46.08-235.52 84.48-55.04-39.68-139.52-85.76-236.8-85.76-32 0-65.28 5.12-96 15.36C97.28 168.96 49.92 224 47.36 226.56c-3.84 3.84-5.12 8.96-5.12 15.36v546.56l60.16 71.68c3.84 8.96 12.8 15.36 21.76 15.36 3.84 0 7.68 0 10.24-2.56 19.2-5.12 120.32-29.44 199.68-29.44 37.12 0 64 5.12 79.36 15.36 7.68 5.12 11.52 10.24 12.8 16.64 0 12.8 10.24 23.04 23.04 23.04h21.76c24.32 0 61.44 0 98.56-2.56h5.12c10.24 0 20.48-7.68 23.04-17.92 2.56-10.24 7.68-16.64 17.92-23.04 16.64-8.96 42.24-14.08 76.8-14.08 78.08 0 171.52 24.32 198.4 32 3.84 1.28 7.68 2.56 11.52 2.56 8.96 0 17.92-5.12 21.76-14.08l64-72.96V240.64zM88.32 744.96V250.88c14.08-14.08 52.48-46.08 107.52-64 26.88-8.96 53.76-12.8 81.92-12.8 70.4 0 142.08 26.88 213.76 79.36v477.44c-38.4-23.04-88.32-34.56-149.76-34.56-32 0-66.56 3.84-102.4 10.24-60.16 8.96-115.2 26.88-151.04 38.4zm805.12 79.36c-20.48-5.12-61.44-15.36-106.24-23.04-35.84-5.12-66.56-7.68-94.72-7.68-43.52 0-76.8 6.4-101.12 20.48-15.36 8.96-26.88 20.48-33.28 34.56-33.28 1.28-65.28 2.56-87.04 2.56h-3.84c-6.4-12.8-15.36-24.32-29.44-32-23.04-15.36-58.88-21.76-106.24-21.76-76.8 0-165.12 19.2-200.96 28.16l-29.44-35.84c51.2-17.92 148.48-47.36 240.64-47.36 70.4 0 122.88 17.92 153.6 52.48l2.56 2.56 1.28 1.28 1.28 1.28 1.28 1.28h1.28l2.56 1.28h11.52l2.56-1.28h1.28s1.28 0 1.28-1.28h1.28s1.28 0 1.28-1.28h1.28l2.56-2.56c30.72-37.12 81.92-56.32 152.32-56.32 39.68 0 122.88 6.4 240.64 49.92l-28.16 34.56zm47.36-79.36c-35.84-14.08-90.88-32-152.32-43.52-37.12-6.4-71.68-10.24-103.68-10.24-60.16 0-110.08 12.8-148.48 37.12V253.44c70.4-51.2 142.08-78.08 212.48-78.08 28.16 0 55.04 3.84 81.92 12.8 56.32 17.92 94.72 49.92 110.08 64v492.8z"></path></svg><span>5946</span></li>
+                    </ul><div class="summary">
+                        #JAVA 本地调用 - JNA技术
+##JNI回顾
+JNI是Java Native Interface的缩写，中文为JAVA本地调用。从Java1.1开始，Java Native Interfa...
+                    </div>
+                    
+                </dd>
+</a>
+            </dl>
+            
+            <dl class="clearfix csdn-tracking-statistics recommend_article recommend_article_out" data-mod="popu_36" data-poputype="feed" data-feed-show="false" data-dsm="post">
+<a href="http://blog.csdn.net/lsh6688/article/details/17616487" target="_blank" strategy="searchFromBaidu_6">
+                <dd>
+                    <h2 style="margin-bottom: 0px;">JNA简单实例</h2>
+                    <ul class="floatR">
+                        <li class="avatar_img"><img src="./JNI 和 JNA，java和其他语言的互调 - 不止于代码 - CSDN博客_files/2_lsh6688.jpg" alt="lsh6688" title="lsh6688"></li>
+                        <li class="user_name">lsh6688</li>
+                        <li class="time">2013-12-27 18:07</li>
+                        <li class="visited_num"><svg class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#ccc"><defs><style></style></defs><path d="M988.16 240.64c0-5.12-2.56-11.52-6.4-15.36-2.56-2.56-51.2-55.04-135.68-81.92-32-10.24-64-15.36-96-15.36-97.28 0-181.76 46.08-235.52 84.48-55.04-39.68-139.52-85.76-236.8-85.76-32 0-65.28 5.12-96 15.36C97.28 168.96 49.92 224 47.36 226.56c-3.84 3.84-5.12 8.96-5.12 15.36v546.56l60.16 71.68c3.84 8.96 12.8 15.36 21.76 15.36 3.84 0 7.68 0 10.24-2.56 19.2-5.12 120.32-29.44 199.68-29.44 37.12 0 64 5.12 79.36 15.36 7.68 5.12 11.52 10.24 12.8 16.64 0 12.8 10.24 23.04 23.04 23.04h21.76c24.32 0 61.44 0 98.56-2.56h5.12c10.24 0 20.48-7.68 23.04-17.92 2.56-10.24 7.68-16.64 17.92-23.04 16.64-8.96 42.24-14.08 76.8-14.08 78.08 0 171.52 24.32 198.4 32 3.84 1.28 7.68 2.56 11.52 2.56 8.96 0 17.92-5.12 21.76-14.08l64-72.96V240.64zM88.32 744.96V250.88c14.08-14.08 52.48-46.08 107.52-64 26.88-8.96 53.76-12.8 81.92-12.8 70.4 0 142.08 26.88 213.76 79.36v477.44c-38.4-23.04-88.32-34.56-149.76-34.56-32 0-66.56 3.84-102.4 10.24-60.16 8.96-115.2 26.88-151.04 38.4zm805.12 79.36c-20.48-5.12-61.44-15.36-106.24-23.04-35.84-5.12-66.56-7.68-94.72-7.68-43.52 0-76.8 6.4-101.12 20.48-15.36 8.96-26.88 20.48-33.28 34.56-33.28 1.28-65.28 2.56-87.04 2.56h-3.84c-6.4-12.8-15.36-24.32-29.44-32-23.04-15.36-58.88-21.76-106.24-21.76-76.8 0-165.12 19.2-200.96 28.16l-29.44-35.84c51.2-17.92 148.48-47.36 240.64-47.36 70.4 0 122.88 17.92 153.6 52.48l2.56 2.56 1.28 1.28 1.28 1.28 1.28 1.28h1.28l2.56 1.28h11.52l2.56-1.28h1.28s1.28 0 1.28-1.28h1.28s1.28 0 1.28-1.28h1.28l2.56-2.56c30.72-37.12 81.92-56.32 152.32-56.32 39.68 0 122.88 6.4 240.64 49.92l-28.16 34.56zm47.36-79.36c-35.84-14.08-90.88-32-152.32-43.52-37.12-6.4-71.68-10.24-103.68-10.24-60.16 0-110.08 12.8-148.48 37.12V253.44c70.4-51.2 142.08-78.08 212.48-78.08 28.16 0 55.04 3.84 81.92 12.8 56.32 17.92 94.72 49.92 110.08 64v492.8z"></path></svg><span>6315</span></li>
+                    </ul><div class="summary">
+                        在开发java程序的时候，我们有时候需要java和其它应用程序交互，比如使用java调用系统的dll，或者linux的so文件。这个时候，我们就需要使用java的一个新组件——JNAJNA（JavaN...
+                    </div>
+                    
+                </dd>
+</a>
+            </dl>
+            
+            <dl class="clearfix csdn-tracking-statistics downloadElement" data-mod="popu_36" data-poputype="feed" data-feed-show="false" data-dsm="post">
+        <a href="http://download.csdn.net/download/asdfqwer5e/9580140" target="_blank" strategy="searchFromBaidu_7">       
+		<dd class="floatL">
+			<div class="summary">
+				<h2>JNA java jar包</h2>
+				<div class="summary">
+				  <ul>
+					  <li class="time">2016-07-19 14:18</li>
+					  <li class="visited_num fileSize">1.40MB</li>
+					  <li class="download_btn">下载</li>
+				  </ul>
+				</div> 
+			</div>
+		</dd>
+	</a><dt class="floatR"><a href="http://download.csdn.net/download/asdfqwer5e/9580140" target="_blank" strategy="searchFromBaidu_7"></a><a href="http://download.csdn.net/download/asdfqwer5e/9580140" target="_blank" strategy="searchFromBaidu_7"><img class="maxwidth" src="./JNI 和 JNA，java和其他语言的互调 - 不止于代码 - CSDN博客_files/unkonw.svg" alt="" title=""></a></dt>
+            </dl>
+            
+            <dl class="clearfix csdn-tracking-statistics recommend_article recommend_article_out" data-mod="popu_36" data-poputype="feed" data-feed-show="false" data-dsm="post">
+<a href="http://blog.csdn.net/shadowsick/article/details/9101477" target="_blank" strategy="BlogCommendFromBaidu_8">
+                <dd>
+                    <h2 style="margin-bottom: 0px;">JNA 详细完整实例</h2>
+                    <ul class="floatR">
+                        <li class="avatar_img"><img src="./JNI 和 JNA，java和其他语言的互调 - 不止于代码 - CSDN博客_files/2_shadowsick.jpg" alt="shadowsick" title="shadowsick"></li>
+                        <li class="user_name">shadowsick</li>
+                        <li class="time">2013-06-15 15:32</li>
+                        <li class="visited_num"><svg class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#ccc"><defs><style></style></defs><path d="M988.16 240.64c0-5.12-2.56-11.52-6.4-15.36-2.56-2.56-51.2-55.04-135.68-81.92-32-10.24-64-15.36-96-15.36-97.28 0-181.76 46.08-235.52 84.48-55.04-39.68-139.52-85.76-236.8-85.76-32 0-65.28 5.12-96 15.36C97.28 168.96 49.92 224 47.36 226.56c-3.84 3.84-5.12 8.96-5.12 15.36v546.56l60.16 71.68c3.84 8.96 12.8 15.36 21.76 15.36 3.84 0 7.68 0 10.24-2.56 19.2-5.12 120.32-29.44 199.68-29.44 37.12 0 64 5.12 79.36 15.36 7.68 5.12 11.52 10.24 12.8 16.64 0 12.8 10.24 23.04 23.04 23.04h21.76c24.32 0 61.44 0 98.56-2.56h5.12c10.24 0 20.48-7.68 23.04-17.92 2.56-10.24 7.68-16.64 17.92-23.04 16.64-8.96 42.24-14.08 76.8-14.08 78.08 0 171.52 24.32 198.4 32 3.84 1.28 7.68 2.56 11.52 2.56 8.96 0 17.92-5.12 21.76-14.08l64-72.96V240.64zM88.32 744.96V250.88c14.08-14.08 52.48-46.08 107.52-64 26.88-8.96 53.76-12.8 81.92-12.8 70.4 0 142.08 26.88 213.76 79.36v477.44c-38.4-23.04-88.32-34.56-149.76-34.56-32 0-66.56 3.84-102.4 10.24-60.16 8.96-115.2 26.88-151.04 38.4zm805.12 79.36c-20.48-5.12-61.44-15.36-106.24-23.04-35.84-5.12-66.56-7.68-94.72-7.68-43.52 0-76.8 6.4-101.12 20.48-15.36 8.96-26.88 20.48-33.28 34.56-33.28 1.28-65.28 2.56-87.04 2.56h-3.84c-6.4-12.8-15.36-24.32-29.44-32-23.04-15.36-58.88-21.76-106.24-21.76-76.8 0-165.12 19.2-200.96 28.16l-29.44-35.84c51.2-17.92 148.48-47.36 240.64-47.36 70.4 0 122.88 17.92 153.6 52.48l2.56 2.56 1.28 1.28 1.28 1.28 1.28 1.28h1.28l2.56 1.28h11.52l2.56-1.28h1.28s1.28 0 1.28-1.28h1.28s1.28 0 1.28-1.28h1.28l2.56-2.56c30.72-37.12 81.92-56.32 152.32-56.32 39.68 0 122.88 6.4 240.64 49.92l-28.16 34.56zm47.36-79.36c-35.84-14.08-90.88-32-152.32-43.52-37.12-6.4-71.68-10.24-103.68-10.24-60.16 0-110.08 12.8-148.48 37.12V253.44c70.4-51.2 142.08-78.08 212.48-78.08 28.16 0 55.04 3.84 81.92 12.8 56.32 17.92 94.72 49.92 110.08 64v492.8z"></path></svg><span>31597</span></li>
+                    </ul><div class="summary">
+                        啰嗦话不多说,网上很多这方面的教程,但是我也看了好久也能运行一个成功的例子,因为很多地方都忽略了
+
+
+下面来演示个完整的jna例子
+
+
+1. 随便使用个c或c++开发工具(我用的VC++6...
+                    </div>
+                    
+                </dd>
+</a>
+            </dl>
+            
+            <dl class="clearfix csdn-tracking-statistics downloadElement" data-mod="popu_36" data-poputype="feed" data-feed-show="false" data-dsm="post">
+        <a href="http://download.csdn.net/download/luo201227/7133593" target="_blank" strategy="BlogCommendFromBaidu_9">       
+		<dd class="floatL">
+			<div class="summary">
+				<h2>Java的JNA-JNI的加强版</h2>
+				<div class="summary">
+				  <ul>
+					  <li class="time">2014-04-02 09:27</li>
+					  <li class="visited_num fileSize">1.23MB</li>
+					  <li class="download_btn">下载</li>
+				  </ul>
+				</div> 
+			</div>
+		</dd>
+	</a><dt class="floatR"><a href="http://download.csdn.net/download/luo201227/7133593" target="_blank" strategy="BlogCommendFromBaidu_9"></a><a href="http://download.csdn.net/download/luo201227/7133593" target="_blank" strategy="BlogCommendFromBaidu_9"><img class="maxwidth" src="./JNI 和 JNA，java和其他语言的互调 - 不止于代码 - CSDN博客_files/zip.svg" alt="" title=""></a></dt>
+            </dl>
+            
+
+            <dl class="clearfix csdn-tracking-statistics recommend_article recommend_article_out" data-mod="popu_36" data-poputype="feed" data-feed-show="false" data-dsm="post">
+<a href="http://blog.csdn.net/drifterj/article/details/7841810" target="_blank" strategy="BlogCommendFromBaidu_10">
+                <dd>
+                    <h2 style="margin-bottom: 0px;">JNI与JNA性能比较</h2>
+                    <ul class="floatR">
+                        <li class="avatar_img"><img src="./JNI 和 JNA，java和其他语言的互调 - 不止于代码 - CSDN博客_files/2_drifterj.jpg" alt="DrifterJ" title="DrifterJ"></li>
+                        <li class="user_name">DrifterJ</li>
+                        <li class="time">2012-08-08 10:57</li>
+                        <li class="visited_num"><svg class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#ccc"><defs><style></style></defs><path d="M988.16 240.64c0-5.12-2.56-11.52-6.4-15.36-2.56-2.56-51.2-55.04-135.68-81.92-32-10.24-64-15.36-96-15.36-97.28 0-181.76 46.08-235.52 84.48-55.04-39.68-139.52-85.76-236.8-85.76-32 0-65.28 5.12-96 15.36C97.28 168.96 49.92 224 47.36 226.56c-3.84 3.84-5.12 8.96-5.12 15.36v546.56l60.16 71.68c3.84 8.96 12.8 15.36 21.76 15.36 3.84 0 7.68 0 10.24-2.56 19.2-5.12 120.32-29.44 199.68-29.44 37.12 0 64 5.12 79.36 15.36 7.68 5.12 11.52 10.24 12.8 16.64 0 12.8 10.24 23.04 23.04 23.04h21.76c24.32 0 61.44 0 98.56-2.56h5.12c10.24 0 20.48-7.68 23.04-17.92 2.56-10.24 7.68-16.64 17.92-23.04 16.64-8.96 42.24-14.08 76.8-14.08 78.08 0 171.52 24.32 198.4 32 3.84 1.28 7.68 2.56 11.52 2.56 8.96 0 17.92-5.12 21.76-14.08l64-72.96V240.64zM88.32 744.96V250.88c14.08-14.08 52.48-46.08 107.52-64 26.88-8.96 53.76-12.8 81.92-12.8 70.4 0 142.08 26.88 213.76 79.36v477.44c-38.4-23.04-88.32-34.56-149.76-34.56-32 0-66.56 3.84-102.4 10.24-60.16 8.96-115.2 26.88-151.04 38.4zm805.12 79.36c-20.48-5.12-61.44-15.36-106.24-23.04-35.84-5.12-66.56-7.68-94.72-7.68-43.52 0-76.8 6.4-101.12 20.48-15.36 8.96-26.88 20.48-33.28 34.56-33.28 1.28-65.28 2.56-87.04 2.56h-3.84c-6.4-12.8-15.36-24.32-29.44-32-23.04-15.36-58.88-21.76-106.24-21.76-76.8 0-165.12 19.2-200.96 28.16l-29.44-35.84c51.2-17.92 148.48-47.36 240.64-47.36 70.4 0 122.88 17.92 153.6 52.48l2.56 2.56 1.28 1.28 1.28 1.28 1.28 1.28h1.28l2.56 1.28h11.52l2.56-1.28h1.28s1.28 0 1.28-1.28h1.28s1.28 0 1.28-1.28h1.28l2.56-2.56c30.72-37.12 81.92-56.32 152.32-56.32 39.68 0 122.88 6.4 240.64 49.92l-28.16 34.56zm47.36-79.36c-35.84-14.08-90.88-32-152.32-43.52-37.12-6.4-71.68-10.24-103.68-10.24-60.16 0-110.08 12.8-148.48 37.12V253.44c70.4-51.2 142.08-78.08 212.48-78.08 28.16 0 55.04 3.84 81.92 12.8 56.32 17.92 94.72 49.92 110.08 64v492.8z"></path></svg><span>14772</span></li>
+                    </ul><div class="summary">
+                        在介绍JNA时，提到了JNA是基于JNI的，是在JNI上封装了一层，JNI性能不如JNA。最近在网上看到篇简单的比较这两者性能的文档，感觉不错，现转载一下：
+分别用JNI和JNA的方式建立dll，d...
+                    </div>
+                    
+                </dd>
+</a>
+            </dl>
+            
+            <dl class="clearfix csdn-tracking-statistics downloadElement" data-mod="popu_36" data-poputype="feed" data-feed-show="false" data-dsm="post">
+        <a href="http://download.csdn.net/download/njxiaohai2003/9380539" target="_blank" strategy="BlogCommendFromBaidu_11">       
+		<dd class="floatL">
+			<div class="summary">
+				<h2>JNI与JNA性能比较</h2>
+				<div class="summary">
+				  <ul>
+					  <li class="time">2015-12-28 16:07</li>
+					  <li class="visited_num fileSize">23KB</li>
+					  <li class="download_btn">下载</li>
+				  </ul>
+				</div> 
+			</div>
+		</dd>
+	</a><dt class="floatR"><a href="http://download.csdn.net/download/njxiaohai2003/9380539" target="_blank" strategy="BlogCommendFromBaidu_11"></a><a href="http://download.csdn.net/download/njxiaohai2003/9380539" target="_blank" strategy="BlogCommendFromBaidu_11"><img class="maxwidth" src="./JNI 和 JNA，java和其他语言的互调 - 不止于代码 - CSDN博客_files/docx.svg" alt="" title=""></a></dt>
+            </dl>
+            
+            <dl class="clearfix csdn-tracking-statistics recommend_article recommend_article_out" data-mod="popu_36" data-poputype="feed" data-feed-show="false" data-dsm="post">
+<a href="http://blog.csdn.net/wwang196988/article/details/6764265" target="_blank" strategy="BlogCommendFromBaidu_12">
+                <dd>
+                    <h2 style="margin-bottom: 0px;">JNA——JNI终结者</h2>
+                    <ul class="floatR">
+                        <li class="avatar_img"><img src="./JNI 和 JNA，java和其他语言的互调 - 不止于代码 - CSDN博客_files/2_wwang196988.jpg" alt="wwang196988" title="wwang196988"></li>
+                        <li class="user_name">wwang196988</li>
+                        <li class="time">2011-09-09 17:25</li>
+                        <li class="visited_num"><svg class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#ccc"><defs><style></style></defs><path d="M988.16 240.64c0-5.12-2.56-11.52-6.4-15.36-2.56-2.56-51.2-55.04-135.68-81.92-32-10.24-64-15.36-96-15.36-97.28 0-181.76 46.08-235.52 84.48-55.04-39.68-139.52-85.76-236.8-85.76-32 0-65.28 5.12-96 15.36C97.28 168.96 49.92 224 47.36 226.56c-3.84 3.84-5.12 8.96-5.12 15.36v546.56l60.16 71.68c3.84 8.96 12.8 15.36 21.76 15.36 3.84 0 7.68 0 10.24-2.56 19.2-5.12 120.32-29.44 199.68-29.44 37.12 0 64 5.12 79.36 15.36 7.68 5.12 11.52 10.24 12.8 16.64 0 12.8 10.24 23.04 23.04 23.04h21.76c24.32 0 61.44 0 98.56-2.56h5.12c10.24 0 20.48-7.68 23.04-17.92 2.56-10.24 7.68-16.64 17.92-23.04 16.64-8.96 42.24-14.08 76.8-14.08 78.08 0 171.52 24.32 198.4 32 3.84 1.28 7.68 2.56 11.52 2.56 8.96 0 17.92-5.12 21.76-14.08l64-72.96V240.64zM88.32 744.96V250.88c14.08-14.08 52.48-46.08 107.52-64 26.88-8.96 53.76-12.8 81.92-12.8 70.4 0 142.08 26.88 213.76 79.36v477.44c-38.4-23.04-88.32-34.56-149.76-34.56-32 0-66.56 3.84-102.4 10.24-60.16 8.96-115.2 26.88-151.04 38.4zm805.12 79.36c-20.48-5.12-61.44-15.36-106.24-23.04-35.84-5.12-66.56-7.68-94.72-7.68-43.52 0-76.8 6.4-101.12 20.48-15.36 8.96-26.88 20.48-33.28 34.56-33.28 1.28-65.28 2.56-87.04 2.56h-3.84c-6.4-12.8-15.36-24.32-29.44-32-23.04-15.36-58.88-21.76-106.24-21.76-76.8 0-165.12 19.2-200.96 28.16l-29.44-35.84c51.2-17.92 148.48-47.36 240.64-47.36 70.4 0 122.88 17.92 153.6 52.48l2.56 2.56 1.28 1.28 1.28 1.28 1.28 1.28h1.28l2.56 1.28h11.52l2.56-1.28h1.28s1.28 0 1.28-1.28h1.28s1.28 0 1.28-1.28h1.28l2.56-2.56c30.72-37.12 81.92-56.32 152.32-56.32 39.68 0 122.88 6.4 240.64 49.92l-28.16 34.56zm47.36-79.36c-35.84-14.08-90.88-32-152.32-43.52-37.12-6.4-71.68-10.24-103.68-10.24-60.16 0-110.08 12.8-148.48 37.12V253.44c70.4-51.2 142.08-78.08 212.48-78.08 28.16 0 55.04 3.84 81.92 12.8 56.32 17.92 94.72 49.92 110.08 64v492.8z"></path></svg><span>3339</span></li>
+                    </ul><div class="summary">
+                        转载缘由：
+&nbsp; &nbsp; &nbsp; &nbsp; 今天，一位河海大学的学长和我讨论起 Java 代码调用本地 C/C++ DLL/so 的问题。以前我只知道 Java 中的 JNI 机制，但是 JNI 存在一个弊端：如果...
+                    </div>
+                    
+                </dd>
+</a>
+            </dl>
+            
+            <dl class="clearfix csdn-tracking-statistics recommend_article recommend_article_out" data-mod="popu_36" data-poputype="feed" data-feed-show="false" data-dsm="post">
+<a href="http://blog.csdn.net/wbzj1110/article/details/45557105" target="_blank" strategy="BlogCommendFromBaidu_13">
+                <dd>
+                    <h2 style="margin-bottom: 0px;">关于JNA、JNI的使用注意</h2>
+                    <ul class="floatR">
+                        <li class="avatar_img"><img src="./JNI 和 JNA，java和其他语言的互调 - 不止于代码 - CSDN博客_files/2_wbzj1110.jpg" alt="wbzj1110" title="wbzj1110"></li>
+                        <li class="user_name">wbzj1110</li>
+                        <li class="time">2015-05-07 10:05</li>
+                        <li class="visited_num"><svg class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#ccc"><defs><style></style></defs><path d="M988.16 240.64c0-5.12-2.56-11.52-6.4-15.36-2.56-2.56-51.2-55.04-135.68-81.92-32-10.24-64-15.36-96-15.36-97.28 0-181.76 46.08-235.52 84.48-55.04-39.68-139.52-85.76-236.8-85.76-32 0-65.28 5.12-96 15.36C97.28 168.96 49.92 224 47.36 226.56c-3.84 3.84-5.12 8.96-5.12 15.36v546.56l60.16 71.68c3.84 8.96 12.8 15.36 21.76 15.36 3.84 0 7.68 0 10.24-2.56 19.2-5.12 120.32-29.44 199.68-29.44 37.12 0 64 5.12 79.36 15.36 7.68 5.12 11.52 10.24 12.8 16.64 0 12.8 10.24 23.04 23.04 23.04h21.76c24.32 0 61.44 0 98.56-2.56h5.12c10.24 0 20.48-7.68 23.04-17.92 2.56-10.24 7.68-16.64 17.92-23.04 16.64-8.96 42.24-14.08 76.8-14.08 78.08 0 171.52 24.32 198.4 32 3.84 1.28 7.68 2.56 11.52 2.56 8.96 0 17.92-5.12 21.76-14.08l64-72.96V240.64zM88.32 744.96V250.88c14.08-14.08 52.48-46.08 107.52-64 26.88-8.96 53.76-12.8 81.92-12.8 70.4 0 142.08 26.88 213.76 79.36v477.44c-38.4-23.04-88.32-34.56-149.76-34.56-32 0-66.56 3.84-102.4 10.24-60.16 8.96-115.2 26.88-151.04 38.4zm805.12 79.36c-20.48-5.12-61.44-15.36-106.24-23.04-35.84-5.12-66.56-7.68-94.72-7.68-43.52 0-76.8 6.4-101.12 20.48-15.36 8.96-26.88 20.48-33.28 34.56-33.28 1.28-65.28 2.56-87.04 2.56h-3.84c-6.4-12.8-15.36-24.32-29.44-32-23.04-15.36-58.88-21.76-106.24-21.76-76.8 0-165.12 19.2-200.96 28.16l-29.44-35.84c51.2-17.92 148.48-47.36 240.64-47.36 70.4 0 122.88 17.92 153.6 52.48l2.56 2.56 1.28 1.28 1.28 1.28 1.28 1.28h1.28l2.56 1.28h11.52l2.56-1.28h1.28s1.28 0 1.28-1.28h1.28s1.28 0 1.28-1.28h1.28l2.56-2.56c30.72-37.12 81.92-56.32 152.32-56.32 39.68 0 122.88 6.4 240.64 49.92l-28.16 34.56zm47.36-79.36c-35.84-14.08-90.88-32-152.32-43.52-37.12-6.4-71.68-10.24-103.68-10.24-60.16 0-110.08 12.8-148.48 37.12V253.44c70.4-51.2 142.08-78.08 212.48-78.08 28.16 0 55.04 3.84 81.92 12.8 56.32 17.92 94.72 49.92 110.08 64v492.8z"></path></svg><span>1051</span></li>
+                    </ul><div class="summary">
+                        闲话不说，项目中要用到Java调用JNA。。。然后就投入学习。。。
+引学习连接，JNA参考良少大神滴~三篇文章
+http://blog.csdn.net/shendl/article/details/...
+                    </div>
+                    
+                </dd>
+</a>
+            </dl>
+            
+            <dl class="clearfix csdn-tracking-statistics recommend_article recommend_article_out" data-mod="popu_36" data-poputype="feed" data-feed-show="false" data-dsm="post">
+<a href="http://blog.csdn.net/u011627980/article/details/51970658" target="_blank" strategy="BlogCommendFromBaidu_14">
+                <dd>
+                    <h2 style="margin-bottom: 0px;">JNI,JNA,Jnative</h2>
+                    <ul class="floatR">
+                        <li class="avatar_img"><img src="./JNI 和 JNA，java和其他语言的互调 - 不止于代码 - CSDN博客_files/2_u011627980.jpg" alt="u011627980" title="u011627980"></li>
+                        <li class="user_name">u011627980</li>
+                        <li class="time">2016-07-20 17:43</li>
+                        <li class="visited_num"><svg class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#ccc"><defs><style></style></defs><path d="M988.16 240.64c0-5.12-2.56-11.52-6.4-15.36-2.56-2.56-51.2-55.04-135.68-81.92-32-10.24-64-15.36-96-15.36-97.28 0-181.76 46.08-235.52 84.48-55.04-39.68-139.52-85.76-236.8-85.76-32 0-65.28 5.12-96 15.36C97.28 168.96 49.92 224 47.36 226.56c-3.84 3.84-5.12 8.96-5.12 15.36v546.56l60.16 71.68c3.84 8.96 12.8 15.36 21.76 15.36 3.84 0 7.68 0 10.24-2.56 19.2-5.12 120.32-29.44 199.68-29.44 37.12 0 64 5.12 79.36 15.36 7.68 5.12 11.52 10.24 12.8 16.64 0 12.8 10.24 23.04 23.04 23.04h21.76c24.32 0 61.44 0 98.56-2.56h5.12c10.24 0 20.48-7.68 23.04-17.92 2.56-10.24 7.68-16.64 17.92-23.04 16.64-8.96 42.24-14.08 76.8-14.08 78.08 0 171.52 24.32 198.4 32 3.84 1.28 7.68 2.56 11.52 2.56 8.96 0 17.92-5.12 21.76-14.08l64-72.96V240.64zM88.32 744.96V250.88c14.08-14.08 52.48-46.08 107.52-64 26.88-8.96 53.76-12.8 81.92-12.8 70.4 0 142.08 26.88 213.76 79.36v477.44c-38.4-23.04-88.32-34.56-149.76-34.56-32 0-66.56 3.84-102.4 10.24-60.16 8.96-115.2 26.88-151.04 38.4zm805.12 79.36c-20.48-5.12-61.44-15.36-106.24-23.04-35.84-5.12-66.56-7.68-94.72-7.68-43.52 0-76.8 6.4-101.12 20.48-15.36 8.96-26.88 20.48-33.28 34.56-33.28 1.28-65.28 2.56-87.04 2.56h-3.84c-6.4-12.8-15.36-24.32-29.44-32-23.04-15.36-58.88-21.76-106.24-21.76-76.8 0-165.12 19.2-200.96 28.16l-29.44-35.84c51.2-17.92 148.48-47.36 240.64-47.36 70.4 0 122.88 17.92 153.6 52.48l2.56 2.56 1.28 1.28 1.28 1.28 1.28 1.28h1.28l2.56 1.28h11.52l2.56-1.28h1.28s1.28 0 1.28-1.28h1.28s1.28 0 1.28-1.28h1.28l2.56-2.56c30.72-37.12 81.92-56.32 152.32-56.32 39.68 0 122.88 6.4 240.64 49.92l-28.16 34.56zm47.36-79.36c-35.84-14.08-90.88-32-152.32-43.52-37.12-6.4-71.68-10.24-103.68-10.24-60.16 0-110.08 12.8-148.48 37.12V253.44c70.4-51.2 142.08-78.08 212.48-78.08 28.16 0 55.04 3.84 81.92 12.8 56.32 17.92 94.72 49.92 110.08 64v492.8z"></path></svg><span>1492</span></li>
+                    </ul><div class="summary">
+                        首先说下JAVA调用DLL,Java调用DLL的常用方法大致为几种，JNI，JNA，Jnative等，但实现与易用性差距还是很大，1.JNI用的人比较多，但相对来说比较麻烦要熟悉c并且要使用javac...
+                    </div>
+                    
+                </dd>
+</a>
+            </dl>
+            
+            <dl class="clearfix csdn-tracking-statistics recommend_article recommend_article_out" data-mod="popu_36" data-poputype="feed" data-feed-show="false" data-dsm="post">
+<a href="http://blog.csdn.net/zjutzmh/article/details/52015193" target="_blank" strategy="BlogCommendFromQuerySearch_15">
+                <dd>
+                    <h2 style="margin-bottom: 0px;">java工作笔记：web 编程中关于jni和jna两种工具操作和性能对比测试</h2>
+                    <ul class="floatR">
+                        <li class="avatar_img"><img src="./JNI 和 JNA，java和其他语言的互调 - 不止于代码 - CSDN博客_files/2_zjutzmh.jpg" alt="zjutzmh" title="zjutzmh"></li>
+                        <li class="user_name">zjutzmh</li>
+                        <li class="time">2016-07-24 17:47</li>
+                        <li class="visited_num"><svg class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#ccc"><defs><style></style></defs><path d="M988.16 240.64c0-5.12-2.56-11.52-6.4-15.36-2.56-2.56-51.2-55.04-135.68-81.92-32-10.24-64-15.36-96-15.36-97.28 0-181.76 46.08-235.52 84.48-55.04-39.68-139.52-85.76-236.8-85.76-32 0-65.28 5.12-96 15.36C97.28 168.96 49.92 224 47.36 226.56c-3.84 3.84-5.12 8.96-5.12 15.36v546.56l60.16 71.68c3.84 8.96 12.8 15.36 21.76 15.36 3.84 0 7.68 0 10.24-2.56 19.2-5.12 120.32-29.44 199.68-29.44 37.12 0 64 5.12 79.36 15.36 7.68 5.12 11.52 10.24 12.8 16.64 0 12.8 10.24 23.04 23.04 23.04h21.76c24.32 0 61.44 0 98.56-2.56h5.12c10.24 0 20.48-7.68 23.04-17.92 2.56-10.24 7.68-16.64 17.92-23.04 16.64-8.96 42.24-14.08 76.8-14.08 78.08 0 171.52 24.32 198.4 32 3.84 1.28 7.68 2.56 11.52 2.56 8.96 0 17.92-5.12 21.76-14.08l64-72.96V240.64zM88.32 744.96V250.88c14.08-14.08 52.48-46.08 107.52-64 26.88-8.96 53.76-12.8 81.92-12.8 70.4 0 142.08 26.88 213.76 79.36v477.44c-38.4-23.04-88.32-34.56-149.76-34.56-32 0-66.56 3.84-102.4 10.24-60.16 8.96-115.2 26.88-151.04 38.4zm805.12 79.36c-20.48-5.12-61.44-15.36-106.24-23.04-35.84-5.12-66.56-7.68-94.72-7.68-43.52 0-76.8 6.4-101.12 20.48-15.36 8.96-26.88 20.48-33.28 34.56-33.28 1.28-65.28 2.56-87.04 2.56h-3.84c-6.4-12.8-15.36-24.32-29.44-32-23.04-15.36-58.88-21.76-106.24-21.76-76.8 0-165.12 19.2-200.96 28.16l-29.44-35.84c51.2-17.92 148.48-47.36 240.64-47.36 70.4 0 122.88 17.92 153.6 52.48l2.56 2.56 1.28 1.28 1.28 1.28 1.28 1.28h1.28l2.56 1.28h11.52l2.56-1.28h1.28s1.28 0 1.28-1.28h1.28s1.28 0 1.28-1.28h1.28l2.56-2.56c30.72-37.12 81.92-56.32 152.32-56.32 39.68 0 122.88 6.4 240.64 49.92l-28.16 34.56zm47.36-79.36c-35.84-14.08-90.88-32-152.32-43.52-37.12-6.4-71.68-10.24-103.68-10.24-60.16 0-110.08 12.8-148.48 37.12V253.44c70.4-51.2 142.08-78.08 212.48-78.08 28.16 0 55.04 3.84 81.92 12.8 56.32 17.92 94.72 49.92 110.08 64v492.8z"></path></svg><span>1211</span></li>
+                    </ul><div class="summary">
+                        第一次发博客有点紧张哈。
+&nbsp; &nbsp; &nbsp; &nbsp;最近刚刚公司转岗从底层C语言的编写到做Java的web restful架构。其中需要调用底层C++代码库。所以对于选择哪种方法从Java调用C的代码做了简单地学...
+                    </div>
+                    
+                </dd>
+</a>
+            </dl>
+            
+            <dl class="clearfix csdn-tracking-statistics recommend_article recommend_article_out" data-mod="popu_36" data-poputype="feed" data-feed-show="false" data-dsm="post">
+<a href="http://blog.csdn.net/zjutzmh/article/details/52069332" target="_blank" strategy="BlogCommendFromQuerySearch_16">
+                <dd>
+                    <h2 style="margin-bottom: 0px;">Java工作笔记：部署Tomcat时使用jni和jna调用DLL文件的问题</h2>
+                    <ul class="floatR">
+                        <li class="avatar_img"><img src="./JNI 和 JNA，java和其他语言的互调 - 不止于代码 - CSDN博客_files/2_zjutzmh.jpg" alt="zjutzmh" title="zjutzmh"></li>
+                        <li class="user_name">zjutzmh</li>
+                        <li class="time">2016-07-29 23:10</li>
+                        <li class="visited_num"><svg class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#ccc"><defs><style></style></defs><path d="M988.16 240.64c0-5.12-2.56-11.52-6.4-15.36-2.56-2.56-51.2-55.04-135.68-81.92-32-10.24-64-15.36-96-15.36-97.28 0-181.76 46.08-235.52 84.48-55.04-39.68-139.52-85.76-236.8-85.76-32 0-65.28 5.12-96 15.36C97.28 168.96 49.92 224 47.36 226.56c-3.84 3.84-5.12 8.96-5.12 15.36v546.56l60.16 71.68c3.84 8.96 12.8 15.36 21.76 15.36 3.84 0 7.68 0 10.24-2.56 19.2-5.12 120.32-29.44 199.68-29.44 37.12 0 64 5.12 79.36 15.36 7.68 5.12 11.52 10.24 12.8 16.64 0 12.8 10.24 23.04 23.04 23.04h21.76c24.32 0 61.44 0 98.56-2.56h5.12c10.24 0 20.48-7.68 23.04-17.92 2.56-10.24 7.68-16.64 17.92-23.04 16.64-8.96 42.24-14.08 76.8-14.08 78.08 0 171.52 24.32 198.4 32 3.84 1.28 7.68 2.56 11.52 2.56 8.96 0 17.92-5.12 21.76-14.08l64-72.96V240.64zM88.32 744.96V250.88c14.08-14.08 52.48-46.08 107.52-64 26.88-8.96 53.76-12.8 81.92-12.8 70.4 0 142.08 26.88 213.76 79.36v477.44c-38.4-23.04-88.32-34.56-149.76-34.56-32 0-66.56 3.84-102.4 10.24-60.16 8.96-115.2 26.88-151.04 38.4zm805.12 79.36c-20.48-5.12-61.44-15.36-106.24-23.04-35.84-5.12-66.56-7.68-94.72-7.68-43.52 0-76.8 6.4-101.12 20.48-15.36 8.96-26.88 20.48-33.28 34.56-33.28 1.28-65.28 2.56-87.04 2.56h-3.84c-6.4-12.8-15.36-24.32-29.44-32-23.04-15.36-58.88-21.76-106.24-21.76-76.8 0-165.12 19.2-200.96 28.16l-29.44-35.84c51.2-17.92 148.48-47.36 240.64-47.36 70.4 0 122.88 17.92 153.6 52.48l2.56 2.56 1.28 1.28 1.28 1.28 1.28 1.28h1.28l2.56 1.28h11.52l2.56-1.28h1.28s1.28 0 1.28-1.28h1.28s1.28 0 1.28-1.28h1.28l2.56-2.56c30.72-37.12 81.92-56.32 152.32-56.32 39.68 0 122.88 6.4 240.64 49.92l-28.16 34.56zm47.36-79.36c-35.84-14.08-90.88-32-152.32-43.52-37.12-6.4-71.68-10.24-103.68-10.24-60.16 0-110.08 12.8-148.48 37.12V253.44c70.4-51.2 142.08-78.08 212.48-78.08 28.16 0 55.04 3.84 81.92 12.8 56.32 17.92 94.72 49.92 110.08 64v492.8z"></path></svg><span>3608</span></li>
+                    </ul><div class="summary">
+                        部署Tomcat时使用jni和jna调用DLL文件的问题
+
+我的前一篇博客提到，我们公司项目的restful框架中要用到底层的DLL
+ C++库，最后经过测试验证结果选择采用JNA方法来调DLL库。之...
+                    </div>
+                    
+                </dd>
+</a>
+            </dl>
+            
+            <dl class="clearfix csdn-tracking-statistics recommend_article recommend_article_out" data-mod="popu_36" data-poputype="feed" data-feed-show="false" data-dsm="post">
+<a href="http://blog.csdn.net/u010015633/article/details/8785955" target="_blank" strategy="BlogCommendFromQuerySearch_17">
+                <dd>
+                    <h2>Java调用本地库，如调用DLL或者SO，如：JNI, Jawin, Jacob，JNative，JNA</h2>
+                    <div class="summary">
+                        Java语言本身具有跨平台性，如果通过Java调用DLL的技术方便易用，使用Java开发前台界面可以更快速，也能带来跨平台性。
+Java调用C/C++写好的DLL库时，由于基本数据类型不同、使用字节...
+                    </div>
+                    <ul>
+                        <li class="avatar_img"><img src="./JNI 和 JNA，java和其他语言的互调 - 不止于代码 - CSDN博客_files/2_u010015633.jpg" alt="u010015633" title="u010015633"></li>
+                        <li class="user_name">u010015633</li>
+                        <li class="time">2013-04-10 23:41</li>
+                        <li class="visited_num"><svg class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#ccc"><defs><style></style></defs><path d="M988.16 240.64c0-5.12-2.56-11.52-6.4-15.36-2.56-2.56-51.2-55.04-135.68-81.92-32-10.24-64-15.36-96-15.36-97.28 0-181.76 46.08-235.52 84.48-55.04-39.68-139.52-85.76-236.8-85.76-32 0-65.28 5.12-96 15.36C97.28 168.96 49.92 224 47.36 226.56c-3.84 3.84-5.12 8.96-5.12 15.36v546.56l60.16 71.68c3.84 8.96 12.8 15.36 21.76 15.36 3.84 0 7.68 0 10.24-2.56 19.2-5.12 120.32-29.44 199.68-29.44 37.12 0 64 5.12 79.36 15.36 7.68 5.12 11.52 10.24 12.8 16.64 0 12.8 10.24 23.04 23.04 23.04h21.76c24.32 0 61.44 0 98.56-2.56h5.12c10.24 0 20.48-7.68 23.04-17.92 2.56-10.24 7.68-16.64 17.92-23.04 16.64-8.96 42.24-14.08 76.8-14.08 78.08 0 171.52 24.32 198.4 32 3.84 1.28 7.68 2.56 11.52 2.56 8.96 0 17.92-5.12 21.76-14.08l64-72.96V240.64zM88.32 744.96V250.88c14.08-14.08 52.48-46.08 107.52-64 26.88-8.96 53.76-12.8 81.92-12.8 70.4 0 142.08 26.88 213.76 79.36v477.44c-38.4-23.04-88.32-34.56-149.76-34.56-32 0-66.56 3.84-102.4 10.24-60.16 8.96-115.2 26.88-151.04 38.4zm805.12 79.36c-20.48-5.12-61.44-15.36-106.24-23.04-35.84-5.12-66.56-7.68-94.72-7.68-43.52 0-76.8 6.4-101.12 20.48-15.36 8.96-26.88 20.48-33.28 34.56-33.28 1.28-65.28 2.56-87.04 2.56h-3.84c-6.4-12.8-15.36-24.32-29.44-32-23.04-15.36-58.88-21.76-106.24-21.76-76.8 0-165.12 19.2-200.96 28.16l-29.44-35.84c51.2-17.92 148.48-47.36 240.64-47.36 70.4 0 122.88 17.92 153.6 52.48l2.56 2.56 1.28 1.28 1.28 1.28 1.28 1.28h1.28l2.56 1.28h11.52l2.56-1.28h1.28s1.28 0 1.28-1.28h1.28s1.28 0 1.28-1.28h1.28l2.56-2.56c30.72-37.12 81.92-56.32 152.32-56.32 39.68 0 122.88 6.4 240.64 49.92l-28.16 34.56zm47.36-79.36c-35.84-14.08-90.88-32-152.32-43.52-37.12-6.4-71.68-10.24-103.68-10.24-60.16 0-110.08 12.8-148.48 37.12V253.44c70.4-51.2 142.08-78.08 212.48-78.08 28.16 0 55.04 3.84 81.92 12.8 56.32 17.92 94.72 49.92 110.08 64v492.8z"></path></svg><span>1466</span></li>
+                    </ul>
+                </dd>
+</a>
+            </dl>
+            
+            <dl class="clearfix csdn-tracking-statistics recommend_article recommend_article_out" data-mod="popu_36" data-poputype="feed" data-feed-show="false" data-dsm="post">
+<a href="http://blog.csdn.net/blog_abel/article/details/27218805" target="_blank" strategy="BlogCommendFromQuerySearch_18">
+                <dd>
+                    <h2 style="margin-bottom: 0px;">Java 调用 C/C++ 之 JNA 系列实战篇 —— 起步 (一)</h2>
+                    <ul class="floatR">
+                        <li class="avatar_img"><img src="./JNI 和 JNA，java和其他语言的互调 - 不止于代码 - CSDN博客_files/2_abelabel.jpg" alt="abelabel" title="abelabel"></li>
+                        <li class="user_name">abelabel</li>
+                        <li class="time">2014-06-04 15:29</li>
+                        <li class="visited_num"><svg class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#ccc"><defs><style></style></defs><path d="M988.16 240.64c0-5.12-2.56-11.52-6.4-15.36-2.56-2.56-51.2-55.04-135.68-81.92-32-10.24-64-15.36-96-15.36-97.28 0-181.76 46.08-235.52 84.48-55.04-39.68-139.52-85.76-236.8-85.76-32 0-65.28 5.12-96 15.36C97.28 168.96 49.92 224 47.36 226.56c-3.84 3.84-5.12 8.96-5.12 15.36v546.56l60.16 71.68c3.84 8.96 12.8 15.36 21.76 15.36 3.84 0 7.68 0 10.24-2.56 19.2-5.12 120.32-29.44 199.68-29.44 37.12 0 64 5.12 79.36 15.36 7.68 5.12 11.52 10.24 12.8 16.64 0 12.8 10.24 23.04 23.04 23.04h21.76c24.32 0 61.44 0 98.56-2.56h5.12c10.24 0 20.48-7.68 23.04-17.92 2.56-10.24 7.68-16.64 17.92-23.04 16.64-8.96 42.24-14.08 76.8-14.08 78.08 0 171.52 24.32 198.4 32 3.84 1.28 7.68 2.56 11.52 2.56 8.96 0 17.92-5.12 21.76-14.08l64-72.96V240.64zM88.32 744.96V250.88c14.08-14.08 52.48-46.08 107.52-64 26.88-8.96 53.76-12.8 81.92-12.8 70.4 0 142.08 26.88 213.76 79.36v477.44c-38.4-23.04-88.32-34.56-149.76-34.56-32 0-66.56 3.84-102.4 10.24-60.16 8.96-115.2 26.88-151.04 38.4zm805.12 79.36c-20.48-5.12-61.44-15.36-106.24-23.04-35.84-5.12-66.56-7.68-94.72-7.68-43.52 0-76.8 6.4-101.12 20.48-15.36 8.96-26.88 20.48-33.28 34.56-33.28 1.28-65.28 2.56-87.04 2.56h-3.84c-6.4-12.8-15.36-24.32-29.44-32-23.04-15.36-58.88-21.76-106.24-21.76-76.8 0-165.12 19.2-200.96 28.16l-29.44-35.84c51.2-17.92 148.48-47.36 240.64-47.36 70.4 0 122.88 17.92 153.6 52.48l2.56 2.56 1.28 1.28 1.28 1.28 1.28 1.28h1.28l2.56 1.28h11.52l2.56-1.28h1.28s1.28 0 1.28-1.28h1.28s1.28 0 1.28-1.28h1.28l2.56-2.56c30.72-37.12 81.92-56.32 152.32-56.32 39.68 0 122.88 6.4 240.64 49.92l-28.16 34.56zm47.36-79.36c-35.84-14.08-90.88-32-152.32-43.52-37.12-6.4-71.68-10.24-103.68-10.24-60.16 0-110.08 12.8-148.48 37.12V253.44c70.4-51.2 142.08-78.08 212.48-78.08 28.16 0 55.04 3.84 81.92 12.8 56.32 17.92 94.72 49.92 110.08 64v492.8z"></path></svg><span>2181</span></li>
+                    </ul><div class="summary">
+                        一、 为什么写这个文章
+                    </div>
+                    
+                </dd>
+</a>
+            </dl>
+            
+            <dl class="clearfix csdn-tracking-statistics recommend_article recommend_article_out" data-mod="popu_36" data-poputype="feed" data-feed-show="false" data-dsm="post">
+<a href="http://blog.csdn.net/zjutzmh/article/details/53574504" target="_blank" strategy="BlogCommendFromQuerySearch_19">
+                <dd>
+                    <h2 style="margin-bottom: 0px;">Java工作笔记：工作中使用JNA调用C++库的一些细节</h2>
+                    <ul class="floatR">
+                        <li class="avatar_img"><img src="./JNI 和 JNA，java和其他语言的互调 - 不止于代码 - CSDN博客_files/2_zjutzmh.jpg" alt="zjutzmh" title="zjutzmh"></li>
+                        <li class="user_name">zjutzmh</li>
+                        <li class="time">2016-12-11 18:21</li>
+                        <li class="visited_num"><svg class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#ccc"><defs><style></style></defs><path d="M988.16 240.64c0-5.12-2.56-11.52-6.4-15.36-2.56-2.56-51.2-55.04-135.68-81.92-32-10.24-64-15.36-96-15.36-97.28 0-181.76 46.08-235.52 84.48-55.04-39.68-139.52-85.76-236.8-85.76-32 0-65.28 5.12-96 15.36C97.28 168.96 49.92 224 47.36 226.56c-3.84 3.84-5.12 8.96-5.12 15.36v546.56l60.16 71.68c3.84 8.96 12.8 15.36 21.76 15.36 3.84 0 7.68 0 10.24-2.56 19.2-5.12 120.32-29.44 199.68-29.44 37.12 0 64 5.12 79.36 15.36 7.68 5.12 11.52 10.24 12.8 16.64 0 12.8 10.24 23.04 23.04 23.04h21.76c24.32 0 61.44 0 98.56-2.56h5.12c10.24 0 20.48-7.68 23.04-17.92 2.56-10.24 7.68-16.64 17.92-23.04 16.64-8.96 42.24-14.08 76.8-14.08 78.08 0 171.52 24.32 198.4 32 3.84 1.28 7.68 2.56 11.52 2.56 8.96 0 17.92-5.12 21.76-14.08l64-72.96V240.64zM88.32 744.96V250.88c14.08-14.08 52.48-46.08 107.52-64 26.88-8.96 53.76-12.8 81.92-12.8 70.4 0 142.08 26.88 213.76 79.36v477.44c-38.4-23.04-88.32-34.56-149.76-34.56-32 0-66.56 3.84-102.4 10.24-60.16 8.96-115.2 26.88-151.04 38.4zm805.12 79.36c-20.48-5.12-61.44-15.36-106.24-23.04-35.84-5.12-66.56-7.68-94.72-7.68-43.52 0-76.8 6.4-101.12 20.48-15.36 8.96-26.88 20.48-33.28 34.56-33.28 1.28-65.28 2.56-87.04 2.56h-3.84c-6.4-12.8-15.36-24.32-29.44-32-23.04-15.36-58.88-21.76-106.24-21.76-76.8 0-165.12 19.2-200.96 28.16l-29.44-35.84c51.2-17.92 148.48-47.36 240.64-47.36 70.4 0 122.88 17.92 153.6 52.48l2.56 2.56 1.28 1.28 1.28 1.28 1.28 1.28h1.28l2.56 1.28h11.52l2.56-1.28h1.28s1.28 0 1.28-1.28h1.28s1.28 0 1.28-1.28h1.28l2.56-2.56c30.72-37.12 81.92-56.32 152.32-56.32 39.68 0 122.88 6.4 240.64 49.92l-28.16 34.56zm47.36-79.36c-35.84-14.08-90.88-32-152.32-43.52-37.12-6.4-71.68-10.24-103.68-10.24-60.16 0-110.08 12.8-148.48 37.12V253.44c70.4-51.2 142.08-78.08 212.48-78.08 28.16 0 55.04 3.84 81.92 12.8 56.32 17.92 94.72 49.92 110.08 64v492.8z"></path></svg><span>1173</span></li>
+                    </ul><div class="summary">
+                        1.调用本地接口：
+先看最基本的调用代码：public interface testFunction extends Library{  
+  
+	testFunction INSTANCE = (t...
+                    </div>
+                    
+                </dd>
+</a>
+            </dl>
+            </div>
+<script type="text/javascript">
+    var fileName = '56489375';
+    var commentscount = 1;
+    var islock = false
+document.domain = "csdn.net";
+</script>
+
+    <div id="ad_bot">
+    </div>
+<div id="report_dialog">
+</div>
+
+<div id="d-top" style="bottom:60px;">
+
+
+        <a id="quick-reply" class="btn btn-top q-reply" title="快速回复" style="display:none;">
+            <img src="./JNI 和 JNA，java和其他语言的互调 - 不止于代码 - CSDN博客_files/blog-icon-reply.png" alt="快速回复">
+        </a>    
+    <a id="d-top-a" class="btn btn-top backtop" style="display: none;" title="返回顶部" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_huidaodingbu&#39;])">         
+         <img src="./JNI 和 JNA，java和其他语言的互调 - 不止于代码 - CSDN博客_files/top.png" alt="TOP">
+    </a>
+</div>
+<script type="text/javascript">
+    $(function ()
+    {
+        $("#ad_frm_0").height("90px");
+        
+        setTimeout(function(){
+            $("#ad_frm_2").height("200px");
+        },1000);    
+    });
+  
+</script>
+<style type="text/css">
+    .tag_list
+    {
+        background: none repeat scroll 0 0 #FFFFFF;
+        border: 1px solid #D7CBC1;
+        color: #000000;
+        font-size: 12px;
+        line-height: 20px;
+        list-style: none outside none;
+        margin: 10px 2% 0 1%;
+        padding: 1px;
+    }
+    .tag_list h5
+    {
+        background: none repeat scroll 0 0 #E0DBD3;
+        color: #47381C;
+        font-size: 12px;
+        height: 24px;
+        line-height: 24px;
+        padding: 0 5px;
+        margin: 0;
+    }
+    .tag_list h5 a
+    {
+        color: #47381C;
+    }
+    .classify
+    {
+        margin: 10px 0;
+        padding: 4px 12px 8px;
+    }
+    .classify a
+    {
+        margin-right: 20px;
+        white-space: nowrap;
+    }
+</style>
+
+
+
+
+
+
+<div id="pop_win" style="display:none ;position: absolute; z-index: 10000; border: 1px solid rgb(220, 220, 220); top: 222.5px; left: 630px; opacity: 1; background: none 0px 0px repeat scroll rgb(255, 255, 255);">
+    
+</div>
+<div id="popup_mask"></div>
+<style>
+    #popup_mask
+    {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: #000;
+        z-index: 9999;
+        left: 0px;
+        top: 0px;
+        opacity: 0.3;
+        filter: alpha(opacity=30);
+        display: none;
+    }
+
+</style>
+
+
+
+
+
+<script type="text/javascript">
+    $(function(){        
+        
+        setTimeout(function(){
+            $(".comment_body:contains('回复')").each(function(index,item){
+                var u=$(this).text().split('：')[0].toString().replace("回复","")
+                var thisComment=$(this);
+                if(u)
+                {
+                    $.getJSON("https://passport.csdn.net/get/nick?callback=?", {users: u}, function(a) {
+                        if(a!=null&&a.data!=null&&a.data.length>0)
+                        {
+                            nick=a.data[0].n; 
+                            if(u!=nick)
+                            {
+                                thisComment.text(thisComment.text().replace(u,nick));  
+                            }
+                        }       
+                    });  
+                }
+            });         
+
+        },200);  
+
+        setTimeout(function(){
+            $(".math").each(function(index,value){$(this).find("span").last().css("color","#fff"); })
+        },5000);
+
+        setTimeout(function(){
+            $(".math").each(function(index,value){$(this).find("span").last().css("color","#fff"); })
+        },10000);
+
+        setTimeout(function(){
+            $(".math").each(function(index,value){$(this).find("span").last().css("color","#fff"); })
+        },15000);
+        
+        setTimeout(function(){
+            $("a img[src='http://js.tongji.linezing.com/stats.gif']").parent().css({"position":"absolute","left":"50%"});
+        },300);
+    });
+
+    function loginbox(){
+        var $logpop=$("#pop_win");
+        $logpop.html('<iframe src="https://passport.csdn.net/account/loginbox?service=http://static.blog.csdn.net/callback.htm" frameborder="0" height="600" width="400" scrolling="no"></iframe>');
+
+        $('#popup_mask').css({
+            opacity: 0.5,
+            width: $( document ).width() + 'px',
+            height:  $( document ).height() + 'px'
+        });
+        $('#popup_mask').css("display","block");
+ 
+        $logpop.css( {
+            top: ($( window ).height() - $logpop.height())/ 2  + $( window 
+       ).scrollTop() + 'px',
+            left:($( window ).width() - $logpop.width())/ 2
+        } );
+ 
+        setTimeout( function () {
+            $logpop.show();
+            $logpop.css( {
+                opacity: 1
+            } );
+        }, 200 );
+ 
+        $('#popup_mask').unbind("click");
+        $('#popup_mask').bind("click", function(){
+            $('#popup_mask').hide();
+            var $clopop = $("#pop_win");
+            $("#common_ask_div_sc").css("display","none");
+            $clopop.css( {
+                opacity: 0
+            } );
+            setTimeout( function () {
+                $clopop.hide();
+            }, 350 );
+            return false;
+        });
+    }   
+
+    var articletitle='JNI 和 JNA，java和其他语言的互调';
+
+</script>
+<script src="./JNI 和 JNA，java和其他语言的互调 - 不止于代码 - CSDN博客_files/appendMark.min.js.下载" type="text/javascript"></script>
+<script type="text/javascript">
+    appendMark($('.recommend_list').children('a').find('dt'),$('.extension_other'))
+</script>
+
+
+
+
+
+
+
+
+
+                    <div class="clear">
+                    </div>
+                </div>
+
+            </div>
+
+            <div id="side">
+                
+
+    <div class="side">
+
+<div id="panel_Profile" class="panel">
+<ul class="panel_head"><span>个人资料</span></ul>
+<ul class="panel_body profile">
+<div id="blog_userface">
+    <a href="http://my.csdn.net/u014132659" target="_blank">
+    <img src="./JNI 和 JNA，java和其他语言的互调 - 不止于代码 - CSDN博客_files/1_u014132659.jpg" title="访问我的空间" style="max-width:90%">
+    </a>
+    <br>
+    <span><a href="http://my.csdn.net/u014132659" class="user_name" target="_blank">蜗牛狂奔哈</a></span>
+</div>
+<div class="interact">
+
+    <a href="javascript:void(0);" class="attent" id="span_add_follow" title="[加关注]"></a>
+
+ <a href="javascript:void(0);" class="letter" title="[发私信]" onclick="window.open(&#39;http://msg.csdn.net/letters/model?receiver=u014132659&#39;,&#39;_blank&#39;,&#39;height=350,width=700&#39;);_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_sixin&#39;])"></a>  
+</div>
+<div id="blog_medal">
+                <div id="bms_box">
+                                            <a target="_blank">
+                                                    <img src="./JNI 和 JNA，java和其他语言的互调 - 不止于代码 - CSDN博客_files/chizhiyiheng.png" onmouseover="m_over_m(this,4)" onmouseout="m_out_m()" alt="1">
+                                            </a>
+               </div>
+
+</div>
+<ul id="blog_rank">
+    <li>访问：<span>27016次</span></li>
+    <li>积分：<span>697</span> </li>    
+    <li>等级： <span style="position:relative;display:inline-block;z-index:1">
+            <img src="./JNI 和 JNA，java和其他语言的互调 - 不止于代码 - CSDN博客_files/blog3.png" alt="" style="vertical-align: middle;" id="leveImg">
+            <div id="smallTittle" style=" position: absolute;  left: -24px;  top: 25px;  text-align: center;  width: 101px;  height: 32px;  background-color: #fff;  line-height: 32px;  border: 2px #DDDDDD solid;  box-shadow: 0px 2px 2px rgba (0,0,0,0.1);  display: none;   z-index: 999;">
+            <div style="left: 42%;  top: -8px;  position: absolute;  width: 0;  height: 0;  border-left: 10px solid transparent;  border-right: 10px solid transparent;  border-bottom: 8px solid #EAEAEA;"></div>
+            积分：697 </div>
+        </span>  </li>
+    <li>排名：<span>千里之外</span></li>
+</ul>
+<ul id="blog_statistics">
+    <li>原创：<span>38篇</span></li>
+    <li>转载：<span>29篇</span></li>
+    <li>译文：<span>1篇</span></li>
+    <li>评论：<span>3条</span></li>
+</ul>
+</ul>
+</div>
+
+
+     
+<div class="panel" id="panel_Search">
+    <ul class="panel_head"><span>文章搜索</span></ul>
+    <ul class="panel_body">
+        <form id="frmSearch" class="form_search csdn-tracking-statistics" data-pid="blog" target="_blank" data-mod="popu_306">
+        <span><input id="inputSearch" type="text" class="blogsearch" title="请输入关键字"></span>
+        <input id="btnSubmit" type="button" value="搜索" title="search in blog">
+        </form>
+    </ul>
+</div>
+
+<script type="text/javascript">
+
+   
+    $(function () {
+        $("#btnSubmit").unbind("click");
+        $("#btnSubmit").click(function () {           
+            search();
+        });
+
+        $("#frmSearch").submit(function () {           
+            search();
+            return false;
+        });
+
+        function search()
+        {
+            if ($("#inputSearch").val() == "") {               
+                alert("请录入搜索关键词！");                         
+                return false;
+            }
+            //var url = "http://so.csdn.net/so/search/s.do?q=" + encodeURIComponent($("#inputSearch").val()) + "&u=" + username + "&t=blog";           
+            var url = "https://www.baidu.com/s?wd=" + encodeURIComponent($("#inputSearch").val()) + "%20site%3Ablog.csdn.net"
+            var url = "/" + username + "?q=" + encodeURIComponent($("#inputSearch").val());
+            window.location.href = url;
+        }   
+    });
+</script> 
+<div id="panel_Category" class="panel">
+<ul class="panel_head"><span>文章分类</span></ul>
+<ul class="panel_body">    
+                 <li>
+                    <a href="http://blog.csdn.net/u014132659/article/category/6307970" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">linux系统使用</a><span>(10)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/u014132659/article/category/6190641" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">arm</a><span>(1)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/u014132659/article/category/6295466" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">git</a><span>(4)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/u014132659/article/category/6094158" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">c/c++</a><span>(18)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/u014132659/article/category/6109376" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">使用计算机时出现的问题</a><span>(1)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/u014132659/article/category/6308377" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">gdb</a><span>(1)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/u014132659/article/category/6308385" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">makefile</a><span>(2)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/u014132659/article/category/6327736" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">vim</a><span>(5)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/u014132659/article/category/6327741" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">python</a><span>(4)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/u014132659/article/category/6390890" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">bug</a><span>(1)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/u014132659/article/category/6410381" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">知识补充</a><span>(2)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/u014132659/article/category/6425933" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">gcc</a><span>(4)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/u014132659/article/category/6428261" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">binutils工具集</a><span>(5)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/u014132659/article/category/6677953" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">Java</a><span>(4)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/u014132659/article/category/6747250" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">linux编程</a><span>(2)</span>
+                </li>
+</ul>
+</div>
+<div id="panel_Archive" class="panel">
+<ul class="panel_head"><span>文章存档</span></ul>
+<ul class="panel_body">
+<div id="archive_list"><li><a href="http://blog.csdn.net/u014132659/article/month/2017/12">2017年12月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/u014132659/article/month/2017/11">2017年11月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/u014132659/article/month/2017/06">2017年06月</a><span>(5)</span></li><li><a href="http://blog.csdn.net/u014132659/article/month/2017/05">2017年05月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/u014132659/article/month/2017/04">2017年04月</a><span>(6)</span></li><span class="hidelist" style="display:none;"><li><a href="http://blog.csdn.net/u014132659/article/month/2017/03">2017年03月</a><span>(4)</span></li><li><a href="http://blog.csdn.net/u014132659/article/month/2017/02">2017年02月</a><span>(4)</span></li><li><a href="http://blog.csdn.net/u014132659/article/month/2017/01">2017年01月</a><span>(3)</span></li><li><a href="http://blog.csdn.net/u014132659/article/month/2016/09">2016年09月</a><span>(13)</span></li><li><a href="http://blog.csdn.net/u014132659/article/month/2016/08">2016年08月</a><span>(6)</span></li><li><a href="http://blog.csdn.net/u014132659/article/month/2016/07">2016年07月</a><span>(13)</span></li><li><a href="http://blog.csdn.net/u014132659/article/month/2016/06">2016年06月</a><span>(4)</span></li><li><a href="http://blog.csdn.net/u014132659/article/month/2016/05">2016年05月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/u014132659/article/month/2016/04">2016年04月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/u014132659/article/month/2016/03">2016年03月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/u014132659/article/month/2016/02">2016年02月</a><span>(1)</span></li></span><div id="archive_list_button" class="list_closed">展开</div></div>
+</ul>
+</div>
+
+<div id="hotarticls" class="panel csdn-tracking-statistics" data-pid="blog" data-mod="popu_340">
+<ul class="panel_head">
+    <span>       
+阅读排行    </span>
+</ul>
+
+<ul class="panel_body itemlist">
+<li>
+<a href="http://blog.csdn.net/u014132659/article/details/52252298" title="linux三种方式使用库：静态链接库，动态链接库，动态加载库" target="_blank">linux三种方式使用库：静态链接库，动态链接库，动态加载库</a><span>(3469)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/u014132659/article/details/52619303" title="binutils安装步骤" target="_blank">binutils安装步骤</a><span>(3120)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/u014132659/article/details/52669623" title="binutils编译" target="_blank">binutils编译</a><span>(2618)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/u014132659/article/details/54407843" title="eclipse插件开发(导出插件，安装插件)" target="_blank">eclipse插件开发(导出插件，安装插件)</a><span>(1965)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/u014132659/article/details/52247690" title="Linux操作系统下运行命令时Ctrl+C和Ctrl+Z的作用及恢复" target="_blank">Linux操作系统下运行命令时Ctrl+C和Ctrl+Z的作用及恢复</a><span>(1089)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/u014132659/article/details/56489375" title="JNI 和 JNA，java和其他语言的互调" target="_blank">JNI 和 JNA，java和其他语言的互调</a><span>(778)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/u014132659/article/details/50752062" title="使用计算机时出现的问题---多个本地连接" target="_blank">使用计算机时出现的问题---多个本地连接</a><span>(404)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/u014132659/article/details/54800088" title="vimdiff比较两个文件" target="_blank">vimdiff比较两个文件</a><span>(370)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/u014132659/article/details/70915720" title="python调用c接口" target="_blank">python调用c接口</a><span>(363)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/u014132659/article/details/70918567" title="python调用c函数参数类型问题" target="_blank">python调用c函数参数类型问题</a><span>(340)</span>
+</li>
+</ul>
+</div>
+
+<div id="hotarticls2" class="panel csdn-tracking-statistics" data-pid="blog" data-mod="popu_341" "="">
+<ul class="panel_head"><span>评论排行</span></ul>
+<ul class="panel_body itemlist">
+<li>
+<a href="http://blog.csdn.net/u014132659/article/details/52252298" title="linux三种方式使用库：静态链接库，动态链接库，动态加载库" target="_blank">linux三种方式使用库：静态链接库，动态链接库，动态加载库</a><span>(1)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/u014132659/article/details/54407843" title="eclipse插件开发(导出插件，安装插件)" target="_blank">eclipse插件开发(导出插件，安装插件)</a><span>(1)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/u014132659/article/details/56489375" title="JNI 和 JNA，java和其他语言的互调" target="_blank">JNI 和 JNA，java和其他语言的互调</a><span>(1)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/u014132659/article/details/51770823" title="git版本管理工具" target="_blank">git版本管理工具</a><span>(0)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/u014132659/article/details/51749531" title="linux下rar使用" target="_blank">linux下rar使用</a><span>(0)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/u014132659/article/details/78796506" title="extern复习" target="_blank">extern复习</a><span>(0)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/u014132659/article/details/51546296" title="centos安装软件命令" target="_blank">centos安装软件命令</a><span>(0)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/u014132659/article/details/51545020" title="vimrc常用配置以及vim常用操作" target="_blank">vimrc常用配置以及vim常用操作</a><span>(0)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/u014132659/article/details/51544754" title="ubuntu更新常用命令" target="_blank">ubuntu更新常用命令</a><span>(0)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/u014132659/article/details/51184442" title="2 ARM7的三级流水线过程" target="_blank">2 ARM7的三级流水线过程</a><span>(0)</span>
+</li>
+</ul>
+</div>
+
+<div id="homepageArticles" class="panel csdn-tracking-statistics" data-pid="blog" data-mod="popu_4" style="height:250px;">
+
+    <div id="cpro_u2734133" style="text-align:center;">
+      
+        <!-- 投放代码 -->
+        <div id="_pgh6t65wzd" style=""><iframe width="250" frameborder="0" height="250" scrolling="no" src="./JNI 和 JNA，java和其他语言的互调 - 不止于代码 - CSDN博客_files/s(2).html"></iframe></div><script type="text/javascript" src="./JNI 和 JNA，java和其他语言的互调 - 不止于代码 - CSDN博客_files/bwlxosfoo.js.下载"></script>
+      
+
+    </div>
+
+
+</div>
+
+
+<div id="newcomments" class="panel">
+<ul class="panel_head"><span>最新评论</span></ul>
+<ul class="panel_body itemlist">
+    <li>
+   
+         <a href="http://blog.csdn.net/u014132659/article/details/52252298#comments">linux三种方式使用库：静态链接库，动态链接库，动态加载库</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/seek_0380" class="user_name">Eliot_shao</a>:
+学习了
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/u014132659/article/details/56489375#comments">JNI 和 JNA，java和其他语言的互调</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/ygrssm" class="user_name">ygrssm</a>:
+讲的很好。
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/u014132659/article/details/54407843#comments">eclipse插件开发(导出插件，安装插件)</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/ZHJUNJUN93" class="user_name">googlewo</a>:
+666666
+    </p>
+    </li>
+</ul>
+</div>
+
+    </div>
+    <div class="clear">
+    </div>
+
+                        <div class="csdn-tracking-statistics" data-pid="blog" data-view="true" data-mod="ad_popu_189" data-mtp="63" data-order="40" data-con="ad_content_1259" style="width: 250px; height: 250px;">
+                            <div id="nav_show_top_stop" style="width: 250px; height: 250px; z-index: 1000; position: fixed; top: 0px;">
+
+                                <div id="cpro_u3031286" style="text-align:center;">
+                                    <!-- 投放代码 -->
+                                    <div id="_fjuk64cjpt4" style="width: 100%;"><div style="cursor:auto;"><div id="vioddpk"><iframe width="250" frameborder="0" height="250" scrolling="no" src="./JNI 和 JNA，java和其他语言的互调 - 不止于代码 - CSDN博客_files/s(3).html"></iframe></div></div></div><script type="text/javascript" src="./JNI 和 JNA，java和其他语言的互调 - 不止于代码 - CSDN博客_files/bwocoflyv.js.下载"></script>
+                                    
+
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <script>
+
+                            setTimeout(function ()
+                            {
+                                var naviga_offsetTop = 0; function naviga_stay_top()
+                                {
+                                    var scrollTop = jQuery(document).scrollTop();
+                                    if (scrollTop > naviga_offsetTop) {
+                                        jQuery("#nav_show_top_stop").css({ "position": "fixed" });
+                                        jQuery("#nav_show_top_stop").css({ "top": "0px" });
+                                    } else { jQuery("#nav_show_top_stop").css({ "position": "fixed" }); jQuery("#nav_show_top_stop").css({ "top": naviga_offsetTop - scrollTop + "px" }); }
+                                }
+                                function onload_function()
+                                {
+                                    naviga_offsetTop = jQuery("#nav_show_top_stop").position().top;
+                                    jQuery(window).bind("scroll", naviga_stay_top); jQuery(window).bind("mousewheel", naviga_stay_top);
+                                    jQuery(document).bind("scroll", naviga_stay_top); jQuery(document).bind("mousewheel", naviga_stay_top);
+                                } jQuery(document).ready(onload_function);
+                            }, 200);
+
+                        </script>
+
+            </div>
+            <div class="clear">
+            </div>
+        </div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+    $(function () {
+        function __get_code_toolbar(snippet_id) {
+            return $("<span class='csdn-tracking-statistics' data-pid=\"blog\"  data-mod='popu_167'><a href='https://code.csdn.net/snippets/"
+                    + snippet_id
+                    + "' target='_blank' title='在CODE上查看代码片'  style='text-indent:0;'><img src='https://code.csdn.net/assets/CODE_ico.png' width=12 height=12 alt='在CODE上查看代码片' style='position:relative;top:1px;left:2px;'/></a></span>"
+                + "<span class='csdn-tracking-statistics' data-pid=\"blog\"  data-mod='popu_170'><a href='https://code.csdn.net/snippets/"
+                    + snippet_id
+                    + "/fork' target='_blank' title='派生到我的代码片' style='text-indent:0;'><img src='https://code.csdn.net/assets/ico_fork.svg' width=12 height=12 alt='派生到我的代码片' style='position:relative;top:2px;left:2px;'/></a></span>");
+        }
+        
+        $("[code_snippet_id]").each(function () {
+            __s_id = $(this).attr("code_snippet_id");
+            if (__s_id != null && __s_id != "" && __s_id != 0 && parseInt(__s_id) > 70020) {
+                __code_tool = __get_code_toolbar(__s_id);
+                $(this).prev().find(".tools").append(__code_tool);
+            }
+        });
+
+        $(".bar").show();
+    });
+</script>
+
+
+
+
+
+    </div>
+
+
+
+        <script type="text/javascript" src="./JNI 和 JNA，java和其他语言的互调 - 不止于代码 - CSDN博客_files/MathJax.js.下载"></script>
+
+    <script src="./JNI 和 JNA，java和其他语言的互调 - 不止于代码 - CSDN博客_files/csdn_blog_detail.min.js.下载" type="text/javascript"></script><link rel="stylesheet" type="text/css" href="./JNI 和 JNA，java和其他语言的互调 - 不止于代码 - CSDN博客_files/pub_footer_2014.css"><div class="pub_fo"><div id="pub_footerall" class="pub_footer_new"><dl><dt></dt> <dd class="foot_sub_menu"><a href="http://www.csdn.net/company/about.html" target="_blank">公司简介</a><span>|</span><a href="http://www.csdn.net/company/recruit.html" target="_blank">招贤纳士</a><span>|</span><a href="http://www.csdn.net/company/marketing.html" target="_blank">广告服务</a><span>|</span><a href="http://www.csdn.net/company/contact.html" target="_blank">联系方式</a><span>|</span><a href="http://www.csdn.net/company/statement.html" target="_blank">版权声明</a><span>|</span><a href="http://www.csdn.net/company/layer.html" target="_blank">法律顾问</a><span>|</span><a href="mailto:webmaster@csdn.net">问题报告</a><span>|</span><a target="_blank" href="http://www.csdn.net/friendlink.html">合作伙伴</a><span>|</span><a href="http://bbs.csdn.net/forums/Service" target="_blank">论坛反馈</a></dd><dd class="foot_contact"><a href="javascript:void(0);" target="_blank" class="qq">网站客服</a><a href="http://wpa.qq.com/msgrd?v=3&amp;uin=2251809102&amp;site=qq&amp;menu=yes" target="_blank" class="qq">杂志客服</a><a href="http://e.weibo.com/csdnsupport/profile" target="_blank" class="weibo">微博客服</a><a href="mailto:webmaster@csdn.net" class="email" title="联系邮箱">webmaster@csdn.net</a><span class="phone" title="服务热线">400-660-0108</span><span class="interval">|</span><span>北京创新乐知信息技术有限公司 版权所有</span><span class="interval">|</span><span>江苏知之为计算机有限公司</span><span class="interval">|</span><span>江苏乐知网络技术有限公司</span></dd><dd class="foot_copyright"><span>京&nbsp;ICP&nbsp;证&nbsp;09002463&nbsp;号</span><span class="interval">|</span><span>Copyright © 1999-2017, CSDN.NET, All Rights Reserved&nbsp;</span><a href="http://www.hd315.gov.cn/beian/view.asp?bianhao=010202001032100010" target="_blank"><img src="./JNI 和 JNA，java和其他语言的互调 - 不止于代码 - CSDN博客_files/gongshang_logos.gif" alt="GongshangLogo" title=""></a></dd></dl></div></div><script id="noticeScript" type="text/javascript" btnid="header_notice_num" wrapid="note1" count="5" subcount="5" src="./JNI 和 JNA，java和其他语言的互调 - 不止于代码 - CSDN博客_files/notify.js.下载"></script><input type="hidden" id="aa_g_data_ids">
+
+    <script type="text/javascript" src="./JNI 和 JNA，java和其他语言的互调 - 不止于代码 - CSDN博客_files/csdn_public_blog_detail.min.js.下载"></script>
+
+    <script type="text/javascript" src="./JNI 和 JNA，java和其他语言的互调 - 不止于代码 - CSDN博客_files/showblogmedal.ashx"></script>
+
+
+    <div id="a52b5334d" style="width: 1px; height: 1px; display: none;">
+        <script id="adJs52b5334" src="./JNI 和 JNA，java和其他语言的互调 - 不止于代码 - CSDN博客_files/52b5334.js.下载"></script>
+        <script>document.getElementById("adJs52b5334").src = "http://ads.csdn.net/js/opt/52b5334.js?t=" + Math.random();</script>
+    </div>
+
+    <div class="pop_CA_cover" style="display:none"></div>
+    <div class="pop pop_CA" style="display:none">
+        <div class="CA_header">
+            收藏助手
+            <span class="cancel_icon" id="fapancle" onclick="$(&#39;.pop_CA&#39;).hide();$(&#39;.pop_CA_cover&#39;).hide();"></span>
+        </div>
+        <iframe src="./JNI 和 JNA，java和其他语言的互调 - 不止于代码 - CSDN博客_files/saved_resource(2).html" id="fa" frameborder="0" width="100%" height="360" scrolling="no"></iframe>
+    </div>
+
+
+        <script type="text/javascript">
+
+            $(function ()
+            {
+                var fromjs = $("#fromjs");
+                if (fromjs.length > 0) {
+                    $("#fromjs .markdown_views pre").addClass("prettyprint");
+                    prettyPrint();
+
+                    $('pre.prettyprint code').each(function ()
+                    {
+                        var lines = $(this).text().split('\n').length;
+                        var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                        $(this).addClass('has-numbering').parent().append($numbering);
+                        for (i = 1; i <= lines; i++) {
+                            $numbering.append($('<li/>').text(i));
+                        };
+                        $numbering.fadeIn(1700);
+                    });
+
+                    $('.pre-numbering li').css("color", "#999");
+                }
+            });
+
+            $(".markdown_views a[target!='_blank']").attr("target", "_blank");
+
+            //$(".toc a[target='_blank']").attr("target", "");
+
+            setTimeout(function ()
+            {
+                $(".toc a[target='_blank']").attr("target", "");
+            }, 500);
+
+        </script>
+
+
+
+<div style="position:fixed; top:0; left:0; overflow:hidden;"><input style="position:absolute; left:-300px;" type="text" value="" id="focus_retriever" readonly="true"></div></body></html>

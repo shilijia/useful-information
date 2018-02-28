@@ -1,0 +1,10 @@
+/**The <li> list-style is set to none in template's css, override it here**/
+.postBody li {
+        list-style-type: disc;
+        margin-left:1em;
+}
+
+strong
+{
+    //font-size:15px;
+}

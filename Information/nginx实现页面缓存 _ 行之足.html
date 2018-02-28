@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<!-- saved from url=(0036)https://www.yangrunwei.com/a/31.html -->
+<html lang="zh-cmn-Hans"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="viewport" content="width=device-width, user-scalable=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><meta name="theme-color" content="#000000"><meta name="mobile-web-app-capable" content="yes"><meta name="author" content="杨润炜"><meta name="keywords" content="nginx实现页面缓存, 行之足, nginx"><meta name="description" content="利用nginx来配置网站首页缓存，减轻服务器压力。 | 行之足"><link rel="stylesheet" href="./nginx实现页面缓存 _ 行之足_files/article.css"><link rel="shortcut icon" type="image/x-icon" href="https://static.yangrunwei.com/blog/1495261963149/assets/favicon.ico"><title>nginx实现页面缓存 | 行之足</title><script src="./nginx实现页面缓存 _ 行之足_files/hm.js.下载"></script><script>// 百度统计
+var _hmt = _hmt || [];
+  (function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?d60b0a59e2ab9d19d2726d7e54b97ec0";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+
+// 百度自动推送</script><!--   (function(){--><!--     var bp = document.createElement('script');--><!--     bp.src = '//push.zhanzhang.baidu.com/push.js';--><!--     var s = document.getElementsByTagName("script")[0];--><!--     s.parentNode.insertBefore(bp, s);--><!--   })();--><script>//- 公共全局变量
+window.staticDomain = "https://static.yangrunwei.com/blog/1495261963149/assets";
+window.jsDomain = "https://static.yangrunwei.com/blog/1495261963149/assets/assets/js";
+window.portalUrl = 'https://www.yangrunwei.com';
+
+// iframe嵌套
+if(!~window.top.location.host.indexOf('')){
+  window.top.location.host = ''
+}</script></head><body><div class="ui inverted labeled icon left inline vertical sidebar menu"><a href="https://www.yangrunwei.com/" class="item"><i class="home icon"></i>首页</a><a href="https://www.yangrunwei.com/tech" class="item"><i class="block layout icon"></i>技术</a><a href="https://www.yangrunwei.com/life" class="item"><i class="smile icon"></i>生活杂记</a><a href="https://www.yangrunwei.com/search" class="item"><i class="search icon"></i>搜索</a></div><div class="pusher"><!--图片延迟加载--><div class="container"><div class="header"><div class="mixin-top-bar"><div class="ui pointing menu"><a href="https://www.yangrunwei.com/" class="item">首页</a><a href="https://www.yangrunwei.com/tech" class="item">技术</a><a href="https://www.yangrunwei.com/life" class="item">生活杂记</a><a class="item menu-icon"><i class="sidebar icon"></i></a><div class="right menu"><div class="item"><div class="ui transparent icon input"><input type="text" placeholder="Search..." class="search-input"><i class="search link icon search-icon"></i></div></div></div></div><div class="m-side-bar"></div></div></div><div class="body"><div class="article-wrapper"><h1 class="title t-c">nginx实现页面缓存</h1><div class="author-and-time clear-fix"><div class="author f-l">作者：杨润炜</div><div class="time f-r t-r">日期：2016/2/23 16:47</div></div><div class="article-tags"><a href="https://www.yangrunwei.com/tag/nginx" class="ui tag label mini">nginx</a></div><div class="content markdown-body editormd-preview-container"><p>网站的首页往往是该网站访问量最大的页面，如果首页的业务比较复杂，后台对些页面需要使用较多的系统资源，包括CPU和内存，这就要求我们能够采用一些手段来减轻服务器的资源压力了。</p>
+<h2 id="h2-nginx-"><a name="nginx实现页面缓存" class="reference-link"></a><span class="header-link octicon octicon-link"></span>nginx实现页面缓存</h2><p>nginx下的conf目录里修改nginx.conf文件如下：</p>
+<pre class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><code><span class="pln">http </span><span class="pun">{</span></code></li><li class="L1"><code><span class="pun">...</span></code></li><li class="L2"><code><span class="pln">proxy_cache_path  </span><span class="pun">/</span><span class="pln">tmp</span><span class="pun">/</span><span class="pln">cache  keys_zone</span><span class="pun">=</span><span class="pln">tmpcache</span><span class="pun">:</span><span class="lit">200m</span><span class="pun">;</span></code></li><li class="L3"><code><span class="pun">...</span></code></li><li class="L4"><code><span class="pun">}</span></code></li></ol></pre><p>在应用的路由配置文件里修改如下：</p>
+<pre class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><code><span class="pln">server </span><span class="pun">{</span></code></li><li class="L1"><code><span class="pln">    </span><span class="pun">...</span></code></li><li class="L2"><code><span class="pln">    location </span><span class="pun">=</span><span class="pln"> </span><span class="pun">/</span><span class="pln"> </span><span class="pun">{</span></code></li><li class="L3"><code><span class="pln">        limit_req zone</span><span class="pun">=</span><span class="pln">allips burst</span><span class="pun">=</span><span class="lit">4</span><span class="pun">;</span></code></li><li class="L4"><code><span class="pln">        proxy_set_header  </span><span class="typ">Host</span><span class="pln"> $host</span><span class="pun">;</span></code></li><li class="L5"><code><span class="pln">        proxy_set_header X</span><span class="pun">-</span><span class="typ">Real</span><span class="pun">-</span><span class="pln">IP $remote_addr</span><span class="pun">;</span></code></li><li class="L6"><code><span class="pln">        proxy_headers_hash_max_size </span><span class="lit">1024</span><span class="pun">;</span></code></li><li class="L7"><code><span class="pln">        proxy_headers_hash_bucket_size </span><span class="lit">128</span><span class="pun">;</span></code></li><li class="L8"><code><span class="pln">        proxy_set_header X</span><span class="pun">-</span><span class="typ">Forwarded</span><span class="pun">-</span><span class="typ">For</span><span class="pln"> $proxy_add_x_forwarded_for</span><span class="pun">;</span></code></li><li class="L9"><code><span class="pln">        proxy_set_header </span><span class="typ">Accept</span><span class="pun">-</span><span class="typ">Encoding</span><span class="pln"> </span><span class="str">""</span><span class="pun">;</span></code></li><li class="L0"><code><span class="pln">        proxy_cache tmpcache</span><span class="pun">;</span></code></li><li class="L1"><code><span class="pln">        proxy_cache_key $host$uri$is_args$args</span><span class="pun">;</span></code></li><li class="L2"><code><span class="pln">        proxy_cache_valid </span><span class="lit">200</span><span class="pln"> </span><span class="lit">304</span><span class="pln"> </span><span class="lit">1m</span><span class="pun">;</span><span class="pln">  </span><span class="com">#首页返回200或304时，缓存1分钟</span></code></li><li class="L3"><code><span class="pln">        add_header cached $upstream_cache_status</span><span class="pun">;</span></code></li><li class="L4"><code><span class="pln">        proxy_pass http</span><span class="pun">:</span><span class="com">//127.0.0.1:3100;</span></code></li><li class="L5"><code><span class="pln">        proxy_http_version </span><span class="lit">1.1</span><span class="pun">;</span></code></li><li class="L6"><code><span class="pln">        proxy_set_header </span><span class="typ">Connection</span><span class="pln"> </span><span class="str">""</span><span class="pun">;</span></code></li><li class="L7"><code><span class="pln">    </span><span class="pun">}</span></code></li><li class="L8"><code><span class="pln">    </span><span class="pun">...</span></code></li><li class="L9"><code></code></li><li class="L0"><code><span class="pun">}</span></code></li></ol></pre><p>打开<a href="http://www.yangrunwei.com/">行之足首页</a>，在控制台查看结果，如图：<br><img data-original="https://img.yangrunwei.com/article-img/20160223/f4c7fe6b-9665-451f-8e97-59b73f6495e9--31-1.png" alt="缓存结果" title="缓存结果" data-lazy="true" src="./nginx实现页面缓存 _ 行之足_files/f4c7fe6b-9665-451f-8e97-59b73f6495e9--31-1.png" style="display: inline;"></p>
+<p>HIT 表示命中缓存<br>EXPIRED 表示缓存过期<br>MISS 表示没有找到缓存</p>
+</div></div><div class="remark"><p>感谢您的阅读！<br>如果看完后有任何疑问，欢迎拍砖。<br>欢迎转载，转载请注明出处：http://www.yangrunwei.com/a/31.html<br>邮箱：<a href="mailto:glowrypauky@gmail.com">glowrypauky@gmail.com</a><br>QQ: 892413924</p></div><div class="next-and-pre ui grid"><div class="next-art eight wide column"><span class="t">上一篇：</span><a href="https://www.yangrunwei.com/a/30.html" title="nginx 预防单点故障" class="art-link"><span class="art-title">nginx 预防单点故障</span></a></div><div class="pre-art eight wide column t-r"><span class="t">下一篇：</span><a href="https://www.yangrunwei.com/a/32.html" title="修改git远程仓库地址" class="art-link"><span class="art-title">修改git远程仓库地址</span></a></div></div></div><div class="mixin-footer footer"><p>Copyright© 2015-2016 行之足
+Designed by<a href="https://www.yangrunwei.com/" class="site-link">yangrunwei</a></p><p><a href="http://www.miibeian.gov.cn/" target="_blank">粤ICP备15106353号</a></p></div></div></div><!--[if lt IE 9]><script src="https://www.yangrunwei.com/blog/1450073127077/node_modules/es5-shim/es5-shim.min.js"></script><script src="https://www.yangrunwei.com/blog/1450073127077/node_modules/json3/lib/json3.min.js"></script><![endif]--><script src="./nginx实现页面缓存 _ 行之足_files/article.js.下载"></script><script type="application/ld+json">{
+  "@context": "http://schema.org",
+  "@type": "NewsArticle",
+  "mainEntityOfPage":{
+    "@type":"WebPage",
+    "@id":"https://www.yangrunwei.com/a/31.html"
+  },
+  "headline": "nginx实现页面缓存",
+  "image": {
+    "@type": "ImageObject",
+    "url": "&lt;img src=&quot;https://img.yangrunwei.com/article-img/20160223/f4c7fe6b-9665-451f-8e97-59b73f6495e9--31-1.png&quot; alt=&quot;缓存结果&quot; title=&quot;缓存结果&quot;&gt;",
+    "width": 640
+  },
+  "datePublished": "Tue Feb 23 2016 16:54:47 GMT+0800 (CST)",
+  "author": {
+    "@type": "Person",
+    "name": "杨润炜"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "杨润炜",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "",
+      "width": 600
+    }
+  },
+  "description": "利用nginx来配置网站首页缓存，减轻服务器压力。"
+}</script></body></html>

@@ -1,0 +1,1764 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- saved from url=(0056)http://blog.csdn.net/u014421556/article/details/51543868 -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">  
+
+            <link rel="canonical" href="http://blog.csdn.net/u014421556/article/details/51543868"> 
+ <meta http-equiv="Cache-Control" content="no-siteapp"><link rel="alternate" media="handheld" href="http://blog.csdn.net/u014421556/article/details/51543868#">
+       
+    <title>写一个框架的详细步骤 - 一个人的博客
+        - 博客频道 - CSDN.NET</title>
+    
+    <meta name="description" content="定位所谓定位就是回答几个问题，我出于什么目的要写一个框架，我的这个框架是干什么的，有什么特性适用于什么场景，我的这个框架的用户对象是谁，他们会怎么使用，框架由谁维护将来怎么发展等等。如果你打算写框架，那么肯定心里已经有一个初步的定位，比如它是一个缓存框架、Web MVC框架、IOC框架、ORM/数据访问框架、RPC框架或是一个用于Web开发的全栈式框架。是 否要重复造轮子？除非是练手项">
+
+    <meta name="keywords" content="框架">
+
+   
+    <script type="text/javascript" async="" src="./写一个框架的详细步骤 - 一个人的博客 - 博客频道 - CSDN.NET_files/bcum"></script><script src="./写一个框架的详细步骤 - 一个人的博客 - 博客频道 - CSDN.NET_files/hm.js.下载"></script><script src="./写一个框架的详细步骤 - 一个人的博客 - 博客频道 - CSDN.NET_files/blog_static_head.min.js.下载" type="text/javascript"></script>
+
+    
+        <!--new top-->
+       
+       
+        <!--new top-->
+    
+      <!-- ad begin -->
+         
+    <!-- ad end-->
+
+    <link rel="Stylesheet" type="text/css" href="./写一个框架的详细步骤 - 一个人的博客 - 博客频道 - CSDN.NET_files/style.css">
+
+    
+
+    <link id="RSSLink" title="RSS" type="application/rss+xml" rel="alternate" href="http://blog.csdn.net/u014421556/rss/list">
+    <link rel="shortcut icon" href="http://c.csdnimg.cn/public/favicon.ico">
+    <link type="text/css" rel="stylesheet" href="./写一个框架的详细步骤 - 一个人的博客 - 博客频道 - CSDN.NET_files/blue.css">
+ 
+
+
+
+
+    <link href="./写一个框架的详细步骤 - 一个人的博客 - 博客频道 - CSDN.NET_files/csdn_public_blog_detail.min.css" type="text/css" rel="stylesheet">
+     
+         <link rel="stylesheet" href="./写一个框架的详细步骤 - 一个人的博客 - 博客频道 - CSDN.NET_files/csdn_blog_detail.min.css">
+
+     <script src="./写一个框架的详细步骤 - 一个人的博客 - 博客频道 - CSDN.NET_files/fuckadblock.js.下载" type="text/javascript" charset="utf-8"></script>
+         <script src="./写一个框架的详细步骤 - 一个人的博客 - 博客频道 - CSDN.NET_files/block.js.下载" type="text/javascript" charset="utf-8"></script>
+
+
+    <!-- 请置于所有广告位代码之前 --> 
+            <script src="./写一个框架的详细步骤 - 一个人的博客 - 博客频道 - CSDN.NET_files/ds.js.下载"></script>
+
+<script src="./写一个框架的详细步骤 - 一个人的博客 - 博客频道 - CSDN.NET_files/share.js.下载"></script><link href="./写一个框架的详细步骤 - 一个人的博客 - 博客频道 - CSDN.NET_files/bdsstyle.css" rel="stylesheet" type="text/css"><link rel="stylesheet" type="text/css" href="./写一个框架的详细步骤 - 一个人的博客 - 博客频道 - CSDN.NET_files/job_reco.css"><script src="./写一个框架的详细步骤 - 一个人的博客 - 博客频道 - CSDN.NET_files/wxLogin.js.下载"></script><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Hover_Arrow {position: absolute; width: 15px; height: 11px; cursor: pointer}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; color: #666666}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_Menu_Close {position: absolute; width: 31px; height: 31px; top: -15px; left: -15px}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><link rel="stylesheet" type="text/css" href="./写一个框架的详细步骤 - 一个人的博客 - 博客频道 - CSDN.NET_files/style(1).css"><link type="text/css" rel="stylesheet" href="./写一个框架的详细步骤 - 一个人的博客 - 博客频道 - CSDN.NET_files/style(2).css"><script src="./写一个框架的详细步骤 - 一个人的博客 - 博客频道 - CSDN.NET_files/logger.js.下载"></script><link rel="stylesheet" href="./写一个框架的详细步骤 - 一个人的博客 - 博客频道 - CSDN.NET_files/share_style0_16.css"></head>
+
+
+<body><div id="MathJax_Message" style="display: none;"></div><iframe frameborder="0" style="display: none;" src="./写一个框架的详细步骤 - 一个人的博客 - 博客频道 - CSDN.NET_files/saved_resource.html"></iframe><div class="csdn-toolbar csdn-toolbar-skin-black ">        <div class="container row center-block ">          <div class="col-md-3 pull-left logo clearfix"><a href="http://www.csdn.net/?ref=toolbar" title="CSDN首页" target="_blank" class="icon"></a><a title="频道首页" href="http://blog.csdn.net/?ref=toolbar_logo" class="img blog-icon"></a></div>          <div class="pull-right login-wrap unlogin">            <ul class="btns">              <li class="loginlink"><a href="https://passport.csdn.net/account/login?ref=toolbar" target="_top">登录&nbsp;</a>|<a target="_top" href="http://passport.csdn.net/account/mobileregister?ref=toolbar&amp;action=mobileRegister">&nbsp;注册</a></li>              <li class="search">                <div class="icon on-search-icon">                  <div class="wrap">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                    <form action="http://so.csdn.net/search" id="toolbar_search" method="get" target="_blank">                      <input type="hidden" value="toolbar" name="ref" accesskey="2">                      <div class="border">                        <input placeholder="搜索" type="text" value="" name="q" accesskey="2"><span class="icon-enter-sm"></span>                      </div>                    </form>                  </div>                </div>              </li>              <li class="favor">                <div class="icon on-favor-icon">                  <div class="wrap">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                    <div style="display:none;" class="favor-success"><span class="msg">收藏成功</span>                      <div class="btns"><span class="btn btn-primary ok">确定</span></div>                    </div>                    <div style="display:none;" class="favor-failed"><span class="icon-danger-lg"></span><span class="msg">收藏失败，请重新收藏</span>                      <div class="btns"><span class="btn btn-primary ok">确定</span></div>                    </div>                    <form role="form" class="form-horizontal favor-form">                      <div class="form-group">                        <div class="clearfix">                          <label for="input-title" class="col-sm-2 control-label"><span class="red_txt">*</span>标题</label>                          <div class="col-sm-10">                            <input id="inputTitle" type="text" placeholder="" class="title form-control">                          </div>                        </div>                        <div class="alert alert-danger"><strong></strong>标题不能为空</div>                      </div>                      <div class="form-group" style="display:none;">                        <label for="input-url" class="col-sm-2 control-label">网址</label>                        <div class="col-sm-10">                          <input id="input-url" type="text" placeholder="" class="url form-control">                        </div>                      </div>                      <div class="form-group">                        <label for="input-tag" class="col-sm-2 tag control-label">标签</label>                        <div class="col-sm-10">                          <input id="input-tag" type="text" class="form-control tag">                        </div>                      </div>                      <div class="form-group">                        <label for="input-description" class="description col-sm-2 control-label">位置</label>                        <div class="col-sm-10">                          <div class="my_lib_box">                            个人主页&nbsp;-&nbsp;<a href="http://my.csdn.net/" target="_blank">我的知识</a>                          </div>                          <div class="checkbox">                            <div class="pull-left">                              <label>                                <input type="checkbox" name="share" class="save_lib_map" checked="checked">同时保存至：                              </label>                            </div>                            <div class="pull-left">                              <div class="dropdown">                                <button id="toolbar_sele_map" type="button">                                  选择知识图谱                                  <i class="fa fa-chevron-down"></i>                                </button>                                <div class="top_arr"></div>                                <div class="outside">                                  <ul class="dropdown-menu" id="toolbar_Design_knowledge"><li>选择知识图谱</li></ul>                                </div>                              </div>                            </div>                            <div class="pull-left new_txt">                              <a href="http://lib.csdn.net/my/create/structure" target="_blank">新建？</a>                            </div>                          </div>                        </div>                      </div>                      <div class="form-group">                        <div class="col-sm-offset-2 col-sm-10 ft">                          <div class="col-sm-4 pull-left" style="display:none">                            <div class="checkbox">                              <label>                                <input type="checkbox" name="share" checked="checked" class="share">公开                              </label>                            </div>                          </div>                          <div class="col-sm-8 pull-right favor-btns">                            <button type="button" class="cancel btn btn-default">取消</button>                            <button type="submit" class="submit btn btn-primary">收藏</button>                          </div>                        </div>                      </div>                    </form>                  </div>                </div>              </li>              <li class="notify">                <div style="display:none" class="number"></div>                <div style="display:none" class="icon-hasnotes-sm"></div>                <div id="header_notice_num"></div>                <div class="icon on-notify-icon">                  <div class="wrap">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                    <div id="note1" class="csdn_note">                      <div class="box"></div>                    <iframe src="./写一个框架的详细步骤 - 一个人的博客 - 博客频道 - CSDN.NET_files/saved_resource(1).html" frameborder="0" allowtransparency="true" style="z-index:-1;position:absolute;top:0;left:0;width:100%;height:100%;background:transparent"></iframe></div>                  </div>                </div>              </li>              <li class="ugc">                <div class="icon on-ugc-icon">                  <div class="wrap clearfix">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                    <dl>                      <dt><a href="http://geek.csdn.net/news/expert?ref=toolbar" target="_blank" class="p-news clearfix" style="display:none;"><em class="icon"></em><span>分享资讯</span></a></dt>                      <dt style="border: none;"><a href="http://u.download.csdn.net/upload?ref=toolbar" target="_blank" class="p-doc clearfix"><em class="icon"></em><span>传PPT/文档</span></a></dt>                      <dt><a href="http://bbs.csdn.net/topics/new?ref=toolbar" target="_blank" class="p-ask clearfix"><em class="icon"></em><span>提问题</span></a></dt>                      <dt><a href="http://write.blog.csdn.net/postedit?ref=toolbar" target="_blank" class="p-blog clearfix"><em class="icon"></em><span>写博客</span></a></dt>                      <dt><a href="http://u.download.csdn.net/upload?ref=toolbar" target="_blank" class="p-src clearfix"><em class="icon"></em><span>传资源</span></a></dt>                      <dt><a href="https://code.csdn.net/projects/new?ref=toolbar" target="_blank" class="c-obj clearfix"><em class="icon"></em><span>创建项目</span></a></dt>                      <dt><a href="https://code.csdn.net/snippets/new?ref=toolbar" target="_blank" class="c-code clearfix"><em class="icon"></em><span>创建代码片</span></a></dt>                    </dl>                  </div>                </div>              </li>              <li class="profile">                <div class="icon on-profile-icon"><img src="./写一个框架的详细步骤 - 一个人的博客 - 博客频道 - CSDN.NET_files/100x100.jpg" class="curr-icon-img">                  <div class="wrap clearfix">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                    <div class="bd">                      <dl class="clearfix">                        <dt class="pull-left img"><a target="_blank" href="http://my.csdn.net/?ref=toolbar" class="avatar"><img src="./写一个框架的详细步骤 - 一个人的博客 - 博客频道 - CSDN.NET_files/100x100.jpg"></a></dt>                        <dd class="info" style="border: none;"><a target="_blank" href="http://my.csdn.net/?ref=toolbar" class="nickname"></a><a class="set-nick" href="https://passport.csdn.net/account/profile">设置昵称<span class="write-icon"></span></a><span class="dec"><a class="fill-dec" href="http://my.csdn.net/" target="_blank">编辑自我介绍，让更多人了解你<span class="write-icon"></span></a></span></dd>                      </dl>                    </div>                    <div class="ft clearfix"><a target="_blank" href="http://my.csdn.net/my/account/changepwd?ref=toolbar" class="pull-left"><span class="icon-cog"></span>帐号设置</a><a href="https://passport.csdn.net/account/logout?ref=toolbar" target="_top" class="pull-left" style="margin-left:132px; width:18px; height:27px; white-space:nowrap; overflow:hidden;"><span class="icon-signout"></span><span class="out">退出</span></a></div>                  </div>                </div>              </li>              <li class="apps">                <div id="chasnew123" class="hasnew" style="display: none;"></div>                <div id="cappsarea123" class="icon on-apps-icon">                  <div class="wrap clearfix">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                  <div class="detail">                    <dl>                      <dt>                        <h5>社区</h5>                      </dt>                      <dd> <a href="http://blog.csdn.net/?ref=toolbar" target="_blank">博客</a></dd>                      <dd> <a href="http://bbs.csdn.net/?ref=toolbar" target="_blank">论坛</a></dd>                      <dd> <a href="http://download.csdn.net/?ref=toolbar" target="_blank">下载</a></dd>                      <dd> <a href="http://lib.csdn.net/?ref=toolbar" target="_blank">知识库</a></dd>                      <dd><a href="http://ask.csdn.net/?ref=toolbar" target="_blank">技术问答</a></dd>                      <dd><a href="http://geek.csdn.net/?ref=toolbar" target="_blank">极客头条</a></dd>                      <dd style="display:none"> <a href="http://hero.csdn.net/?ref=toolbar" target="_blank">英雄会</a></dd>                    </dl>                  </div>                  <div class="detail">                    <dl>                      <dt>                        <h5>服务</h5>                      </dt>                      <dd style="display:none"> <a href="http://job.csdn.net/?ref=toolbar" target="_blank">JOB<img src="./写一个框架的详细步骤 - 一个人的博客 - 博客频道 - CSDN.NET_files/new.gif" style="display: none; margin-top: -26px; width: 23px;"></a></dd>                      <dd> <a href="http://edu.csdn.net/?ref=toolbar" target="_blank">学院<img src="./写一个框架的详细步骤 - 一个人的博客 - 博客频道 - CSDN.NET_files/new.gif" style="display: none; margin-top: -26px; width: 23px;"></a></dd>                      <dd> <a href="https://code.csdn.net/?ref=toolbar" target="_blank">CODE</a></dd>                      <dd> <a href="http://huiyi.csdn.net/?ref=toolbar" target="_blank">活动</a></dd>                      <dd> <a href="http://www.csto.com/?ref=toolbar" target="_blank">CSTO</a></dd>                      <dd> <a href="http://mall.csdn.net/?ref=toolbar" target="_blank">C币兑换<img src="./写一个框架的详细步骤 - 一个人的博客 - 博客频道 - CSDN.NET_files/new.gif" style="display: none; margin-top: -26px; width: 23px;"></a></dd>                    </dl>                  </div>                  <div class="detail last">                    <dl>                      <dt>                        <h5>俱乐部</h5>                      </dt>                      <dd> <a href="http://cto.csdn.net/?ref=toolbar" target="_blank">CTO俱乐部</a></dd>                      <dd> <a href="http://student.csdn.net/?ref=toolbar" target="_blank">高校俱乐部</a></dd>                    </dl>                  </div>                </div>              </div>            </li>            </ul>          </div>        </div>    </div>
+       
+
+
+
+    <!-- 广告位开始 -->
+        
+    <!-- 广告位结束 -->
+
+    
+   
+      <!--new top-->
+    <script id="toolbar-tpl-scriptId" fixed="true" prod="blog" skin="black" src="./写一个框架的详细步骤 - 一个人的博客 - 博客频道 - CSDN.NET_files/html.js.下载" type="text/javascript"></script>
+     <!--new top-->
+    <div id="container">
+        <div id="header">
+    <div class="header">
+        <div id="blog_title">
+            <h2>
+                <a href="http://blog.csdn.net/u014421556">一个人的博客</a></h2>
+            <h3></h3>
+            <div class="clear">
+            </div>
+        </div>
+        <div class="clear">
+        </div>
+        
+     
+    </div>
+</div>
+<div id="navigator">
+    <div class="navigator_bg">
+    </div>
+    <div class="navigator">
+        <ul>           
+                <li id="btnContents"><a href="http://blog.csdn.net/u014421556?viewmode=contents"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_mulu&#39;])">
+                    <img src="./写一个框架的详细步骤 - 一个人的博客 - 博客频道 - CSDN.NET_files/ico_list.gif">目录视图</span></a></li>
+                <li id="btnView"><a href="http://blog.csdn.net/u014421556?viewmode=list"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_zhaiyao&#39;])">
+                    <img src="./写一个框架的详细步骤 - 一个人的博客 - 博客频道 - CSDN.NET_files/ico_summary.gif">摘要视图</span></a></li>
+                <li id="btnRss"><a href="http://blog.csdn.net/u014421556/rss/list"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_RSS&#39;])">
+                    <img src="./写一个框架的详细步骤 - 一个人的博客 - 博客频道 - CSDN.NET_files/ico_rss.gif">订阅</span></a></li>                
+            
+
+            </ul>
+    </div>
+</div>
+<script type="text/javascript">
+    var username = "u014421556";
+    var _blogger = username;
+    var blog_address = "http://blog.csdn.net/u014421556";
+    var static_host = "http://static.blog.csdn.net";
+    var currentUserName = "";  
+</script>
+
+        <div id="body">
+            <div id="main">
+                <div class="main">
+                        <div class="ad_class">
+<div class="notice tracking-ad" data-mod="popu_3"> 
+
+
+<a href="http://bss.csdn.net/m/topic/community_IoT/index" target="_blank">
+<font color="red"><strong>【CSDN 技术主题月】物联网全栈开发</strong></font></a>
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+<a href="http://blog.csdn.net/broadview2006/article/details/72901572" target="_blank">
+<font color="blue"><strong>【评论送书】每周荐书：JVM、Nginx、小程序</strong></font></a>
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+<a href="http://blog.csdn.net/blogdevteam/article/details/72903038" target="_blank">
+<font color="red"><strong>CSDN日报20170607 ——《别混淆你想要什么和能否实现》</strong></font></a>
+
+
+</div>                        </div>
+                        
+
+
+
+  
+
+
+
+
+
+
+<script type="text/javascript" src="./写一个框架的详细步骤 - 一个人的博客 - 博客频道 - CSDN.NET_files/category.js.下载"></script>
+
+  <script type="text/ecmascript">
+      window.quickReplyflag = true;
+           
+            var isBole = false;
+            
+      
+      var fasrc="http://my.csdn.net/my/favorite/miniadd?t=%e5%86%99%e4%b8%80%e4%b8%aa%e6%a1%86%e6%9e%b6%e7%9a%84%e8%af%a6%e7%bb%86%e6%ad%a5%e9%aa%a4&u=http://blog.csdn.net/u014421556/article/details/51543868"
+
+    </script>
+<div id="article_details" class="details">
+    <div class="article_title">   
+         <span class="ico ico_type_Original"></span>
+
+
+    <h1>
+        <span class="link_title"><a href="http://blog.csdn.net/u014421556/article/details/51543868">
+        写一个框架的详细步骤            
+        </a></span>
+    </h1>
+</div>
+
+   
+
+        <div class="article_manage clearfix">
+        <div class="article_l">
+            <span class="link_categories">
+            标签：
+              <a href="http://www.csdn.net/tag/%e6%a1%86%e6%9e%b6" target="_blank" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_tag&#39;]);">框架</a>
+            </span>
+        </div>
+        <div class="article_r">
+            <span class="link_postdate">2016-05-31 10:44</span>
+            <span class="link_view" title="阅读次数">8916人阅读</span>
+            <span class="link_comments" title="评论次数"> <a href="http://blog.csdn.net/u014421556/article/details/51543868#comments" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_pinglun&#39;])">评论</a>(3)</span>
+            <span class="link_collect tracking-ad" data-mod="popu_171"> <a href="javascript:void(0);" onclick="javascript:collectArticle(&#39;%e5%86%99%e4%b8%80%e4%b8%aa%e6%a1%86%e6%9e%b6%e7%9a%84%e8%af%a6%e7%bb%86%e6%ad%a5%e9%aa%a4&#39;,&#39;51543868&#39;);return false;" title="收藏" target="_blank">收藏</a></span>
+             <span class="link_report"> <a href="http://blog.csdn.net/u014421556/article/details/51543868#report" onclick="javascript:report(51543868,2);return false;" title="举报">举报</a></span>
+
+        </div>
+    </div>
+    <div class="embody" style="display:none" id="embody">
+        <span class="embody_t">本文章已收录于：</span>
+        <div class="embody_c" id="lib" value="{&quot;err&quot;:0,&quot;msg&quot;:&quot;ok&quot;,&quot;data&quot;:[]}"></div>
+    </div>
+    <style type="text/css">        
+            .embody{
+                padding:10px 10px 10px;
+                margin:0 -20px;
+                border-bottom:solid 1px #ededed;                
+            }
+            .embody_b{
+                margin:0 ;
+                padding:10px 0;
+            }
+            .embody .embody_t,.embody .embody_c{
+                display: inline-block;
+                margin-right:10px;
+            }
+            .embody_t{
+                font-size: 12px;
+                color:#999;
+            }
+            .embody_c{
+                font-size: 12px;
+            }
+            .embody_c img,.embody_c em{
+                display: inline-block;
+                vertical-align: middle;               
+            }
+             .embody_c img{               
+                width:30px;
+                height:30px;
+            }
+            .embody_c em{
+                margin: 0 20px 0 10px;
+                color:#333;
+                font-style: normal;
+            }
+    </style>
+    <script type="text/javascript">
+        $(function () {
+            try
+            {
+                var lib = eval("("+$("#lib").attr("value")+")");
+                var html = "";
+                if (lib.err == 0) {
+                    $.each(lib.data, function (i) {
+                        var obj = lib.data[i];
+                        //html += '<img src="' + obj.logo + '"/>' + obj.name + "&nbsp;&nbsp;";
+                        html += ' <a href="' + obj.url + '" target="_blank">';
+                        html += ' <img src="' + obj.logo + '">';
+                        html += ' <em><b>' + obj.name + '</b></em>';
+                        html += ' </a>';
+                    });
+                    if (html != "") {
+                        setTimeout(function () {
+                            $("#lib").html(html);                      
+                            $("#embody").show();
+                        }, 100);
+                    }
+                }      
+            } catch (err)
+            { }
+            
+        });
+    </script>
+      <div class="category clearfix">
+        <div class="category_l">
+           <img src="./写一个框架的详细步骤 - 一个人的博客 - 博客频道 - CSDN.NET_files/category_icon.jpg">
+            <span>分类：</span>
+        </div>
+        <div class="category_r">
+                    <label onclick="GetCategoryArticles(&#39;6408507&#39;,&#39;u014421556&#39;,&#39;top&#39;,&#39;51543868&#39;);">
+                        <span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_fenlei&#39;]);">IT概念<em>（11）</em></span>
+                      <img class="arrow-down" src="./写一个框架的详细步骤 - 一个人的博客 - 博客频道 - CSDN.NET_files/arrow_triangle _down.jpg" style="display:inline;">
+                      <img class="arrow-up" src="./写一个框架的详细步骤 - 一个人的博客 - 博客频道 - CSDN.NET_files/arrow_triangle_up.jpg" style="display:none;">
+                        <div class="subItem">
+                            <div class="subItem_t"><a href="http://blog.csdn.net/u014421556/article/category/6408507" target="_blank">作者同类文章</a><i class="J_close">X</i></div>
+                            <ul class="subItem_l" id="top_6408507">                            
+                            </ul>
+                        </div>
+                    </label>                    
+        </div>
+    </div>
+        <div class="bog_copyright">         
+            <p class="copyright_p">版权声明：本文为博主原创文章，未经博主允许不得转载。</p>
+        </div>
+
+  
+
+  
+  
+     
+
+
+<div id="article_content" class="article_content tracking-ad" data-mod="popu_307" data-dsm="post">
+
+<blockquote>
+<div id="xunlei_com_thunder_helper_plugin_d462f475-c18e-46be-bd10-327458d045bd"><strong>定位</strong>
+<p>所谓定位就是回答几个问题，我出于什么目的要写一个框架，我的这个框架是干什么的，有什么特性适用于什么场景，我的这个框架的用户对象是谁，他们会怎么使用，框架由谁维护将来怎么发展等等。</p>
+如果你打算写框架，那么肯定心里已经有一个初步的定位，比如它是一个缓存框架、Web MVC框架、IOC框架、ORM/数据访问框架、RPC框架或是一个用于Web开发的全栈式框架。<br>
+是 否要重复造轮子？除非是练手项目，一般我们是有了解决不了问题的时候才会考虑不使用既有的成熟的框架而重复造轮子的，这个时候需要列出新框架主要希望解决 什么问题。有关是否应该重复造轮子的话题讨论了很多，我的建议是在把问题列清后进行简单的研究看看是否可以通过扩展现有的框架来解决这个问题。一般而言大 部分成熟的框架都有一定的扩展和内部组件的替换能力，可以解决大部分技术问题，但在如下情况下我们可能不得不自己去写一个框架，比如即使通过扩展也无法满 足技术需求、安全原因、需要更高的生产力、需要让框架和公司内部的流程更好地进行适配、开源的普适框架无法满足性能需求、二次开发的成本高于重新开发的成
+ 本等等。<br>
+主打轻量级？轻量级是很多人打算自己写一个新框架的原因，但我们要明白，大部分项目在一开始的时候其实都是轻量级的，随着框架 的用户越来越多，它必定需要满足各种奇怪的需求，在经过了无数次迭代之后，框架的主线流程就会多很多扩展点、检测点，这样框架势必变得越来越重（从框架的 入口到框架的工作结束的方法调用层次越来越多，势必框架也就越来越慢），如果你打算把框架定位于一个轻量级的框架的话，那么在今后的迭代过程中需要进行一 些权衡，在心中有坚定的轻量级的理念的同时不断做性能测试来确保框架的轻量，否则随着时间的发展框架可能会越来越重进而偏离了开始的定位。<br>
+特性？如果你打算写一个框架，并且只有轻量级这一个理由的话，你或许应该再为自己的框架想一些新特性，就像做一个产品一样，如果找不出两个以上的亮点，那么这个产品不太可能成功，比如你的新框架可以是一个零配置的框架，可以是一个前端开发也能用的后端框架。<br>
+其它？一般来说框架是给程序员使用的，我们要考虑框架使用的频度是怎么样的，这可能决定的框架的性能需求和稳定性需求。还有，需要考虑框架将来怎么发展，是希望走开源路线还是商业路线。当然，这些问题也可以留到框架有一个大致的结构后再去考虑。
+<p>我们来为本文模拟一个场景，假设我们觉得现有的<a href="http://lib.csdn.net/base/javaee" class="replace_word" title="Java EE知识库" target="_blank" style="color:#df3434; font-weight:bold;">spring</a> MVC等框架开发起来效率有点低，打算重复造轮子，对于新框架的定位是一个给<a href="http://lib.csdn.net/base/java" class="replace_word" title="Java 知识库" target="_blank" style="color:#df3434; font-weight:bold;">Java</a>程序员使用的轻量级的、零配置的、易用的、易扩展的Web MVC框架。</p>
+<p><strong><br>
+调研</strong></p>
+<p>虽然到这里你已经决定去写一个框架了，但是在着手写之前还是至少建议评估一下市面上的类似（成熟）框架。需要做的是通读这些框架的文档以及阅读一些源码，这么做有几个目的：</p>
+通过分析现有框架的功能，可以制定出一个新框架要实现的功能列表。<br>
+通过分析现有框架的问题，总结出新框架需要避免的东西和改善的地方。<br>
+通过阅读现有框架的源码，帮助自己理清框架的主线流程为总体设计做铺垫（后面总体设计部分会更多谈到）。<br>
+如果能充分理解现有的框架，那么你就是站在巨人的肩膀上写框架，否则很可能就是在井底造轮子。
+<p>新 开发一个框架的好处是没有兼容历史版本的包袱，但是责任也同样重大，因为如果对于一开始的定位或设计工作没有做好的话，将来如果要对格局进行改变就会有巨 大的向前兼容的包袱（除非你的框架没有在任何正式项目中使用），兼容意味着框架可能会越来越重，可能会越来越难看，阅读至少一到两个开源实现，做好充分的 调研工作可以使你避免犯大错。</p>
+<p>假设我们评估了一些主流框架后已经很明确，我们的MVC框架是一个Java平台的、基于Servlet的轻量级的Web MVC框架，主要的理念是约定优于配置，高内聚大于低耦合，提供主流Web MVC框架的大部分功能，并且易用方面有所创新，新特性体包括：</p>
+起手零配置，总体上约定由于配置，即使需要扩展配置也支持通过代码和配置文件两种方式进行配置。<br>
+除了Servlet之外不依赖其它类库，支持通过插件方式和诸如Spring等框架进行整合。<br>
+更优化的项目结构，不需要按照传统的Java Web项目结构那样来分离代码和WEB-INF，视图可以和代码在一起，阅读代码更便利。<br>
+拦截器和框架本身更紧密，提供Action、Controller和Global三个级别的"拦截器"（或者说过滤器）。<br>
+丰富的Action的返回值，返回的可以是视图、可以是重定向、可以是文件、可以是字符串、可以是Json数据，可以是Javascript代码等等。<br>
+支持针对测试环境自动生成测试的视图模型数据，以便前端和后端可以同时开发项目。<br>
+支持在开发的时候自动生成路由信息、模型绑定、异常处理等配置的信息页面和调试页面，方便开发和调试。
+<p>提供一套通用的控件模版，使得，并且支持多种模版引擎，比如Jsp、Velocity、Freemarker、Mustache等等。</p>
+<p>嗯，看上去挺诱人的，这是一个不错的开端，如果你要写的框架自己都不觉得想用的话，那么别人就更不会有兴趣来尝试使用你的框架了。</p>
+<p><strong><br>
+解决难点</strong></p>
+<p>之 所以把解决难点放在开搞之前是因为，如果实现这个框架的某些特性，甚至说实现这个框架的主流程有一些核心问题难以解决，那么就要考虑对框架的特性进行调 整，甚至取消框架的开发计划了。有的时候我们在用A平台的时候发现一个很好用的框架，希望把这个框架移植到B平台，这个想法是好的，但之所以在这以前这么 多年没有人这么干过是因为这个平台的限制压根不可能实现这样的东西。比如我们要实现一个MVC框架，势必需要依赖平台提供的反射特性，如果你的语言平台压 根就没有运行时反射这个功能，那么这就是一个非常难以解决的难点。又比如我们在某个平台实现一个类似于.NET平台Linq2Sql的数据访问框架，但如
+ 果这个目标平台的开发语言并不像C#那样提供了类型推断、匿名类型、Lambda表达式、扩展方法的话那么由于语法的限制你写出来的框架在使用的时候是无 法像.NET平台Linq2Sql那样优雅的，这就违背了实现框架的主要目的，实现新的框架也就变得意义不大了。</p>
+<p>对于我们要实现的MVC框 架貌似不存在什么根本性的无法解决的问题，毕竟在Java平台已经有很多可以参考的例子了。如果框架的实现总体上没什么问题的话，就需要逐一评估框架的这 些新特性是否可以解决。建议对于每一个难点特性做一个原型项目来证明可行，以免在框架实现到一半的时候发现有无法解决的问题就比较尴尬了。</p>
+<p>分析一下，貌似我们要实现的这8大特性只有第1点要研究一下，看看如何免配置通过让代码方式让我们的Web MVC框架可以和Servlet进行整合，如果无法实现的话，我们可能就需要把第1点特性从零配置改为一分钟快速配置了。</p>
+<p><br>
+<strong>开搞</strong></p>
+<p>首先需要给自己框架取一个名字，取名要考虑到易读、易写、易记，也需要尽量避免和市面上其它产品的名字重复，还有就是最好不要起一个侮辱其它同类框架的名字以免引起公愤。<br>
+如果将来打算把项目搞大的话，可以提前注册一下项目的相关域名，毕竟现在域名也便宜，避免到时候项目名和域名差距很大，或项目的.com或.org域名对应了一个什么不太和谐的网站这就尴尬了。<br>
+然后就是找一个地方来托管自己的代码，如果一开始不希望公开代码的话，最好除了本地源代码仓库还有一个异地的仓库以免磁盘损坏导致抱憾终身，当然如果不怕出丑的话也可以在起步的时候就使用Github等网站来托管自己的代码。</p>
+<p><strong><br>
+总体设计</strong></p>
+<p>对 于总体设计我的建议是一开始不一定需要写什么设计文档画什么类图，因为可能一开始的时候无法形成这么具体的概念，我们可以直接从代码开始做第一步。框架的 使用者一般而言还是开发人员，抛开框架的内在的实现不说，框架的API设计的好坏取决于两个方面。对于普通开发人员而言就是使用层面的API是否易于使 用，拿我们的MVC框架举例来说：</p>
+<p>最基本的，搭建一个HelloWorld项目，声明一个Controller和Action，配置一个路由规则让Get方法的请求可以解析到这个Action，可以输出HelloWorld文字，怎么实现？<br>
+如果要实现从Cookie以及表单中获取相关数据绑定到Action的参数里面，怎么实现？<br>
+如果要配置一个Action在调用前需要判断权限，在调用后需要记录日志，怎么实现？</p>
+<p>我们这里说的API，它不一定全都是方法调用的API，广义上来说我们认为框架提供的接入层的使用都可以认为是API，所以上面的一些功能都可以认为是MVC框架的API。</p>
+<p>框架除了提供基本的功能，还要提供一定程度的扩展功能，使得一些复杂的项目能够在某些方面对框架进行增强以适应各种需求，比如：</p>
+我的Action是否可以返回图片验证码？<br>
+我的Action的参数绑定是否可以从Memcached中获取数据？<br>
+如果出现异常，能否在开发的时候显示具体的错误信息，在正式环境显示友好的错误页面并且记录错误信息到数据库？
+<p>一 般而言如果要实现这样的功能就需要自己实现框架公开的一些类或接口，然后把自己的实现"注册"到框架中，让框架可以在某个时候去使用这些新的实现。这就需 要框架的设计者来考虑应该以怎么样的友好形式公开出去哪些内容，使得以后的扩展实现在自由度以及最少实现上的平衡，同时要兼顾外来的实现不破坏框架已有的 结构。</p>
+<p>要想清楚这些不是一件容易的事情，所以在框架的设计阶段完全可以使用从上到下的方式进行设计。也就是不去考虑框架怎么实现，而是以一 个使用者的身份来写一个框架的示例网站，API怎么简单怎么舒服就怎么设计，只从使用者的角度来考虑问题。对于相关用到的类，直接写一个空的类（能用接口 的尽量用接口，你的目的只是通过编译而不是能运行起来），让程序可以通过编译就可以了。你可以从框架的普通使用开始写这样一个示例网站，然后再写各种扩展 应用，在此期间你可能会用到框架内部的20个类，这些类就是框架的接入类，在你的示例网站通过编译的那刹那，其实你已经实现了框架的接入层的设计。</p>
+<p>这里值得一说的是API的设计蕴含了非常多的学问以及经验，要在目标平台设计一套合理易用的API首先需要对目标平台足够了解，每一个平台都有一些约定俗成的规范，如果设计的API能符合这些规范那么开发人员会更容易接受这个框架，此外还有一些建议：</p>
+之 所以我们把API的设计先行，而不是让框架的设计先行是因为这样我们更容易设计出好用的API，作为框架的实现者，我们往往会进行一些妥协，我们可能会为 了在框架内部DRY而设计出一套丑陋的API让框架的使用者去做一些重复的工作；我们也可能会因为想让框架变得更松耦合强迫框架的使用者去使用到框架的一 些内部API去初始化框架的组件。如果框架不是易用的，那么框架的内部设计的再合理又有什么意义？<br>
+尽量少暴露一些框架内部的类名吧，对 于框架的使用者来说，你的框架对他一点都不熟悉，如果要上手你的框架需要学习一到两个类尚可接受，如果要使用到十几个类会头晕脑胀的，即使你的框架有非常 多的功能以及配置，可以考虑提供一个入口类，比如创建一个ConfigCenter类作为入口，让使用者可以仅仅探索这个类便可对框架进行所有的配置。<br>
+一 个好的框架是可以让使用者少犯错误的，框架的设计者务必要考虑到，框架的使用者没有这个业务来按照框架的最佳实践来做，所以在设计API的时候，如果你希 望API的使用者一定要按照某个方式来做的话，可以考虑设置一个简便的重载来加载默认的最合理的使用方式而不是要求使用者来为你的方法初始一些什么依赖， 同时也可以在API内部做一些检测，如果发现开发人员可能会犯错进行一些提示或抛出异常。好的框架无需过多的文档，它可以在开发人员用的时候告知它哪里错 了，最佳实践是什么，即便他们真的错了也能以默认的更合理的方式来弥补这个错误。<br>
+建议所有的API都有一套统一的规范，比如入口都叫XXXCenter或XXXManager，而不是叫XXXCenter、YYYManager和 ZZZService。API往往需要进行迭代和改良的，在首个版本中把好名字用掉也不一定是一个好办法，最好还是给自己的框架各种API的名字留一点余 地，这样以后万一需要升级换代不至于太牵强。
+<p>下一步工作就是把项目中那些空的类按照功能进行划分。目的很简单，就是让你的框架 的100个类或接口能够按照功能进行拆分和归类，这样别人一打开你的框架就可以马上知道你的框架分为哪几个主要部分，而不是在100个类中晕眩；还有因为 一旦在你的框架有使用者后你再要为API相关的那些类调整包就比困难了，即使你在创建框架的时候觉得我的框架就那么十几个类无需进行过多的分类，但是在将 来框架变大又发现当初设计的不合理，无法进行结构调整就会变得很痛苦。因此这个工作还是相当重要的，对于大多数框架来说，可以有几种切蛋糕的方式：</p>
+分 层。我觉得框架和应用程序一样，也需要进行分层。传统的应用程序我们分为表现层、逻辑层和数据访问层，类似的对于很多框架也可以进行横向的层次划分。要分 层的原因是我们的框架要处理的问题是基于多层抽象的，就像如果没有OSI七层模型，要让一个HTTP应用去直接处理网络信号是不合理的也是不利于重用的。 举一个例子，如果我们要写一个基于Socket的RPC的框架，我们需要处理方法的代理以及序列化，以及序列化数据的传输，这完全是两个层面的问题，前者 偏向于应用层，后者偏向于网络层，我们完全有理由把我们的框架分为两个层面的项目（至少是两个包），rpc.core和rpc.socket，前者不关心
+ 网络实现来处理所有RPC的功能，后者不关心RPC来处理所有的Socket功能，在将来即使我们要淘汰我们的RPC的协议了，我们也可以重用 rpc.socket项目，因为它和RPC的实现没有任何关系，它关注的只是socket层面的东西。<br>
+横切。刚才说的分层是横向的分 割，横切是纵向的分割（横切是跨多个模块的意思，不是横向来切的意思）。其实横切关注点就是诸如日志、配置、缓存、AOP、IOC等通用的功能，对于这部 分功能，我们不应该把他们和真正的业务逻辑混淆在一起。对于应用类项目是这样，对于框架类项目也是这样，如果某一部分的代码量非常大，完全有理由为它分出 一个单独的包。对于RPC项目，我们可能就会把客户端和服务端通讯的消息放在common包内，把配置的处理单独放在config包内。<br>
+功能。也就是要实现一个框架主要解决的问题点，比如对于上面提到的RPC框架的core部分，可以想到的是我们主要解决是客户端如何找到服务端，如何把进 行方法调用以及把方法的调用信息传给目标服务端，服务端如何接受到这样的信息根据配置在本地实例化对象调用方法后把结果返回客户端三大问题，那么我们可能 会把项目分为routing、client、server等几个包。
+<p><strong>如果是一个RPC框架，大概是这样的结构：</strong></p>
+<p style="text-align:center"><a target="_blank" href="./写一个框架的详细步骤 - 一个人的博客 - 博客频道 - CSDN.NET_files/wKioL1dEKifi45EYAACFWT8vhlw337.jpg-wh_651x-s_3357705563.jpg"><img alt="你知道如何写一个框架吗？详细步骤大放送" src="./写一个框架的详细步骤 - 一个人的博客 - 博客频道 - CSDN.NET_files/wKioL1dEKifi45EYAACFWT8vhlw337.jpg-wh_651x-s_3357705563.jpg" border="0"></a></p>
+<p><strong>对于我们的Web MVC框架，举例如下：</strong></p>
+我们可以有一个mvc.core项目，细分如下的包：<br>
+common：公共的一组件，下面的各模块都会用到<br>
+config：配置模块，解决框架的配置问题<br>
+startup：启动模块，解决框架和Servlet如何进行整合的问题<br>
+plugin：插件模块，插件机制的实现，提供IPlugin的抽象实现<br>
+routing：路由模块，解决请求路径的解析问题，提供了IRoute的抽象实现和基本实现<br>
+controller：控制器模块，解决的是如何产生控制器<br>
+model：视图模型模块，解决的是如何绑定方法的参数<br>
+action：action模块，解决的是如何调用方法以及方法返回的结果，提供了IActionResult的抽象实现和基本实现<br>
+view：视图模块，解决的是各种视图引擎和框架的适配<br>
+filter：过滤器模块，解决是执行Action，返回IActionResult前后的AOP功能，提供了IFilter的抽象实现以及基本实现<br>
+我们可以再创建一个mvc.extension项目，细分如下的包：<br>
+filters：一些IFilter的实现<br>
+results：一些IActionResult的实现<br>
+routes：一些IRoute的实现<br>
+plugins：一些IPlugin的实现
+<p>这里我们以IXXX来描述一个抽象，可以是接口也可以是抽象类，在具体实现的时候根据需求再来确定。</p>
+<p style="text-align:center"><a target="_blank" href="./写一个框架的详细步骤 - 一个人的博客 - 博客频道 - CSDN.NET_files/wKiom1dEKTXyz_tDAACMmgXmA1E906.jpg-wh_600x-s_3402458350.jpg"><img alt="你知道如何写一个框架吗？详细步骤大放送" src="./写一个框架的详细步骤 - 一个人的博客 - 博客频道 - CSDN.NET_files/wKiom1dEKTXyz_tDAACMmgXmA1E906.jpg-wh_600x-s_3402458350.jpg" border="0"></a></p>
+<p>这 种结构的划分方式完全吻合上面说的切蛋糕方式，可以看到除了横切部分和分层部分，作为一个Web MVC框架，它核心的组件就是routing、model、view、controller、action（当然，对于有些MVC框架它没有route部 分，route部分是交由Web框架实现的）。</p>
+<p>如果我们在这个时候还无法确定框架的模块划分的话，问题也不大，我们可以在后续的搭建龙骨的步骤中随着更多的类的建立，继续理清和确定模块的划分。</p>
+<p>经过了设计的步骤，我们应该心里对下面的问题有一个初步的规划了：</p>
+我们的框架以什么形式来提供如何优雅的API？<br>
+我们的框架包含哪些模块，模块大概的作用是什么？
+<p><br>
+<strong>搭建龙骨</strong>&nbsp;</p>
+<p>在 经过了初步的设计之后，我们可以考虑为框架搭建一套龙骨，一套抽象的层次关系。也就是用抽象类、接口或空的类实现框架，可以通过编译，让框架撑起来，就像 造房子搭建房子的钢筋混凝土结构（添砖加瓦是后面的事情，我们先要有一个结构）。对于开发应用程序来说，其实没有什么撑起来一说，因为应用程序中很多模块 都是并行的，它可能并没有一个主结构，主流程，而对于框架来说，它往往是一个高度面向对象的，高度抽象的一套程序，搭建龙骨也就是搭建一套抽象层。这么说 可能有点抽象，我们还是来想一下如果要做一个Web MVC框架，需要怎么为上面说的几个核心模块进行抽象（我们也来体会一下框架中一些类的命名，这里我们为了更清晰，为所有接口都命名为IXXX，这点不太
+ 符合Java的命名规范）：</p>
+routing MVC的入口是路由<br>
+每一个路由都是IRoute代表了不同的路由实现，它也提供一个getRouteResult()方法来返回RouteResult对象<br>
+我们实现一个框架自带的DefaultRoute，使得路由支持配置，支持默认值，支持正则表达式，支持约束等等<br>
+我们需要有一个Routes类来管理所有的路由IRoute，提供一个findRoute()方法来返回RouteResult对象，自然我们这边调用的就是IRoute的getRouteResult()方法，返回能匹配到的结果<br>
+RouteResult对象就是匹配的路由信息，包含了路由解析后的所有数据<br>
+controller 路由下来是控制器<br>
+我们有IControllerFactory来创建Controller，提供createController()方法来返回IController<br>
+IController代表控制器，提供一个execute()方法来执行控制器<br>
+我们实现一个框架自带的DefaultControllerFactory来以约定由于配置的方式根据约定规则以及路由数据RouteResult来找到IController并创建它<br>
+我 们为IController提供一个抽象实现，AbstractController，要求所有MVC框架的使用者创建的控制器需要继承 AbstractController，在这个抽象实现中我们可以编写一些便捷的API以便开发人员使用，比如view()方法、file()方法、 redirect()方法、json()方法、js()方法等等<br>
+action 找到了控制器后就是来找要执行的方法了<br>
+我们有IActionResult来代表Action返回的结果，提供一个execute()方法来执行这个结果<br>
+我们的框架需要实现一些自带的IActionResult，比如ContentResult、ViewResult、FileResult、JsonResult、RedirectResult来对应AbstractController的一些便捷方法<br>
+再来定义一个IActionInvoker来执行Action，提供一个invokeAction()方法<br>
+我们需要实现一个DefaultActionInvoker以默认的方式进行方法的调用，也就是找到方法的一些IFilter按照一定的顺序执行他们，最后使用反射进行方法的调用得到上面说的IActionResult并执行它的execute()方法<br>
+filter 我们的框架很重要的一点就是便捷的过滤器<br>
+刚才提到了IFilter，代表的是一个过滤器，我们提供IActionFilter对方法的执行前后进行过滤，提供IResultFilter对IActionResult执行前后进行过滤<br>
+我们的IActionInvoker怎么找到需要执行的IFilter呢，我们需要定义一个IFilterProvider来提供过滤器，它提供一个getFilters()方法来提供所有的IFilter的实例<br>
+我 们的框架可以实现一些自带的IFilterProvider，比如AnnotationFilterProvider通过扫描Action或 Controller上的注解来获取需要执行的过滤器信息；比如我们还可以实现GlobalFilterProvider，开发人员可以直接通过配置或代 码方式告知框架应用于全局的IFilter<br>
+既然我们实现了多个IFilterProvider，我们自然需要有一个类来管理这些IFilterProvider，我们实现一个FilterProviders类并提供getFilters()方法（这和我们的Routes类来管理IRoute是类似的，命名统一）<br>
+view 各种IActionResult中最特殊最复杂的就是ViewResult，我们需要有一个单独的包来处理ViewResult的逻辑<br>
+我们需要有IViewEngine来代表一个模版引擎，提供一个getViewEngineResult()方法返回ViewEngineResult<br>
+ViewEngineResult包含视图引擎寻找视图的结果信息，里面包含IView和寻找的一些路径等<br>
+IView自然代表的是一个视图，提供render()方法（或者为了统一也可以叫做execute）来渲染视图<br>
+我 们的框架可以实现常见的一些模版引擎，比如FreemarkerViewEngine、VelocityViewEngine 等，VelocityViewEngine返回的ViewEngineResult自然包含的是一个实现IView的VelocityView，不会返回 其它引擎的IView<br>
+同样的，我们是不是需要一个ViewEngines来管理所有的IViewEngine呢，同样也是实现findViewEngine()方法<br>
+common 这里可以放一些项目中各个模块都要用到的一些东西<br>
+比 如各种context，context代表的是执行某个任务需要的环境信息，这里我们可以定义HttpContext、 ControllerContext、ActionContext和ViewContext，后者继承前者，随着MVC处理流程的进行，View执行时的 上下文相比Action执行时的上下文信息肯定是多了视图的信息，其它同理，之所以把这个信息放在common里面而不是放在各个模块自己的包内是因为这 样更清晰，可以一目了然各种对象的执行上下文有一个立体的概念<br>
+比如各种helper或utility
+<p><strong>接下去就不再详细阐述model、plugin等模块的内容了。</strong></p>
+<p><strong>看到这里，我们来总结一下，我们的MVC框架在组织结构上有着高度的统一：</strong></p>
+如果xxx本身并无选择策略，但xxx的创建过程也不是一个new这么简单的，可以由xxxFactory类来提供一个xxx<br>
+如果我们需要用到很多个yyy，那么我们会有各种yyyProvider（通过getyyy()方法）来提供这些yyy，并且我们需要有一个yyyProviders来管理这些yyyProvider<br>
+如果zzz的选择是有策略性的，会按照需要选择zzz1或zzzN，那么我们可能会有一个zzzs来管理这些zzz并且（通过findzzz()方法）来提供合适的zzz
+<p>同 时我们框架的相关类的命名也是非常统一的，可以一眼看出这是实现、还是抽象类还是接口；是提供程序，是执行结果还是上下文。当然，在将来的代码实现过程中 很可能会把很多接口变为抽象类提供一些默认的实现，这并不会影响项目的主结构。我们会在模式篇对框架常用的一些高层设计模式做更多的介绍。</p>
+<p>到了这里，我们的项目里已经有几十个空的（抽象）类、接口了，其中也定义了各种方法可以把各个模块串起来（各种find()方法和execute()方法），可以说整个项目的龙骨已经建立起来了，这种感觉很好，因为我们心里很有底，我们只需要在接下去的工作中做两个事情：</p>
+实现各种DefaultXXX来走通主流程<br>
+实现各种IyyyProvider和Izzz接口来完善支线流程
+<p><strong><br>
+走通主线流程</strong></p>
+<p>所谓走通主线流程，就是让这个框架可以以一个HelloWorld形式跑起来，这就需要把几个核心类的核心方法使用最简单的方式进行实现，还是拿我们的MVC框架来举例子：</p>
+从startup开始，可能需要实现ServletContextListener来动态注册我们框架的入口Servlet，暂且起名为DispatcherServlet吧，在这个类中我们需要走一下主线流程<br>
+调用Routes.findRoute()获得IRoute<br>
+调用IRoute.getRouteResult()来获得RouteResult<br>
+使用拿到的RouteResult作为参数调用DefaultControllerFactory.createController()获得IController（其实也是AbstractController）<br>
+调用IController.execute()<br>
+在 config中创建一个IConfig作为一种配置方式，我们实现一个DefaultConfig，把各种默认实现注册到框架中去，也就是 DefaultRoute、DefaultControllerFactory、DefaultActionInvoker，然后把各种 IViewEngine加入ViewEngines<br>
+然后需要完成相关默认类的实现：<br>
+实现Routes.findRoute()<br>
+实现DefaultRoute.getRouteResult()<br>
+实现DefaultControllerFactory.createController()<br>
+实现AbstractController.execute()<br>
+实现DefaultActionInvoker.invokeAction()<br>
+实现ViewResult.execute()<br>
+实现ViewEngines.findViewEngine()<br>
+实现VelocityViewEngine.getViewEngineResult()<br>
+实现VelocityView.render()
+<p>在这一步，我们并不一定要去触碰filter和model这部分的内容，我们的主线流程只是解析路由，获得控制器，执行方法，找到视图然后渲染视图。过滤器和视图模型的绑定属于增强型的功能，属于支线流程，不属于主线流程。</p>
+<p>虽 然在这里我们说了一些MVC的实现，但本文的目的不在于教你实现一个MVC框架，所以不用深究每一个类的实现细节，这里想说的是，在前面的龙骨搭建完后， 你会发现按照这个龙骨为它加一点肉上去实现主要的流程是顺理成章的事情，毫无痛苦。在整个实现的过程中，你可以不断完善common下的一些 context，把方法的调用参数封装到上下文对象中去，不但看起来清楚且符合开闭原则。到这里，我们应该可以跑起来在设计阶段做的那个示例网站的 HelloWorld功能了。</p>
+<p>在这里还想说一点，有些人在实现框架的时候并没有搭建龙骨的一步骤，直接以非OOP的方式实现了主线流程，这种方式有以下几个缺点：</p>
+<p>不容易做到SRP单一指责原则，你很容易把各种逻辑都集中写在一起，比如大量的逻辑直接写到了DispatcherServlet中，辅助一些Service或Helper，整个框架就肥瘦不匀，有些类特别庞大有些类特别小。<br>
+不容易做到OCP开闭原则，扩展起来不方便需要修改老的代码，我们期望的扩展是实现新的类然后让框架感知，而不是直接修改框架的某些代码来增强功能。<br>
+很难实现DIP依赖倒置原则，即使你依赖的确实是IService但其实就没意义，因为它只有一个实现，只是把他当作帮助类来用罢了。</p>
+<p><br>
+<strong>实现各种支线流程</strong></p>
+<p>我们想一下，对于这个MVC框架有哪些没有实现的支线流程？其实无需多思考，因为我们在搭建龙骨阶段的设计已经给了我们明确的方向了，我们只需要把除了主线之外的那些龙骨上也填充一些实体即可，比如：</p>
+实现更多的IRoute，并注册到Routes<br>
+实现更多的IViewEngine，并注册到ViewEngines<br>
+实现必要的IFilterProvider以及FilterProviders，把IFilterProvider注册到FilterProviders<br>
+增强DefaultActionInvoker.invokeAction()方法，在合适的时候调用这些IFilter<br>
+实现更多的IActionResult，并且为AbstractController实现更多的便捷方法来返回这些IActionResult<br>
+……实现更多model模块的内容和plugin模块的内容
+<p>实现了这一步后，你会发现整个框架饱满起来了，每一个包中不再是仅有的那些接口和默认实现，而且会有一种OOP的爽快感，爽快感来源于几个方面：</p>
+面对接口编程抽象和多态的放心安心的爽快感<br>
+为抽象类实现具体类享受到父类大量实现的满足的爽快感<br>
+实现了大量的接口和抽象类后充实的爽快感
+<p>我们再来总结一下之前说的那些内容，实现一个框架的第一大步就是：</p>
+设计一套合理的接口<br>
+为框架进行模块划分<br>
+为框架搭建由抽象结构构成的骨架<br>
+在这个骨架的基础上实现一个HelloWorld程序<br>
+为这个骨架的其它部分填充更多实现
+<p>经 过这样的一些步骤后可以发现这个框架是很稳固的，很平衡的，很易于扩展的。其实到这里很多人觉得框架已经完成了，有血有肉，其实个人觉得只能说开发工作实 现了差不多30%，后文会继续说，毕竟直接把这样一个血肉之躯拿出去对外有点吓人，我们需要为它进行很多包装和完善。</p>
+<p><strong><br>
+</strong></p>
+<p><strong>单元<a href="http://lib.csdn.net/base/softwaretest" class="replace_word" title="软件测试知识库" target="_blank" style="color:#df3434; font-weight:bold;">测试</a></strong>&nbsp;</p>
+</div>
+<p>在这之前我们写的框架只能说是一个在最基本的情况下可以使用的框架，作为一个框架我们无法预测开发人员将来会怎么使用它，所以我们需要做大量的工作来确保框架不但各种功能都是正确的，而且还是健壮的。写应用系统的代码，大多数项目是不会去写单元测试的，原因很多：</p>
+项目赶时间，连做一些输入验证都没时间搞，哪里有时间写测试代码。<br>
+项目对各项功能的质量要求不高，只要能在标准的操作流程下功能可用即可。<br>
+项目基本不会去改或是临时项目，一旦测试通过之后就始终是这样子了，没有迭代。<br>
+……
+<p>对于框架，恰恰相反，没有配套的单元测试的框架（也就是仅仅使用人工的方式进行测试，比如在main中调用一些方法观察日志或输出，或者运行一下示例项目查看各种功能是否正常，是非常可怕的）原因如下：</p>
+自动化程度高，回归需要的时间短，甚至可以整合到构建过程中进行，这是人工测试无法实现的。<br>
+框架一定是有非常多的迭代和重构的， 每一次修改虽然只改了A功能，但是可能会影响到B和C功能，人工测试的话你可能只会验证A是否正常，容易忽略B和C，使用单元测试的话只要所有功能都有覆盖，那么几乎不可能遗漏因为修改导致的潜在问题，而且还能反馈出来因为修改导致的兼容性问题。<br>
+之前说过，一旦框架开放出去，框架的使用者可能会以各种方式在各种环境来使用你的框架，环境不同会造成很多怪异的边界输入或非法输入，需要使用单元测试对代码进行严格的边界测试，以确保框架可以在严酷的环境下生存。<br>
+单元测试还能帮助我们改善设计，在写单元测试的时候如果发现目标代码非常难以进行模拟难以构建有效的单元测试，那么说明目标代码可能有强依赖或职责过于复杂，一个被单元测试高度覆盖的框架往往是设计精良的，符合高内聚低耦合的框架。
+<p>如果框架的时间需求不是特别紧的话，单元测试的引入可以是走通主线流程的阶段就引入，越早引入框架的成熟度可能就会越高，以后重构返工的机会会越小，框架的可靠性也肯定会大幅提高。之前我有写过一个类库项目，并没有写单元测试，在项目中使用了这个类库一段时间也没有出现任何问题，后来花了一点时间为类库写了单元测试，出乎我意料之外的是，我的类库提供的所有API中有超过一半是无法通过单元测试的（原以为这是一个成熟的类库，其实包含了数十个BUG），甚至其中有一个API是在我的项目中使用的。你可能会问，为什么在使用这个API的时候没有发生问题而在单元测试的时候发生问题了呢？原因之前提到过，我是框架的设计者，我在使用类库提供的API的时候是知道使用的最佳实践的，因此我在使用的时候为类库进行了一个特别的设置，这个问题如果不是通过单元测试暴露的话，那么其它人在使用这个类库的时候基本都会遇到一个潜在的BUG。</p>
+<p><strong>示范项目</strong></p>
+<p>写一个示例项目不仅仅是为了给别人参考，而且还能够帮助自己去完善框架，对于示例项目，最好兼顾下面几点：</p>
+是一个具有一定意义的网站或系统，而不是纯粹为了演示特性而演示。这是因为，很多时候只有那些真正的业务逻辑才会暴露出问题，演示特性的时候我们总是有一些定势思维会规避很多问题。或者可以提供两个项目，一个纯粹演示特性，一个是示例项目。<br>
+覆盖尽可能多的特性或使用难点，在项目的代码中提供一些注释，很多开发人员不喜欢阅读文档，反而喜欢看一下示例项目直接上手（模仿示例项目，或直接拿示例项目中的代码来修改）。<br>
+项目中的代码，特别是涉及到框架使用的代码一定要规范，原因上面也说了，作为框架的设计者你不会希望大家复制的代码粘帖的代码一团糟吧。<br>
+如果你的项目针对的不仅仅是Web项目，那么示例项目最好提供Web和桌面两个版本，一来你自己容易发现因为环境不同带来的使用差异，二来可以给予不同类型项目不同的最佳实践。
+<p><br>
+<strong>完善日志和异常</strong></p>
+<p>一个好的框架不但需要设计精良，日志和异常的处理是否到位也是非常重要的标准，这里有一些反例：</p>
+日志的各种级别的使用没有统一的标准，甚至是永远只使用某个级别的日志。<br>
+几乎没有任何的日志，框架的运行完全是一个黑盒。<br>
+记录的日志多且没有实际含义，只是调试的时候用来观察变量的内容。<br>
+异常类型只使用Exception，不使用更具体化的类型，没有自定义类型。<br>
+异常的消息文本只写"错误"字样，不写清楚具体的问题所在。<br>
+永远只是抛出异常，让异常上升到最外层，交给框架的使用者去处理。<br>
+用异常来控制代码流程，或本应该在方法未达到预期效果的时候使用异常却使用返回值。
+<p>其实个人觉得，一个框架的主逻辑代码并不一定是最难的，最难的是对一些细节的处理，让框架保持一套规范的统一的日志和异常的使用反而对框架开发者来说是一个难点，下面是针对记录日志的一些建议：</p>
+<p>1、首先要对框架使用的日志级别有一个规范，比如定义：</p>
+DEBUG：用于观察程序的运行流程，仅在调试的时候开启<br>
+INFO：用于告知程序运行状态或阶段的变化，可以在测试环境开启<br>
+WARNING：用于告知程序可以自己恢复的错误或异常，或不影响主线流程执行的错误或问题，可以在正式环境开启<br>
+ERROR：用于告知程序无法恢复，主线流程中断，需要开发或运维人员知晓干预的错误或异常，需要在正式环境开启
+<p>2、按照上面的级别规范，在需要记录日志的地方记录日志，除了DEBUG级别的日志其它日志不能记录过多，如果框架总是在运行的时候输出几十个WARNNING也容易让使用者忽略真正的问题。<br>
+3、日志记录的消息需要是明确的，最好包含一些上下文信息，比如"无法在xxx下找到配置文件xxx.config，框架将采用默认的配置"，而不是"加载配置失败！"</p>
+<p><strong>下面是一些针对使用异常的建议：</strong></p>
+框架由于配置错误或使用错误或运行错误，不能完成API名字所表示的功能，考虑抛出转化后的异常，让调用者知道发什么了什么情况，同时框架可以建立自己的错误处理机制<br>
+对于可以预料的错误，并且错误类型可以枚举，考虑以返回值的形式告知调用者可以根据不同的结果来处理后续的逻辑<br>
+对于框架内部功能实现上遇到的调用者无能力解决的错误，如果错误可以重试或不影响返回，可以记录警告或错误日志<br>
+可以为每一个模块都陪伴自定义的异常类型，包含相关的上下文信息（比如ViewException可以包含ViewContext），这样出现异常可以很方便知晓是哪个模块出现问题并且可以得到出现异常时的环境信息<br>
+如果异常跨了实现层次（比如从框架到应用），那么最好进行一下包装转换（比如把文件读取失败的提示改为加载配置文件失败的提示），否则上层人员是不知道怎么处理这些内部问题的，内部问题需要由框架自己来处理<br>
+异常的日志中可以记录和当前操作密切相关的参数信息，比如搜索的路径，视图名等等，有关方法的信息不用过多记录，异常一般都带有调用栈信息<br>
+如果可能的话，出现异常的时候可以分析一下为什么会出现这样的问题，在异常信息中给一些解决问题的建议或帮助链接方便使用者排查问题<br>
+异常处理从坏到好的层次是，出现了严重问题的时候：<br>
+使用者什么都不知道，程序的完整性和逻辑得到破坏<br>
+使用者既不知道出现了什么问题也不知道怎么去解决<br>
+使用者能明确知道出现了什么问题，但无法去解决<br>
+使用者不但知道发生了什么，还能通过异常消息的引导快速解决问题
+<p><br>
+<strong>完善配置</strong></p>
+<p>配置的部分可以留到框架写的差不多了再去写，因为这个时候已经可以想清楚哪些配置是：</p>
+需要公开出去给使用者配置的，并且配置会根据环境不同而不同<br>
+需要公开出去给使用者来配置的，配置和部署环境无关<br>
+仅仅需要在框架内供框架开发人员来配置的<br>
+无需是一个配置，只要在代码中集中存储这个设定即可
+<p><strong>一般来说配置有几种方式：</strong></p>
+通过配置文件来配置，比如XML文件、JSON文件或property文件<br>
+通过注解或特性（Annotation/Attribute）方式（对类、方法、参数）进行配置<br>
+通过代码方式进行配置（比如单独的配置类，或实现配置类或调用框架的配置API）
+<p>很多框架提供了多种配置方式，比如Spring MVC同时支持上面三种方式的配置，个人觉得对配置，我们还是应该区别对待，而不是无脑把所有的配置项都同时以上面三种方式提供配置，我们要考虑高内聚和低耦合原则，对于Web框架来说，高内聚需要考虑的比低耦合更多，我的建议是对不同的配置项提供不同的配置方式：</p>
+如果配置项目是需要让使用者来配置的，特别是和环境相关的，那么最好使用配置方式来配置，比如开放的端口、内存、线程数配置，不过要注意：<br>
+所有配置项目需要有默认值，如果找不到配置使用默认值，如果配置不合理使用默认值（你不会希望使用你框架的人把框架内部的线程池的min设置为999999，或定时器的间隔设置为0毫秒吧？）<br>
+框架启动的时候检测所有配置，如果不合理给予提示，大多人只会在启动的时候看一下日志，使用的时候根本就不管<br>
+不知道大家对于配置文件的格式倾向于XML呢还是JSON呢还是键值对呢？<br>
+对于所有仅在开发时进行的配置，都尽量不要去使用配置文件，并且让配置尽量和它所配置的对象靠在一起：<br>
+如果是对框架整体性进行的设置扩展类型的配置，那就可以提供代码方式进行配置，比如我们要实现的MVC框架的各种IRoute、IViewEngine等，最好可以提供IConfig接口让开发人员可以去实现接口，这样他们可以知道有哪些东西可以配置，代码就是文档<br>
+如果是那种对模型、Action进行的配置，比如模型的验证规则、Filter等一律采用注解的方式进行配置<br>
+有的人说使用配置文件进行配置非常灵活，使用代码方式和注解方式来配置不灵活而且可能有侵入性。我觉得还是要权衡对待，我的建议是不要把太多框架内在的东西放在配置文件中，增加使用者的难度（而且很多时候，大多数人只是复制配置为了完成配置而配置，并不是为了真正的灵活性而去使用配置文件来配置你的框架，看看网上这么所SSH配置文件的抄来抄去就知道了）。<br>
+最后，我建议很多太内部的东西对于轻量级的应用型框架可以不去提供任何配置选项，只需要在某个常量文件中定义即可，让真正有需求进行二次开发的开发人员去修改，对于一个框架如果一下子暴露上百个"高级"配置项给使用者，他们会晕眩的。
+<p><strong><br>
+提供状态服务</strong></p>
+<p>所谓状态服务就是反映框架内部运作状态的服务，很多开源服务或系统（Nginx、<a href="http://lib.csdn.net/base/mongodb" class="replace_word" title="MongoDB知识库" target="_blank" style="color:#df3434; font-weight:bold;">MongoDB</a>等）都提供了类似的模块和功能，作为框架的话我觉得也有必要提供一些内部信息（主要是配置、数据统计以及内部资源状态）出来，这样使用你框架的人可以在开发的时候或线上运作的时候了解框架的运作状态，我们举两个例子，对于一个我们之前提到的Web MVC框架来说，可以提供这些信息：</p>
+路由配置<br>
+视图引擎配置<br>
+过滤器配置
+<p>对于一个Socket框架来说，有一些不同，Socket框架是有状态的，其状态服务提供的信息除了当前生效的配置信息之外，更多的是反映当前框架内部一些资源的状态以及统计数据：</p>
+各种配置（池配置、队列配置、集群配置）<br>
+Socket相关的统计数据（总打开、总关闭、每秒收发数据、总收发数据、当前打开等等）<br>
+各种池的当前状态<br>
+各种队列的当前状态
+<p><strong>状态服务可以以下面几种形式来提供：</strong></p>
+代码方式，比如如果开发人员实现了IXXXStateAware接口的话，就可以为它的实现类来推送一些信息，也可以直接在框架中设立一个StateCenter来公开框架所有的状态信息<br>
+自动日志方式，比如如果在配置中开启了stateLoggingInterval=60s的选项，我们的框架就会自动一分钟一次输出日志，显示框架内部的状态<br>
+接口方式，比如开放一个Restful的接口或额外监听一个端口来提供状态服务，方便使用者可以拿原始的数据和其它监控平台进行整合<br>
+内部外部工具方式<br>
+比如我们可以直接为框架提供一个专门的页面（/_route）来呈现路由的配置（甚至我们可以在这个页面上让开发人员可以直接输入地址来测试路由的匹配情况，状态服务不一定只能看），这样在开发和测试的时候可以更方便调试<br>
+我们也可以为框架提供一个专有工具来查看框架的状态信息（当然，这个工具其实可能就是连接框架的某个网络服务来获取数据），这样即使框架在多个机器中使用，我们可能也只有一个监控工具即可<br>
+如果没有状态服务，那么在运行的时候框架就是一个黑盒，反之如果状态服务足够详细的话，可以方便我们排查一些功能或性能问题。不过要注意的一点是，状体服务可能会降低框架的性能，我们可能需要对状态服务也进行一次压测，排除状态服务中损耗性能的地方（有些数据的收集会意想不到得损耗性能）。
+<p><br>
+<strong>检查线程安全</strong></p>
+<p>框架对多线程环境支持的是否好，是框架质量的一个重要的评估标准，往往可以看到甚至有一些成熟的框架也会有多线程问题。这里涉及几个方面：</p>
+<p>1，你无法预料框架的使用者会怎么样去实例化和保存你的API的入口类，如果你的入口类被用成为了一个单例，在并发调用的情况下会不会有单线程问题？</p>
+<p>这是一个老话题，之前已经说过很多次，你在设计框架的时候心里如果把一个类定位成了单例的类但却没有提供单例模式，你是无法要求使用者来帮你实现单例的。这其中涉及的不仅仅是多线程问题，可能还有性能问题。比如见过某分布式缓存的客户端的CacheClient在文档中要求使用者针对一个缓存集群保持一个CacheClient的单例（因为其中有了连接池），但是用的人还是每一次都实例化了一个CacheClient出来，几小时后就会产生几万个半死的Socket导致网络奔溃。又见过某类库的入口工厂的代码注释中写了要求使用的人把XXXFactory作为单例来使用（因为其中缓存了大量数据），但是用的人就没有注意到这个注释，每一次都实例化了一个XXXFactory，造成GC的崩溃。所以我觉得作为框架的设计者开发人员，最好还是把框架的最佳实践直接做到API中，使得使用者不可能出错（之前说过一句话，再重复一次，好的框架不会让使用的人犯错）。你可能会说对于CacheClient的例子，不可能做成单例的，因为我的程序可能需要用到多个缓存的集群，换个思路，我们完全可以在封装一层，通过一个CacheClientCreator之类的类来管理多个单例的CacheClient。即使在某些极端的情况下，你不能只提供一条路给使用者去走，也需要在框架内做一些检测机制，及时提醒使用者
+ "我们发现您这样使用了框架，这可能会产生问题，你本意是否打算那样做呢？"</p>
+<p>2，如果你的入口类本来就是单例的，那么你是类中是否持有共享资源，你的API在并发的情况下被调用是否可以确保这些资源的线程安全？在解决多线程问题的时候往往有几个难点：</p>
+<p>百密难有一疏，你很难想到这段代码会有人这样去并发调用。比如某init()方法，某config()方法，你总是假设使用者会调用并且仅调用一次，但事实不一定这样，有的时候调用者自己也不清楚我的容器会调用我这段代码多少次。<br>
+好吧，解决多线程问题各种烦躁，那就对各种涉及到共享资源的方法全部加锁。对方法进行粗犷（粒度）的锁可能会导致性能急剧下降甚至是死锁问题。<br>
+自以为使用了优雅的无锁代码或并发容器但却达不到目的。我们往往在大量使用了并发集合心中暗自窃喜解决了多线程问题的同时又达到了极佳的性能，但你以为这样是解决了线程安全问题但其实根本就没有，我们不能假设A和B都方法是线程安全的，但对A和B方法调用的整个代码段是线程安全的。</p>
+<p><strong>对于多线程问题，我没有好的解决办法，不过下面的几条我觉得可以尝试：</strong></p>
+<p>需要非常仔细的过一遍代码，把涉及到共享资源的地方，以及相关的方法和类列出来，不要去假设什么，只要API暴露出去了则假设它可能被并发调用。共享资源不一定是静态资源，哪怕资源是非静态的，在并发环境下对相同对象的资源进行操作也可能产生问题。<br>
+一般而言对于公开的API，作为框架的设计者我们需要确保所有的静态方法（或但单例类的实例方法）是线程安全的，对于实例方法我们可以不这么做（因为性能原因），但是需要在注释中明确提示使用者方法的非线程安全，如果需要并发调用请自行处理线程安全问题。<br>
+可以看看是否有可能让这些资源（字段）变为方法内的局部变量，有的时候我们并不是真正的需要类持有一个字段，只是因为多个方法要使用相同的东西，随手一写罢了。<br>
+对于使用频率低的一些方法相关的一些资源没有必要使用并发容器，直接采用粗狂的方式进行资源加锁甚至是方法级别加锁，先确保没有线程安全，如果以后做压测出现性能问题再来解决。<br>
+对于使用频率高的一些方法相关的一些资源可以使用并发容器，但需要仔细思考一下代码是否会存在线程安全问题，必要的话为代码设计一些多线程环境的单元测试去验证。</p>
+<p><br>
+<strong>性能测试和优化</strong></p>
+<p>之前也提到过，你不会预测到你的项目会在怎么样的访问量下使用，我们不希望框架和同类的框架相比有明显的性能差距（如果你做的是一个ORM框架或RPC框架，这个工作就是必不可少的），所以在框架基本完成后我们需要做Benchmark：</p>
+确定几个测试用例，尽量覆盖主流程和一些重要扩展<br>
+找几个主流的同类型框架，实现相同的测试用例，实现到时候要单纯一点，尽量不要再依赖其它外部框架<br>
+为这些框架和自己的框架，使用压力测试工具在相同的环境和平台来跑这些测试用例，使用图表绘制在不同的压力下的执行时间（以及内存和CPU等主要资源的消耗情况）<br>
+如果出现明显的差距则用性能分析工具进行排查和优化，比如：<br>
+优化框架内的线程安全的实现方式<br>
+为框架内的代码做一些缓存（缓存反射得到的元数据等等）<br>
+减少调用层次<br>
+这些调整可能会打破原来的主线流程或让代码变得难以理解，需要留下相关注释<br>
+不断重压力测试和优化的过程，每次尝试优化5%~20%的性能，虽然越到后来可能会越难，如果发现实在无法优化的话（性能分析工具显示性能的分布已经很均匀了），可以看一下其它框架对于这部分工作实现的代码逻辑
+<p><strong>封装和扩展</strong></p>
+<p>个人觉得一个框架如果只是能用那是第一个层次，能很方便的进行扩展或二次开发那是另外一个层次，如果我们龙骨阶段的工作做的足够好，框架是一个立体饱满的框架，那么这部分的工作量就会小很多，否则我们需要对框架进行不少的重构以便可以达到这个层次。</p>
+我们需要纵览一下框架的所有类型，看看有哪些类型我们是打算提供开发人员进行增强、扩展或替换的，对这些类型进行响应的结构调整。<br>
+比如希望被增强，则需要从继承的角度来考虑<br>
+比如希望被扩展，则需要从Provider的角度来考虑<br>
+比如希望被替换，则需要在配置中提供组件的替换<br>
+我们需要再为这些类型进行精细化的调整：<br>
+检查是否该封闭的封闭了，该开放的开放了<br>
+增强扩展或替换是否会带来副作用<br>
+对于新来的外来类型，接收和使用的时候做足够的检查<br>
+相关日志的完善
+<p><br>
+<strong>重构还是重构</strong></p>
+<p>光是重构这个事情其实就可以说一本书了，其实我有一点代码的洁癖，这里列一些我自己写代码的时候注重的地方：</p>
+格式：每次提交代码的时候使用IDE来格式化你的代码和引用（当然，实现可能需要配置IDE为你喜欢的代码风格）<br>
+命名：保持整个类和接口命名统一，各种er，Provider、Creator、Initializer、Invoker、Selector代表的是一件事情，不要使用汉语拼音命名，如果英文不够好的话多查一下字典，有的时候我甚至会因为一个命名去阅读一些源代码看看老外是怎么命名这个对象或这个方法的<br>
+访问控制修饰符：这是一个非常难做好的细节，因为有太多的地方有访问控制修饰符，究竟是给予什么级别的修饰符往往又取决于框架的扩展。可以在一开始的时候给尽量小的权限，在必要的时候慢慢提升，比如对于方法除了一定要给public的地方（比如公共API或实现接口），尽量都给private，在有继承层次关系的时候去给到protected，对于类可以都给默认包/程序集权限，产生编译错误的时候再去给到public<br>
+属性/getter、setter：对于非POJO类字段的公开也要仔细想一下， 是否有必要有setter，因为一旦外部可以来设置类的某个内部字段，那么不仅仅可能改变了类的内部状态，你还要考虑的是怎么处理这种改变，是不是有线程安全问题等等，甚至要考虑是否有必要开放getter，是否应该把类内部的信息公开给外部<br>
+方法：思考每一个方法在当前的类中存在是否合理，这是否属于当前类应该做的事情，方法是否做了太多事情太少事情<br>
+参数：需要思考，对于调用每一个方法的参数，应该是传给方法，还是让方法自己去获取；应该传多个参数，还是封装一个上下文给到方法<br>
+常量：尽量用枚举或静态字符串来代替框架使用到的一些常量或幻数，需要为常量进行一个分类不能一股脑堆在一个常量类Consts中
+<p>除了上面说的一些问题，我觉得对于重构，最重要的一句话就是：不要让同一段代码出现两遍，主要围绕这个原则进行重构往往就会解决很多设计问题，要实现这个目标可能需要：</p>
+干差不多活的类使用继承来避免代码重复（提炼超类），使用模版方法来把差异留给子类实现<br>
+构造方法可以层次化调用，主构造方法只要一个就可以了，不要在构造方法中实现太多逻辑<br>
+如果方法的代码有重复可以考虑对方法提取出更小的公共方法来调用（提炼方法），也可以考虑使用Lambda表达式进行更小粒度重复代码的提取（提炼逻辑）<br>
+可以使用IDE或一些代码分析工具来分析重复代码，如果你能想尽一切办法来避免这些重复的话，代码质量可以提高一个层次
+<p>其实也不一定是在重构的时候再去处理上面所有的问题，如果在写代码的时候都带着这些意识来写的话那么重构的负担就会小一点（不过写代码思想的负担比较大，需要同时考虑封装问题、优雅问题、日志异常问题、多线程问题等等，所以写一套能用的代码和写一套好的代码其实不是一回事情）。</p>
+<p><br>
+<strong>项目文档</strong></p>
+<p>如果要别人来使用你的框架，除了示例项目来说提供和维护一份项目文档是很有必要的，我建议文档分为这几个部分：</p>
+特性 Features：<br>
+相当于项目的一个宣传手册，让别人能被你项目的亮点所吸引<br>
+每一个特性可以是一句话来介绍<br>
+新手入门 Get started：<br>
+介绍框架的基本定位和作用<br>
+从下载开始，通过一步一步的方式让用户了解怎么把框架用起来<br>
+整个文档的阅读时间在10分钟以内<br>
+新手教程 Tutorials：<br>
+提供5~10篇文章站在使用者的角度来介绍项目的主要功能点<br>
+还是通过一步一步的方式，教大家使用框架完成一个小项目（比如CRUD）<br>
+介绍框架使用的最佳实践<br>
+整个文档的阅读时间在8小时内<br>
+手册 Manual：<br>
+介绍项目的定位和理念<br>
+详细介绍项目的每一个功能点，可以站在框架设计者的角度多介绍一些理念<br>
+详细介绍项目的每一个配置，以及默认配置和典型配置<br>
+详细介绍项目的每一个扩展点和替换点<br>
+文档最好不是带格式的，方便以后适配各种文档生成器和开源网站
+<p><strong><br>
+开源</strong></p>
+<p>开源的好处是有很多人可以看到你的代码帮助你改进，你的框架也可能会在更多的复杂环境下使用，框架的发展会较快框架的代码质量也会有很大的提升。</p>
+<p>要把框架进行开源，除了上面的各种工作之外可能还有一些额外的工作需要做：</p>
+选择一个合适的License，并且检测自己选择的License与使用到的类库的License是否兼容，在代码头的地方标记上License。<br>
+要确保每一个人都可以在自己的环境中可以构建你的代码，尽量使用Maven等大家熟悉的构建工具来管理依赖和构建。<br>
+选择诸如Github等平台来管理源代码，并以良好的格式上传你的文档，有条件的话对示例子网站进行部署。<br>
+如果你希望你的代码让更多的人一起来参与开发，那么需要制定和公开一些规范，比如风格、命名、提交流程、测试规范、质量要求等等。<br>
+开源后时刻对项目进行关注，对各种反馈和整合请求进行及时的反馈，毕竟开源是让别人来帮你一起改进代码，不是单纯让别人来学习你的代码也不是让别人来帮你写代码。&nbsp;
+<p>看到这里你可能相信我一开始的话了吧，框架可以使用到完善可以商用差距还是很大的，而且还要确保在迭代的过程中框架不能偏离开始的初衷不能有很大的性能问题出现，任重道远。</p>
+</blockquote>
+   
+</div>
+
+
+
+
+<!-- Baidu Button BEGIN -->
+
+
+
+
+<div class="bdsharebuttonbox tracking-ad bdshare-button-style0-16" style="float: right;" data-mod="popu_172" data-bd-bind="1496906144109">
+<a href="http://blog.csdn.net/u014421556/article/details/51543868#" class="bds_more" data-cmd="more" style="background-position:0 0 !important; background-image: url(http://bdimg.share.baidu.com/static/api/img/share/icons_0_16.png?v=d754dcc0.png) !important" target="_blank"></a>
+<a href="http://blog.csdn.net/u014421556/article/details/51543868#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间" style="background-position:0 -52px !important" target="_blank"></a>
+<a href="http://blog.csdn.net/u014421556/article/details/51543868#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博" style="background-position:0 -104px !important" target="_blank"></a>
+<a href="http://blog.csdn.net/u014421556/article/details/51543868#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博" style="background-position:0 -260px !important" target="_blank"></a>
+<a href="http://blog.csdn.net/u014421556/article/details/51543868#" class="bds_renren" data-cmd="renren" title="分享到人人网" style="background-position:0 -208px !important" target="_blank"></a>
+<a href="http://blog.csdn.net/u014421556/article/details/51543868#" class="bds_weixin" data-cmd="weixin" title="分享到微信" style="background-position:0 -1612px !important" target="_blank"></a>
+</div>
+<script>window._bd_share_config = { "common": { "bdSnsKey": {}, "bdText": "", "bdMini": "1", "bdMiniList": false, "bdPic": "", "bdStyle": "0", "bdSize": "16" }, "share": {} }; with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];</script>
+<!-- Baidu Button END -->
+
+   
+
+    
+<!--172.16.140.13-->
+
+<!-- Baidu Button BEGIN -->
+<script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=1536434" src="./写一个框架的详细步骤 - 一个人的博客 - 博客频道 - CSDN.NET_files/bds_s_v2.js.下载"></script>
+
+<script type="text/javascript">
+    document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000)
+</script>
+<!-- Baidu Button END -->
+
+
+
+ 
+
+
+        <div id="digg" articleid="51543868">
+            <dl id="btnDigg" class="digg digg_disable" onclick="btndigga();">
+               
+                 <dt>顶</dt>
+                <dd>3</dd>
+            </dl>
+           
+              
+            <dl id="btnBury" class="digg digg_disable" onclick="btnburya();">
+              
+                  <dt>踩</dt>
+                <dd>0</dd>               
+            </dl>
+            
+        </div>
+     <div class="tracking-ad" data-mod="popu_222"><a href="javascript:void(0);" target="_blank">&nbsp;</a>   </div>
+    <div class="tracking-ad" data-mod="popu_223"> <a href="javascript:void(0);" target="_blank">&nbsp;</a></div>
+    <script type="text/javascript">
+                function btndigga() {
+                    $(".tracking-ad[data-mod='popu_222'] a").click();
+                }
+                function btnburya() {
+                    $(".tracking-ad[data-mod='popu_223'] a").click();
+                }
+            </script>
+
+   <ul class="article_next_prev">
+                <li class="prev_article"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_shangyipian&#39;]);location.href=&#39;/u014421556/article/details/51479950&#39;;">上一篇</span><a href="http://blog.csdn.net/u014421556/article/details/51479950" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_shangyipian&#39;])">SOLID设计原则</a></li>
+                <li class="next_article"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_xiayipian&#39;]);location.href=&#39;/u014421556/article/details/51671226&#39;;">下一篇</span><a href="http://blog.csdn.net/u014421556/article/details/51671226" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_xiayipian&#39;])">使用mysqldump导出某个表的部分数据</a></li>
+    </ul>
+
+    <div style="clear:both; height:10px;"></div>
+
+
+            <div class="similar_article">
+                    <h4></h4>
+                    <div class="similar_c" style="margin:20px 0px 0px 0px">
+                        <div class="similar_c_t">
+                          &nbsp;&nbsp;相关文章推荐
+                        </div>
+                   
+                        <div class="similar_wrap tracking-ad" data-mod="popu_36" style="max-height:195px;">                       
+                            <ul class="similar_list fl">    
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://blog.csdn.net/liu88010988/article/details/51547592" title="从零开始写一个框架的详细步骤" strategy="recommend_sim_0" target="_blank" style="width: 290px;">从零开始写一个框架的详细步骤</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://blog.csdn.net/caimagic/article/details/51584765" title="写一个框架的详细步骤" strategy="recommend_sim_0" target="_blank" style="width: 290px;">写一个框架的详细步骤</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://blog.csdn.net/dlgdlg_2008/article/details/54258620" title="从零开始写一个RPC框架的详细步骤" strategy="recommend_sim_0" target="_blank" style="width: 290px;">从零开始写一个RPC框架的详细步骤</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://blog.csdn.net/ykyot/article/details/53861067" title="PhpStorm支持CI框架的代码提示自动补全（自己写的model类和Service类及类里的function的自动提示）（详细步骤）" strategy="recommend_sim_0" target="_blank" style="width: 290px;">PhpStorm支持CI框架的代码提示自动补全（自己写的model类和Service类及类里的function的自动提示）（详细步骤）</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://blog.csdn.net/u012288928/article/details/72830857" title="用Kotlin语言写一个简单的Android Demo（有详细步骤和各种解决方法）" strategy="recommend_sim_0" target="_blank" style="width: 290px;">用Kotlin语言写一个简单的Android Demo（有详细步骤和各种解决方法）</a>
+                                   </li>
+                            </ul>
+                              <ul class="similar_list fr">      
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://blog.csdn.net/Vchen_hao/article/details/70226422" title="SSM框架——详细整合教程【Spring+SpringMVC+MyBatis】" strategy="recommend_sim_0" target="_blank" style="width: 290px;">SSM框架——详细整合教程【Spring+SpringMVC+MyBatis】</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://blog.csdn.net/ayanami001/article/details/48103891" title="你知道如何写一个框架吗？" strategy="recommend_sim_0" target="_blank" style="width: 290px;">你知道如何写一个框架吗？</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://blog.csdn.net/xuchao_blog/article/details/71629628" title="Android开源库V - Layout：淘宝、天猫UI开源框架收藏分享" strategy="recommend_sim_0" target="_blank" style="width: 290px;">Android开源库V - Layout：淘宝、天猫UI开源框架收藏分享</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://blog.csdn.net/u011531613/article/details/70946177" title="Java设计模式超详细" strategy="recommend_sim_0" target="_blank" style="width: 290px;">Java设计模式超详细</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://blog.csdn.net/c929833623lvcha/article/details/8798299" title="基于J2EE规范的TeaFramework框架（毕业设计用于学习J2EE写的一个框架）" strategy="recommend_sim_0" target="_blank" style="width: 290px;">基于J2EE规范的TeaFramework框架（毕业设计用于学习J2EE写的一个框架）</a>
+                                   </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>   
+      
+</div>
+
+     <div>
+           
+
+       
+                           
+            <!-- 广告位：PC端-博客内容页-banner1-960*90 --> 
+            <script> 
+                (function() { 
+                    var s = "_" + Math.random().toString(36).slice(2); 
+                    document.write('<div id="' + s + '"></div>'); 
+                    (window.slotbydup=window.slotbydup || []).push({ 
+                        id: '4228013', 
+                        container: s, 
+                        size: '0,0', 
+                        display: 'inlay-fix' 
+                    }); 
+                })(); 
+            </script><div id="_zbgk545lj3j"></div><script charset="utf-8" src="./写一个框架的详细步骤 - 一个人的博客 - 博客频道 - CSDN.NET_files/bcum(1)"></script><script type="text/javascript">
+    /*测试-博客内容页下方Banner1-960*90*/
+    var cpro_id = "u2998112";
+</script>
+<script type="text/javascript" src="./写一个框架的详细步骤 - 一个人的博客 - 博客频道 - CSDN.NET_files/c.js.下载"></script><div id="BAIDU_SSP__wrapper_u2998112_0"><iframe id="iframeu2998112_0" src="./写一个框架的详细步骤 - 一个人的博客 - 博客频道 - CSDN.NET_files/bcum.html" width="960" height="90" align="center,center" vspace="0" hspace="0" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" style="border:0;vertical-align:bottom;margin:0;width:960px;height:90px" allowtransparency="true"></iframe></div>
+
+    </div>
+
+<div id="suggest">
+
+</div>
+         <script language="javascript" type="text/javascript">     
+             $(function(){
+                 $.get("/u014421556/svc/GetSuggestContent/51543868",function(data){
+                     $("#suggest").html(data);
+                 });     
+             });             
+         </script>  
+
+
+<style>
+.blog-ass-articl dd {
+color: #369;
+width: 99%; /*修改行*/
+float: left;
+overflow: hidden;
+font: normal normal 12px/23px "SimSun";
+height: 23px;
+margin: 0;
+padding: 0 0 0 10px;
+margin-right: 30px;
+background: url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;
+}
+</style>
+
+ 
+
+<div id="relate" data-mod="popu_218" class="tracking-ad" style="display: block;">
+        <div class="relate_t">
+            <h3><span>参考知识库</span></h3>
+        </div>
+        <div class="relate_c"><dl class="relate_list"><dt><a target="_blank" href="http://lib.csdn.net/base/java"><img src="./写一个框架的详细步骤 - 一个人的博客 - 博客频道 - CSDN.NET_files/1453701371636_636.jpg" alt="img"></a></dt><dd><h4><a target="_blank" href="http://lib.csdn.net/base/java">Java 知识库</a></h4><p><label><span>27751</span><em>关注</em><i>|</i><span>3746</span><em>收录</em></label></p></dd></dl><dl class="relate_list"><dt><a target="_blank" href="http://lib.csdn.net/base/javascript"><img src="./写一个框架的详细步骤 - 一个人的博客 - 博客频道 - CSDN.NET_files/1458106113412_412.jpg" alt="img"></a></dt><dd><h4><a target="_blank" href="http://lib.csdn.net/base/javascript">JavaScript知识库</a></h4><p><label><span>15292</span><em>关注</em><i>|</i><span>1516</span><em>收录</em></label></p></dd></dl><dl class="relate_list"><dt><a target="_blank" href="http://lib.csdn.net/base/mongodb"><img src="./写一个框架的详细步骤 - 一个人的博客 - 博客频道 - CSDN.NET_files/1478676229520_520.jpg" alt="img"></a></dt><dd><h4><a target="_blank" href="http://lib.csdn.net/base/mongodb">MongoDB知识库</a></h4><p><label><span>7237</span><em>关注</em><i>|</i><span>855</span><em>收录</em></label></p></dd></dl><dl class="relate_list"><dt><a target="_blank" href="http://lib.csdn.net/base/javaee"><img src="./写一个框架的详细步骤 - 一个人的博客 - 博客频道 - CSDN.NET_files/1456818035722_722.jpg" alt="img"></a></dt><dd><h4><a target="_blank" href="http://lib.csdn.net/base/javaee">Java EE知识库</a></h4><p><label><span>18906</span><em>关注</em><i>|</i><span>1408</span><em>收录</em></label></p></dd></dl><dl class="relate_list"><dt><a target="_blank" href="http://lib.csdn.net/base/javase"><img src="./写一个框架的详细步骤 - 一个人的博客 - 博客频道 - CSDN.NET_files/1453169124297_297.jpg" alt="img"></a></dt><dd><h4><a target="_blank" href="http://lib.csdn.net/base/javase">Java SE知识库</a></h4><p><label><span>26672</span><em>关注</em><i>|</i><span>578</span><em>收录</em></label></p></dd></dl><dl class="relate_list"><dt><a target="_blank" href="http://lib.csdn.net/base/softwaretest"><img src="./写一个框架的详细步骤 - 一个人的博客 - 博客频道 - CSDN.NET_files/1467193268346_346.jpg" alt="img"></a></dt><dd><h4><a target="_blank" href="http://lib.csdn.net/base/softwaretest">软件测试知识库</a></h4><p><label><span>4860</span><em>关注</em><i>|</i><span>318</span><em>收录</em></label></p></dd></dl><dl class="relate_list"><dt><a target="_blank" href="http://lib.csdn.net/base/mysql"><img src="./写一个框架的详细步骤 - 一个人的博客 - 博客频道 - CSDN.NET_files/1454051093684_684.jpg" alt="img"></a></dt><dd><h4><a target="_blank" href="http://lib.csdn.net/base/mysql">MySQL知识库</a></h4><p><label><span>22762</span><em>关注</em><i>|</i><span>1550</span><em>收录</em></label></p></dd></dl><dl class="relate_list"><dt><a target="_blank" href="http://lib.csdn.net/base/jquery"><img src="./写一个框架的详细步骤 - 一个人的博客 - 博客频道 - CSDN.NET_files/1459143634568_568.jpg" alt="img"></a></dt><dd><h4><a target="_blank" href="http://lib.csdn.net/base/jquery">jQuery知识库</a></h4><p><label><span>9361</span><em>关注</em><i>|</i><span>948</span><em>收录</em></label></p></dd></dl><dl class="relate_list"><dt><a target="_blank" href="http://lib.csdn.net/base/angularjs"><img src="./写一个框架的详细步骤 - 一个人的博客 - 博客频道 - CSDN.NET_files/1458526868366_366.jpg" alt="img"></a></dt><dd><h4><a target="_blank" href="http://lib.csdn.net/base/angularjs">AngularJS知识库</a></h4><p><label><span>5005</span><em>关注</em><i>|</i><span>570</span><em>收录</em></label></p></dd></dl></div>
+</div>
+ 
+
+<dl class="blog-ass-articl tracking-ad" id="res-relatived" data-mod="popu_84"> 
+    <div class="embody embody_b" id="libkeyparent" style="display:none">
+            <span class="embody_t">更多资料请参考：</span>
+            <div class="embody_c" id="libkey"></div>
+    </div>
+
+
+     <dt><span>猜你在找</span></dt>    
+
+
+   
+
+    
+    <div id="adCollege"> 
+    <div><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px; white-space: nowrap;"><a href="http://edu.csdn.net/course/detail/1978" title="基于PHP面向对象的自定义MVC框架高级项目开发" strategy="v4:content" target="_blank">基于PHP面向对象的自定义MVC框架高级项目开发</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px; white-space: nowrap;"><a href="http://edu.csdn.net/course/detail/4371" title="从零开始实现一个可用的mvc框架" strategy="v4:content" target="_blank">从零开始实现一个可用的mvc框架</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px; white-space: nowrap;"><a href="http://edu.csdn.net/course/detail/4325" title="ASP.NET 开发课程 MVC5 入门篇" strategy="v4:content" target="_blank">ASP.NET 开发课程 MVC5 入门篇</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px; white-space: nowrap;"><a href="http://edu.csdn.net/course/detail/943" title="SpringMVC框架（基于spring3.0）" strategy="v4:content" target="_blank">SpringMVC框架（基于spring3.0）</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px; white-space: nowrap;"><a href="http://edu.csdn.net/course/detail/4370" title="SpringMVC+spring+Mybatis+Maven框架搭建" strategy="v4:content" target="_blank">SpringMVC+spring+Mybatis+Maven框架搭建</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px; white-space: nowrap;"><a href="http://edu.csdn.net/course/detail/826" title="深入浅出详解Spring MVC 框架" strategy="v4:content" target="_blank">深入浅出详解Spring MVC 框架</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px; white-space: nowrap;"><a href="http://edu.csdn.net/course/detail/1938" title="Struts2架构设计之路 自主编写Web开发框架" strategy="v4:content" target="_blank">Struts2架构设计之路 自主编写Web开发框架</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px; white-space: nowrap;"><a href="http://edu.csdn.net/course/detail/4468" title="最火框架springmvc4+mybatis3+echarts3+bootstrap3教程(ssm）" strategy="v4:content" target="_blank">最火框架springmvc4+mybatis3+echarts3+bootstrap3教程(ssm）</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px; white-space: nowrap;"><a href="http://edu.csdn.net/course/detail/3458" title="asp.net MVC从入门到精通" strategy="v4:content" target="_blank">asp.net MVC从入门到精通</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px; white-space: nowrap;"><a href="http://edu.csdn.net/course/detail/2301" title="C++ 单元测试（GoogleTest）" strategy="v4:content" target="_blank">C++ 单元测试（GoogleTest）</a></dd></div></div>  
+
+    
+
+     <script src="./写一个框架的详细步骤 - 一个人的博客 - 博客频道 - CSDN.NET_files/job_reco.js.下载" type="text/javascript"></script> 
+     <script type="text/javascript">
+         csdn.position.showEdu({
+             sourceType: "blog",
+             searchType: "detail",
+             searchKey: "51543868",
+                username: "",
+                recordcount: "10",
+                containerId: "adCollege" //容器DIV的id。 
+            });  
+        </script> 
+   
+</dl>
+
+
+
+
+
+    <div id="ad_cen">        
+                <div>
+                                    <div class="tracking-ad" data-view="true" data-mod="ad_popu_199" data-mtp="43" data-order="114" data-con="ad_content_1843" style="width: 960px; height: 90px;">
+                                             <script type="text/javascript">
+                                                 /*博客内容页下方Banner2-960*90，创建于,2016-11-28*/
+                                                 var cpro_id = "u2831143";
+                                            </script>
+                                            <script type="text/javascript" src="./写一个框架的详细步骤 - 一个人的博客 - 博客频道 - CSDN.NET_files/c.js.下载"></script><div id="BAIDU_SSP__wrapper_u2831143_0"><iframe id="iframeu2831143_0" src="./写一个框架的详细步骤 - 一个人的博客 - 博客频道 - CSDN.NET_files/bcum(2).html" width="960" height="90" align="center,center" vspace="0" hspace="0" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" style="border:0;vertical-align:bottom;margin:0;width:960px;height:90px" allowtransparency="true"></iframe></div>
+                                   </div>
+                    </div>
+    </div>  
+
+        <!-- 广告位开始 -->
+        <!-- 广告位结束 -->
+<div class="tracking-ad" data-view="true" data-mod="ad_popu_72" data-mtp="62" data-order="40" data-con="ad_content_2072">
+                 <script id="popuLayer_js_q" src="./写一个框架的详细步骤 - 一个人的博客 - 博客频道 - CSDN.NET_files/popuLayer.js.下载" defer="defer" type="text/javascript"></script>
+            <div id="layerd" style="position: fixed; bottom: 0px; right: 0px; line-height: 0px; z-index: 1000; width: 300px; height: 278px; display: none;">
+    	            <div class="J_close layer_close" style="display:;background-color:#efefef;padding:0px;color:#333;font:12px/24px Helvetica,Tahoma,Arial,sans-serif;text-align:right;">关闭</div><!-- 广告占位容器 --><div id="cpro_u2895327"><iframe id="iframeu2895327_0" src="./写一个框架的详细步骤 - 一个人的博客 - 博客频道 - CSDN.NET_files/bcum(3).html" width="300" height="250" align="center,center" vspace="0" hspace="0" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" style="border:0;vertical-align:bottom;margin:0;width:300px;height:250px" allowtransparency="true"></iframe></div></div>
+            <script>  document.getElementById("popuLayer_js_q").onload=function(){      var styObjd=styObj={width:"300px","height":parseInt(250)+28};window.CSDN.Layer.PopuLayer("#layerd",{storageName:"layerd",styleObj:styObjd,total:50,expoire:1000*60});  }</script><!-- 投放代码 --><script type="text/javascript">                /*服务器频道首页置顶Banner960*90，创建于2014-7-3*/    (window.cproArray = window.cproArray || []).push({        id: "u2895327"      });  </script>  <script src="./写一个框架的详细步骤 - 一个人的博客 - 博客频道 - CSDN.NET_files/c.js.下载" type="text/javascript"></script>
+     
+</div>
+
+<div class="comment_class">
+    <div id="comment_title" class="panel_head">
+        <span class="see_comment">查看评论</span><a name="comments"></a></div>
+    <div id="comment_list"><dl class="comment_item comment_topic" id="comment_item_6068527"><dt class="comment_head" floor="3">3楼 <span class="user"><a class="username" href="http://blog.csdn.net/u013036685" target="_blank">11-李红</a> <span class="ptime">2016-05-31 21:56发表</span>  <a href="http://blog.csdn.net/u014421556/article/details/51543868#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="6068527" username="u013036685"> <a href="http://blog.csdn.net/u014421556/article/details/51543868#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/u014421556/article/details/51543868#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/u013036685" target="_blank"><img src="./写一个框架的详细步骤 - 一个人的博客 - 博客频道 - CSDN.NET_files/3_u013036685.jpg" width="40" height="40"></a></dd><dd class="comment_body">收藏了，太好了</dd></dl><dl class="comment_item comment_topic" id="comment_item_6064180"><dt class="comment_head" floor="2">2楼 <span class="user"><a class="username" href="http://blog.csdn.net/u012466304" target="_blank">king_eagle2015</a> <span class="ptime">2016-05-31 16:11发表</span>  <a href="http://blog.csdn.net/u014421556/article/details/51543868#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="6064180" username="u012466304"> <a href="http://blog.csdn.net/u014421556/article/details/51543868#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/u014421556/article/details/51543868#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/u012466304" target="_blank"><img src="./写一个框架的详细步骤 - 一个人的博客 - 博客频道 - CSDN.NET_files/3_u012466304.jpg" width="40" height="40"></a></dd><dd class="comment_body">框架的应用要不断学习</dd></dl><dl class="comment_item comment_topic" id="comment_item_6063788"><dt class="comment_head" floor="1">1楼 <span class="user"><a class="username" href="http://blog.csdn.net/mengdonghui123456" target="_blank">孟东辉</a> <span class="ptime">2016-05-31 14:50发表</span>  <a href="http://blog.csdn.net/u014421556/article/details/51543868#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="6063788" username="mengdonghui123456"> <a href="http://blog.csdn.net/u014421556/article/details/51543868#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/u014421556/article/details/51543868#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/mengdonghui123456" target="_blank"><img src="./写一个框架的详细步骤 - 一个人的博客 - 博客频道 - CSDN.NET_files/3_mengdonghui123456.jpg" width="40" height="40"></a></dd><dd class="comment_body">楼主渊博。</dd></dl><div class="clear"></div></div>
+    <div id="comment_bar" style="display: none;">
+    </div>
+    <div id="comment_form"><div class="guest_link">您还没有登录,请<a href="javascript:void(0);" onclick="javascript:loginbox();">[登录]</a>或<a href="http://passport.csdn.net/account/register?from=http%3A%2F%2Fblog.csdn.net%2Fu014421556%2Farticle%2Fdetails%2F51543868">[注册]</a></div></div>
+    <div class="announce">
+        * 以上用户言论只代表其个人观点，不代表CSDN网站的观点或立场<a name="reply"></a><a name="quote"></a></div>
+</div>
+
+<script type="text/javascript">
+    var fileName = '51543868';
+    var commentscount = 3;
+    var islock = false
+</script>
+
+    <div id="ad_bot">
+    </div>
+<div id="report_dialog">
+</div>
+
+<div id="d-top" style="bottom:60px;">
+
+        <a id="quick-reply" class="btn btn-top q-reply" title="快速回复" style="display:none;">
+            <img src="./写一个框架的详细步骤 - 一个人的博客 - 博客频道 - CSDN.NET_files/blog-icon-reply.png" alt="快速回复">
+        </a>    
+    <a id="d-top-a" class="btn btn-top backtop" style="display: none;" title="返回顶部" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_huidaodingbu&#39;])">         
+         <img src="./写一个框架的详细步骤 - 一个人的博客 - 博客频道 - CSDN.NET_files/top.png" alt="TOP">
+    </a>
+</div>
+<script type="text/javascript">
+    $(function ()
+    {
+        $("#ad_frm_0").height("90px");
+        
+        setTimeout(function(){
+            $("#ad_frm_2").height("200px");
+        },1000);    
+    });
+  
+</script>
+<style type="text/css">
+    .tag_list
+    {
+        background: none repeat scroll 0 0 #FFFFFF;
+        border: 1px solid #D7CBC1;
+        color: #000000;
+        font-size: 12px;
+        line-height: 20px;
+        list-style: none outside none;
+        margin: 10px 2% 0 1%;
+        padding: 1px;
+    }
+    .tag_list h5
+    {
+        background: none repeat scroll 0 0 #E0DBD3;
+        color: #47381C;
+        font-size: 12px;
+        height: 24px;
+        line-height: 24px;
+        padding: 0 5px;
+        margin: 0;
+    }
+    .tag_list h5 a
+    {
+        color: #47381C;
+    }
+    .classify
+    {
+        margin: 10px 0;
+        padding: 4px 12px 8px;
+    }
+    .classify a
+    {
+        margin-right: 20px;
+        white-space: nowrap;
+    }
+</style>
+
+
+<div class="tag_list" style="">
+
+    <h5>
+        <a href="http://www.csdn.net/tag/" target="_blank">核心技术类目</a></h5>
+    <div class="classify">
+<a title="全部主题" href="http://www.csdn.net/tag" target="_blank" onclick="LogClickCount(this,336);">全部主题</a>
+<a title="Hadoop" href="http://g.csdn.net/5272865" target="_blank" onclick="LogClickCount(this,336);">Hadoop</a>
+<a title="AWS" href="http://g.csdn.net/5272866" target="_blank" onclick="LogClickCount(this,336);">AWS</a>
+<a title="移动游戏" href="http://g.csdn.net/5272870" target="_blank" onclick="LogClickCount(this,336);">移动游戏</a>
+<a title="Java" href="http://g.csdn.net/5272871" target="_blank" onclick="LogClickCount(this,336);">Java</a>
+<a title="Android" href="http://g.csdn.net/5272872" target="_blank" onclick="LogClickCount(this,336);">Android</a>
+<a title="iOS" href="http://g.csdn.net/5272873" target="_blank" onclick="LogClickCount(this,336);">iOS</a>
+<a title="Swift" href="http://g.csdn.net/5272868" target="_blank" onclick="LogClickCount(this,336);">Swift</a>
+<a title="智能硬件" href="http://g.csdn.net/5272869" target="_blank" onclick="LogClickCount(this,336);">智能硬件</a>
+<a title="Docker" href="http://g.csdn.net/5272867" target="_blank" onclick="LogClickCount(this,336);">Docker</a>
+<a title="OpenStack" href="http://g.csdn.net/5272925" target="_blank" onclick="LogClickCount(this,336);">OpenStack</a>
+<a title="VPN" href="http://www.csdn.net/tag/vpn" target="_blank" onclick="LogClickCount(this,336);">VPN</a>
+<a title="Spark" href="http://g.csdn.net/5272924" target="_blank" onclick="LogClickCount(this,336);">Spark</a>
+<a title="ERP" href="http://www.csdn.net/tag/erp" target="_blank" onclick="LogClickCount(this,336);">ERP</a>
+<a title="IE10" href="http://www.csdn.net/tag/ie10" target="_blank" onclick="LogClickCount(this,336);">IE10</a>
+<a title="Eclipse" href="http://www.csdn.net/tag/eclipse" target="_blank" onclick="LogClickCount(this,336);">Eclipse</a>
+<a title="CRM" href="http://www.csdn.net/tag/crm" target="_blank" onclick="LogClickCount(this,336);">CRM</a>
+<a title="JavaScript" href="http://www.csdn.net/tag/javascript" target="_blank" onclick="LogClickCount(this,336);">JavaScript</a>
+<a title="数据库" href="http://www.csdn.net/tag/%E6%95%B0%E6%8D%AE%E5%BA%93" target="_blank" onclick="LogClickCount(this,336);">数据库</a>
+<a title="Ubuntu" href="http://www.csdn.net/tag/ubuntu" target="_blank" onclick="LogClickCount(this,336);">Ubuntu</a>
+<a title="NFC" href="http://www.csdn.net/tag/nfc" target="_blank" onclick="LogClickCount(this,336);">NFC</a>
+<a title="WAP" href="http://www.csdn.net/tag/wap" target="_blank" onclick="LogClickCount(this,336);">WAP</a>
+<a title="jQuery" href="http://www.csdn.net/tag/jquery" target="_blank" onclick="LogClickCount(this,336);">jQuery</a>
+<a title="BI" href="http://www.csdn.net/tag/bi" target="_blank" onclick="LogClickCount(this,336);">BI</a>
+<a title="HTML5" href="http://www.csdn.net/tag/html5" target="_blank" onclick="LogClickCount(this,336);">HTML5</a>
+<a title="Spring" href="http://www.csdn.net/tag/spring" target="_blank" onclick="LogClickCount(this,336);">Spring</a>
+<a title="Apache" href="http://www.csdn.net/tag/apache" target="_blank" onclick="LogClickCount(this,336);">Apache</a>
+<a title=".NET" href="http://www.csdn.net/tag/.net" target="_blank" onclick="LogClickCount(this,336);">.NET</a>
+<a title="API" href="http://www.csdn.net/tag/api" target="_blank" onclick="LogClickCount(this,336);">API</a>
+<a title="HTML" href="http://www.csdn.net/tag/html" target="_blank" onclick="LogClickCount(this,336);">HTML</a>
+<a title="SDK" href="http://www.csdn.net/tag/sdk" target="_blank" onclick="LogClickCount(this,336);">SDK</a>
+<a title="IIS" href="http://www.csdn.net/tag/iis" target="_blank" onclick="LogClickCount(this,336);">IIS</a>
+<a title="Fedora" href="http://www.csdn.net/tag/fedora" target="_blank" onclick="LogClickCount(this,336);">Fedora</a>
+<a title="XML" href="http://www.csdn.net/tag/xml" target="_blank" onclick="LogClickCount(this,336);">XML</a>
+<a title="LBS" href="http://www.csdn.net/tag/lbs" target="_blank" onclick="LogClickCount(this,336);">LBS</a>
+<a title="Unity" href="http://www.csdn.net/tag/unity" target="_blank" onclick="LogClickCount(this,336);">Unity</a>
+<a title="Splashtop" href="http://www.csdn.net/tag/splashtop" target="_blank" onclick="LogClickCount(this,336);">Splashtop</a>
+<a title="UML" href="http://www.csdn.net/tag/uml" target="_blank" onclick="LogClickCount(this,336);">UML</a>
+<a title="components" href="http://www.csdn.net/tag/components" target="_blank" onclick="LogClickCount(this,336);">components</a>
+<a title="Windows Mobile" href="http://www.csdn.net/tag/windowsmobile" target="_blank" onclick="LogClickCount(this,336);">Windows Mobile</a>
+<a title="Rails" href="http://www.csdn.net/tag/rails" target="_blank" onclick="LogClickCount(this,336);">Rails</a>
+<a title="QEMU" href="http://www.csdn.net/tag/qemu" target="_blank" onclick="LogClickCount(this,336);">QEMU</a>
+<a title="KDE" href="http://www.csdn.net/tag/kde" target="_blank" onclick="LogClickCount(this,336);">KDE</a>
+<a title="Cassandra" href="http://www.csdn.net/tag/cassandra" target="_blank" onclick="LogClickCount(this,336);">Cassandra</a>
+<a title="CloudStack" href="http://www.csdn.net/tag/cloudstack" target="_blank" onclick="LogClickCount(this,336);">CloudStack</a>
+<a title="FTC" href="http://www.csdn.net/tag/ftc" target="_blank" onclick="LogClickCount(this,336);">FTC</a>
+<a title="coremail" href="http://www.csdn.net/tag/coremail" target="_blank" onclick="LogClickCount(this,336);">coremail</a>
+<a title="OPhone " href="http://www.csdn.net/tag/ophone" target="_blank" onclick="LogClickCount(this,336);">OPhone </a>
+<a title="CouchBase" href="http://www.csdn.net/tag/couchbase" target="_blank" onclick="LogClickCount(this,336);">CouchBase</a>
+<a title="云计算" href="http://www.csdn.net/tag/%E4%BA%91%E8%AE%A1%E7%AE%97" target="_blank" onclick="LogClickCount(this,336);">云计算</a>
+<a title="iOS6" href="http://www.csdn.net/tag/iOS6" target="_blank" onclick="LogClickCount(this,336);">iOS6</a>
+<a title="Rackspace " href="http://www.csdn.net/tag/rackspace" target="_blank" onclick="LogClickCount(this,336);">Rackspace </a>
+<a title="Web App" href="http://www.csdn.net/tag/webapp" target="_blank" onclick="LogClickCount(this,336);">Web App</a>
+<a title="SpringSide" href="http://www.csdn.net/tag/springside" target="_blank" onclick="LogClickCount(this,336);">SpringSide</a>
+<a title="Maemo" href="http://www.csdn.net/tag/maemo" target="_blank" onclick="LogClickCount(this,336);">Maemo</a>
+<a title="Compuware" href="http://www.csdn.net/tag/compuware" target="_blank" onclick="LogClickCount(this,336);">Compuware</a>
+<a title="大数据" href="http://www.csdn.net/tag/%E5%A4%A7%E6%95%B0%E6%8D%AE" target="_blank" onclick="LogClickCount(this,336);">大数据</a>
+<a title="aptech" href="http://www.csdn.net/tag/aptech" target="_blank" onclick="LogClickCount(this,336);">aptech</a>
+<a title="Perl" href="http://www.csdn.net/tag/perl" target="_blank" onclick="LogClickCount(this,336);">Perl</a>
+<a title="Tornado" href="http://www.csdn.net/tag/tornado" target="_blank" onclick="LogClickCount(this,336);">Tornado</a>
+<a title="Ruby" href="http://www.csdn.net/tag/ruby" target="_blank" onclick="LogClickCount(this,336);">Ruby</a>
+<a title="Hibernate" href="http://www.csdn.net/tag/hibernate" target="_blank" onclick="LogClickCount(this,336);">Hibernate</a>
+<a title="ThinkPHP" href="http://www.csdn.net/tag/thinkphp" target="_blank" onclick="LogClickCount(this,336);">ThinkPHP</a>
+<a title="HBase" href="http://www.csdn.net/tag/hbase" target="_blank" onclick="LogClickCount(this,336);">HBase</a>
+<a title="Pure" href="http://www.csdn.net/tag/pure" target="_blank" onclick="LogClickCount(this,336);">Pure</a>
+<a title="Solr" href="http://www.csdn.net/tag/solr" target="_blank" onclick="LogClickCount(this,336);">Solr</a>
+<a title="Angular" href="http://www.csdn.net/tag/angular" target="_blank" onclick="LogClickCount(this,336);">Angular</a>
+<a title="Cloud Foundry" href="http://www.csdn.net/tag/cloudfoundry" target="_blank" onclick="LogClickCount(this,336);">Cloud Foundry</a>
+<a title="Redis" href="http://www.csdn.net/tag/redis" target="_blank" onclick="LogClickCount(this,336);">Redis</a>
+<a title="Scala" href="http://www.csdn.net/tag/scala" target="_blank" onclick="LogClickCount(this,336);">Scala</a>
+<a title="Django" href="http://www.csdn.net/tag/django" target="_blank" onclick="LogClickCount(this,336);">Django</a>
+<a title="Bootstrap" href="http://www.csdn.net/tag/bootstrap" target="_blank" onclick="LogClickCount(this,336);">Bootstrap</a>
+    </div>
+
+</div>
+  <script type="text/javascript">     
+      $(function(){
+              setTimeout(function(){
+                  $.get("/u014421556/svc/GetTagContent",function(data){
+                      $(".tag_list").html(data).show();
+                  });     
+              });
+          },500);                       
+ </script> 
+
+
+<div id="pop_win" style="display:none ;position: absolute; z-index: 10000; border: 1px solid rgb(220, 220, 220); top: 222.5px; left: 630px; opacity: 1; background: none 0px 0px repeat scroll rgb(255, 255, 255);">
+    
+</div>
+<div id="popup_mask"></div>
+<style>
+    #popup_mask
+    {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: #000;
+        z-index: 9999;
+        left: 0px;
+        top: 0px;
+        opacity: 0.3;
+        filter: alpha(opacity=30);
+        display: none;
+    }
+
+</style>
+
+
+
+
+<script type="text/javascript">
+    $(function(){        
+        
+        setTimeout(function(){
+            $(".comment_body:contains('回复')").each(function(index,item){
+                var u=$(this).text().split('：')[0].toString().replace("回复","")
+                var thisComment=$(this);
+                if(u)
+                {
+                    $.getJSON("https://passport.csdn.net/get/nick?callback=?", {users: u}, function(a) {
+                        if(a!=null&&a.data!=null&&a.data.length>0)
+                        {
+                            nick=a.data[0].n; 
+                            if(u!=nick)
+                            {
+                                thisComment.text(thisComment.text().replace(u,nick));  
+                            }
+                        }       
+                    });  
+                }
+            });         
+
+        },200);  
+
+        setTimeout(function(){
+            $(".math").each(function(index,value){$(this).find("span").last().css("color","#fff"); })
+        },5000);
+
+        setTimeout(function(){
+            $(".math").each(function(index,value){$(this).find("span").last().css("color","#fff"); })
+        },10000);
+
+        setTimeout(function(){
+            $(".math").each(function(index,value){$(this).find("span").last().css("color","#fff"); })
+        },15000);
+        
+        setTimeout(function(){
+            $("a img[src='http://js.tongji.linezing.com/stats.gif']").parent().css({"position":"absolute","left":"50%"});
+        },300);
+    });
+
+    function loginbox(){
+        var $logpop=$("#pop_win");
+        $logpop.html('<iframe src="https://passport.csdn.net/account/loginbox?service=http://static.blog.csdn.net/callback.htm" frameborder="0" height="600" width="400" scrolling="no"></iframe>');
+
+        $('#popup_mask').css({
+            opacity: 0.5,
+            width: $( document ).width() + 'px',
+            height:  $( document ).height() + 'px'
+        });
+        $('#popup_mask').css("display","block");
+ 
+        $logpop.css( {
+            top: ($( window ).height() - $logpop.height())/ 2  + $( window 
+       ).scrollTop() + 'px',
+            left:($( window ).width() - $logpop.width())/ 2
+        } );
+ 
+        setTimeout( function () {
+            $logpop.show();
+            $logpop.css( {
+                opacity: 1
+            } );
+        }, 200 );
+ 
+        $('#popup_mask').unbind("click");
+        $('#popup_mask').bind("click", function(){
+            $('#popup_mask').hide();
+            var $clopop = $("#pop_win");
+            $("#common_ask_div_sc").css("display","none");
+            $clopop.css( {
+                opacity: 0
+            } );
+            setTimeout( function () {
+                $clopop.hide();
+            }, 350 );
+            return false;
+        });
+    }   
+
+    var articletitle='写一个框架的详细步骤';
+
+</script>
+
+
+
+
+
+
+
+
+                        <div class="clear">
+                        </div>
+                    </div>                   
+                
+            </div>
+                   
+           <div id="side">
+               
+    <div class="side">
+<div id="panel_Profile" class="panel">
+<ul class="panel_head"><span>个人资料</span></ul>
+<ul class="panel_body profile">
+<div id="blog_userface">
+    <a href="http://my.csdn.net/u014421556" target="_blank">
+    <img src="./写一个框架的详细步骤 - 一个人的博客 - 博客频道 - CSDN.NET_files/1_u014421556.jpg" title="访问我的空间" style="max-width:90%">
+    </a>
+    <br>
+    <span><a href="http://my.csdn.net/u014421556" class="user_name" target="_blank">想跌破记忆寻找你</a></span>
+</div>
+<div class="interact">
+
+    <a href="javascript:void(0);" class="attent" id="span_add_follow" title="[加关注]"></a>
+
+ <a href="javascript:void(0);" class="letter" title="[发私信]" onclick="window.open(&#39;http://msg.csdn.net/letters/model?receiver=u014421556&#39;,&#39;_blank&#39;,&#39;height=350,width=700&#39;);_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_sixin&#39;])"></a>  
+</div>
+<div id="blog_medal">
+                <div id="bms_box">
+                                            <a target="_blank">
+                                                    <img src="./写一个框架的详细步骤 - 一个人的博客 - 博客频道 - CSDN.NET_files/chizhiyiheng.png" onmouseover="m_over_m(this,4)" onmouseout="m_out_m()" alt="2">
+                                            </a>
+               </div>
+</div>
+<ul id="blog_rank">
+    <li>访问：<span>160397次</span></li>
+    <li>积分：<span>2385</span> </li>    
+    <li>等级： <span style="position:relative;display:inline-block;z-index:1">
+            <img src="./写一个框架的详细步骤 - 一个人的博客 - 博客频道 - CSDN.NET_files/blog5.png" alt="" style="vertical-align: middle;" id="leveImg">
+            <div id="smallTittle" style=" position: absolute;  left: -24px;  top: 25px;  text-align: center;  width: 101px;  height: 32px;  background-color: #fff;  line-height: 32px;  border: 2px #DDDDDD solid;  box-shadow: 0px 2px 2px rgba (0,0,0,0.1);  display: none;   z-index: 999;">
+            <div style="left: 42%;  top: -8px;  position: absolute;  width: 0;  height: 0;  border-left: 10px solid transparent;  border-right: 10px solid transparent;  border-bottom: 8px solid #EAEAEA;"></div>
+            积分：2385 </div>
+        </span>  </li>
+    <li>排名：<span>第14497名</span></li>
+</ul>
+<ul id="blog_statistics">
+    <li>原创：<span>101篇</span></li>
+    <li>转载：<span>17篇</span></li>
+    <li>译文：<span>0篇</span></li>
+    <li>评论：<span>10条</span></li>
+</ul>
+</ul>
+</div>
+
+
+<div class="panel" id="panel_Search">
+    <ul class="panel_head"><span>文章搜索</span></ul>
+    <ul class="panel_body">
+        <form id="frmSearch" action="http://so.csdn.net/search" class="form_search csdn-tracking-statistics" target="_blank" data-mod="popu_306">
+        <span><input id="inputSearch" type="text" class="blogsearch" title="请输入关键字"></span>
+        <input id="btnSubmit" type="button" value="搜索" title="search in blog">
+        <input type="hidden" name="q" id="inputQ">
+        <input type="hidden" name="t" value="blog">
+        <a id="btnSearchBlog" target="_blank"></a>
+        </form>
+    </ul>
+</div>
+
+<script type="text/javascript">
+
+   
+    $(function () {
+        $("#btnSubmit").unbind("click");
+        $("#btnSubmit").click(function () {           
+            search();
+        });
+
+        $("#frmSearch").submit(function () {           
+            search();
+            return false;
+        });
+
+        function search()
+        {
+            if ($("#inputSearch").val() == "") {               
+                alert("请录入搜索关键词！");                         
+                return false;
+            }
+            //var url = "http://so.csdn.net/so/search/s.do?q=" + encodeURIComponent($("#inputSearch").val()) + "&u=" + username + "&t=blog";           
+            var url = "https://www.baidu.com/s?wd=" + encodeURIComponent($("#inputSearch").val()) + "%20site%3Ablog.csdn.net"
+            window.location.href = url;
+        }   
+    });
+</script><div id="panel_Category" class="panel">
+<ul class="panel_head"><span>文章分类</span></ul>
+<ul class="panel_body">    
+                 <li>
+                    <a href="http://blog.csdn.net/u014421556/article/category/6151875" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">工具</a><span>(5)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/u014421556/article/category/6158399" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">Java</a><span>(21)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/u014421556/article/category/6408443" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">------Java优化</a><span>(4)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/u014421556/article/category/6408452" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">------Java-JVM</a><span>(6)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/u014421556/article/category/6408457" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">------Java并发</a><span>(4)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/u014421556/article/category/6408474" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">------Java集合</a><span>(2)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/u014421556/article/category/6408563" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">------面向对象设计和编程原则</a><span>(1)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/u014421556/article/category/6408569" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">------多线程</a><span>(2)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/u014421556/article/category/6417529" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">------Java框架</a><span>(1)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/u014421556/article/category/6704570" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">------Java Security</a><span>(2)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/u014421556/article/category/6167927" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">缓存</a><span>(2)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/u014421556/article/category/6428125" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">------redis</a><span>(1)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/u014421556/article/category/6429842" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">------Memcached</a><span>(1)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/u014421556/article/category/6181887" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">Linux</a><span>(1)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/u014421556/article/category/6185807" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">Centos 安装</a><span>(1)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/u014421556/article/category/6285363" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">AngularJs</a><span>(3)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/u014421556/article/category/6308303" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">Spring</a><span>(2)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/u014421556/article/category/6408539" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">------Spring-Securit</a><span>(1)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/u014421556/article/category/6408580" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">------Spring-AOP</a><span>(1)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/u014421556/article/category/6408579" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">------Spring-IOC</a><span>(1)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/u014421556/article/category/6336909" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">Web</a><span>(2)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/u014421556/article/category/6408514" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">------WEB性能优化</a><span>(1)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/u014421556/article/category/6341382" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">JavaScript</a><span>(6)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/u014421556/article/category/6408455" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">Win系统</a><span>(1)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/u014421556/article/category/6408449" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">JavaEE容器</a><span>(4)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/u014421556/article/category/6408521" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">------JPA</a><span>(1)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/u014421556/article/category/6408462" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">算法</a><span>(1)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/u014421556/article/category/6408481" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">数据库</a><span>(8)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/u014421556/article/category/6408483" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">------Oracle同义词</a><span>(1)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/u014421556/article/category/6408510" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">------优化</a><span>(3)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/u014421556/article/category/6408495" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">------报表技术</a><span>(3)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/u014421556/article/category/6817895" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">------Mysql</a><span>(1)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/u014421556/article/category/6408496" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">技术功能实现</a><span>(6)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/u014421556/article/category/6408509" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">压力测试</a><span>(2)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/u014421556/article/category/6408507" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">IT概念</a><span>(12)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/u014421556/article/category/6408549" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">Problem</a><span>(1)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/u014421556/article/category/6408551" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">Jquery</a><span>(1)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/u014421556/article/category/6415533" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">项目构建工具</a><span>(2)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/u014421556/article/category/6481472" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">集群</a><span>(4)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/u014421556/article/category/6664254" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">网站架构</a><span>(1)</span>
+                </li>
+</ul>
+</div><div id="panel_Archive" class="panel">
+<ul class="panel_head"><span>文章存档</span></ul>
+<ul class="panel_body">
+<div id="archive_list"><li><a href="http://blog.csdn.net/u014421556/article/month/2017/03">2017年03月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/u014421556/article/month/2017/02">2017年02月</a><span>(4)</span></li><li><a href="http://blog.csdn.net/u014421556/article/month/2017/01">2017年01月</a><span>(8)</span></li><li><a href="http://blog.csdn.net/u014421556/article/month/2016/11">2016年11月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/u014421556/article/month/2016/10">2016年10月</a><span>(9)</span></li><span class="hidelist" style="display:none;"><li><a href="http://blog.csdn.net/u014421556/article/month/2016/09">2016年09月</a><span>(21)</span></li><li><a href="http://blog.csdn.net/u014421556/article/month/2016/08">2016年08月</a><span>(14)</span></li><li><a href="http://blog.csdn.net/u014421556/article/month/2016/07">2016年07月</a><span>(26)</span></li><li><a href="http://blog.csdn.net/u014421556/article/month/2016/06">2016年06月</a><span>(14)</span></li><li><a href="http://blog.csdn.net/u014421556/article/month/2016/05">2016年05月</a><span>(4)</span></li><li><a href="http://blog.csdn.net/u014421556/article/month/2016/04">2016年04月</a><span>(9)</span></li><li><a href="http://blog.csdn.net/u014421556/article/month/2016/03">2016年03月</a><span>(8)</span></li></span><div id="archive_list_button" class="list_closed">展开</div></div>
+</ul>
+</div>
+<div id="hotarticls" class="panel">
+<ul class="panel_head">
+    <span>       
+阅读排行    </span>
+</ul>
+
+<ul class="panel_body itemlist">
+<li>
+<a href="http://blog.csdn.net/u014421556/article/details/51671353" title="http、https 等 常用默认端口号">http、https 等 常用默认端口号</a><span>(25067)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/u014421556/article/details/52083215" title="js中typeof和instanceof用法区别">js中typeof和instanceof用法区别</a><span>(15445)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/u014421556/article/details/52063904" title="mysql千万级大数据SQL查询优化">mysql千万级大数据SQL查询优化</a><span>(9029)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/u014421556/article/details/51543868" title="写一个框架的详细步骤">写一个框架的详细步骤</a><span>(8915)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/u014421556/article/details/51689787" title="Oracle树查询及函数">Oracle树查询及函数</a><span>(7609)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/u014421556/article/details/51760121" title="AngularJS最理想开发工具WebStorm">AngularJS最理想开发工具WebStorm</a><span>(6096)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/u014421556/article/details/50964319" title="高并发访问数据库问题">高并发访问数据库问题</a><span>(4913)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/u014421556/article/details/51897744" title="Spring Security 自定义登录验证与自定义回调地址">Spring Security 自定义登录验证与自定义回调地址</a><span>(4251)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/u014421556/article/details/50964505" title="大数据并发问题">大数据并发问题</a><span>(4115)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/u014421556/article/details/52635000" title="SpringData Jpa、Hibernate、Jpa 三者之间的关系">SpringData Jpa、Hibernate、Jpa 三者之间的关系</a><span>(3701)</span>
+</li>
+</ul>
+</div>
+<div id="hotarticls2" class="panel">
+<ul class="panel_head"><span>评论排行</span></ul>
+<ul class="panel_body itemlist">
+<li>
+<a href="http://blog.csdn.net/u014421556/article/details/51543868" title="写一个框架的详细步骤">写一个框架的详细步骤</a><span>(3)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/u014421556/article/details/52369529" title="P2P、P2C 、O2O 、B2C、B2B、 C2C的概念解析">P2P、P2C 、O2O 、B2C、B2B、 C2C的概念解析</a><span>(2)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/u014421556/article/details/51671353" title="http、https 等 常用默认端口号">http、https 等 常用默认端口号</a><span>(1)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/u014421556/article/details/52788077" title="map.toString转成Map">map.toString转成Map</a><span>(1)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/u014421556/article/details/50964505" title="大数据并发问题">大数据并发问题</a><span>(1)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/u014421556/article/details/52635000" title="SpringData Jpa、Hibernate、Jpa 三者之间的关系">SpringData Jpa、Hibernate、Jpa 三者之间的关系</a><span>(1)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/u014421556/article/details/51760121" title="AngularJS最理想开发工具WebStorm">AngularJS最理想开发工具WebStorm</a><span>(1)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/u014421556/article/details/50982975" title="JSONP跨域原理">JSONP跨域原理</a><span>(0)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/u014421556/article/details/50980296" title="java二维码">java二维码</a><span>(0)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/u014421556/article/details/50964319" title="高并发访问数据库问题">高并发访问数据库问题</a><span>(0)</span>
+</li>
+</ul>
+</div>
+<div id="homepageArticles" class="panel tracking-ad" data-mod="popu_4">
+<ul class="panel_head"><span>推荐文章</span></ul>
+<ul class="panel_body" id="ad_commend">
+<ul>
+<li><a href="http://blog.csdn.net/turingbooks/article/details/72416875" target="_blank">* 5月书讯：流畅的Python，终于等到你！</a></li>
+<li><a href="http://blog.csdn.net/kimmking/article/details/72886230" target="_blank">* JSON最佳实践</a></li>
+<li><a href="http://blog.csdn.net/swingwang/article/details/72887367" target="_blank">* InfiniBand技术和协议架构分析</a></li>
+<li><a href="http://blog.csdn.net/jiangwei0910410003/article/details/72675977" target="_blank">* Android 中解决破解签名验证之后导致的登录授权失效问题</a></li>
+<li><a href="http://blog.csdn.net/poem_qianmo/article/details/72857602" target="_blank">* 《Real-Time Rendering 3rd》 提炼总结——图形渲染与视觉外观</a></li>
+<li><a href="http://blog.csdn.net/blogdevteam/article/details/72903038" target="_blank">* CSDN日报20170607 ——《别混淆你想要什么和能否实现》</a></li>
+
+</ul></ul>
+</div>
+
+
+<div id="newcomments" class="panel">
+<ul class="panel_head"><span>最新评论</span></ul>
+<ul class="panel_body itemlist">
+    <li>
+   
+         <a href="http://blog.csdn.net/u014421556/article/details/52788077#comments">map.toString转成Map</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/qq_38123137" class="user_name">qq_38123137</a>:
+可以用
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/u014421556/article/details/51671353#comments">http、https 等 常用默认端口号</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/qq_37411065" class="user_name">总是无法更新</a>:
+能转载吗
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/u014421556/article/details/51760121#comments">AngularJS最理想开发工具WebStorm</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/zjy15203167987" class="user_name">淘到星星的小笛子</a>:
+刚刚接触angularjs来学习一下
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/u014421556/article/details/52635000#comments">SpringData Jpa、Hibernate、Jpa 三者之间的关系</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/lxd8731247769" class="user_name">北京-李晓东</a>:
+感觉帮助不大
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/u014421556/article/details/52369529#comments">P2P、P2C 、O2O 、B2C、B2B、 C2C的概念解析</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/SweetyoYY" class="user_name">毛竹的执拗</a>:
+来楼主这里又科普了这么多，很棒~
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/u014421556/article/details/52369529#comments">P2P、P2C 、O2O 、B2C、B2B、 C2C的概念解析</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/SweetyoYY" class="user_name">毛竹的执拗</a>:
+原来我只是知道p2p~
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/u014421556/article/details/51543868#comments">写一个框架的详细步骤</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/u013036685" class="user_name">11-李红</a>:
+收藏了，太好了
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/u014421556/article/details/51543868#comments">写一个框架的详细步骤</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/u012466304" class="user_name">king_eagle2015</a>:
+框架的应用要不断学习
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/u014421556/article/details/51543868#comments">写一个框架的详细步骤</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/mengdonghui123456" class="user_name">孟东辉</a>:
+楼主渊博。
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/u014421556/article/details/50964505#comments">大数据并发问题</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/bcbobo21cn" class="user_name">bcbobo21cn</a>:
+good
+    </p>
+    </li>
+</ul>
+</div>
+    </div>
+    <div class="clear">
+    </div>
+
+
+                 <!-- 广告位开始 --> 
+                <!-- 广告位结束 -->
+                   <div class="tracking-ad" data-view="true" data-mod="ad_popu_189" data-mtp="63" data-order="40" data-con="ad_content_1259" style="width: 250px; height: 250px;">
+                        <div id="nav_show_top_stop" style="width: 250px; height: 250px; z-index: 1000; position: fixed; top: 924px;"><div id="cpro_u2734133"><iframe id="iframeu2734133_0" src="./写一个框架的详细步骤 - 一个人的博客 - 博客频道 - CSDN.NET_files/bcum(4).html" width="250" height="250" align="center,center" vspace="0" hspace="0" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" style="border:0;vertical-align:bottom;margin:0;width:250px;height:250px" allowtransparency="true"></iframe></div></div>
+                   </div>
+                    <script>    
+                        
+                        setTimeout(function () {
+                            var naviga_offsetTop = 0; function naviga_stay_top() {
+                                var scrollTop = jQuery(document).scrollTop();
+                                if (scrollTop > naviga_offsetTop) {
+                                    jQuery("#nav_show_top_stop").css({ "position": "fixed" });
+                                    jQuery("#nav_show_top_stop").css({ "top": "0px" });
+                                } else { jQuery("#nav_show_top_stop").css({ "position": "fixed" }); jQuery("#nav_show_top_stop").css({ "top": naviga_offsetTop - scrollTop + "px" }); }
+                            }
+                            function onload_function() {
+                                naviga_offsetTop = jQuery("#nav_show_top_stop").position().top;
+                                jQuery(window).bind("scroll", naviga_stay_top); jQuery(window).bind("mousewheel", naviga_stay_top);
+                                jQuery(document).bind("scroll", naviga_stay_top); jQuery(document).bind("mousewheel", naviga_stay_top);
+                            } jQuery(document).ready(onload_function);
+                        },200);                                   
+
+                    </script>
+                    <script type="text/javascript">    (window.cproArray = window.cproArray || []).push({ id: "u2734133" });  </script>
+                   <script src="./写一个框架的详细步骤 - 一个人的博客 - 博客频道 - CSDN.NET_files/c.js.下载" type="text/javascript"></script>
+
+           </div>   
+
+            <div class="clear">
+            </div>
+        </div>
+
+        
+
+
+
+
+
+
+
+
+    <script type="text/javascript" src="./写一个框架的详细步骤 - 一个人的博客 - 博客频道 - CSDN.NET_files/login.js.下载"></script>
+<script type="text/javascript">
+    $(function () {
+        function __get_code_toolbar(snippet_id) {
+            return $("<span class='tracking-ad' data-mod='popu_167'><a href='https://code.csdn.net/snippets/"
+                    + snippet_id
+                    + "' target='_blank' title='在CODE上查看代码片'  style='text-indent:0;'><img src='https://code.csdn.net/assets/CODE_ico.png' width=12 height=12 alt='在CODE上查看代码片' style='position:relative;top:1px;left:2px;'/></a></span>"
+                    + "<span class='tracking-ad' data-mod='popu_170'><a href='https://code.csdn.net/snippets/"
+                    + snippet_id
+                    + "/fork' target='_blank' title='派生到我的代码片' style='text-indent:0;'><img src='https://code.csdn.net/assets/ico_fork.svg' width=12 height=12 alt='派生到我的代码片' style='position:relative;top:2px;left:2px;'/></a></span>");
+        }
+        
+        $("[code_snippet_id]").each(function () {
+            __s_id = $(this).attr("code_snippet_id");
+            if (__s_id != null && __s_id != "" && __s_id != 0 && parseInt(__s_id) > 70020) {
+                __code_tool = __get_code_toolbar(__s_id);
+                $(this).prev().find(".tools").append(__code_tool);
+            }
+        });
+
+        $(".bar").show();
+    });
+</script>
+
+
+
+
+
+    </div>
+      <!--new top-->
+    
+
+     
+
+   
+   
+     <!--new top-->
+   
+   
+
+    
+    
+    
+   
+
+   
+
+
+       <script type="text/javascript" src="./写一个框架的详细步骤 - 一个人的博客 - 博客频道 - CSDN.NET_files/MathJax.js.下载"></script>
+          <script type="text/javascript">
+              //$(function () {
+              //    setTimeout(function () {
+              //        var searchtitletags = articletitle + ',' + $("#tags").html();
+              //        searchService({
+              //            index: 'blog',
+              //            query: searchtitletags,
+              //            from: 5,
+              //            size: 5,
+              //            appendTo: '#res',
+              //            url: 'recommend',
+              //            his: 2,
+              //            client: "blog_cf_enhance",
+              //            tmpl: '<dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="#{ url }" title="#{ title }" strategy="#{ strategy }">#{ title }</a></dd>'
+              //        });
+              //    }, 1000);
+              //});
+
+         </script>
+    
+    <script src="./写一个框架的详细步骤 - 一个人的博客 - 博客频道 - CSDN.NET_files/csdn_blog_detail.min.js.下载" type="text/javascript"></script><link rel="stylesheet" type="text/css" href="./写一个框架的详细步骤 - 一个人的博客 - 博客频道 - CSDN.NET_files/pub_footer_2014.css"><div class="pub_fo"><div id="pub_footerall" class="pub_footer_new"><dl><dt></dt> <dd class="foot_sub_menu"><a href="http://www.csdn.net/company/about.html" target="_blank">公司简介</a><span>|</span><a href="http://www.csdn.net/company/recruit.html" target="_blank">招贤纳士</a><span>|</span><a href="http://www.csdn.net/company/marketing.html" target="_blank">广告服务</a><span>|</span><a href="http://www.csdn.net/company/contact.html" target="_blank">联系方式</a><span>|</span><a href="http://www.csdn.net/company/statement.html" target="_blank">版权声明</a><span>|</span><a href="http://www.csdn.net/company/layer.html" target="_blank">法律顾问</a><span>|</span><a href="mailto:webmaster@csdn.net">问题报告</a><span>|</span><a target="_blank" href="http://www.csdn.net/friendlink.html">合作伙伴</a><span>|</span><a href="http://bbs.csdn.net/forums/Service" target="_blank">论坛反馈</a></dd><dd class="foot_contact"><a href="javascript:void(0);" target="_blank" class="qq">网站客服</a><a href="http://wpa.qq.com/msgrd?v=3&amp;uin=2251809102&amp;site=qq&amp;menu=yes" target="_blank" class="qq">杂志客服</a><a href="http://e.weibo.com/csdnsupport/profile" target="_blank" class="weibo">微博客服</a><a href="mailto:webmaster@csdn.net" class="email" title="联系邮箱">webmaster@csdn.net</a><span class="phone" title="服务热线">400-660-0108</span><span class="interval">|</span><span>北京创新乐知信息技术有限公司 版权所有</span><span class="interval">|</span><span>江苏知之为计算机有限公司</span><span class="interval">|</span><span>江苏乐知网络技术有限公司</span></dd><dd class="foot_copyright"><span>京&nbsp;ICP&nbsp;证&nbsp;09002463&nbsp;号</span><span class="interval">|</span><span>Copyright © 1999-2017, CSDN.NET, All Rights Reserved&nbsp;</span><a href="http://www.hd315.gov.cn/beian/view.asp?bianhao=010202001032100010" target="_blank"><img src="./写一个框架的详细步骤 - 一个人的博客 - 博客频道 - CSDN.NET_files/gongshang_logos.gif" alt="GongshangLogo" title=""></a></dd></dl></div></div><div id="note1" class="csdn_note" style="display:none; position:absolute; z-index:9999; width:440px">  <span class="notice_top_arrow"><span class="inner"></span></span>  <div class="box"></div></div><div class="csdn_notice_tip" style="display:none; position:absolute; z-index:9990; width:170px">  <iframe src="./写一个框架的详细步骤 - 一个人的博客 - 博客频道 - CSDN.NET_files/saved_resource(2).html" frameborder="0" scrolling="no" style="z-index:-1;position:absolute;top:0;left:0;width:100%;height:100%;background:transparent"></iframe>  <div class="tip_text">您有<strong>0</strong>条新通知</div>  <a href="javascript:void 0" class="close2"></a></div><script id="noticeScript" type="text/javascript" btnid="header_notice_num" wrapid="note1" count="5" subcount="5" src="./写一个框架的详细步骤 - 一个人的博客 - 博客频道 - CSDN.NET_files/notify.js.下载"></script><input type="hidden" id="aa_g_data_ids">
+        
+    <script type="text/javascript" src="./写一个框架的详细步骤 - 一个人的博客 - 博客频道 - CSDN.NET_files/csdn_public_blog_detail.min.js.下载"></script>
+
+    <script type="text/javascript" src="./写一个框架的详细步骤 - 一个人的博客 - 博客频道 - CSDN.NET_files/showblogmedal.ashx"></script>
+
+     
+    
+
+
+  <div id="a52b5334d" style="width: 1px; height: 1px; display: none;">
+                    <script id="adJs52b5334" src="./写一个框架的详细步骤 - 一个人的博客 - 博客频道 - CSDN.NET_files/52b5334.js.下载"></script>
+                    <script>document.getElementById("adJs52b5334").src = "http://ads.csdn.net/js/opt/52b5334.js?t=" + Math.random();</script>
+   <div><iframe src="./写一个框架的详细步骤 - 一个人的博客 - 博客频道 - CSDN.NET_files/skip.html" style="width: 1px; height: 1px; position: absolute; visibility: hidden;"></iframe></div></div>
+
+    
+    
+        
+     
+
+    
+          
+    <div class="pop_CA_cover" style="display:none"></div>
+    <div class="pop pop_CA" style="display:none">
+          <div class="CA_header">
+            收藏助手
+            <span class="cancel_icon" id="fapancle" onclick="$(&#39;.pop_CA&#39;).hide();$(&#39;.pop_CA_cover&#39;).hide();"></span>
+          </div>
+          <iframe src="./写一个框架的详细步骤 - 一个人的博客 - 博客频道 - CSDN.NET_files/saved_resource(3).html" id="fa" frameborder="0" width="100%" height="360" scrolling="no"></iframe>
+    </div>
+
+
+        <script type="text/javascript">
+
+            $(function () {
+                var fromjs = $("#fromjs");
+                if (fromjs.length > 0) {
+                    $("#fromjs .markdown_views pre").addClass("prettyprint");
+                    prettyPrint();
+
+                    $('pre.prettyprint code').each(function () {
+                        var lines = $(this).text().split('\n').length;
+                        var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                        $(this).addClass('has-numbering').parent().append($numbering);
+                        for (i = 1; i <= lines; i++) {
+                            $numbering.append($('<li/>').text(i));
+                        };
+                        $numbering.fadeIn(1700);
+                    });
+
+                    $('.pre-numbering li').css("color", "#999");
+                }
+            });
+           
+            $(".markdown_views a[target!='_blank']").attr("target", "_blank");
+
+            $(".toc a[target='_blank']").attr("target", "");
+
+        </script>
+
+
+   
+ <div id="tag-suggest-pop">
+  <div class="relative">
+    <div class="close"></div>
+    <div class="content"></div>
+  </div>
+</div><div id="mask_code"></div><div class="gist_edit"><div class="save_snippets clearfix"><div class="tit"><h3>保存代码片</h3><span>整理和分享保存的代码片，请访问<a href="https://code.csdn.net/snippets_manage" target="_blank">代码笔记</a></span></div><div class="con_form"><ul class="gist_edit_list clearfix"><li><span class="red">*</span><span class="txt">标题</span><input id="form_title" class="form-input" placeholder="写一个框架的详细步骤" type="text"></li><li><span class="red">*</span><span class="txt">描述</span><textarea id="form-textarea" class="form-textarea" placeholder="写一个框架的详细步骤： http://blog.csdn.net/u014421556/article/details/51543868"></textarea></li><li><span class="red">&nbsp;</span><span class="txt">标签</span><div id="divSearchTags"><span class="label blog_tag"><span>框架</span><a title="Removing tag" href="javascript:;">x</a></span><input id="insertTag" class="insertTag" placeholder="请输入标签，按Enter生成(最多5项)" type="text" value="" name="insertTag" maxlength="21" style="color: rgb(51, 51, 51);"><input id="OrganTag" class="OrganTag" type="hidden" name="OrganTag" value="框架,"><input id="OldOrganTag" class="OldOrganTag" type="hidden" name="OldOrganTag" value=""><input type="hidden" name="txtSearchTags"></div></li></ul></div><div class="bottom-bar"><a href="javascript:;" class="btn-submit btn-cancel">取消</a><span class="tracking-ad" data-mod="popu_250"><a class="btn-submit btn-confirm" href="javascript:;" target="_blank">确定</a></span></div></div></div><link rel="stylesheet" type="text/css" media="screen" href="./写一个框架的详细步骤 - 一个人的博客 - 博客频道 - CSDN.NET_files/ask_float_fonts_css-6b30a53970eb5c3a2a045e3df585b475.css"><div data-mod="popu_64" class="csdn-tracking-statistics" chg-blk="0"><a id="com-quick-reply" title="快速回复" style="top:262px"></a><a id="com-quick-collect" title="我要收藏" style="top:300px"></a><a id="com-d-top-a" style="top: 338px; display: block;" title="返回顶部" onclick=""></a> </div><div class="pop_edit ask_second comm_ask_second"><h3>提问</h3><span class="ask_float_span">您的问题将会被发布在“<a class="ask_float_channel" href="http://ask.csdn.net/" target="_blank" style="cursor:pointer">技术问答</a>”频道</span><a href="http://blog.csdn.net/u014421556/article/details/51543868#" nodetype="close" class="close">×</a><div class="context"><div class="err_div"><span class="err_ico"></span><span class="err_txt">该问题已存在，请勿重复提问</span></div><div class="input_div"><input id="askInputSecond" type="text" style="font-size:14px;" placeholder="问题标题"></div><div class="cm_box"><div class="cm_dialog"></div> <div class="pop_cm cm_add_link"><input type="text" placeholder="链接内容" id="af_cm_link_txt"><input type="text" placeholder="链接地址" id="af_cm_link_url"><input type="text" placeholder="链接提示" id="af_cm_link_tit"><div class="text-right"><span class="btn btn-default btn-sm" id="add_link_btn">插入链接</span> </div> </div><div class="pop_cm cm_add_img"><div class="nav-tabs"><a class="img_tab active" href="http://blog.csdn.net/u014421556/article/details/51543868#tab_upload">本地上传</a><a class="img_tab" href="http://blog.csdn.net/u014421556/article/details/51543868#tab_weburl">网络图片</a></div><div class="tab_panel active" id="tab_upload"><div class="set_img"><iframe src="./写一个框架的详细步骤 - 一个人的博客 - 博客频道 - CSDN.NET_files/upload.html"></iframe></div></div><div class="tab_panel" id="tab_weburl"><input type="text" placeholder="图片地址" id="af_cm_img_url"><input type="text" placeholder="图片说明" id="af_cm_img_alt"><div class="text-right"><span class="btn btn-default btn-sm" id="add_img_btn">插入图片</span> </div></div> </div></div> <textarea id="editor_all" rows="8" style="display: none;"></textarea><div class="editor-toolbar"><i class="separator">|</i><a class="icon-headline" title="标题一（Ctrl+Alt+1）"></a><a class="icon-heading" title="标题二（Ctrl+Alt+2）"></a><a class="icon-bold" title="粗体（Ctrl+B）"></a><a class="icon-italic" title="斜体（Ctrl+I）"></a><i class="separator">|</i><a class="icon-quote-left" title="引用（Ctrl+’）"></a><a class="icon-code" title="插入代码片（Ctrl+,）"></a><a class="icon-list-ul" title="无序列表（Ctrl+L）"></a><a class="icon-list-ol" title="有序列表（Ctrl+Alt+L）"></a><i class="separator">|</i><a class="icon-link" title="添加链接（Ctrl+K）"></a><a class="icon-picture" title="添加图片（Ctrl+Alt+I）"></a><i class="separator">|</i><a class="icon-reply" title="撤退（Ctrl+Z）"></a><a class="icon-share-alt" title="前进（Ctrl+Shift+Z）"></a><i class="separator">|</i><a class="icon-info" href="http://ask.csdn.net/pages/markdown" target="_blank" title="markdown语法参考"></a><a class="icon-preview" title="预览"></a><i class="separator">|</i></div><div class="CodeMirror cm-s-paper CodeMirror-focused"><div style="overflow: hidden; position: relative; width: 3px; height: 0px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" style="position: absolute; padding: 0px; width: 1000px; height: 1em; outline: none; font-size: 4px;" tabindex="0"></textarea></div><div class="CodeMirror-hscrollbar"><div style="height: 1px;"></div></div><div class="CodeMirror-vscrollbar"><div style="width: 1px;"></div></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="min-width: 33px;"><div style="position: relative;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre>&nbsp;<span style="display: inline-block; width: 1px; margin-right: -1px;">&nbsp;</span></pre></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code"></div><div class="CodeMirror-cursor" style="visibility: hidden;">&nbsp;</div><div class="CodeMirror-cursor CodeMirror-secondarycursor" style="visibility: hidden;">&nbsp;</div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px;"></div><div class="CodeMirror-gutters" style="display: none;"></div></div></div><div class="editor-statusbar"><span class="lines">0</span><span class="words">0</span><span class="cursor">0:0</span></div><div class="div_tags clearfix"><div id="divSearchTags" class="tags_con"><input type="text"></div><input type="hidden" name="txtSearchTags"></div><div id="ask2_tagRecomm_div" class="drt_tagRecomm tracking-ad" data-mod="popu_73"><span class="drt_tit">推荐标签：</span></div></div><div class="success"><div class="left_area"><input id="chk_cb" type="checkbox"><span class="wyxs">我要悬赏</span><input id="cb_num" class="cb_num" readonly="true"><span class="phib_rii"><span> 币</span></span></div><a href="http://blog.csdn.net/u014421556/article/details/51543868#" nodetype="cancel" class="cancel">取消</a><a href="http://blog.csdn.net/u014421556/article/details/51543868#" nodetype="ok" class="ok">发布</a></div></div><div id="common_ask_div_sc" class="searchContainer"><div class="sTitle">可能存在类似的问题：</div><div class="sFooter"><a class="sFirstNewAsk">我想提一个新问题</a></div></div><div style="position:fixed; top:0; left:0; overflow:hidden;"><input style="position:absolute; left:-300px;" type="text" value="" id="focus_retriever" readonly="true"></div></body></html>

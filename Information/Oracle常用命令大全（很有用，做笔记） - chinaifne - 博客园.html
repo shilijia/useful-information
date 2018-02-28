@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<!-- saved from url=(0054)http://www.cnblogs.com/chinafine/articles/1755405.html -->
+<html lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Oracle常用命令大全（很有用，做笔记） - chinaifne - 博客园</title>
+<link type="text/css" rel="stylesheet" href="./Oracle常用命令大全（很有用，做笔记） - chinaifne - 博客园_files/blog-common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="./Oracle常用命令大全（很有用，做笔记） - chinaifne - 博客园_files/bundle-KJC.css">
+<link id="mobile-style" media="only screen and (max-width: 768px)" type="text/css" rel="stylesheet" href="./Oracle常用命令大全（很有用，做笔记） - chinaifne - 博客园_files/bundle-KJC-mobile.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/chinafine/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/chinafine/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/chinafine/wlwmanifest.xml">
+<script async="" src="./Oracle常用命令大全（很有用，做笔记） - chinaifne - 博客园_files/analytics.js.下载"></script><script src="./Oracle常用命令大全（很有用，做笔记） - chinaifne - 博客园_files/jquery.js.下载" type="text/javascript"></script>  
+<script type="text/javascript">var currentBlogApp = 'chinafine', cb_enable_mathjax=false;var isLogined=false;</script>
+<script src="./Oracle常用命令大全（很有用，做笔记） - chinaifne - 博客园_files/blog-common.js.下载" type="text/javascript"></script>
+</head>
+<body>
+<a name="top"></a>
+
+<table class="Framework" cellspacing="0" cellpadding="0" width="100%">
+	<tbody><tr>
+		<td colspan="3">
+			
+<div id="top">
+<table cellpadding="10" cellspacing="0">
+	<tbody><tr>
+		<td nowrap="">
+			<h1><a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/chinafine/">chinafine</a></h1>
+			Asp.net,Windows Mobile,Windows Server 醉心于.NET
+		</td>
+	</tr>
+</tbody></table>
+</div>
+<div id="sub">
+	<div id="sub-right"><div id="blog_stats">
+<div class="BlogStats">posts - 115, comments - 148, trackbacks - 6, articles - 294</div></div></div>
+	
+&nbsp;
+<a id="blog_nav_sitehome" href="http://www.cnblogs.com/">博客园</a>&nbsp;:: 
+<a id="blog_nav_myhome" href="http://www.cnblogs.com/chinafine/">首页</a>&nbsp;::
+<a id="blog_nav_newpost" rel="nofollow" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a>&nbsp;::
+<a id="blog_nav_contact" accesskey="9" rel="nofollow" href="https://msg.cnblogs.com/send/chinaifne">联系</a>&nbsp;::
+<a id="blog_nav_rss" href="http://www.cnblogs.com/chinafine/rss">订阅</a>
+<a id="blog_nav_rss_image" class="XMLLink" href="http://www.cnblogs.com/chinafine/rss"><img src="./Oracle常用命令大全（很有用，做笔记） - chinaifne - 博客园_files/xml.gif" alt="订阅"></a>&nbsp;::
+<a id="blog_nav_admin" rel="nofollow" href="https://i.cnblogs.com/">管理</a>
+
+</div>
+		</td>
+	</tr>
+	<tr>
+		<td class="LeftCell">
+			<div id="leftmenu">
+            	
+		            <div id="blog-calendar" style=""><table id="blogCalendar" class="Cal" cellspacing="0" cellpadding="0" title="Calendar">
+	<tbody><tr><td colspan="7"><table class="CalTitle" cellspacing="0">
+		<tbody><tr><td class="CalNextPrev"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2017/05/01&#39;);return false;">&lt;</a></td><td align="center">2017年6月</td><td class="CalNextPrev" align="right"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2017/07/01&#39;);return false;">&gt;</a></td></tr>
+	</tbody></table></td></tr><tr><th class="CalDayHeader" align="center" abbr="日" scope="col">日</th><th class="CalDayHeader" align="center" abbr="一" scope="col">一</th><th class="CalDayHeader" align="center" abbr="二" scope="col">二</th><th class="CalDayHeader" align="center" abbr="三" scope="col">三</th><th class="CalDayHeader" align="center" abbr="四" scope="col">四</th><th class="CalDayHeader" align="center" abbr="五" scope="col">五</th><th class="CalDayHeader" align="center" abbr="六" scope="col">六</th></tr><tr><td class="CalOtherMonthDay" align="center">28</td><td class="CalOtherMonthDay" align="center">29</td><td class="CalOtherMonthDay" align="center">30</td><td class="CalOtherMonthDay" align="center">31</td><td align="center">1</td><td align="center">2</td><td class="CalWeekendDay" align="center">3</td></tr><tr><td class="CalWeekendDay" align="center">4</td><td align="center">5</td><td align="center">6</td><td class="CalTodayDay" align="center">7</td><td align="center">8</td><td align="center">9</td><td class="CalWeekendDay" align="center">10</td></tr><tr><td class="CalWeekendDay" align="center">11</td><td align="center">12</td><td align="center">13</td><td align="center">14</td><td align="center">15</td><td align="center">16</td><td class="CalWeekendDay" align="center">17</td></tr><tr><td class="CalWeekendDay" align="center">18</td><td align="center">19</td><td align="center">20</td><td align="center">21</td><td align="center">22</td><td align="center">23</td><td class="CalWeekendDay" align="center">24</td></tr><tr><td class="CalWeekendDay" align="center">25</td><td align="center">26</td><td align="center">27</td><td align="center">28</td><td align="center">29</td><td align="center">30</td><td class="CalOtherMonthDay" align="center">1</td></tr><tr><td class="CalOtherMonthDay" align="center">2</td><td class="CalOtherMonthDay" align="center">3</td><td class="CalOtherMonthDay" align="center">4</td><td class="CalOtherMonthDay" align="center">5</td><td class="CalOtherMonthDay" align="center">6</td><td class="CalOtherMonthDay" align="center">7</td><td class="CalOtherMonthDay" align="center">8</td></tr>
+</tbody></table></div><script type="text/javascript">loadBlogDefaultCalendar();</script>
+		            
+<div id="cell">
+<img src="./Oracle常用命令大全（很有用，做笔记） - chinaifne - 博客园_files/icon-group.jpg" hspace="5" align="left" vspace="2"><h3>公告</h3>
+<div id="news">
+	<div id="blog-news"><div id="profile_block">昵称：<a href="http://home.cnblogs.com/u/chinafine/">chinaifne</a><br>园龄：<a href="http://home.cnblogs.com/u/chinafine/" title="入园时间：2006-11-22">10年6个月</a><br>粉丝：<a href="http://home.cnblogs.com/u/chinafine/followers/">299</a><br>关注：<a href="http://home.cnblogs.com/u/chinafine/followees/">0</a><div id="p_b_follow"><a href="javascript:void(0);" onclick="follow(&#39;fe65360b-63cf-dd11-9e4d-001cf0cd104b&#39;)">+加关注</a></div></div></div><script type="text/javascript">loadBlogNews();</script>
+</div>
+</div>
+
+	            
+	            <div id="blog-sidecolumn"><div id="sidebar_search" class="sidebar-block">
+<div id="cell">
+<img src="./Oracle常用命令大全（很有用，做笔记） - chinaifne - 博客园_files/icon-group.jpg" hspace="5" align="left" vspace="2">
+<h3 class="catListTitle">搜索</h3>
+<div id="widget_my_zzk" class="div_my_zzk"><input type="text" id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk">&nbsp;<input onclick="zzk_go()" type="button" value="找找看" id="btnZzk" class="btn_my_zzk"></div>
+<div id="widget_my_google" class="div_my_zzk"><input type="text" name="google_q" id="google_q" onkeydown="return google_go_enter(event)" class="input_my_zzk">&nbsp;<input onclick="google_go()" type="button" value="谷歌搜索" class="btn_my_zzk"></div>
+</div></div><div id="sidebar_shortcut" class="sidebar-block">
+<div id="cell">
+<img src="./Oracle常用命令大全（很有用，做笔记） - chinaifne - 博客园_files/icon-group.jpg" hspace="5" align="left" vspace="2">
+<h3>常用链接</h3>
+<ul>
+<li><a href="http://www.cnblogs.com/chinafine/p/" title="我的博客的随笔列表">我的随笔</a></li><li><a href="http://www.cnblogs.com/chinafine/MyComments.html" title="我发表过的评论列表">我的评论</a></li><li><a href="http://www.cnblogs.com/chinafine/OtherPosts.html" title="我评论过的随笔列表">我的参与</a></li><li><a href="http://www.cnblogs.com/chinafine/RecentComments.html" title="我的博客的评论列表">最新评论</a></li><li><a href="http://www.cnblogs.com/chinafine/tag/" title="我的博客的标签列表">我的标签</a></li>
+<li><a id="itemListLink" onclick="this.blur();WarpClass(&#39;itemListLink&#39;, &#39;itemListLin_con&#39;);return false;" href="http://www.cnblogs.com/chinafine/articles/1755405.html#">更多链接</a></li>
+</ul>
+<div id="itemListLin_con" style="display:none;">
+
+</div>
+</div></div><div id="sidebar_toptags" class="sidebar-block"></div><div id="sidebar_categories">
+		<div id="cell">
+		<img src="./Oracle常用命令大全（很有用，做笔记） - chinaifne - 博客园_files/icon-group.jpg" hspace="5" align="left" vspace="2"><h3>随笔分类</h3>
+		
+				<ul>
+			
+				<li><a id="CatList_LinkList_0_Link_0" href="http://www.cnblogs.com/chinafine/category/533728.html">EspCMS</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_0_Link_1" href="http://www.cnblogs.com/chinafine/category/431201.html">代码备忘(3)</a>
+				</li>
+			
+				</ul>
+			</div>
+	
+		<div id="cell">
+		<img src="./Oracle常用命令大全（很有用，做笔记） - chinaifne - 博客园_files/icon-group.jpg" hspace="5" align="left" vspace="2"><h3>随笔档案</h3>
+		
+				<ul>
+			
+				<li><a id="CatList_LinkList_1_Link_0" href="http://www.cnblogs.com/chinafine/archive/2017/04.html">2017年4月 (1)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_1" href="http://www.cnblogs.com/chinafine/archive/2017/01.html">2017年1月 (2)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_2" href="http://www.cnblogs.com/chinafine/archive/2016/09.html">2016年9月 (1)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_3" href="http://www.cnblogs.com/chinafine/archive/2016/03.html">2016年3月 (1)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_4" href="http://www.cnblogs.com/chinafine/archive/2013/12.html">2013年12月 (1)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_5" href="http://www.cnblogs.com/chinafine/archive/2013/06.html">2013年6月 (1)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_6" href="http://www.cnblogs.com/chinafine/archive/2013/05.html">2013年5月 (1)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_7" href="http://www.cnblogs.com/chinafine/archive/2012/10.html">2012年10月 (1)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_8" href="http://www.cnblogs.com/chinafine/archive/2011/12.html">2011年12月 (1)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_9" href="http://www.cnblogs.com/chinafine/archive/2011/11.html">2011年11月 (2)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_10" href="http://www.cnblogs.com/chinafine/archive/2011/09.html">2011年9月 (2)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_11" href="http://www.cnblogs.com/chinafine/archive/2011/03.html">2011年3月 (1)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_12" href="http://www.cnblogs.com/chinafine/archive/2011/01.html">2011年1月 (3)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_13" href="http://www.cnblogs.com/chinafine/archive/2010/12.html">2010年12月 (7)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_14" href="http://www.cnblogs.com/chinafine/archive/2010/11.html">2010年11月 (1)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_15" href="http://www.cnblogs.com/chinafine/archive/2010/09.html">2010年9月 (2)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_16" href="http://www.cnblogs.com/chinafine/archive/2010/07.html">2010年7月 (4)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_17" href="http://www.cnblogs.com/chinafine/archive/2010/06.html">2010年6月 (8)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_18" href="http://www.cnblogs.com/chinafine/archive/2010/05.html">2010年5月 (1)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_19" href="http://www.cnblogs.com/chinafine/archive/2010/02.html">2010年2月 (3)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_20" href="http://www.cnblogs.com/chinafine/archive/2009/04.html">2009年4月 (1)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_21" href="http://www.cnblogs.com/chinafine/archive/2009/03.html">2009年3月 (1)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_22" href="http://www.cnblogs.com/chinafine/archive/2009/02.html">2009年2月 (3)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_23" href="http://www.cnblogs.com/chinafine/archive/2008/12.html">2008年12月 (1)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_24" href="http://www.cnblogs.com/chinafine/archive/2008/09.html">2008年9月 (2)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_25" href="http://www.cnblogs.com/chinafine/archive/2008/08.html">2008年8月 (2)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_26" href="http://www.cnblogs.com/chinafine/archive/2008/07.html">2008年7月 (16)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_27" href="http://www.cnblogs.com/chinafine/archive/2008/06.html">2008年6月 (5)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_28" href="http://www.cnblogs.com/chinafine/archive/2007/12.html">2007年12月 (1)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_29" href="http://www.cnblogs.com/chinafine/archive/2007/11.html">2007年11月 (1)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_30" href="http://www.cnblogs.com/chinafine/archive/2007/04.html">2007年4月 (3)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_31" href="http://www.cnblogs.com/chinafine/archive/2007/03.html">2007年3月 (10)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_32" href="http://www.cnblogs.com/chinafine/archive/2007/02.html">2007年2月 (5)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_33" href="http://www.cnblogs.com/chinafine/archive/2007/01.html">2007年1月 (7)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_34" href="http://www.cnblogs.com/chinafine/archive/2006/12.html">2006年12月 (11)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_35" href="http://www.cnblogs.com/chinafine/archive/2006/11.html">2006年11月 (2)</a>
+				</li>
+			
+				</ul>
+			</div>
+	
+		<div id="cell">
+		<img src="./Oracle常用命令大全（很有用，做笔记） - chinaifne - 博客园_files/icon-group.jpg" hspace="5" align="left" vspace="2"><h3>文章分类</h3>
+		
+				<ul>
+			
+				<li><a id="CatList_LinkList_2_Link_0" href="http://www.cnblogs.com/chinafine/category/649083.html">360全景制作(1)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_2_Link_1" href="http://www.cnblogs.com/chinafine/category/76886.html">Asp.Net(25)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_2_Link_2" href="http://www.cnblogs.com/chinafine/category/88808.html">C#(22)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_2_Link_3" href="http://www.cnblogs.com/chinafine/category/279560.html">CheckStyle(1)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_2_Link_4" href="http://www.cnblogs.com/chinafine/category/88809.html">Code Smith(26)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_2_Link_5" href="http://www.cnblogs.com/chinafine/category/542433.html">DeDeCMS(7)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_2_Link_6" href="http://www.cnblogs.com/chinafine/category/334529.html">Destoon系统(12)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_2_Link_7" href="http://www.cnblogs.com/chinafine/category/257830.html">DisplayTag(11)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_2_Link_8" href="http://www.cnblogs.com/chinafine/category/144804.html">Div\CSS\Html(22)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_2_Link_9" href="http://www.cnblogs.com/chinafine/category/262926.html">Dom4j(1)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_2_Link_10" href="http://www.cnblogs.com/chinafine/category/279808.html">DotNetNuke_DNN(1)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_2_Link_11" href="http://www.cnblogs.com/chinafine/category/489877.html">ECShop(10)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_2_Link_12" href="http://www.cnblogs.com/chinafine/category/533729.html">EspCMS(3)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_2_Link_13" href="http://www.cnblogs.com/chinafine/category/270791.html">extremetable</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_2_Link_14" href="http://www.cnblogs.com/chinafine/category/301277.html">FusionCharts(2)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_2_Link_15" href="http://www.cnblogs.com/chinafine/category/90930.html">GDI+(3)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_2_Link_16" href="http://www.cnblogs.com/chinafine/category/254478.html">Hibernate&amp;Spring&amp;Struts</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_2_Link_17" href="http://www.cnblogs.com/chinafine/category/272409.html">Html5(1)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_2_Link_18" href="http://www.cnblogs.com/chinafine/category/254536.html">IBM HeapAnalyzer(1)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_2_Link_19" href="http://www.cnblogs.com/chinafine/category/247684.html">Java&amp;JSP(15)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_2_Link_20" href="http://www.cnblogs.com/chinafine/category/144802.html">Javascript&amp;JQuery(18)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_2_Link_21" href="http://www.cnblogs.com/chinafine/category/254477.html">JFreeChart(1)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_2_Link_22" href="http://www.cnblogs.com/chinafine/category/156480.html">LINQ(1)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_2_Link_23" href="http://www.cnblogs.com/chinafine/category/254481.html">Linux服务器配置(5)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_2_Link_24" href="http://www.cnblogs.com/chinafine/category/156686.html">Log4Net&amp;&amp;Log4J(4)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_2_Link_25" href="http://www.cnblogs.com/chinafine/category/254537.html">MDD4J</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_2_Link_26" href="http://www.cnblogs.com/chinafine/category/111238.html">MS Enterprise Library</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_2_Link_27" href="http://www.cnblogs.com/chinafine/category/76892.html">MS SQL Server(4)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_2_Link_28" href="http://www.cnblogs.com/chinafine/category/247983.html">MyEclips&amp;&amp;Eclips(8)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_2_Link_29" href="http://www.cnblogs.com/chinafine/category/247685.html">Oracle(19)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_2_Link_30" href="http://www.cnblogs.com/chinafine/category/88810.html">Power Designer(4)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_2_Link_31" href="http://www.cnblogs.com/chinafine/category/252633.html">Quartz 作业调度(2)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_2_Link_32" href="http://www.cnblogs.com/chinafine/category/155924.html">Reflection反射(16)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_2_Link_33" href="http://www.cnblogs.com/chinafine/category/753386.html">Sass+Compass(1)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_2_Link_34" href="http://www.cnblogs.com/chinafine/category/283412.html">SEO(4)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_2_Link_35" href="http://www.cnblogs.com/chinafine/category/259102.html">Spring(2)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_2_Link_36" href="http://www.cnblogs.com/chinafine/category/259101.html">Struts(1)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_2_Link_37" href="http://www.cnblogs.com/chinafine/category/148803.html">SVN(3)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_2_Link_38" href="http://www.cnblogs.com/chinafine/category/262029.html">UltraEdit(2)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_2_Link_39" href="http://www.cnblogs.com/chinafine/category/254616.html">WebSphere(6)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_2_Link_40" href="http://www.cnblogs.com/chinafine/category/548402.html">windows server 2012 R2_IIS 8.5(2)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_2_Link_41" href="http://www.cnblogs.com/chinafine/category/76890.html">WindowsPhone(6)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_2_Link_42" href="http://www.cnblogs.com/chinafine/category/281512.html">XAMPP(1)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_2_Link_43" href="http://www.cnblogs.com/chinafine/category/145257.html">XML(1)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_2_Link_44" href="http://www.cnblogs.com/chinafine/category/431202.html">代码备忘(9)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_2_Link_45" href="http://www.cnblogs.com/chinafine/category/254617.html">服务器集群</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_2_Link_46" href="http://www.cnblogs.com/chinafine/category/116915.html">设计模式</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_2_Link_47" href="http://www.cnblogs.com/chinafine/category/277827.html">数据库设计(1)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_2_Link_48" href="http://www.cnblogs.com/chinafine/category/330298.html">网站前端优化(3)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_2_Link_49" href="http://www.cnblogs.com/chinafine/category/341918.html">网站运营(2)</a>
+				</li>
+			
+				</ul>
+			</div>
+	
+		<div id="cell">
+		<img src="./Oracle常用命令大全（很有用，做笔记） - chinaifne - 博客园_files/icon-group.jpg" hspace="5" align="left" vspace="2"><h3>相册</h3>
+		
+				<ul>
+			
+				<li><a id="CatList_LinkList_3_Link_0" href="http://www.cnblogs.com/chinafine/gallery/121773.html" rel="nofollow">我的相册(1)</a>
+				</li>
+			
+				</ul>
+			</div>
+	
+		<div id="cell">
+		<img src="./Oracle常用命令大全（很有用，做笔记） - chinaifne - 博客园_files/icon-group.jpg" hspace="5" align="left" vspace="2"><h3>好友博客</h3>
+		
+				<ul>
+			
+				</ul>
+			</div>
+	
+		<div id="cell">
+		<img src="./Oracle常用命令大全（很有用，做笔记） - chinaifne - 博客园_files/icon-group.jpg" hspace="5" align="left" vspace="2"><h3>手机开发</h3>
+		
+				<ul>
+			
+				</ul>
+			</div>
+	
+		<div id="cell">
+		<img src="./Oracle常用命令大全（很有用，做笔记） - chinaifne - 博客园_files/icon-group.jpg" hspace="5" align="left" vspace="2"><h3>友情链接</h3>
+		
+				<ul>
+			
+				<li><a id="CatList_LinkList_6_Link_0" href="http://www.shanyaofen.com/" rel="nofollow">山药粉网</a>
+				</li>
+			<li class="c_b_p_link_desc">山药粉网-中国专业的山药粉知识分享网站。普及山药粉知识，介绍2017年山药粉品牌排行榜，山药粉的功效与作用，让更多人了解山药粉。</li>
+				</ul>
+			</div>
+	</div><div id="recent_comments_wrap">
+    <div id="cell">
+        <img src="./Oracle常用命令大全（很有用，做笔记） - chinaifne - 博客园_files/icon-group.jpg" hspace="5" align="left" vspace="2">
+        <h3>最新评论</h3>
+        <div class="RecentComment">
+            <div id="RecentCommentsBlock"><ul>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/chinafine/archive/2010/07/12/1776102.html#3688620">1. Re:oracle存储过程常用技巧</a></li>
+        <li class="recent_comment_body">我怎么编译不出来，我是不是资质太差了</li>
+        <li class="recent_comment_author">--许许1111111</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/chinafine/archive/2009/02/17/1392309.html#3683399">2. Re:C#中&amp;与&amp;&amp;的区别 </a></li>
+        <li class="recent_comment_body">文中写“但如有必要，只计算第二个操作数”这个表达有误。应该改为“仅在必要时才计算第二个操作数”，而不是只计算第二个操作数。</li>
+        <li class="recent_comment_author">--cxc2452</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/chinafine/articles/1765967.html#3661957">3. Re:position的四个属性值： relative ，absolute ，fixed，static</a></li>
+        <li class="recent_comment_body">非常同意二楼的看法，基本不评论的我特意登陆留言！讲得很清楚！</li>
+        <li class="recent_comment_author">--Odelia0808</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/chinafine/archive/2010/09/02/1815980.html#3660744">4. Re:Web.xml配置详解</a></li>
+        <li class="recent_comment_body">楼主，请问一下Servlet的官方说明文档在哪里，也就是你说的这些内容在官网哪里可以看到，谢谢！</li>
+        <li class="recent_comment_author">--编程大师</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/chinafine/archive/2010/07/12/1776102.html#3644153">5. Re:oracle存储过程常用技巧</a></li>
+        <li class="recent_comment_body">扎心了老铁</li>
+        <li class="recent_comment_author">--飞奔的大象</li>
+</ul>
+</div>
+        </div>
+    </div>
+</div>
+<div id="topview_posts_wrap">
+    <div id="cell">
+        <img src="./Oracle常用命令大全（很有用，做笔记） - chinaifne - 博客园_files/icon-group.jpg" hspace="5" align="left" vspace="2">
+        <h3>阅读排行榜</h3>
+        <div class="RecentComment">
+            <div id="TopViewPostsBlock"><ul><li><a href="http://www.cnblogs.com/chinafine/archive/2010/09/02/1815980.html">1. Web.xml配置详解(330692)</a></li><li><a href="http://www.cnblogs.com/chinafine/archive/2010/07/12/1776102.html">2. oracle存储过程常用技巧(116410)</a></li><li><a href="http://www.cnblogs.com/chinafine/archive/2011/09/15/2177746.html">3. iframe中子父窗口互调的js方法(64153)</a></li><li><a href="http://www.cnblogs.com/chinafine/archive/2010/12/07/1899151.html">4. Java字符串转换为日期和时间比较大小(61510)</a></li><li><a href="http://www.cnblogs.com/chinafine/archive/2010/06/16/1759246.html">5. JNDI全攻略(一)(46342)</a></li></ul></div>
+        </div>
+    </div>
+</div><div id="topfeedback_posts_wrap">
+    <div id="cell">
+        <img src="./Oracle常用命令大全（很有用，做笔记） - chinaifne - 博客园_files/icon-group.jpg" hspace="5" align="left" vspace="2">
+        <h3>评论排行榜</h3>
+        <div class="RecentComment">
+            <div id="TopFeedbackPostsBlock"><ul><li><a href="http://www.cnblogs.com/chinafine/archive/2010/09/02/1815980.html">1. Web.xml配置详解(18)</a></li><li><a href="http://www.cnblogs.com/chinafine/archive/2007/11/01/946107.html">2. C++编译过程中"没有找到MFC80UD.DLL,因此这个程序未能启动.重新安装应用程序可能会修复此问题"? 的彻底解决(15)</a></li><li><a href="http://www.cnblogs.com/chinafine/archive/2010/07/12/1776102.html">3. oracle存储过程常用技巧(7)</a></li><li><a href="http://www.cnblogs.com/chinafine/archive/2008/07/03/1234854.html">4. 防止asp.net页面多次提交数据(5)</a></li><li><a href="http://www.cnblogs.com/chinafine/archive/2009/02/26/1398771.html">5. javascript(js)中的 substring和substr方法(4)</a></li></ul></div>
+        </div>
+    </div>    
+</div>
+<div id="sidebar_topdiggedposts" class="sidebar-block"><div id="topdigg_posts_wrap">
+<div id="cell">
+<img src="./Oracle常用命令大全（很有用，做笔记） - chinaifne - 博客园_files/icon-group.jpg" hspace="5" align="left" vspace="2"><h3>推荐排行榜</h3>
+<div class="RecentComment">
+	<div id="TopDiggPostsBlock"><ul><li><a href="http://www.cnblogs.com/chinafine/archive/2010/09/02/1815980.html">1. Web.xml配置详解(42)</a></li><li><a href="http://www.cnblogs.com/chinafine/archive/2010/07/12/1776102.html">2. oracle存储过程常用技巧(26)</a></li><li><a href="http://www.cnblogs.com/chinafine/archive/2009/02/26/1398771.html">3. javascript(js)中的 substring和substr方法(6)</a></li><li><a href="http://www.cnblogs.com/chinafine/archive/2010/06/16/1759246.html">4. JNDI全攻略(一)(5)</a></li><li><a href="http://www.cnblogs.com/chinafine/archive/2009/02/17/1392309.html">5. C#中&amp;与&amp;&amp;的区别 (4)</a></li></ul></div>
+</div>
+</div></div></div></div><script type="text/javascript">loadBlogSideColumn();</script>
+			</div>
+		</td>
+		<td class="MainCell">
+			<div id="main">
+				
+<div id="post_detail">
+	<div class="post">
+		<div class="posthead">
+			<h2>
+				<a id="cb_post_title_url" class="singleposttitle" href="http://www.cnblogs.com/chinafine/articles/1755405.html">Oracle常用命令大全（很有用，做笔记）</a>
+			</h2>
+ 			Posted on <span id="post-date">2010-06-10 11:08</span> <a href="http://www.cnblogs.com/chinafine/">chinaifne</a> 阅读(<span id="post_view_count">110316</span>) 评论(<span id="post_comment_count">2</span>) &nbsp;<a href="https://i.cnblogs.com/EditArticles.aspx?postid=1755405" rel="nofollow">编辑</a> <a href="http://www.cnblogs.com/chinafine/articles/1755405.html#" onclick="AddToWz(1755405);return false;">收藏</a>
+			<script type="text/javascript">var allowComments=true,cb_blogId=22981,cb_entryId=1755405,cb_blogApp=currentBlogApp,cb_blogUserGuid='fe65360b-63cf-dd11-9e4d-001cf0cd104b',cb_entryCreatedDate='2010/6/10 11:08:00';loadViewCount(cb_entryId);</script>
+			
+		</div>
+		<div class="postbody"><div id="cnblogs_post_body">一、ORACLE的启动和关闭 <br>1、在单机环境下 <br>要想启动或关闭ORACLE系统必须首先切换到ORACLE用户，如下 <br>su - oracle <br><br>a、启动ORACLE系统 <br>oracle&gt;svrmgrl <br>SVRMGR&gt;connect internal <br>SVRMGR&gt;startup <br>SVRMGR&gt;quit <br><br>b、关闭ORACLE系统 <br>oracle&gt;svrmgrl <br>SVRMGR&gt;connect internal <br>SVRMGR&gt;shutdown <br>SVRMGR&gt;quit <br><br>启动oracle9i数据库命令： <br>$ sqlplus /nolog <br><br>SQL*Plus: Release 9.2.0.1.0 - Production on Fri Oct 31 13:53:53 2003 <br><br>Copyright (c) 1982, 2002, Oracle Corporation.&nbsp; All rights reserved. <br><br>SQL&gt; connect / as sysdba&nbsp; <br>Connected to an idle instance. <br>SQL&gt; startup^C <br><br>SQL&gt; startup <br>ORACLE instance started. <br><br><br>2、在双机环境下 <br>要想启动或关闭ORACLE系统必须首先切换到root用户，如下 <br>su － root <br><br>a、启动ORACLE系统 <br>hareg －y oracle <br><br>b、关闭ORACLE系统 <br>hareg －n oracle <br><br>Oracle数据库有哪几种启动方式 <br><br><br>说明： <br><br>有以下几种启动方式： <br>1、startup nomount <br>非安装启动，这种方式启动下可执行：重建控制文件、重建数据库 <br><br>读取init.ora文件，启动instance，即启动SGA和后台进程，这种启动只需要init.ora文件。 <br><br><br>2、startup mount dbname <br>安装启动，这种方式启动下可执行： <br>数据库日志归档、 <br>数据库介质恢复、 <br>使数据文件联机或脱机， <br>重新定位数据文件、重做日志文件。 <br><br>执行“nomount”，然后打开控制文件，确认数据文件和联机日志文件的位置， <br>但此时不对数据文件和日志文件进行校验检查。 <br><br><br>3、startup open dbname <br>先执行“nomount”，然后执行“mount”，再打开包括Redo log文件在内的所有数据库文件， <br>这种方式下可访问数据库中的数据。 <br><br><br>4、startup，等于以下三个命令 <br>startup nomount <br>alter database mount <br>alter database open <br><br><br>5、startup restrict <br>约束方式启动 <br>这种方式能够启动数据库，但只允许具有一定特权的用户访问 <br>非特权用户访问时，会出现以下提示： <br>ERROR： <br>ORA-01035: ORACLE 只允许具有 RESTRICTED SESSION 权限的用户使用 <br><br><br>6、startup force <br>强制启动方式 <br>当不能关闭数据库时，可以用startup force来完成数据库的关闭 <br>先关闭数据库，再执行正常启动数据库命令 <br><br><br>7、startup pfile=参数文件名 <br>带初始化参数文件的启动方式 <br>先读取参数文件，再按参数文件中的设置启动数据库 <br>例：startup pfile=E:Oracleadminoradbpfileinit.ora <br><br><br>8、startup EXCLUSIVE <br>二、用户如何有效地利用数据字典 <br>&nbsp; 　ORACLE的数据字典是数据库的重要组成部分之一，它随着数据库的产生而产生, 随着数据库的变化而变化, <br>体现为sys用户下的一些表和视图。数据字典名称是大写的英文字符。 <br><br>&nbsp;&nbsp;&nbsp; 数据字典里存有用户信息、用户的权限信息、所有数据对象信息、表的约束条件、统计分析数据库的视图等。 <br>我们不能手工修改数据字典里的信息。 <br><br>　　很多时候，一般的ORACLE用户不知道如何有效地利用它。 <br><br>　　dictionary　　　全部数据字典表的名称和解释，它有一个同义词dict <br>&nbsp;&nbsp;&nbsp; dict_column　　 全部数据字典表里字段名称和解释 <br><br>&nbsp;&nbsp;&nbsp; 如果我们想查询跟索引有关的数据字典时，可以用下面这条SQL语句: <br><br>&nbsp;&nbsp;&nbsp; SQL&gt;select * from dictionary where instr(comments,'index')&gt;0; <br><br>&nbsp;&nbsp;&nbsp; 如果我们想知道user_indexes表各字段名称的详细含义，可以用下面这条SQL语句: <br><br>&nbsp;&nbsp;&nbsp; SQL&gt;select column_name,comments from dict_columns where table_name='USER_INDEXES'; <br><br>&nbsp;&nbsp;&nbsp; 依此类推，就可以轻松知道数据字典的详细名称和解释，不用查看ORACLE的其它文档资料了。 <br><br>&nbsp;&nbsp;&nbsp; 下面按类别列出一些ORACLE用户常用数据字典的查询使用方法。 <br><br>&nbsp;&nbsp;&nbsp; 1、用户 <br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 查看当前用户的缺省表空间 <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SQL&gt;select username,default_tablespace from user_users; <br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 查看当前用户的角色 <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SQL&gt;select * from user_role_privs; <br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 查看当前用户的系统权限和表级权限 <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SQL&gt;select * from user_sys_privs; <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SQL&gt;select * from user_tab_privs; <br><br>&nbsp;&nbsp;&nbsp; 2、表 <br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 查看用户下所有的表 <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SQL&gt;select * from user_tables; <br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 查看名称包含log字符的表 <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SQL&gt;select object_name,object_id from user_objects <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; where instr(object_name,'LOG')&gt;0; <br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 查看某表的创建时间 <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SQL&gt;select object_name,created from user_objects where object_name=upper('&amp;table_name'); <br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 查看某表的大小 <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SQL&gt;select sum(bytes)/(1024*1024) as "size(M)" from user_segments <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; where segment_name=upper('&amp;table_name'); <br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 查看放在ORACLE的内存区里的表 <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SQL&gt;select table_name,cache from user_tables where instr(cache,'Y')&gt;0; <br><br>&nbsp;&nbsp;&nbsp; 3、索引 <br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 查看索引个数和类别 <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SQL&gt;select index_name,index_type,table_name from user_indexes order by table_name; <br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 查看索引被索引的字段 <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SQL&gt;select * from user_ind_columns where index_name=upper('&amp;index_name'); <br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 查看索引的大小 <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SQL&gt;select sum(bytes)/(1024*1024) as "size(M)" from user_segments <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; where segment_name=upper('&amp;index_name'); <br><br>&nbsp;&nbsp;&nbsp; 4、序列号 <br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 查看序列号，last_number是当前值 <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SQL&gt;select * from user_sequences; <br><br>&nbsp;&nbsp;&nbsp; 5、视图 <br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 查看视图的名称 <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SQL&gt;select view_name from user_views; <br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 查看创建视图的select语句 <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SQL&gt;set view_name,text_length from user_views; <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SQL&gt;set long 2000;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 说明：可以根据视图的text_length值设定set long 的大小 <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SQL&gt;select text from user_views where view_name=upper('&amp;view_name'); <br><br>&nbsp;&nbsp;&nbsp; 6、同义词 <br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 查看同义词的名称 <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SQL&gt;select * from user_synonyms; <br><br>&nbsp;&nbsp;&nbsp; 7、约束条件 <br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 查看某表的约束条件 <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SQL&gt;select constraint_name, constraint_type,search_condition, r_constraint_name <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; from user_constraints where table_name = upper('&amp;table_name'); <br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SQL&gt;select c.constraint_name,c.constraint_type,cc.column_name <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; from user_constraints c,user_cons_columns cc <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; where c.owner = upper('&amp;table_owner') and c.table_name = upper('&amp;table_name') <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; and c.owner = cc.owner and c.constraint_name = cc.constraint_name <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; order by cc.position; <br><br>&nbsp;&nbsp;&nbsp; 8、存储函数和过程 <br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 查看函数和过程的状态 <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SQL&gt;select object_name,status from user_objects where object_type='FUNCTION'; <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SQL&gt;select object_name,status from user_objects where object_type='PROCEDURE'; <br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 查看函数和过程的源代码 <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SQL&gt;select text from all_source where owner=user and name=upper('&amp;plsql_name'); <br><br><br>三、查看数据库的SQL <br>1、查看表空间的名称及大小 <br><br>&nbsp;&nbsp;&nbsp; select t.tablespace_name, round(sum(bytes/(1024*1024)),0) ts_size <br>&nbsp;&nbsp;&nbsp; from dba_tablespaces t, dba_data_files d <br>&nbsp;&nbsp;&nbsp; where t.tablespace_name = d.tablespace_name <br>&nbsp;&nbsp;&nbsp; group by t.tablespace_name; <br><br>2、查看表空间物理文件的名称及大小 <br><br>&nbsp;&nbsp;&nbsp; select tablespace_name, file_id, file_name, <br>&nbsp;&nbsp;&nbsp; round(bytes/(1024*1024),0) total_space <br>&nbsp;&nbsp;&nbsp; from dba_data_files <br>&nbsp;&nbsp;&nbsp; order by tablespace_name; <br><br>3、查看回滚段名称及大小 <br><br>&nbsp;&nbsp;&nbsp; select segment_name, tablespace_name, r.status, <br>&nbsp;&nbsp;&nbsp; (initial_extent/1024) InitialExtent,(next_extent/1024) NextExtent, <br>&nbsp;&nbsp;&nbsp; max_extents, v.curext CurExtent <br>&nbsp;&nbsp;&nbsp; From dba_rollback_segs r, v$rollstat v <br>&nbsp;&nbsp;&nbsp; Where r.segment_id = v.usn(+) <br>&nbsp;&nbsp;&nbsp; order by segment_name ; <br><br>4、查看控制文件 <br><br>&nbsp;&nbsp;&nbsp; select name from v$controlfile; <br><br>5、查看日志文件 <br><br>&nbsp;&nbsp;&nbsp; select member from v$logfile; <br><br>6、查看表空间的使用情况 <br><br>&nbsp;&nbsp;&nbsp; select sum(bytes)/(1024*1024) as free_space,tablespace_name <br>&nbsp;&nbsp;&nbsp; from dba_free_space <br>&nbsp;&nbsp;&nbsp; group by tablespace_name; <br><br>&nbsp;&nbsp;&nbsp; SELECT A.TABLESPACE_NAME,A.BYTES TOTAL,B.BYTES USED, C.BYTES FREE, <br>&nbsp;&nbsp;&nbsp; (B.BYTES*100)/A.BYTES "% USED",(C.BYTES*100)/A.BYTES "% FREE" <br>&nbsp;&nbsp;&nbsp; FROM SYS.SM$TS_AVAIL A,SYS.SM$TS_USED B,SYS.SM$TS_FREE C <br>&nbsp;&nbsp;&nbsp; WHERE A.TABLESPACE_NAME=B.TABLESPACE_NAME AND A.TABLESPACE_NAME=C.TABLESPACE_NAME; <br><br>7、查看数据库库对象 <br><br>&nbsp;&nbsp;&nbsp; select owner, object_type, status, count(*) count# from all_objects group by owner, object_type, status; <br><br>8、查看数据库的版本 <br><br>&nbsp;&nbsp;&nbsp; Select version FROM Product_component_version <br>&nbsp;&nbsp;&nbsp; Where SUBSTR(PRODUCT,1,6)='Oracle'; <br><br>9、查看数据库的创建日期和归档方式 <br><br>&nbsp;&nbsp;&nbsp; Select Created, Log_Mode, Log_Mode From V$Database; <br>四、ORACLE用户连接的管理 <br><br>用系统管理员，查看当前数据库有几个用户连接： <br><br>SQL&gt; select username,sid,serial# from v$session; <br><br>如果要停某个连接用 <br><br>SQL&gt; alter system kill session 'sid,serial#'; <br><br>如果这命令不行,找它UNIX的进程数 <br><br>SQL&gt; select pro.spid from v$session ses,v$process pro where ses.sid=21 and ses.paddr=pro.addr; <br><br>说明：21是某个连接的sid数 <br><br>然后用 kill 命令杀此进程号。 <br><br><br>五、SQL*PLUS使用 <br>a、近入SQL*Plus <br>$sqlplus 用户名/密码 <br><br>&nbsp;&nbsp; 退出SQL*Plus <br>SQL&gt;exit <br><br>b、在sqlplus下得到帮助信息 <br>列出全部SQL命令和SQL*Plus命令 <br>SQL&gt;help <br>列出某个特定的命令的信息 <br>SQL&gt;help 命令名 <br><br>c、显示表结构命令DESCRIBE <br>SQL&gt;DESC 表名 <br><br>d、SQL*Plus中的编辑命令 <br>显示SQL缓冲区命令 <br>SQL&gt;L <br><br>修改SQL命令 <br>首先要将待改正行变为当前行 <br>SQL&gt;n <br>用CHANGE命令修改内容 <br>SQL&gt;c/旧/新 <br>重新确认是否已正确 <br>SQL&gt;L <br><br>使用INPUT命令可以在SQL缓冲区中增加一行或多行 <br>SQL&gt;i <br>SQL&gt;输入内容 <br><br>e、调用外部系统编辑器 <br>SQL&gt;edit 文件名 <br>可以使用DEFINE命令设置系统变量EDITOR来改变文本编辑器的类型，在login.sql文件中定义如下一行 <br>DEFINE_EDITOR=vi <br><br>f、运行命令文件 <br>SQL&gt;START test <br>SQL&gt;@test <br><br>常用SQL*Plus语句 <br>a、表的创建、修改、删除 <br>创建表的命令格式如下： <br>create table 表名 （列说明列表）； <br><br>为基表增加新列命令如下： <br>ALTER TABLE 表名 ADD （列说明列表） <br>例：为test表增加一列Age，用来存放年龄 <br>&nbsp;&nbsp;&nbsp; sql&gt;alter table test <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; add （Age number(3)）； <br><br>修改基表列定义命令如下： <br>ALTER TABLE 表名 <br>MODIFY （列名 数据类型） <br>例：将test表中的Count列宽度加长为10个字符 <br>&nbsp;&nbsp;&nbsp; sql&gt;alter atble test <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; modify （County char(10)）； <br><br>b、将一张表删除语句的格式如下： <br>DORP TABLE 表名； <br>例：表删除将同时删除表的数据和表的定义 <br>sql&gt;drop table test <br><br>c、表空间的创建、删除 <br><br><br>六、ORACLE逻辑备份的SH文件 <br><br>完全备份的SH文件：exp_comp.sh <br><br>rq=` date +"%m%d" ` <br><br>su - oracle -c "exp system/manager full=y inctype=complete file=/oracle/export/db_comp$rq.dmp" <br><br>累计备份的SH文件：exp_cumu.sh <br><br>rq=` date +"%m%d" ` <br><br>su - oracle -c "exp system/manager full=y inctype=cumulative file=/oracle/export/db_cumu$rq.dmp" <br><br>增量备份的SH文件: exp_incr.sh <br><br>rq=` date +"%m%d" ` <br><br>su - oracle -c "exp system/manager full=y inctype=incremental file=/oracle/export/db_incr$rq.dmp" <br><br>root用户crontab文件 <br>/var/spool/cron/crontabs/root增加以下内容 <br><br>0 2 1 * * /oracle/exp_comp.sh <br><br>30 2 * * 0-5 /oracle/exp_incr.sh <br><br>45 2 * * 6 /oracle/exp_cumu.sh <br><br>当然这个时间表可以根据不同的需求来改变的，这只是一个例子。 <br><br><br>七、ORACLE 常用的SQL语法和数据对象 <br><br>一.数据控制语句 (DML) 部分 <br><br>1.INSERT&nbsp; (往数据表里插入记录的语句) <br><br>INSERT INTO 表名(字段名1, 字段名2, ……) VALUES ( 值1, 值2, ……); <br>INSERT INTO 表名(字段名1, 字段名2, ……)&nbsp; SELECT (字段名1, 字段名2, ……) FROM 另外的表名; <br><br>字符串类型的字段值必须用单引号括起来, 例如: ’GOOD DAY’ <br>如果字段值里包含单引号’ 需要进行字符串转换, 我们把它替换成两个单引号''. <br>字符串类型的字段值超过定义的长度会出错, 最好在插入前进行长度校验. <br><br>日期字段的字段值可以用当前数据库的系统时间SYSDATE, 精确到秒 <br>或者用字符串转换成日期型函数TO_DATE(‘2001-08-01’,’YYYY-MM-DD’) <br>TO_DATE()还有很多种日期格式, 可以参看ORACLE DOC. <br>年-月-日 小时:分钟:秒 的格式YYYY-MM-DD HH24:MI:SS <br><br>INSERT时最大可操作的字符串长度小于等于4000个单字节, 如果要插入更长的字符串, 请考虑字段用CLOB类型, <br>方法借用ORACLE里自带的DBMS_LOB程序包. <br><br>INSERT时如果要用到从1开始自动增长的序列号, 应该先建立一个序列号 <br>CREATE SEQUENCE 序列号的名称 (最好是表名+序列号标记) INCREMENT BY 1&nbsp; START&nbsp; WITH&nbsp; 1 <br>MAXVALUE&nbsp; 99999&nbsp; CYCLE&nbsp; NOCACHE; <br>其中最大的值按字段的长度来定, 如果定义的自动增长的序列号 NUMBER(6) , 最大值为999999 <br>INSERT 语句插入这个字段值为: 序列号的名称.NEXTVAL <br><br>2.DELETE&nbsp; (删除数据表里记录的语句) <br><br>DELETE FROM表名 WHERE 条件; <br><br>注意：删除记录并不能释放ORACLE里被占用的数据块表空间. 它只把那些被删除的数据块标成unused. <br><br>如果确实要删除一个大表里的全部记录, 可以用 TRUNCATE 命令, 它可以释放占用的数据块表空间 <br>TRUNCATE TABLE 表名; <br>此操作不可回退. <br><br>3.UPDATE&nbsp; (修改数据表里记录的语句) <br><br>UPDATE表名 SET 字段名1=值1, 字段名2=值2, …… WHERE 条件; <br><br>如果修改的值N没有赋值或定义时, 将把原来的记录内容清为NULL, 最好在修改前进行非空校验; <br>值N超过定义的长度会出错, 最好在插入前进行长度校验.. <br><br>注意事项: <br>A.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 以上SQL语句对表都加上了行级锁, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 确认完成后, 必须加上事物处理结束的命令 COMMIT 才能正式生效, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 否则改变不一定写入数据库里. <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 如果想撤回这些操作, 可以用命令 ROLLBACK 复原. <br><br>B.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 在运行INSERT, DELETE 和 UPDATE 语句前最好估算一下可能操作的记录范围, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 应该把它限定在较小 (一万条记录) 范围内,. 否则ORACLE处理这个事物用到很大的回退段. <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 程序响应慢甚至失去响应. 如果记录数上十万以上这些操作, 可以把这些SQL语句分段分次完成, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 其间加上COMMIT 确认事物处理. <br>二.数据定义 (DDL) 部分 <br><br>1.CREATE (创建表, 索引, 视图, 同义词, 过程, 函数, 数据库链接等) <br><br>ORACLE常用的字段类型有 <br>CHAR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 固定长度的字符串 <br>VARCHAR2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 可变长度的字符串 <br>NUMBER(M,N)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 数字型M是位数总长度, N是小数的长度 <br>DATE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 日期类型 <br><br>创建表时要把较小的不为空的字段放在前面, 可能为空的字段放在后面 <br><br>创建表时可以用中文的字段名, 但最好还是用英文的字段名 <br><br>创建表时可以给字段加上默认值, 例如 DEFAULT SYSDATE <br>这样每次插入和修改时, 不用程序操作这个字段都能得到动作的时间 <br><br>创建表时可以给字段加上约束条件 <br>例如 不允许重复 UNIQUE, 关键字 PRIMARY KEY <br><br>2.ALTER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (改变表, 索引, 视图等) <br><br>改变表的名称 <br>ALTER TABLE 表名1&nbsp; TO 表名2; <br><br>在表的后面增加一个字段 <br>ALTER TABLE表名 ADD 字段名 字段名描述; <br><br>修改表里字段的定义描述 <br>ALTER TABLE表名 MODIFY字段名 字段名描述; <br><br>给表里的字段加上约束条件 <br>ALTER TABLE 表名 ADD CONSTRAINT 约束名 PRIMARY KEY (字段名); <br>ALTER TABLE 表名 ADD CONSTRAINT 约束名 UNIQUE (字段名); <br><br>把表放在或取出数据库的内存区 <br>ALTER TABLE 表名 CACHE; <br>ALTER TABLE 表名 NOCACHE; <br><br>3.DROP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (删除表, 索引, 视图, 同义词, 过程, 函数, 数据库链接等) <br><br>删除表和它所有的约束条件 <br>DROP TABLE 表名 CASCADE CONSTRAINTS; <br><br>4.TRUNCATE (清空表里的所有记录, 保留表的结构) <br><br>TRUNCATE 表名; <br><br>三.查询语句 (SELECT) 部分 <br><br>SELECT字段名1, 字段名2, …… FROM 表名1, [表名2, ……] WHERE 条件; <br><br>字段名可以带入函数 <br>&nbsp; 例如:&nbsp; COUNT(*), MIN(字段名),&nbsp; MAX(字段名),&nbsp; AVG(字段名), DISTINCT(字段名), <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TO_CHAR(DATE字段名,'YYYY-MM-DD HH24:MI:SS') <br><br>NVL(EXPR1, EXPR2)函数 <br>解释: <br>IF EXPR1=NULL <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; RETURN EXPR2 <br>ELSE <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; RETURN EXPR1 <br><br>DECODE(AA﹐V1﹐R1﹐V2﹐R2....)函数 <br>解释: <br>IF AA=V1 THEN RETURN R1 <br>IF AA=V2 THEN RETURN R2 <br>..… <br>ELSE <br>RETURN NULL <br><br>LPAD(char1,n,char2)函数 <br>解释: <br>字符char1按制定的位数n显示，不足的位数用char2字符串替换左边的空位 <br><br>字段名之间可以进行算术运算 <br>例如:&nbsp; (字段名1*字段名1)/3 <br><br>查询语句可以嵌套 <br>例如: SELECT …… FROM <br>(SELECT …… FROM表名1, [表名2, ……] WHERE 条件) WHERE 条件2; <br><br>两个查询语句的结果可以做集合操作 <br>例如: 并集UNION(去掉重复记录), 并集UNION ALL(不去掉重复记录), 差集MINUS,&nbsp; 交集INTERSECT <br><br>分组查询 <br>SELECT字段名1, 字段名2, …… FROM 表名1, [表名2, ……] GROUP BY字段名1 <br>[HAVING 条件] ; <br><br>两个以上表之间的连接查询 <br><br>SELECT字段名1, 字段名2, …… FROM 表名1, [表名2, ……] WHERE <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 表名1.字段名 = 表名2. 字段名 [ AND ……] ; <br><br>SELECT字段名1, 字段名2, …… FROM 表名1, [表名2, ……] WHERE <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 表名1.字段名 = 表名2. 字段名(+) [ AND ……] ; <br><br>有(+)号的字段位置自动补空值 <br><br>查询结果集的排序操作, 默认的排序是升序ASC, 降序是DESC <br><br>SELECT字段名1, 字段名2, …… FROM 表名1, [表名2, ……] <br>ORDER BY字段名1, 字段名2 DESC; <br><br>字符串模糊比较的方法 <br><br>INSTR(字段名, ‘字符串’)&gt;0 <br>字段名 LIKE&nbsp; ‘字符串%’&nbsp; [‘%字符串%’] <br><br>每个表都有一个隐含的字段ROWID, 它标记着记录的唯一性. <br><br>四.ORACLE里常用的数据对象 (SCHEMA) <br><br>1.索引 (INDEX) <br><br>CREATE INDEX 索引名ON 表名 ( 字段1, [字段2, ……] ); <br>ALTER INDEX 索引名 REBUILD; <br><br>一个表的索引最好不要超过三个 (特殊的大表除外), 最好用单字段索引, 结合SQL语句的分析执行情况, <br>也可以建立多字段的组合索引和基于函数的索引 <br><br>ORACLE8.1.7字符串可以索引的最大长度为1578 单字节 <br>ORACLE8.0.6字符串可以索引的最大长度为758 单字节 <br><br>2.视图 (VIEW) <br><br>CREATE VIEW 视图名AS SELECT …. FROM …..; <br>ALTER VIEW视图名 COMPILE; <br><br>视图仅是一个SQL查询语句, 它可以把表之间复杂的关系简洁化. <br><br>3.同义词 (SYNONMY) <br>CREATE SYNONYM同义词名FOR 表名; <br>CREATE SYNONYM同义词名FOR 表名@数据库链接名; <br><br>4.数据库链接 (DATABASE LINK) <br>CREATE DATABASE LINK数据库链接名CONNECT TO 用户名 IDENTIFIED BY 密码 USING ‘数据库连接字符串’; <br><br>数据库连接字符串可以用NET8 EASY CONFIG或者直接修改TNSNAMES.ORA里定义. <br><br>数据库参数global_name=true时要求数据库链接名称跟远端数据库名称一样 <br><br>数据库全局名称可以用以下命令查出 <br>SELECT * FROM GLOBAL_NAME; <br><br>查询远端数据库里的表 <br>SELECT …… FROM 表名@数据库链接名; <br><br>五.权限管理 (DCL) 语句 <br><br>1.GRANT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 赋于权限 <br>常用的系统权限集合有以下三个: <br>CONNECT(基本的连接), RESOURCE(程序开发), DBA(数据库管理) <br>常用的数据对象权限有以下五个: <br>ALL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ON 数据对象名,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SELECT ON 数据对象名,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; UPDATE ON 数据对象名, <br>DELETE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ON 数据对象名,&nbsp; INSERT ON 数据对象名,&nbsp;&nbsp; ALTER&nbsp; ON 数据对象名 <br><br>GRANT CONNECT, RESOURCE TO 用户名; <br>GRANT SELECT ON 表名 TO 用户名; <br>GRANT SELECT, INSERT, DELETE ON表名 TO 用户名1, 用户名2; <br><br>2.REVOKE 回收权限 <br><br>REVOKE CONNECT, RESOURCE FROM 用户名; <br>REVOKE SELECT ON 表名 FROM 用户名; <br>REVOKE SELECT, INSERT, DELETE ON表名 FROM 用户名1, 用户名2; <br><br><br>查询数据库中第63号错误： <br>select orgaddr,destaddr from sm_histable0116 where error_code='63'; <br><br>查询数据库中开户用户最大提交和最大下发数： select MSISDN,TCOS,OCOS from ms_usertable； <br><br><br>查询数据库中各种错误代码的总和： <br>select error_code,count(*) from sm_histable0513 group by error_code order <br>by error_code; <br><br>查询报表数据库中话单统计种类查询。 <br>select sum(Successcount) from tbl_MiddleMt0411 where ServiceType2=111 <br>select sum(successcount),servicetype from tbl_middlemt0411 group by servicetype <br></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory">分类: <a href="http://www.cnblogs.com/chinafine/category/247685.html" target="_blank">Oracle</a></div>
+<div id="EntryTag"></div>
+<div id="blog_post_info"><div id="green_channel">
+        <a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(1755405,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+            <a id="green_channel_follow" onclick="follow(&#39;fe65360b-63cf-dd11-9e4d-001cf0cd104b&#39;);" href="javascript:void(0);">关注我</a>
+    <a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a>
+    <a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./Oracle常用命令大全（很有用，做笔记） - chinaifne - 博客园_files/icon_weibo_24.png" alt=""></a>
+    <a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="./Oracle常用命令大全（很有用，做笔记） - chinaifne - 博客园_files/wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+    <div id="author_profile_info" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/chinafine/" target="_blank"><img src="./Oracle常用命令大全（很有用，做笔记） - chinaifne - 博客园_files/20140915222131.png" class="author_avatar" alt=""></a>
+        <div id="author_profile_detail" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/chinafine/">chinaifne</a><br>
+            <a href="http://home.cnblogs.com/u/chinafine/followees">关注 - 0</a><br>
+            <a href="http://home.cnblogs.com/u/chinafine/followers">粉丝 - 299</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div id="author_profile_honor"></div>
+    <div id="author_profile_follow">
+                <a href="javascript:void(0);" onclick="follow(&#39;fe65360b-63cf-dd11-9e4d-001cf0cd104b&#39;);return false;">+加关注</a>
+    </div>
+</div>
+<div id="div_digg">
+    <div class="diggit" onclick="votePost(1755405,&#39;Digg&#39;)">
+        <span class="diggnum" id="digg_count">6</span>
+    </div>
+    <div class="buryit" onclick="votePost(1755405,&#39;Bury&#39;)">
+        <span class="burynum" id="bury_count">0</span>
+    </div>
+    <div class="clear"></div>
+    <div class="diggword" id="digg_tips">
+    </div>
+</div>
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/chinafine/archive/2010/06/07/1753369.html" class="p_n_p_prefix">« </a> 上一篇：<a href="http://www.cnblogs.com/chinafine/archive/2010/06/07/1753369.html" title="发布于2010-06-07 17:34">Tomcat配置详解</a><br><a href="http://www.cnblogs.com/chinafine/archive/2010/06/10/1755658.html" class="p_n_p_prefix">» </a> 下一篇：<a href="http://www.cnblogs.com/chinafine/archive/2010/06/10/1755658.html" title="发布于2010-06-10 15:14">无法加载oracle in oradb10g_home2 odbc驱动程序的安装例程，因为存在系统错误代码998 解决方法</a><br></div>
+</div>
+
+</div>
+	</div></div><a name="!comments"></a><div id="blog-comments-placeholder"><div id="comments_pager_top"></div>
+<h3>Feedback</h3>
+	
+			<div class="post">
+				<div class="posthead">
+					<h2>
+						<a href="http://www.cnblogs.com/chinafine/articles/1755405.html#2719871" class="layer">#1楼</a><a name="2719871" id="comment_anchor_2719871"></a>
+						&nbsp;&nbsp;<span class="comment_actions"></span>
+					</h2>
+					 <span class="comment_date">2013-07-04 11:07</span> by <a id="a_comment_author_2719871" href="http://www.cnblogs.com/ytaozhao/" target="_blank">Tony Zhao</a> <a href="http://msg.cnblogs.com/send/Tony%20Zhao" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+				</div>
+				<div class="postbody"><div id="comment_body_2719871" class="blog_comment_body">很有用，可以跟着敲一遍</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2719871,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2719871,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_2719871_avatar" style="display:none;">http://pic.cnblogs.com/face/141115/20161202164624.png</span></div>
+			</div>
+		
+			<div class="post">
+				<div class="posthead">
+					<h2>
+						<a href="http://www.cnblogs.com/chinafine/articles/1755405.html#2734282" class="layer">#2楼</a><a name="2734282" id="comment_anchor_2734282"></a><span id="comment-maxId" style="display:none;">2734282</span><span id="comment-maxDate" style="display:none;">2013/7/24 15:04:14</span>
+						&nbsp;&nbsp;<span class="comment_actions"></span>
+					</h2>
+					 <span class="comment_date">2013-07-24 15:04</span> by <a id="a_comment_author_2734282" href="http://home.cnblogs.com/u/550813/" target="_blank">端木良真</a> <a href="http://msg.cnblogs.com/send/%E7%AB%AF%E6%9C%A8%E8%89%AF%E7%9C%9F" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+				</div>
+				<div class="postbody"><div id="comment_body_2734282" class="blog_comment_body">非常实用，谢谢啦</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2734282,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2734282,&#39;Bury&#39;,this)">反对(0)</a></div></div>
+			</div>
+		<div id="comments_pager_bottom"></div></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="http://www.cnblogs.com/chinafine/articles/1755405.html#" onclick="return RefreshPage();">刷新页面</a><a href="http://www.cnblogs.com/chinafine/articles/1755405.html#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login(&#39;commentform&#39;);">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="ad_t2"><a href="http://www.ucancode.com/index.htm" target="_blank">【推荐】50万行VC++源码: 大型组态工控、电力仿真CAD与GIS源码库</a><br><a href="https://cn.udacity.com/mlnd/?utm_source=cnblogs&amp;utm_medium=referral&amp;utm_campaign=MLND03" target="_blank">【推荐】Google机器学习认证项目首推价末班车</a><br></div>
+<div id="opt_under_post"></div>
+<div id="cnblogs_c1" class="c_ad_block"><a href="http://www.gcpowertools.com.cn/products/spreadjs/?utm_source=cnblogs&amp;utm_medium=blogpage&amp;utm_term=bottom&amp;utm_content=SpreadJS&amp;utm_campaign=community" target="_blank"><img width="300" height="250" src="./Oracle常用命令大全（很有用，做笔记） - chinaifne - 博客园_files/24442-20170531232646446-782226241.gif" alt="spreadjs"></a></div>
+<div id="under_post_news"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="http://news.cnblogs.com/n/571053/" target="_blank">阿里云发布聆听平台 全球招募300位MVP</a><br> ·  <a href="http://news.cnblogs.com/n/571052/" target="_blank">微软公布E3 2017直播详情 首次全程4K直播</a><br> ·  <a href="http://news.cnblogs.com/n/571051/" target="_blank">华为第二代MateBook国行版发布 售价4988元起</a><br> ·  <a href="http://news.cnblogs.com/n/570992/" target="_blank">用环保快递包裹一天可少砍十万棵树，为何推广难</a><br> ·  <a href="http://news.cnblogs.com/n/571050/" target="_blank">外媒：消费者虽然疯狂吐槽苹果音箱 但依然会乖乖购买</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div></div>
+<div id="cnblogs_c2" class="c_ad_block"><a href="https://www.mtyun.com/activity-anniversary?site=cnblogs&amp;campaign=20170601sales" target="_blank"><img width="468" height="60" src="./Oracle常用命令大全（很有用，做笔记） - chinaifne - 博客园_files/24442-20170601093816602-1429765193.png" alt="美团云"></a></div>
+<div id="under_post_kb"><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="http://kb.cnblogs.com/page/570194/" target="_blank">小printf的故事：真正的程序员？</a><br> ·  <a href="http://kb.cnblogs.com/page/569992/" target="_blank">程序员的工作、学习与绩效</a><br> ·  <a href="http://kb.cnblogs.com/page/569056/" target="_blank">软件开发为什么很难</a><br> ·  <a href="http://kb.cnblogs.com/page/565901/" target="_blank">唱吧DevOps的落地，微服务CI/CD的范本技术解读</a><br> ·  <a href="http://kb.cnblogs.com/page/566523/" target="_blank">程序员，如何从平庸走向理想？</a><br></div>» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+    fixPostBody();
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverAdT2();
+    deliverAdC1();
+    deliverAdC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);   
+</script>
+</div>
+
+
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" class="FooterCell">
+			
+<p id="footer">
+	Powered by: 
+	<br>
+	
+	<a id="Footer1_Hyperlink3" name="Hyperlink1" href="http://www.cnblogs.com/" style="font-family:Verdana;font-size:12px;">博客园</a>
+	<br>
+	Copyright © chinaifne
+</p>
+
+		</td>
+	</tr>
+</tbody></table>
+
+
+
+</body></html>

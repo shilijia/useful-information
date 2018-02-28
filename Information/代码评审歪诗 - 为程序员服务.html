@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<!-- saved from url=(0046)http://outofmemory.cn/wiki/sa-said-code-review -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="description" content="验幻空越重，命循频异长。依轮线日简，接偶正分壮。言欢空月虫，明勋品宜昌。依伦先日贱，洁偶正粉妆。">
+    <meta name="keywords" content="代码评审,java">
+    <title>代码评审歪诗 - 为程序员服务</title>
+    <link href="./代码评审歪诗 - 为程序员服务_files/17.1.css" type="text/css" rel="stylesheet">
+    
+    <link rel="shortcut icon" href="http://outofmemory.cn/favicon.ico" type="image/x-icon">
+    
+<link href="./代码评审歪诗 - 为程序员服务_files/bdsstyle.css" rel="stylesheet" type="text/css"><script src="./代码评审歪诗 - 为程序员服务_files/ca-pub-2260568282752965.js.下载"></script><link rel="preload" href="./代码评审歪诗 - 为程序员服务_files/integrator.js.下载" as="script"><script type="text/javascript" src="./代码评审歪诗 - 为程序员服务_files/integrator.js.下载"></script></head>
+<body><iframe frameborder="0" style="display: none;" src="./代码评审歪诗 - 为程序员服务_files/saved_resource.html"></iframe><div id="bdshare_s" style="display: block;"><iframe id="bdsIfr" style="position:absolute;display:none;z-index:9999;" frameborder="0" src="./代码评审歪诗 - 为程序员服务_files/saved_resource(1).html"></iframe><div id="bdshare_l" style="display: none;"><div id="bdshare_l_c"><h6>分享到</h6><ul><li><a href="http://outofmemory.cn/wiki/sa-said-code-review#" class="bds_mshare mshare">一键分享</a></li><li><a href="http://outofmemory.cn/wiki/sa-said-code-review#" class="bds_qzone qqkj">QQ空间</a></li><li><a href="http://outofmemory.cn/wiki/sa-said-code-review#" class="bds_tsina xlwb">新浪微博</a></li><li><a href="http://outofmemory.cn/wiki/sa-said-code-review#" class="bds_bdysc bdysc">百度云收藏</a></li><li><a href="http://outofmemory.cn/wiki/sa-said-code-review#" class="bds_renren rrw">人人网</a></li><li><a href="http://outofmemory.cn/wiki/sa-said-code-review#" class="bds_tqq txwb">腾讯微博</a></li><li><a href="http://outofmemory.cn/wiki/sa-said-code-review#" class="bds_bdxc bdxc">百度相册</a></li><li><a href="http://outofmemory.cn/wiki/sa-said-code-review#" class="bds_kaixin001 kxw">开心网</a></li><li><a href="http://outofmemory.cn/wiki/sa-said-code-review#" class="bds_tqf txpy">腾讯朋友</a></li><li><a href="http://outofmemory.cn/wiki/sa-said-code-review#" class="bds_tieba bdtb">百度贴吧</a></li><li><a href="http://outofmemory.cn/wiki/sa-said-code-review#" class="bds_douban db">豆瓣网</a></li><li><a href="http://outofmemory.cn/wiki/sa-said-code-review#" class="bds_tsohu shwb">搜狐微博</a></li><li><a href="http://outofmemory.cn/wiki/sa-said-code-review#" class="bds_bdhome bdhome">百度新首页</a></li><li><a href="http://outofmemory.cn/wiki/sa-said-code-review#" class="bds_sqq sqq">QQ好友</a></li><li><a href="http://outofmemory.cn/wiki/sa-said-code-review#" class="bds_thx thx">和讯微博</a></li><li><a href="http://outofmemory.cn/wiki/sa-said-code-review#" class="bds_more">更多...</a></li></ul><p><a href="http://outofmemory.cn/wiki/sa-said-code-review#" class="goWebsite">百度分享</a></p></div></div></div>
+
+
+<div id="head">
+    <div id="headLeft">
+        <div class="logo">
+            <a href="http://outofmemory.cn/" title="OutOfMemory.CN 为程序员服务">OutOfMemory.CN 为程序员服务</a>
+        </div><div class="beta"><sup>β</sup></div>
+        <div class="siteSlogan">为程序员服务</div>
+
+        <ul id="headNav">
+            <li><a href="http://ju.outofmemory.cn/" title="聚客：编程技术网站牛人牛博聚集地">聚客</a></li>
+            <li><a href="http://outofmemory.cn/code-snippet/" title="代码：分享代码 分享经验">代码</a></li>
+            
+            <li><a href="http://j.outofmemory.cn/" title="技术专栏，精华">专栏</a></li>
+            <li><a href="http://outofmemory.cn/tutorial/" title="简单易学的技术教程">教程</a></li>
+            <li><a href="http://maven.outofmemory.cn/" title="Maven信息库速查">Maven</a></li>
+            <li><a href="http://outofmemory.cn/github/" title="Github上的中国开源人">Gitter</a></li>
+            <li><a href="http://outofmemory.cn/tag/" title="标签">标签</a></li>
+        </ul>
+    </div>
+    <div id="headRight">
+        <div class="searchBox">
+            <form action="http://outofmemory.cn/search" method="GET">
+                <input type="text" class="search" name="q">
+            </form>
+        </div>
+        <div class="userStatus topRight"><a href="http://outofmemory.cn/user/register">注册</a> &nbsp; | &nbsp;<a href="http://outofmemory.cn/user/login?url=http%3A%2F%2Foutofmemory.cn%2Fwiki%2Fsa-said-code-review" class="login">登录</a> &nbsp; | &nbsp;<a href="http://outofmemory.cn/weibo/login?returnUrl=http%3A%2F%2Foutofmemory.cn%2Fwiki%2Fsa-said-code-review" class="weibo-login">微博登录</a>&nbsp; &nbsp;<a href="http://outofmemory.cn/qq/login?returnUrl=http%3A%2F%2Foutofmemory.cn%2Fwiki%2Fsa-said-code-review" class="qq-login">QQ登录</a></div>
+    </div>
+</div>
+<div id="headPlaceHolder">&nbsp;</div>
+<p id="back-to-top" style="display: block;"><a href="http://outofmemory.cn/wiki/sa-said-code-review#top"><span></span>返回顶部</a></p>
+
+
+<div class="wrap">
+    
+    <div class="content">
+<div class="pageHead">
+<div class="breadPath">
+    <a href="http://j.outofmemory.cn/">OutOfMemory.CN技术专栏</a><span class="separator">-&gt;</span>
+    <a href="http://outofmemory.cn/wiki/">wiki</a><span class="separator">-&gt;</span>
+    <strong>代码评审歪诗</strong>
+</div>
+
+<h1>代码评审歪诗</h1>
+</div>
+
+<div class="content">
+<script src="./代码评审歪诗 - 为程序员服务_files/hm.js.下载"></script><script async="" src="./代码评审歪诗 - 为程序员服务_files/analytics.js.下载"></script><script async="" src="./代码评审歪诗 - 为程序员服务_files/adsbygoogle.js.下载"></script>
+
+<ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-2260568282752965" data-ad-slot="6201835101" data-adsbygoogle-status="done"><ins id="aswift_0_expand" style="display:inline-table;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:728px;background-color:transparent;"><ins id="aswift_0_anchor" style="display:block;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:728px;background-color:transparent;"><iframe width="728" height="90" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;width:728px;height:90px;" src="./代码评审歪诗 - 为程序员服务_files/saved_resource(2).html"></iframe></ins></ins></ins>
+<script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+
+<div class="bshare-custom" style="float:right;margin-top:6px;">
+    
+<div id="bdshare" class="bdshare_t bds_tools get-codes-bdshare">
+<a class="bds_qzone" title="分享到QQ空间" href="http://outofmemory.cn/wiki/sa-said-code-review#"></a>
+<a class="bds_tsina" title="分享到新浪微博" href="http://outofmemory.cn/wiki/sa-said-code-review#"></a>
+<a class="bds_tqq" title="分享到腾讯微博" href="http://outofmemory.cn/wiki/sa-said-code-review#"></a>
+<a class="bds_renren" title="分享到人人网" href="http://outofmemory.cn/wiki/sa-said-code-review#"></a>
+<a class="bds_t163" title="分享到网易微博" href="http://outofmemory.cn/wiki/sa-said-code-review#"></a>
+<span class="bds_more">更多</span>
+<a class="shareCount" href="http://outofmemory.cn/wiki/sa-said-code-review#" title="累计分享0次">0</a>
+</div>
+<script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=6762184" src="./代码评审歪诗 - 为程序员服务_files/bds_s_v2.js.下载"></script>
+
+<script type="text/javascript">
+    document.getElementById("bdshell_js").src =
+            "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000)
+</script>
+
+
+</div>
+
+<div class="tags">
+    <a class="tag" href="http://outofmemory.cn/tag/%E4%BB%A3%E7%A0%81%E8%AF%84%E5%AE%A1">代码评审</a>
+    <a class="tag" href="http://outofmemory.cn/tag/java">java</a>
+</div>
+
+<div class="txtContent">
+<p>&nbsp;&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp;</p>
+<table style="width: 100%;" cellspacing="1" cellpadding="4" align="center">
+<tbody>
+<tr>
+<td style="text-align: center;" colspan="2">&nbsp; &nbsp; &nbsp; &nbsp; <span style="font-family: &#39;Microsoft YaHei&#39;; font-size: 24.0px; font-weight: bold;">贾言</span> &nbsp; &nbsp; &nbsp;</td>
+</tr>
+<tr>
+<td style="text-align: center;">&nbsp; &nbsp; &nbsp; &nbsp;
+<p style="font-family: &#39;Microsoft YaHei&#39;; font-size: 18.0px; font-weight: bold;">验幻空越重，</p>
+&nbsp; &nbsp; &nbsp; &nbsp;
+<p style="font-family: &#39;Microsoft YaHei&#39;; font-size: 18.0px; font-weight: bold;">命循频异长。</p>
+&nbsp; &nbsp; &nbsp; &nbsp;
+<p style="font-family: &#39;Microsoft YaHei&#39;; font-size: 18.0px; font-weight: bold;">依轮线日简，</p>
+&nbsp; &nbsp; &nbsp; &nbsp;
+<p style="font-family: &#39;Microsoft YaHei&#39;; font-size: 18.0px; font-weight: bold;">接偶正分壮。</p>
+&nbsp; &nbsp; &nbsp;</td>
+<td style="text-align: center;">&nbsp; &nbsp; &nbsp; &nbsp;
+<p style="font-family: &#39;Microsoft YaHei&#39;; font-size: 18.0px; font-weight: bold;">言欢空月虫，</p>
+&nbsp; &nbsp; &nbsp; &nbsp;
+<p style="font-family: &#39;Microsoft YaHei&#39;; font-size: 18.0px; font-weight: bold;">明勋品宜昌。</p>
+&nbsp; &nbsp; &nbsp; &nbsp;
+<p style="font-family: &#39;Microsoft YaHei&#39;; font-size: 18.0px; font-weight: bold;">依伦先日贱，</p>
+&nbsp; &nbsp; &nbsp; &nbsp;
+<p style="font-family: &#39;Microsoft YaHei&#39;; font-size: 18.0px; font-weight: bold;">洁偶正粉妆。</p>
+&nbsp; &nbsp; &nbsp;</td>
+</tr>
+</tbody>
+</table>
+<h2>贾言</h2>
+<p>架构师说, 用20个字描述代码评审的内容， 自省也省人。由于是一字一含义， 不连贯， 为了增强趣味性， 每句都增加对应的歪解。只是对常见评审的描述， 不尽之处，欢迎补充！</p>
+<h2>&nbsp; 验幻空越重 &nbsp;-- 言欢空月虫</h2>
+<p>&nbsp; <span style="font-family: &#39;Microsoft YaHei&#39;; font-size: 24.0px; font-weight: bold;">验：</span>公共方法都要做参数的校验， &nbsp;参数校验不通过明确抛出异常或对应响应码。</p>
+<ol>&nbsp;
+<li>&nbsp; &nbsp; java bean验证已经是一个很古老的技术了， 会避免我们很多问题， 可参考： &nbsp; &nbsp; <br> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="http://beanvalidation.org/">http://beanvalidation.org/</a> <a href="http://www.infoq.com/cn/news/2010/03/javaee6-validation">http://www.infoq.com/cn/news/2010/03/javaee6-validation</a> <a href="https://www.sitepoint.com/using-java-bean-validation-method-parameters-return-values/">https://www.sitepoint.com/using-java-bean-validation-method-parameters-return-values/</a> &nbsp; &nbsp; &nbsp;</li>
+&nbsp;
+<li>&nbsp; &nbsp; 在接口中也明确使用验证注解修饰参数和返回值， 作为一种协议要求调用方按验证注解约束传参， 返回值验证注解约束提供方按注解要求返回参数 &nbsp;</li>
+</ol>
+<p>&nbsp; <span style="font-family: &#39;Microsoft YaHei&#39;; font-size: 24.0px; font-weight: bold;">幻：</span>在代码中要杜绝幻数，幻数可定义为枚举或常量以增强其可读性</p>
+<p>&nbsp; <span style="font-family: &#39;Microsoft YaHei&#39;; font-size: 24.0px; font-weight: bold;">空：</span>要时刻警惕空指针异常</p>
+<ol>&nbsp;
+<li>&nbsp; &nbsp; 常见的 a.equals(b) 要把常量放到左侧 &nbsp;</li>
+&nbsp;
+<li>&nbsp; &nbsp; aInteger == 10 如果 aInteger 为空时会抛出空指针异常 &nbsp;</li>
+&nbsp;
+<li>&nbsp; &nbsp; 不确认返回集合是否可为空时要做非空判断， 再做for循环 &nbsp;</li>
+&nbsp;
+<li>&nbsp; &nbsp; 使用空对象模式， 约定返回空集合， 而非null &nbsp;</li>
+&nbsp;
+<li>&nbsp; &nbsp; 使用StringUtils判断字符串非空 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <br> &nbsp; &nbsp; &nbsp;</li>
+</ol>
+<p>&nbsp; <span style="font-family: &#39;Microsoft YaHei&#39;; font-size: 24.0px; font-weight: bold;">越：</span>如果方法传入数组下标作为参数，要在一开始就做下标越界的校验，避免下标越界异常</p>
+<p>&nbsp; <span style="font-family: &#39;Microsoft YaHei&#39;; font-size: 24.0px; font-weight: bold;">重：</span>不要写重复代码，重复代码要使用重构工具提取重构</p>
+<p>&nbsp;</p>
+<h2>&nbsp; 命循频异长 -明勋品宜昌</h2>
+<p>&nbsp; <span style="font-family: &#39;Microsoft YaHei&#39;; font-size: 24.0px; font-weight: bold;">命：</span>包/类/方法/字段/变量/常量的命名要遵循规范，要名副其实，这不但可以增加可读性，还可以在起名的过程中引导我们思考方法/变量/类的职责是否合适</p>
+<p>有意义很重要， 典型无意义命名：</p>
+<pre lang="java" class="prettyprint java prettyprinted"><code><span class="pln">
+</span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">static</span><span class="pln"> </span><span class="kwd">final</span><span class="pln"> </span><span class="typ">Integer</span><span class="pln"> CODE_39120 </span><span class="pun">=</span><span class="pln"> </span><span class="lit">39120</span><span class="pun">;</span><span class="pln">
+</span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">static</span><span class="pln"> </span><span class="kwd">final</span><span class="pln"> </span><span class="typ">String</span><span class="pln"> MESSAGE_39120 </span><span class="pun">=</span><span class="pln"> </span><span class="str">"[包裹]与[库房号]不一致，确定装箱？"</span><span class="pun">;</span><span class="pln">
+</span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">static</span><span class="pln"> </span><span class="kwd">final</span><span class="pln"> </span><span class="typ">Integer</span><span class="pln"> CODE_39121 </span><span class="pun">=</span><span class="pln"> </span><span class="lit">39121</span><span class="pun">;</span><span class="pln">
+</span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">static</span><span class="pln"> </span><span class="kwd">final</span><span class="pln"> </span><span class="typ">String</span><span class="pln"> MESSAGE_39121 </span><span class="pun">=</span><span class="pln"> </span><span class="str">"[包裹]与[箱号]的承运类型不一致,确定装箱？"</span><span class="pun">;</span><span class="pln">
+&nbsp;
+</span><span class="typ">Rule</span><span class="pln"> rule1 </span><span class="pun">=</span><span class="pln"> request</span><span class="pun">.</span><span class="pln">getRuleMap</span><span class="pun">().</span><span class="kwd">get</span><span class="pun">(</span><span class="str">"1050"</span><span class="pun">);</span><span class="pln">
+</span></code>
+</pre>
+<p>CODE_39120这个名字和幻数没多大区别。</p>
+<p>&nbsp; <span style="font-family: &#39;Microsoft YaHei&#39;; font-size: 24.0px; font-weight: bold;">循：</span>不要在循环中调用服务，不要在循环中做数据库等跨网络操作</p>
+<p>&nbsp; <span style="font-family: &#39;Microsoft YaHei&#39;; font-size: 24.0px; font-weight: bold;">频：</span>写每一个方法时都要知道这个方法的调用频率，一天多少，一分多少，一秒多少，峰值可能达到多少，调用频率高的一定要考虑性能指标，考虑是否会打垮数据库，是否会击穿缓存</p>
+<p>&nbsp; <span style="font-family: &#39;Microsoft YaHei&#39;; font-size: 24.0px; font-weight: bold;">异：</span>异常处理是程序员最基本的素质，不要处处捕获异常，对于捕获了只写日志，没有任何处理的catch要问一问自己，这样吃掉异常，是否合理</p>
+<p>下面是一个反例， 在导出文件的controller方法中做了两层的try...catch， 在catch块中记录日志后什么都没做， 这样用户看不到真正想要的内容， 研发也只有看日志才能发现错误， 而“看日志”， 通常只有业务方反馈问题时才会看， 就会导致研发人员发现错误会比现场人员还会晚。</p>
+<pre lang="java" class="prettyprint java prettyprinted"><code><span class="pln">
+</span><span class="lit">@RequestMapping</span><span class="pun">(</span><span class="pln">value </span><span class="pun">=</span><span class="pln"> </span><span class="str">"/export"</span><span class="pun">)</span><span class="pln">
+</span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> </span><span class="kwd">export</span><span class="pun">(</span><span class="typ">CityRelationDomain</span><span class="pln"> condition</span><span class="pun">,</span><span class="pln"> </span><span class="typ">HttpServletResponse</span><span class="pln"> response</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+&nbsp; &nbsp;</span><span class="typ">ZipOutputStream</span><span class="pln"> zos </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">null</span><span class="pun">;</span><span class="pln">
+&nbsp; &nbsp;</span><span class="typ">BufferedWriter</span><span class="pln"> bufferedWriter </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">null</span><span class="pun">;</span><span class="pln">
+&nbsp; &nbsp;</span><span class="kwd">try</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+&nbsp; &nbsp; &nbsp; condition</span><span class="pun">.</span><span class="pln">setStart</span><span class="pun">(</span><span class="lit">0</span><span class="pun">);</span><span class="pln">
+&nbsp; &nbsp; &nbsp; condition</span><span class="pun">.</span><span class="pln">setSize</span><span class="pun">(</span><span class="pln">MAX_EXPORT_LINES</span><span class="pun">);</span><span class="pln">
+&nbsp; &nbsp; &nbsp; </span><span class="typ">List</span><span class="pln"> list </span><span class="pun">=</span><span class="pln"> cityRelationService</span><span class="pun">.</span><span class="pln">getOrdersByCondition</span><span class="pun">(</span><span class="pln">condition</span><span class="pun">);</span><span class="pln">
+&nbsp; &nbsp; &nbsp; response</span><span class="pun">.</span><span class="pln">setCharacterEncoding</span><span class="pun">(</span><span class="str">"GBK"</span><span class="pun">);</span><span class="pln">
+&nbsp; &nbsp; &nbsp; response</span><span class="pun">.</span><span class="pln">setContentType</span><span class="pun">(</span><span class="str">"multipart/form-data"</span><span class="pun">);</span><span class="pln">
+&nbsp; &nbsp; &nbsp; response</span><span class="pun">.</span><span class="pln">setHeader</span><span class="pun">(</span><span class="str">"Content-Disposition"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"attachment;fileName=export.zip"</span><span class="pun">);</span><span class="pln">
+&nbsp; &nbsp; &nbsp; zos </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">ZipOutputStream</span><span class="pun">(</span><span class="pln">response</span><span class="pun">.</span><span class="pln">getOutputStream</span><span class="pun">());</span><span class="pln">
+&nbsp; &nbsp; &nbsp; bufferedWriter </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">BufferedWriter</span><span class="pun">(</span><span class="kwd">new</span><span class="pln"> </span><span class="typ">OutputStreamWriter</span><span class="pun">(</span><span class="pln">zos</span><span class="pun">,</span><span class="pln"> </span><span class="str">"GBK"</span><span class="pun">));</span><span class="pln">
+&nbsp; &nbsp; &nbsp; bufferedWriter</span><span class="pun">.</span><span class="pln">write</span><span class="pun">(</span><span class="str">"订单类型编码,始发城市-省,始发城市-市,目的城市-省,目的城市-市"</span><span class="pun">);</span><span class="pln">
+&nbsp; &nbsp; &nbsp; </span><span class="typ">ZipEntry</span><span class="pln"> zipEntry </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">ZipEntry</span><span class="pun">(</span><span class="str">"export.csv"</span><span class="pun">);</span><span class="pln">
+&nbsp; &nbsp; &nbsp; zos</span><span class="pun">.</span><span class="pln">putNextEntry</span><span class="pun">(</span><span class="pln">zipEntry</span><span class="pun">);</span><span class="pln">
+&nbsp; &nbsp; &nbsp; </span><span class="kwd">for</span><span class="pln"> </span><span class="pun">(</span><span class="typ">CityRelationDomain</span><span class="pln"> domain </span><span class="pun">:</span><span class="pln"> list</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span><span class="kwd">try</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; bufferedWriter</span><span class="pun">.</span><span class="pln">newLine</span><span class="pun">();</span><span class="pln">
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; bufferedWriter</span><span class="pun">.</span><span class="pln">write</span><span class="pun">(</span><span class="typ">CSVExportUtil</span><span class="pun">.</span><span class="pln">trans2CSV</span><span class="pun">(</span><span class="pln">domain</span><span class="pun">.</span><span class="pln">getOrderCode</span><span class="pun">()));</span><span class="pln">
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; bufferedWriter</span><span class="pun">.</span><span class="pln">write</span><span class="pun">(</span><span class="str">','</span><span class="pun">);</span><span class="pln">
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; bufferedWriter</span><span class="pun">.</span><span class="pln">write</span><span class="pun">(</span><span class="typ">CSVExportUtil</span><span class="pun">.</span><span class="pln">trans2CSV</span><span class="pun">(</span><span class="pln">domain</span><span class="pun">.</span><span class="pln">getProvinceNameFrom</span><span class="pun">()));</span><span class="pln">
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; bufferedWriter</span><span class="pun">.</span><span class="pln">write</span><span class="pun">(</span><span class="str">','</span><span class="pun">);</span><span class="pln">
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; bufferedWriter</span><span class="pun">.</span><span class="pln">write</span><span class="pun">(</span><span class="typ">CSVExportUtil</span><span class="pun">.</span><span class="pln">trans2CSV</span><span class="pun">(</span><span class="pln">domain</span><span class="pun">.</span><span class="pln">getCityNameFrom</span><span class="pun">()));</span><span class="pln">
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; bufferedWriter</span><span class="pun">.</span><span class="pln">write</span><span class="pun">(</span><span class="str">','</span><span class="pun">);</span><span class="pln">
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; bufferedWriter</span><span class="pun">.</span><span class="pln">write</span><span class="pun">(</span><span class="typ">CSVExportUtil</span><span class="pun">.</span><span class="pln">trans2CSV</span><span class="pun">(</span><span class="pln">domain</span><span class="pun">.</span><span class="pln">getProvinceNameTo</span><span class="pun">()));</span><span class="pln">
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; bufferedWriter</span><span class="pun">.</span><span class="pln">write</span><span class="pun">(</span><span class="str">','</span><span class="pun">);</span><span class="pln">
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; bufferedWriter</span><span class="pun">.</span><span class="pln">write</span><span class="pun">(</span><span class="typ">CSVExportUtil</span><span class="pun">.</span><span class="pln">trans2CSV</span><span class="pun">(</span><span class="pln">domain</span><span class="pun">.</span><span class="pln">getCityNameTo</span><span class="pun">()));</span><span class="pln">
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span><span class="pun">}</span><span class="pln"> </span><span class="kwd">catch</span><span class="pln"> </span><span class="pun">(</span><span class="typ">Exception</span><span class="pln"> e</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; e</span><span class="pun">.</span><span class="pln">printStackTrace</span><span class="pun">();</span><span class="pln">
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span><span class="pun">}</span><span class="pln">
+&nbsp; &nbsp; &nbsp; </span><span class="pun">}</span><span class="pln">
+&nbsp; &nbsp; &nbsp; bufferedWriter</span><span class="pun">.</span><span class="pln">newLine</span><span class="pun">();</span><span class="pln">
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;bufferedWriter</span><span class="pun">.</span><span class="pln">flush</span><span class="pun">();</span><span class="pln">
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;zos</span><span class="pun">.</span><span class="pln">closeEntry</span><span class="pun">();</span><span class="pln">
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;bufferedWriter</span><span class="pun">.</span><span class="pln">close</span><span class="pun">();</span><span class="pln">
+&nbsp; &nbsp;</span><span class="pun">}</span><span class="pln"> </span><span class="kwd">catch</span><span class="pln"> </span><span class="pun">(</span><span class="typ">Exception</span><span class="pln"> e</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+&nbsp; &nbsp; &nbsp; e</span><span class="pun">.</span><span class="pln">printStackTrace</span><span class="pun">();</span><span class="pln">
+&nbsp; &nbsp; &nbsp; logger</span><span class="pun">.</span><span class="pln">error</span><span class="pun">(</span><span class="str">"导出CSV文件异常"</span><span class="pun">);</span><span class="pln">
+&nbsp; &nbsp;</span><span class="pun">}</span><span class="pln"> </span><span class="kwd">finally</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+&nbsp; &nbsp; &nbsp; </span><span class="kwd">try</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="pln">zos </span><span class="pun">!=</span><span class="pln"> </span><span class="kwd">null</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; zos</span><span class="pun">.</span><span class="pln">close</span><span class="pun">();</span><span class="pln">
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span><span class="pun">}</span><span class="pln">
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="pln">bufferedWriter </span><span class="pun">!=</span><span class="pln"> </span><span class="kwd">null</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; bufferedWriter</span><span class="pun">.</span><span class="pln">close</span><span class="pun">();</span><span class="pln">
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span><span class="pun">}</span><span class="pln">
+&nbsp; &nbsp; &nbsp; </span><span class="pun">}</span><span class="pln"> </span><span class="kwd">catch</span><span class="pln"> </span><span class="pun">(</span><span class="typ">IOException</span><span class="pln"> e</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;e</span><span class="pun">.</span><span class="pln">printStackTrace</span><span class="pun">();</span><span class="pln">
+&nbsp; &nbsp; &nbsp; </span><span class="pun">}</span><span class="pln">
+&nbsp; &nbsp;</span><span class="pun">}</span><span class="pln">
+</span><span class="pun">}</span><span class="pln">
+</span></code>
+</pre>
+<p>&nbsp; <span style="font-family: &#39;Microsoft YaHei&#39;; font-size: 24.0px; font-weight: bold;">长：</span>如果一行代码过长，要分解开来；如果一个方法过长，要重构方法；如果一个类过长要考虑拆分类</p>
+<h2>&nbsp; 依轮线日简 -依伦先日贱</h2>
+<p>&nbsp; <span style="font-family: &#39;Microsoft YaHei&#39;; font-size: 24.0px; font-weight: bold;">依：</span>如果调用了外部依赖，一定要搞清楚这个外部依赖可以提供的性能指标，最好约定SLA</p>
+<p>&nbsp; <span style="font-family: &#39;Microsoft YaHei&#39;; font-size: 24.0px; font-weight: bold;">轮：</span>不要重复造轮子，如果已经有成熟类库实现了类似功能，要优先使用成熟类库的方法，这是因为成熟类库中的方法都经过很多人的测试验证，通常情况下我们自己实现的质量最大等同于成熟类库的质量。</p>
+<p>&nbsp; <span style="font-family: &#39;Microsoft YaHei&#39;; font-size: 24.0px; font-weight: bold;">线：</span>要注意我们的jsf服务， web应用，消费消息的worker都是多线程环境，要注意线程安全问题，最典型的HashMap， SimpleDateFormat， ArrayList是非线程安全的，另外如果使用Spring自动扫描服务，那么这个服务默认是单例，其内部成员是多个线程共享的，如果直接用成员变量是有线程不安全的。</p>
+<p>两个典型的错误代码片段：</p>
+<p>&nbsp; 1）无视SimpleDateFormat非线程安全</p>
+<pre lang="java" class="prettyprint java prettyprinted"><code><span class="pln">
+</span><span class="lit">@Service</span><span class="pln">
+</span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">class</span><span class="pln"> </span><span class="typ">AService</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+&nbsp; &nbsp; </span><span class="kwd">private</span><span class="pln"> </span><span class="kwd">static</span><span class="pln"> </span><span class="kwd">final</span><span class="pln"> </span><span class="typ">SimpleDateFormat</span><span class="pln"> FORMAT </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">SimpleDateFormat</span><span class="pun">(</span><span class="str">"yyyy-MM-dd"</span><span class="pun">);</span><span class="pln">
+
+&nbsp; &nbsp; </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> doSomething</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com">//use FORMAT</span><span class="pln">
+&nbsp; &nbsp; </span><span class="pun">}</span><span class="pln">
+</span><span class="pun">}</span><span class="pln">
+</span></code>
+</pre>
+<p>&nbsp;</p>
+<p>&nbsp; 2）使用Service成员变量</p>
+<pre lang="java" class="prettyprint java prettyprinted"><code><span class="pln">
+</span><span class="lit">@Service</span><span class="pln">
+</span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">class</span><span class="pln"> </span><span class="typ">BService</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+&nbsp; &nbsp; </span><span class="kwd">private</span><span class="pln"> </span><span class="typ">Pojo</span><span class="pln"> b</span><span class="pun">;</span><span class="pln">
+
+&nbsp; &nbsp; </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> doB</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;b </span><span class="pun">=</span><span class="pln"> getB</span><span class="pun">();</span><span class="pln">
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;process</span><span class="pun">(</span><span class="pln">b</span><span class="pun">);</span><span class="pln">
+&nbsp; &nbsp; </span><span class="pun">}</span><span class="pln">
+</span><span class="pun">}</span><span class="pln">
+</span></code>
+</pre>
+<p>&nbsp;</p>
+<p>&nbsp; <span style="font-family: &#39;Microsoft YaHei&#39;; font-size: 24.0px; font-weight: bold;">日：</span>打印日志和设定合理的日志级别，如有必要要添加if条件限定是否打印日志，在日志中使用JSON序列化，生成长字符串的toString()都要做if限定打印，否则配置的日志级别没达到，也会做大量字符串拼接，占用很多gc年轻代内存. &nbsp;另外一定要通过log4j打印日志而不是直接把日志打印到控制台。</p>
+<p>&nbsp;</p>
+<p>典型错误示例：</p>
+<pre lang="java" class="prettyprint java prettyprinted"><code><span class="pln">
+</span><span class="lit">@Service</span><span class="pln">
+</span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">class</span><span class="pln"> </span><span class="typ">FooService</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+&nbsp; &nbsp; </span><span class="kwd">private</span><span class="pln"> </span><span class="kwd">static</span><span class="pln"> </span><span class="kwd">final</span><span class="pln"> </span><span class="typ">Logger</span><span class="pln"> LOGGER </span><span class="pun">=</span><span class="pln"> </span><span class="typ">LoggerFactory</span><span class="pun">.</span><span class="pln">getLogger</span><span class="pun">(</span><span class="typ">FooService</span><span class="pun">.</span><span class="kwd">class</span><span class="pun">);</span><span class="pln">
+
+&nbsp; &nbsp; </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> doFooThing</span><span class="pun">(</span><span class="typ">Foo</span><span class="pln"> foo</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+&nbsp; &nbsp; &nbsp; &nbsp; LOGGER</span><span class="pun">.</span><span class="pln">debug</span><span class="pun">(</span><span class="str">"get parameter foo {}"</span><span class="pun">,</span><span class="pln"> </span><span class="typ">JSONObject</span><span class="pun">.</span><span class="pln">toString</span><span class="pun">(</span><span class="pln">foo</span><span class="pun">));</span><span class="pln">
+&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">try</span><span class="pln"> </span><span class="pun">{</span><span class="com">/*do something*/</span><span class="pun">}</span><span class="pln"> </span><span class="kwd">catch</span><span class="pln"> </span><span class="pun">(</span><span class="typ">Exception</span><span class="pln"> ex</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">ex</span><span class="pun">.</span><span class="pln">printStackTrace</span><span class="pun">();}</span><span class="pln">
+&nbsp; &nbsp; </span><span class="pun">}</span><span class="pln">
+</span><span class="pun">}</span></code>
+</pre>
+<p>&nbsp;</p>
+<p>&nbsp; <span style="font-family: &#39;Microsoft YaHei&#39;; font-size: 24.0px; font-weight: bold;">简：</span> 尽可能保持整体设计的简洁， 方法实现的简洁， 要根据情况使用内存缓存， redis 缓存， jmq 异步处理。 这里的简需要把握好分寸。</p>
+<h2>&nbsp; 接偶正分壮 - 洁偶正粉妆</h2>
+<p>&nbsp; <span style="font-family: &#39;Microsoft YaHei&#39;; font-size: 24.0px; font-weight: bold;">接：</span>接口是用来隔离变化的，如果一个业务有几种不同的形态，但都有相同的处理，那么可以定义接口来隔离业务形态的不同，在服务调用处，通过业务类型字段来获得不同的服务类。 &nbsp;而不要实现一个类，然后在类的各个方法中都根据业务类型做if else或更复杂的各种判断。</p>
+<p>典型示例：</p>
+<p>&nbsp; 做法1：</p>
+<pre lang="java" class="prettyprint java prettyprinted"><code><span class="kwd">public</span><span class="pln"> </span><span class="kwd">interface</span><span class="pln"> </span><span class="typ">BarService</span><span class="pln"> </span><span class="pun">{</span><span class="pln"> &nbsp; &nbsp;</span><span class="kwd">void</span><span class="pln"> doBarThing</span><span class="pun">(</span><span class="typ">Bar</span><span class="pln"> b</span><span class="pun">);</span><span class="pln">
+&nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; </span><span class="kwd">void</span><span class="pln"> doBarFatherThing</span><span class="pun">(</span><span class="typ">Bar</span><span class="pln"> b</span><span class="pun">);</span><span class="pln">
+</span><span class="pun">}</span><span class="pln">
+</span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">class</span><span class="pln"> </span><span class="typ">BarServiceImpl</span><span class="pln"> &nbsp;implement </span><span class="typ">BarService</span><span class="pun">{</span><span class="pln">
+&nbsp; &nbsp; </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> doBarThing</span><span class="pun">(</span><span class="typ">Bar</span><span class="pln"> b</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="pln">b</span><span class="pun">.</span><span class="pln">getType</span><span class="pun">()</span><span class="pln"> </span><span class="pun">==</span><span class="pln"> </span><span class="typ">BarType</span><span class="pun">.</span><span class="pln">A</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com">//do some logic</span><span class="pln">
+&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="pun">}</span><span class="pln"> </span><span class="kwd">else</span><span class="pln"> </span><span class="pun">(</span><span class="pln">b</span><span class="pun">.</span><span class="pln">getType</span><span class="pun">()</span><span class="pln"> </span><span class="pun">==</span><span class="pln"> </span><span class="typ">BarType</span><span class="pun">.</span><span class="pln">B</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com">//do some B type logic</span><span class="pln">
+&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="pun">}</span><span class="pln">
+&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com">//do other doBarThing logic</span><span class="pln">
+&nbsp; &nbsp; </span><span class="pun">}</span><span class="pln">
+&nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> doBarFatherThing</span><span class="pun">(</span><span class="typ">Bar</span><span class="pln"> b</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="pln">b</span><span class="pun">.</span><span class="pln">getType</span><span class="pun">()</span><span class="pln"> </span><span class="pun">==</span><span class="pln"> </span><span class="typ">BarType</span><span class="pun">.</span><span class="pln">A</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com">//do some logic</span><span class="pln">
+&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="pun">}</span><span class="pln"> </span><span class="kwd">else</span><span class="pln"> </span><span class="pun">(</span><span class="pln">b</span><span class="pun">.</span><span class="pln">getType</span><span class="pun">()</span><span class="pln"> </span><span class="pun">==</span><span class="pln"> </span><span class="typ">BarType</span><span class="pun">.</span><span class="pln">B</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com">//do some B type logic</span><span class="pln">
+&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="pun">}</span><span class="pln">
+&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com">//do other doBarFatherThing logic</span><span class="pln">
+&nbsp; &nbsp; </span><span class="pun">}</span><span class="pln">
+</span><span class="pun">}</span></code>
+</pre>
+<p>&nbsp;</p>
+<p>做法 2 ：</p>
+<pre lang="java" class="prettyprint java prettyprinted"><code><span class="kwd">public</span><span class="pln"> </span><span class="kwd">interface</span><span class="pln"> </span><span class="typ">BarService</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+&nbsp; &nbsp; </span><span class="kwd">void</span><span class="pln"> doBarThing</span><span class="pun">(</span><span class="typ">Bar</span><span class="pln"> b</span><span class="pun">);</span><span class="pln">
+&nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; </span><span class="kwd">void</span><span class="pln"> doBarFatherThing</span><span class="pun">(</span><span class="typ">Bar</span><span class="pln"> b</span><span class="pun">);</span><span class="pln">
+</span><span class="pun">}</span><span class="pln">
+</span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">class</span><span class="pln"> </span><span class="typ">BarServiceFactory</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+&nbsp; &nbsp; </span><span class="kwd">public</span><span class="pln"> </span><span class="typ">BarService</span><span class="pln"> getBarService</span><span class="pun">(</span><span class="typ">BarType</span><span class="pln"> type</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com">// get bar service logic</span><span class="pln">
+&nbsp; &nbsp; </span><span class="pun">}</span><span class="pln">
+</span><span class="pun">}</span><span class="pln">
+</span><span class="com">//如果有公共逻辑就定义， 没有就不定义</span><span class="pln">
+</span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">class</span><span class="pln"> </span><span class="typ">BaseBarService</span><span class="pln"> implement </span><span class="typ">BarService</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+&nbsp; &nbsp; </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> doBarThing</span><span class="pun">(</span><span class="typ">Bar</span><span class="pln"> b</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com">//do other doBarThing logic</span><span class="pln">
+&nbsp; &nbsp; </span><span class="pun">}</span><span class="pln">
+&nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> doBarFatherThing</span><span class="pun">(</span><span class="typ">Bar</span><span class="pln"> b</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com">//do other doBarFatherThing logic</span><span class="pln">
+&nbsp; &nbsp; </span><span class="pun">}</span><span class="pln">
+&nbsp; &nbsp;&nbsp;
+</span><span class="pun">}</span><span class="pln">
+</span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">class</span><span class="pln"> </span><span class="typ">TypeABarService</span><span class="pln"> </span><span class="kwd">extends</span><span class="pln"> </span><span class="typ">BaseBarService</span><span class="pln"> &nbsp;implement </span><span class="typ">BarService</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+&nbsp; &nbsp; </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> doBarThing</span><span class="pun">(</span><span class="typ">Bar</span><span class="pln"> b</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com">// doATypeThing</span><span class="pln">
+&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">super</span><span class="pun">.</span><span class="pln">doBarThing</span><span class="pun">(</span><span class="pln">b</span><span class="pun">);</span><span class="pln">
+&nbsp; &nbsp; </span><span class="pun">}</span><span class="pln">
+&nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> doBarFatherThing</span><span class="pun">(</span><span class="typ">Bar</span><span class="pln"> b</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com">// do bar type A service</span><span class="pln">
+</span><span class="kwd">super</span><span class="pun">.</span><span class="pln">doBarFatherThing</span><span class="pun">(</span><span class="pln">b</span><span class="pun">);</span><span class="pln"> </span><span class="com">//如果需要就调用， 不需要就不调用父类</span><span class="pln">
+&nbsp; &nbsp; </span><span class="pun">}</span><span class="pln">
+&nbsp; &nbsp;&nbsp;
+</span><span class="pun">}</span><span class="pln">
+</span></code>
+</pre>
+<p>&nbsp;</p>
+<p>&nbsp; 做法2的好处是将不同类型的逻辑解耦，各自发展，不会相互影响，如果添加类型也不必影响现有类型逻辑。</p>
+<p>&nbsp;</p>
+<p>&nbsp; <span style="font-family: &#39;Microsoft YaHei&#39;; font-size: 24.0px; font-weight: bold;">偶：</span>认识系统之间的耦合关系，通过同步数据来做两个系统之间的交互是一种很强的耦合关系，会使数据接收方依赖于数据发送方的数据库定义，如果发送方想改数据结构，必须要求下游接收方一起修改；通过接口调用是一种常见的系统耦合关系，接口的提供方要保证接口的可用性，接口的调用方要考虑接口不可用时的应对方案； mq消息是一种解耦的方法，两个系统不存在实时的耦合关系。但是mq解耦的方式不能滥用，在同一系统内不宜过多使用mq消息来做异步，要尽可能保证接口的性</p>
+<p>&nbsp; 能，而不是通过mq防止出问题后重新消费。</p>
+<p>&nbsp;</p>
+<p>&nbsp; <span style="font-family: &#39;Microsoft YaHei&#39;; font-size: 24.0px; font-weight: bold;">正：</span>模块之间依赖关系要正向依赖，不能让底层模块依赖于上层模块；不能让数据层依赖于服务层也不能让服务层依赖于UI层；也不能在模块之间形成循环依赖关系。</p>
+<p>&nbsp;</p>
+<p>&nbsp; <span style="font-family: &#39;Microsoft YaHei&#39;; font-size: 24.0px; font-weight: bold;">分：</span>分而治之，复杂的问题要分解成几个相对简单的问题来解决，首先要分析出核心问题，然后分析出核心的入参是什么，结果是什么，入参通过几步变化可以得出结果。</p>
+<p>&nbsp;</p>
+<p>&nbsp; <span style="font-family: &#39;Microsoft YaHei&#39;; font-size: 24.0px; font-weight: bold;">壮：</span>时刻注意程序的健壮性，从两个方面实践提升健壮性：</p>
+<p>&nbsp; 1）契约，在设计接口时定义好协议参数，并在实现时第一时间校验参数，如果参数有问题，直接返回给调用方； 如果出现异常情况， 也按异常情况约定应对策略</p>
+<p>2） &nbsp;考虑各种边界条件的输出， 比如运单号查询服务， 要考虑用户输入错误运单时怎么返回， 有边界的查询条件， 如果用户查询条件超过边界了， 应该返回什么</p>
+<p>&nbsp; 3 &nbsp; ）为失败做设计，如果出问题了有降级应对方案。</p>
+
+<dl class="relatedPages">
+    <dt>推荐阅读：</dt>
+    <dd><ul class="similarPages">
+    <li><a href="http://outofmemory.cn/java/java.util.concurrent/daemon-thread">java 后台线程 daemon thread</a>
+
+</li>
+    <li><a href="http://outofmemory.cn/java/OutOfMemoryError/PermGen-space-Java-heap-space-unable-create-new-native-thread">java中三种常见内存溢出错误的处理方法</a>
+
+</li>
+    <li><a href="http://outofmemory.cn/java/guava/IO/Files-operation">Guava Files中的文件操作</a>
+
+</li>
+    <li><a href="http://outofmemory.cn/MongoDB/tutorial/mongodb-java.html">MongoDB Java</a>
+
+</li>
+    <li><a href="http://outofmemory.cn/java/tutorial/java-encapsulation.html">java 封装</a>
+
+</li>
+    <li><a href="http://outofmemory.cn/java/video/learn-java-step-by-step/java-introduction-come-9-tell-class-method-avi">韩顺平.循序渐进学.java.从入门到精通.第9讲-类方法.封装.avi</a>
+
+</li>
+    <li><a href="http://outofmemory.cn/java/video/learn-java-step-by-step/java-introduction-come-25-tell-generic-exception">韩顺平.循序渐进学.java.从入门到精通.第25讲-泛型.异常</a>
+
+</li>
+    <li><a href="http://outofmemory.cn/java/video/learn-java-step-by-step/java-introduction-come-41-tell-8-avi">韩顺平.循序渐进学.java.从入门到精通.第41讲-坦克大战8.avi</a>
+
+</li>
+    <li><a href="http://outofmemory.cn/android/video/java-for-android/java-language-introduction-come-branch-statement-08">java语言从入门到精通——分支语句  08</a>
+
+</li>
+    <li><a href="http://outofmemory.cn/android/video/java-for-android/java-language-introduction-come-use-abstract-class-24">java语言从入门到精通——为什么用抽象类  24</a>
+
+</li>
+    <li><a href="http://outofmemory.cn/wiki/how-to-think-about-tech">如何思考一项技术的价值？</a>
+
+</li>
+</ul>
+</dd>
+</dl>
+
+
+
+</div>
+<div class="voteWrap" align="center">
+    <div class="votes">
+        <div class="voteUp">
+            <a href="javascript:void(0)" title="这篇文章有用，支持" class="assertLogin">支持</a>
+            <p><span class="num">2</span> 顶</p>
+        </div>
+        <div class="voteDown">
+            <a href="javascript:void(0)" title="这篇文章没用，踩一脚" class="assertLogin">反对</a>
+            <p><span class="num">0</span> 踩</p>
+        </div>
+    </div>
+</div>
+
+
+
+<script>var voteTargetType='page';var voteTargetId =4800;</script>
+
+<div class="tgL books"><span>&nbsp;</span>好书：<a href="http://union-click.jd.com/jdc?e=0&amp;p=AyIHZR5aEQISA1AYUyUCEwZRElsSByJDCkMFSjJLQhBaUAscSkIBR0ROVw1VC0dFFQMTA1wbXBAdS0IJRmtSYAhYJ2dBFGdJYRN9UmVaaW8rfhpTDh43UxhZHQQRBVIZaxUDEwZUElsUBxA3ZRtaJVB83%2BOtg7CzDtP%2FlI6dlSIBUBheEAMUAFwrWxAKEgJQHVoRAhUOUStcJVlHaVMbXkAGRgcASAlBAkA3ZStr&amp;t=W1dCFBBFC1pXUwkEAEAdQFkJBVsUAxYOVRxeCltXWwg%3D" target="_blank">Java编程思想（第4版）</a>[<a href="http://union-click.jd.com/jdc?e=0&amp;p=AyIHZR5aEQISA1AYUyUCEwZRElsSByJDCkMFSjJLQhBaUAscSkIBR0ROVw1VC0dFFQMTA1wbXBAdS0IJRmtSYAhYJ2dBFGdJYRN9UmVaaW8rfhpTDh43UxhZHQQRBVIZaxUDEwZUElsUBxA3ZRtaJVB83%2BOtg7CzDtP%2FlI6dlSIBUBheEAMUAFwrWxAKEgJQHVoRAhUOUStcJVlHaVMbXkAGRgcASAlBAkA3ZStr&amp;t=W1dCFBBFC1pXUwkEAEAdQFkJBVsUAxYOVRxeCltXWwg%3D" target="_blank">京东</a> &nbsp; <a href="https://www.amazon.cn/gp/product/B0011F7WU4/ref=as_li_qf_sp_asin_il_tl?ie=UTF8&amp;camp=536&amp;creative=3200&amp;creativeASIN=B0011F7WU4&amp;linkCode=as2&amp;tag=oucn-23" target="_blank">亚马逊</a>]<span class="sep"> | </span><a href="http://union-click.jd.com/jdc?e=0&amp;p=AyIHZR5aEQISA1AYUyUCEwZRElMUASJDCkMFSjJLQhBaUAscSkIBR0ROVw1VC0dFFQMTA1wTWhYdS0IJRmtQfEoCUVgLc2dAZS9PHxNwVwRdHV1DDh43UxhZHQQRBVIZaxUDEwZUElsUBxA3ZRtaJVB83%2BOtg7CzDtP%2FlI6dlSIBUB9fHQEQAFwrWxAKEgBRHF8XCxUDVCtcJVlHaVMbXkAGRgcASAlBAkA3ZStr&amp;t=W1dCFBBFC1pXUwkEAEAdQFkJBVsUAxYOXRpYCltXWwg%3D" target="_blank">Effective&nbsp;Java</a>[<a href="http://union-click.jd.com/jdc?e=0&amp;p=AyIHZR5aEQISA1AYUyUCEwZRElMUASJDCkMFSjJLQhBaUAscSkIBR0ROVw1VC0dFFQMTA1wTWhYdS0IJRmtQfEoCUVgLc2dAZS9PHxNwVwRdHV1DDh43UxhZHQQRBVIZaxUDEwZUElsUBxA3ZRtaJVB83%2BOtg7CzDtP%2FlI6dlSIBUB9fHQEQAFwrWxAKEgBRHF8XCxUDVCtcJVlHaVMbXkAGRgcASAlBAkA3ZStr&amp;t=W1dCFBBFC1pXUwkEAEAdQFkJBVsUAxYOXRpYCltXWwg%3D" target="_blank">京东</a> &nbsp; <a href="https://www.amazon.cn/gp/product/B01DPUXUWG/ref=as_li_qf_sp_asin_il_tl?ie=UTF8&amp;camp=536&amp;creative=3200&amp;creativeASIN=B01DPUXUWG&amp;linkCode=as2&amp;tag=oucn-23" target="_blank">亚马逊</a>]<span class="sep"> | </span><a href="http://union-click.jd.com/jdc?e=0&amp;p=AyIHZR5aEQISA1AYUyUCEgFQGl0XByJDCkMFSjJLQhBaUAscSkIBR0ROVw1VC0dFFQIUAlQdWRAdS0IJRmtqdmddA2U7VWFUTzVQJW9wWXoFYzJTDh43UxhZHQQRBVIZaxUDEwZUElsUBxA3ZRtaJVB83%2BOtg7CzDtP%2FlI6dlSIBUB9fHQEQAFwrWxAKEgBRHF0SChsFUCtcJVlHaVMbXkAGRgcASAlBAkA3ZStr&amp;t=W1dCFBBFC1pXUwkEAEAdQFkJBVsVBBcGUxleCltXWwg%3D" target="_blank">Java并发编程的艺术</a>[<a href="http://union-click.jd.com/jdc?e=0&amp;p=AyIHZR5aEQISA1AYUyUCEgFQGl0XByJDCkMFSjJLQhBaUAscSkIBR0ROVw1VC0dFFQIUAlQdWRAdS0IJRmtqdmddA2U7VWFUTzVQJW9wWXoFYzJTDh43UxhZHQQRBVIZaxUDEwZUElsUBxA3ZRtaJVB83%2BOtg7CzDtP%2FlI6dlSIBUB9fHQEQAFwrWxAKEgBRHF0SChsFUCtcJVlHaVMbXkAGRgcASAlBAkA3ZStr&amp;t=W1dCFBBFC1pXUwkEAEAdQFkJBVsVBBcGUxleCltXWwg%3D" target="_blank">京东</a> &nbsp; <a href="https://www.amazon.cn/gp/product/B012NDCEA0/ref=as_li_qf_sp_asin_il_tl?ie=UTF8&amp;camp=536&amp;creative=3200&amp;creativeASIN=B012NDCEA0&amp;linkCode=as2&amp;tag=oucn-23" target="_blank">亚马逊</a>]<span class="sep"> | </span><a href="http://union-click.jd.com/jdc?e=0&amp;p=AyIHZR5aEQISA1AYUyUCEgRRGF0TCyJDCkMFSjJLQhBaUAscSkIBR0ROVw1VC0dFFQIRA1YdXRwdS0IJRmsWC0kdBVIuFmd5ZVMFAlZ1DE4LcD51Dh43UxhZHQQRBVIZaxUDEwZUElsUBxA3ZRtaJVB83%2BOtg7CzDtP%2FlI6dlSIBUB9fHQEQAFwrWxAKEgBRHFMRBBQGUitcJVlHaVMbXkAGRgcASAlBAkA3ZStr&amp;t=W1dCFBBFC1pXUwkEAEAdQFkJBVsVARYEUx1SCltXWwg%3D" target="_blank">深入理解Java虚拟机：JVM高级特性与最佳实践</a>[<a href="http://union-click.jd.com/jdc?e=0&amp;p=AyIHZR5aEQISA1AYUyUCEgRRGF0TCyJDCkMFSjJLQhBaUAscSkIBR0ROVw1VC0dFFQIRA1YdXRwdS0IJRmsWC0kdBVIuFmd5ZVMFAlZ1DE4LcD51Dh43UxhZHQQRBVIZaxUDEwZUElsUBxA3ZRtaJVB83%2BOtg7CzDtP%2FlI6dlSIBUB9fHQEQAFwrWxAKEgBRHFMRBBQGUitcJVlHaVMbXkAGRgcASAlBAkA3ZStr&amp;t=W1dCFBBFC1pXUwkEAEAdQFkJBVsVARYEUx1SCltXWwg%3D" target="_blank">京东</a> &nbsp; <a href="https://www.amazon.cn/gp/product/B00D2ID4PK/ref=as_li_qf_sp_asin_il_tl?ie=UTF8&amp;camp=536&amp;creative=3200&amp;creativeASIN=B00D2ID4PK&amp;linkCode=as2&amp;tag=oucn-23" target="_blank">亚马逊</a>]<span class="sep"> | </span><a href="http://union-click.jd.com/jdc?e=0&amp;p=AyIHZR5aEQISA1AYUyUCEw9WGFgRAiJDCkMFSjJLQhBaUAscSkIBR0ROVw1VC0dFFQMaBFYYXxUdS0IJRmtgUmAPNngNQWIRWy1uDl53ZwArWVJ1Dh43UxhZHQQRBVIZaxUDEwZUElsUBxA3ZRtaJVB83%2BOtg7CzDtP%2FlI6dlSIBUB9fHQEQAFwrWxAKEgBRHVocBhcDUitcJVlHaVMbXkAGRgcASAlBAkA3ZStr&amp;t=W1dCFBBFC1pXUwkEAEAdQFkJBVsUChEEVh9bCltXWwg%3D" target="_blank">Spring技术内幕：深入解析Spring架构与设计原理（第2版）</a>[<a href="http://union-click.jd.com/jdc?e=0&amp;p=AyIHZR5aEQISA1AYUyUCEw9WGFgRAiJDCkMFSjJLQhBaUAscSkIBR0ROVw1VC0dFFQMaBFYYXxUdS0IJRmtgUmAPNngNQWIRWy1uDl53ZwArWVJ1Dh43UxhZHQQRBVIZaxUDEwZUElsUBxA3ZRtaJVB83%2BOtg7CzDtP%2FlI6dlSIBUB9fHQEQAFwrWxAKEgBRHVocBhcDUitcJVlHaVMbXkAGRgcASAlBAkA3ZStr&amp;t=W1dCFBBFC1pXUwkEAEAdQFkJBVsUChEEVh9bCltXWwg%3D" target="_blank">京东</a> &nbsp; <a href="https://www.amazon.cn/gp/product/B00BTCLUNE/ref=as_li_qf_sp_asin_il_tl?ie=UTF8&amp;camp=536&amp;creative=3200&amp;creativeASIN=B00BTCLUNE&amp;linkCode=as2&amp;tag=oucn-23" target="_blank">亚马逊</a>]</div><div class="comments">
+<a name="comments"></a>
+<h3>评论</h3>
+<ul>
+<li><a name="comment-26"></a>
+    <div class="comment md"><p>写得很不错 以转载《Java后端技术》公众号 </p></div>
+    <div class="commentFoot">
+        <a href="http://outofmemory.cn/wiki/sa-said-code-review#newComment" class="replyComment">回复</a> &nbsp; | &nbsp;
+        <a href="http://outofmemory.cn/user/61258">Java后端技术</a> 发表于 <span class="time" title="2018-01-28 12:20:21">11天前</span>
+    </div>
+</li>
+</ul>
+
+
+
+</div>
+
+
+<div class="newComment"><a name="newComment"></a>
+<h3>发表评论</h3>
+<form action="http://outofmemory.cn/page/comment/add" method="POST">
+    <input type="hidden" name="targetId" value="4800">
+    <input type="hidden" name="title" value="回复:代码评审歪诗">
+    <input type="hidden" name="replyId">
+    <textarea name="content" cols="100" rows="6" class="mdInput" style="width:98%"></textarea>
+    <p>
+        <button type="button" id="btnComment">发表评论</button><span id="commentTip"></span>
+    </p>
+</form>
+</div>
+
+
+<script src="./代码评审歪诗 - 为程序员服务_files/logger.js.下载"></script></div>
+
+</div>
+    <div class="sidebar"><div class="box">
+    <button id="btnCompose" type="button" onclick="location.href=&#39;/ours/compose&#39;">撰写专栏文章</button>
+</div>
+
+<div class="barBox">
+    <div class="t">相关代码</div>
+    <ul class="similarCodes">
+    <li><span class="time" title="2012-11-05 21:59:42">5年前</span><a href="http://outofmemory.cn/code-snippet/320/java-get-suiji-shu-code">java获得随机数代码</a> by <a href="http://outofmemory.cn/user/70">怪兽狂殴奥特曼</a>
+</li>
+    <li><span class="time" title="2014-12-16 09:22:19">3年前</span><a href="http://outofmemory.cn/code-snippet/35427/java-get-real-ip-proxy-server">java获得真实IP代码</a> by <a href="http://outofmemory.cn/user/7">金背二郎</a>
+</li>
+    <li><span class="time" title="2015-11-25 17:10:24">2年前</span><a href="http://outofmemory.cn/code-snippet/38310/java8-method-reference-example">java8 新操作符::做方法引用</a> by <a href="http://outofmemory.cn/user/20">甄码农</a>
+</li>
+    <li><span class="time" title="2012-11-17 23:45:24">5年前</span><a href="http://outofmemory.cn/code-snippet/643/Java-duqu-bendi-machine-MAC-address">Java读取本地机器MAC地址</a> by <a href="http://outofmemory.cn/user/33">杨洋</a>
+</li>
+    <li><span class="time" title="2012-11-19 21:54:37">5年前</span><a href="http://outofmemory.cn/code-snippet/736/java-usage-Vector-example">java使用Vector例子</a> by <a href="http://outofmemory.cn/user/164">Liner</a>
+</li>
+    <li><span class="time" title="2012-11-21 01:52:27">5年前</span><a href="http://outofmemory.cn/code-snippet/805/java-get-windows-system-file-jia-ru-zhuomian-shoucang-jia-fa-songdao-kind">java获得windows的系统文件夹，如桌面，收藏夹，发送到等</a> by <a href="http://outofmemory.cn/user/99">林峰</a>
+</li>
+    <li><span class="time" title="2012-11-22 02:23:34">5年前</span><a href="http://outofmemory.cn/code-snippet/875/DBUtils-basic-usage-example">DBUtils 的基本使用示例</a> by <a href="http://outofmemory.cn/user/98">牛哥</a>
+</li>
+    <li><span class="time" title="2012-11-24 11:28:07">5年前</span><a href="http://outofmemory.cn/code-snippet/936/usage-dom-edi-xml-jiedian-example-code">使用dom编辑xml节点示例代码</a> by <a href="http://outofmemory.cn/user/32">傅小黑</a>
+</li>
+    <li><span class="time" title="2012-11-25 09:46:35">5年前</span><a href="http://outofmemory.cn/code-snippet/985/Java-get-jiantie-banshang-tupian-code">Java 获得剪贴板上的图片代码</a> by <a href="http://outofmemory.cn/user/46">royacee</a>
+</li>
+    <li><span class="time" title="2012-11-27 13:38:59">5年前</span><a href="http://outofmemory.cn/code-snippet/1044/Java-call-MySQL-storage-procedure-get-return-value">Java 调用 MySQL 存储过程并获得返回值</a> by <a href="http://outofmemory.cn/user/135">init0</a>
+</li>
+    <li><span class="time" title="2012-11-30 18:02:11">5年前</span><a href="http://outofmemory.cn/code-snippet/1115/java-produce-gaoqing-suo-lvetu">java生成高清缩略图</a> by <a href="http://outofmemory.cn/user/68">jellyvice</a>
+</li>
+    <li><span class="time" title="2012-12-03 10:00:08">5年前</span><a href="http://outofmemory.cn/code-snippet/1165/java-Swing-achieve-regular-biaoda-shi-test-tool">java Swing实现的正则表达式测试工具</a> by <a href="http://outofmemory.cn/user/96">sdcool</a>
+</li>
+    <li><span class="time" title="2012-12-06 13:42:35">5年前</span><a href="http://outofmemory.cn/code-snippet/1219/JMail-send-email-example">JMail发送邮件示例</a> by <a href="http://outofmemory.cn/user/155">zoufei</a>
+</li>
+    <li><span class="time" title="2012-12-08 10:16:29">5年前</span><a href="http://outofmemory.cn/code-snippet/1261/Java-jdbc-connection-data-library">Java jdbc连接数据库</a> by <a href="http://outofmemory.cn/user/105">胡晋</a>
+</li>
+    <li><span class="time" title="2012-12-10 22:27:04">5年前</span><a href="http://outofmemory.cn/code-snippet/1336/java-match-zhongwen-regular-biaoda-shi">java匹配中文的正则表达式</a> by <a href="http://outofmemory.cn/user/48">云香水识</a>
+</li>
+</ul>
+
+</div>
+
+
+
+
+<div class="sidebarISO"><script async="" src="./代码评审歪诗 - 为程序员服务_files/adsbygoogle.js.下载"></script>
+
+<ins class="adsbygoogle" style="display:inline-block;width:200px;height:200px" data-ad-client="ca-pub-2260568282752965" data-ad-slot="2550364706" data-adsbygoogle-status="done"><ins id="aswift_1_expand" style="display:inline-table;border:none;height:200px;margin:0;padding:0;position:relative;visibility:visible;width:200px;background-color:transparent;"><ins id="aswift_1_anchor" style="display:block;border:none;height:200px;margin:0;padding:0;position:relative;visibility:visible;width:200px;background-color:transparent;"><iframe width="200" height="200" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_1" name="aswift_1" style="left:0;position:absolute;top:0;width:200px;height:200px;" src="./代码评审歪诗 - 为程序员服务_files/saved_resource(3).html"></iframe></ins></ins></ins>
+<script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+
+<div class="barBox">
+    <div class="t">相关聚客文章</div>
+    <ul class="similarEntries">
+    <li><span class="meta"><a href="http://ju.outofmemory.cn/feed/205/" title="小村长">小村长</a> 发表 <span class="time" title="2016-01-20 17:55:55">2年前</span></span>
+<a href="http://ju.outofmemory.cn/entry/234848" class="codeTitle">《Apache Velocity用户指南》官方文档</a>
+</li>
+    <li><span class="meta"><a href="http://ju.outofmemory.cn/feed/3438/" title="chirs &lt;&gt;">chirs &lt;&gt;</a> 发表 <span class="time" title="2006-04-14 04:56:56">11年前</span></span>
+<a href="http://ju.outofmemory.cn/entry/236829" class="codeTitle">为什么要采用java这个平台？</a>
+</li>
+    <li><span class="meta"><a href="http://ju.outofmemory.cn/feed/4788/" title="itech001">itech001</a> 发表 <span class="time" title="2015-08-07 21:44:59">2年前</span></span>
+<a href="http://ju.outofmemory.cn/entry/237965" class="codeTitle">Stopping support for Java</a>
+</li>
+    <li><span class="meta"><a href="http://ju.outofmemory.cn/feed/3435/" title="vicente">vicente</a> 发表 <span class="time" title="2016-02-08 12:05:26">2年前</span></span>
+<a href="http://ju.outofmemory.cn/entry/238761" class="codeTitle">Java中的堆和栈的区别</a>
+</li>
+    <li><span class="meta"><a href="http://ju.outofmemory.cn/feed/4050/" title="博主">博主</a> 发表 <span class="time" title="2016-02-18 09:21:13">2年前</span></span>
+<a href="http://ju.outofmemory.cn/entry/240398" class="codeTitle">java注解了解</a>
+</li>
+    <li><span class="meta"><a href="http://ju.outofmemory.cn/feed/2318/" title="博主">博主</a> 发表 <span class="time" title="2016-02-21 16:00:00">1年前</span></span>
+<a href="http://ju.outofmemory.cn/entry/241222" class="codeTitle">DevTools in Spring Boot</a>
+</li>
+    <li><span class="meta"><a href="http://ju.outofmemory.cn/feed/1542/" title="techug">techug</a> 发表 <span class="time" title="2016-02-23 17:04:19">1年前</span></span>
+<a href="http://ju.outofmemory.cn/entry/242062" class="codeTitle">4个理由告诉你Java为何排行第一</a>
+</li>
+    <li><span class="meta"><a href="http://ju.outofmemory.cn/feed/1827/" title="博主">博主</a> 发表 <span class="time" title="2016-03-01 09:29:35">1年前</span></span>
+<a href="http://ju.outofmemory.cn/entry/243481" class="codeTitle">Java CompletableFuture 详解</a>
+</li>
+    <li><span class="meta"><a href="http://ju.outofmemory.cn/feed/4721/" title="博主">博主</a> 发表 <span class="time" title="2015-08-27 00:00:00">2年前</span></span>
+<a href="http://ju.outofmemory.cn/entry/243779" class="codeTitle">再多一点理解java中的equals()</a>
+</li>
+    <li><span class="meta"><a href="http://ju.outofmemory.cn/feed/3250/" title="luanhailiang">luanhailiang</a> 发表 <span class="time" title="2016-03-09 11:33:52">1年前</span></span>
+<a href="http://ju.outofmemory.cn/entry/245358" class="codeTitle">java jdbc 将mysql表转换成protobuf</a>
+</li>
+    <li><span class="meta"><a href="http://ju.outofmemory.cn/feed/4774/" title="刘莉莉">刘莉莉</a> 发表 <span class="time" title="2016-03-11 17:01:48">1年前</span></span>
+<a href="http://ju.outofmemory.cn/entry/245852" class="codeTitle">富文本存储型XSS的模糊测试之道</a>
+</li>
+    <li><span class="meta"><a href="http://ju.outofmemory.cn/feed/123/" title="liuchi1993">liuchi1993</a> 发表 <span class="time" title="2016-03-15 14:48:21">1年前</span></span>
+<a href="http://ju.outofmemory.cn/entry/246792" class="codeTitle">Java虚拟机类加载机制——案例分析</a>
+</li>
+    <li><span class="meta"><a href="http://ju.outofmemory.cn/feed/3334/" title="高彬 (noreply@blogger.">高彬 (noreply@blogger.</a> 发表 <span class="time" title="2014-03-28 12:39:13">3年前</span></span>
+<a href="http://ju.outofmemory.cn/entry/247142" class="codeTitle">Myeclipse 2013 Referenced libraries 发布tomcat 等serv</a>
+</li>
+    <li><span class="meta"><a href="http://ju.outofmemory.cn/feed/4390/" title="linux@linux.cn (linu">linux@linux.cn (linu</a> 发表 <span class="time" title="2016-03-21 01:35:00">1年前</span></span>
+<a href="http://ju.outofmemory.cn/entry/248045" class="codeTitle">为什么用 Java ：一个来自 Python 阵营的程序员告诉你</a>
+</li>
+    <li><span class="meta"><a href="http://ju.outofmemory.cn/feed/4226/" title="博主">博主</a> 发表 <span class="time" title="2016-03-27 03:50:44">1年前</span></span>
+<a href="http://ju.outofmemory.cn/entry/249398" class="codeTitle">Java ClassLoader</a>
+</li>
+</ul>
+
+</div>
+
+
+
+
+<div class="sidebarISO"><script async="" src="./代码评审歪诗 - 为程序员服务_files/adsbygoogle.js.下载"></script>
+
+<ins class="adsbygoogle" style="display:inline-block;width:200px;height:200px" data-ad-client="ca-pub-2260568282752965" data-ad-slot="4027097908" data-adsbygoogle-status="done"><ins id="aswift_2_expand" style="display:inline-table;border:none;height:200px;margin:0;padding:0;position:relative;visibility:visible;width:200px;background-color:transparent;"><ins id="aswift_2_anchor" style="display:block;border:none;height:200px;margin:0;padding:0;position:relative;visibility:visible;width:200px;background-color:transparent;"><iframe width="200" height="200" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_2" name="aswift_2" style="left:0;position:absolute;top:0;width:200px;height:200px;" src="./代码评审歪诗 - 为程序员服务_files/saved_resource(4).html"></iframe></ins></ins></ins>
+<script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div><div class="barBox booksNail"><div class="t">好书推荐</div><div><ul><li><div class="nail"><a href="http://union-click.jd.com/jdc?e=0&amp;p=AyIHZR5aEQISA1AYUyUCEwZRElsSByJDCkMFSjJLQhBaUAscSkIBR0ROVw1VC0dFFQMTA1wbXBAdS0IJRmtSYAhYJ2dBFGdJYRN9UmVaaW8rfhpTDh43UxhZHQQRBVIZaxUDEwZUElsUBxA3ZRtaJVB83%2BOtg7CzDtP%2FlI6dlSIBUBheEAMUAFwrWxAKEgJQHVoRAhUOUStcJVlHaVMbXkAGRgcASAlBAkA3ZStr&amp;t=W1dCFBBFC1pXUwkEAEAdQFkJBVsUAxYOVRxeCltXWwg%3D" target="_blank"><img src="./代码评审歪诗 - 为程序员服务_files/think-in-java.jpg"></a></div><div class="title"><a class="bookName" href="http://union-click.jd.com/jdc?e=0&amp;p=AyIHZR5aEQISA1AYUyUCEwZRElsSByJDCkMFSjJLQhBaUAscSkIBR0ROVw1VC0dFFQMTA1wbXBAdS0IJRmtSYAhYJ2dBFGdJYRN9UmVaaW8rfhpTDh43UxhZHQQRBVIZaxUDEwZUElsUBxA3ZRtaJVB83%2BOtg7CzDtP%2FlI6dlSIBUBheEAMUAFwrWxAKEgJQHVoRAhUOUStcJVlHaVMbXkAGRgcASAlBAkA3ZStr&amp;t=W1dCFBBFC1pXUwkEAEAdQFkJBVsUAxYOVRxeCltXWwg%3D" target="_blank"><nobr>Java编程思想（第4版）</nobr></a>[<a href="http://union-click.jd.com/jdc?e=0&amp;p=AyIHZR5aEQISA1AYUyUCEwZRElsSByJDCkMFSjJLQhBaUAscSkIBR0ROVw1VC0dFFQMTA1wbXBAdS0IJRmtSYAhYJ2dBFGdJYRN9UmVaaW8rfhpTDh43UxhZHQQRBVIZaxUDEwZUElsUBxA3ZRtaJVB83%2BOtg7CzDtP%2FlI6dlSIBUBheEAMUAFwrWxAKEgJQHVoRAhUOUStcJVlHaVMbXkAGRgcASAlBAkA3ZStr&amp;t=W1dCFBBFC1pXUwkEAEAdQFkJBVsUAxYOVRxeCltXWwg%3D" target="_blank">京东</a> &nbsp; <a href="https://www.amazon.cn/gp/product/B0011F7WU4/ref=as_li_qf_sp_asin_il_tl?ie=UTF8&amp;camp=536&amp;creative=3200&amp;creativeASIN=B0011F7WU4&amp;linkCode=as2&amp;tag=oucn-23" target="_blank">亚马逊</a>]</div></li><li><div class="nail"><a href="http://union-click.jd.com/jdc?e=0&amp;p=AyIHZR5aEQISA1AYUyUCEwZRElMUASJDCkMFSjJLQhBaUAscSkIBR0ROVw1VC0dFFQMTA1wTWhYdS0IJRmtQfEoCUVgLc2dAZS9PHxNwVwRdHV1DDh43UxhZHQQRBVIZaxUDEwZUElsUBxA3ZRtaJVB83%2BOtg7CzDtP%2FlI6dlSIBUB9fHQEQAFwrWxAKEgBRHF8XCxUDVCtcJVlHaVMbXkAGRgcASAlBAkA3ZStr&amp;t=W1dCFBBFC1pXUwkEAEAdQFkJBVsUAxYOXRpYCltXWwg%3D" target="_blank"><img src="./代码评审歪诗 - 为程序员服务_files/effective-java.jpg"></a></div><div class="title"><a class="bookName" href="http://union-click.jd.com/jdc?e=0&amp;p=AyIHZR5aEQISA1AYUyUCEwZRElMUASJDCkMFSjJLQhBaUAscSkIBR0ROVw1VC0dFFQMTA1wTWhYdS0IJRmtQfEoCUVgLc2dAZS9PHxNwVwRdHV1DDh43UxhZHQQRBVIZaxUDEwZUElsUBxA3ZRtaJVB83%2BOtg7CzDtP%2FlI6dlSIBUB9fHQEQAFwrWxAKEgBRHF8XCxUDVCtcJVlHaVMbXkAGRgcASAlBAkA3ZStr&amp;t=W1dCFBBFC1pXUwkEAEAdQFkJBVsUAxYOXRpYCltXWwg%3D" target="_blank"><nobr>Effective&nbsp;Java</nobr></a>[<a href="http://union-click.jd.com/jdc?e=0&amp;p=AyIHZR5aEQISA1AYUyUCEwZRElMUASJDCkMFSjJLQhBaUAscSkIBR0ROVw1VC0dFFQMTA1wTWhYdS0IJRmtQfEoCUVgLc2dAZS9PHxNwVwRdHV1DDh43UxhZHQQRBVIZaxUDEwZUElsUBxA3ZRtaJVB83%2BOtg7CzDtP%2FlI6dlSIBUB9fHQEQAFwrWxAKEgBRHF8XCxUDVCtcJVlHaVMbXkAGRgcASAlBAkA3ZStr&amp;t=W1dCFBBFC1pXUwkEAEAdQFkJBVsUAxYOXRpYCltXWwg%3D" target="_blank">京东</a> &nbsp; <a href="https://www.amazon.cn/gp/product/B01DPUXUWG/ref=as_li_qf_sp_asin_il_tl?ie=UTF8&amp;camp=536&amp;creative=3200&amp;creativeASIN=B01DPUXUWG&amp;linkCode=as2&amp;tag=oucn-23" target="_blank">亚马逊</a>]</div></li><li><div class="nail"><a href="http://union-click.jd.com/jdc?e=0&amp;p=AyIHZR5aEQISA1AYUyUCEgFQGl0XByJDCkMFSjJLQhBaUAscSkIBR0ROVw1VC0dFFQIUAlQdWRAdS0IJRmtqdmddA2U7VWFUTzVQJW9wWXoFYzJTDh43UxhZHQQRBVIZaxUDEwZUElsUBxA3ZRtaJVB83%2BOtg7CzDtP%2FlI6dlSIBUB9fHQEQAFwrWxAKEgBRHF0SChsFUCtcJVlHaVMbXkAGRgcASAlBAkA3ZStr&amp;t=W1dCFBBFC1pXUwkEAEAdQFkJBVsVBBcGUxleCltXWwg%3D" target="_blank"><img src="./代码评审歪诗 - 为程序员服务_files/java-concurrent-art.jpg"></a></div><div class="title"><a class="bookName" href="http://union-click.jd.com/jdc?e=0&amp;p=AyIHZR5aEQISA1AYUyUCEgFQGl0XByJDCkMFSjJLQhBaUAscSkIBR0ROVw1VC0dFFQIUAlQdWRAdS0IJRmtqdmddA2U7VWFUTzVQJW9wWXoFYzJTDh43UxhZHQQRBVIZaxUDEwZUElsUBxA3ZRtaJVB83%2BOtg7CzDtP%2FlI6dlSIBUB9fHQEQAFwrWxAKEgBRHF0SChsFUCtcJVlHaVMbXkAGRgcASAlBAkA3ZStr&amp;t=W1dCFBBFC1pXUwkEAEAdQFkJBVsVBBcGUxleCltXWwg%3D" target="_blank"><nobr>Java并发编程的艺术</nobr></a>[<a href="http://union-click.jd.com/jdc?e=0&amp;p=AyIHZR5aEQISA1AYUyUCEgFQGl0XByJDCkMFSjJLQhBaUAscSkIBR0ROVw1VC0dFFQIUAlQdWRAdS0IJRmtqdmddA2U7VWFUTzVQJW9wWXoFYzJTDh43UxhZHQQRBVIZaxUDEwZUElsUBxA3ZRtaJVB83%2BOtg7CzDtP%2FlI6dlSIBUB9fHQEQAFwrWxAKEgBRHF0SChsFUCtcJVlHaVMbXkAGRgcASAlBAkA3ZStr&amp;t=W1dCFBBFC1pXUwkEAEAdQFkJBVsVBBcGUxleCltXWwg%3D" target="_blank">京东</a> &nbsp; <a href="https://www.amazon.cn/gp/product/B012NDCEA0/ref=as_li_qf_sp_asin_il_tl?ie=UTF8&amp;camp=536&amp;creative=3200&amp;creativeASIN=B012NDCEA0&amp;linkCode=as2&amp;tag=oucn-23" target="_blank">亚马逊</a>]</div></li><li><div class="nail"><a href="http://union-click.jd.com/jdc?e=0&amp;p=AyIHZR5aEQISA1AYUyUCEgRRGF0TCyJDCkMFSjJLQhBaUAscSkIBR0ROVw1VC0dFFQIRA1YdXRwdS0IJRmsWC0kdBVIuFmd5ZVMFAlZ1DE4LcD51Dh43UxhZHQQRBVIZaxUDEwZUElsUBxA3ZRtaJVB83%2BOtg7CzDtP%2FlI6dlSIBUB9fHQEQAFwrWxAKEgBRHFMRBBQGUitcJVlHaVMbXkAGRgcASAlBAkA3ZStr&amp;t=W1dCFBBFC1pXUwkEAEAdQFkJBVsVARYEUx1SCltXWwg%3D" target="_blank"><img src="./代码评审歪诗 - 为程序员服务_files/jvm.jpg"></a></div><div class="title"><a class="bookName" href="http://union-click.jd.com/jdc?e=0&amp;p=AyIHZR5aEQISA1AYUyUCEgRRGF0TCyJDCkMFSjJLQhBaUAscSkIBR0ROVw1VC0dFFQIRA1YdXRwdS0IJRmsWC0kdBVIuFmd5ZVMFAlZ1DE4LcD51Dh43UxhZHQQRBVIZaxUDEwZUElsUBxA3ZRtaJVB83%2BOtg7CzDtP%2FlI6dlSIBUB9fHQEQAFwrWxAKEgBRHFMRBBQGUitcJVlHaVMbXkAGRgcASAlBAkA3ZStr&amp;t=W1dCFBBFC1pXUwkEAEAdQFkJBVsVARYEUx1SCltXWwg%3D" target="_blank"><nobr>深入理解Java虚拟机：JVM高级特性与最佳实践</nobr></a>[<a href="http://union-click.jd.com/jdc?e=0&amp;p=AyIHZR5aEQISA1AYUyUCEgRRGF0TCyJDCkMFSjJLQhBaUAscSkIBR0ROVw1VC0dFFQIRA1YdXRwdS0IJRmsWC0kdBVIuFmd5ZVMFAlZ1DE4LcD51Dh43UxhZHQQRBVIZaxUDEwZUElsUBxA3ZRtaJVB83%2BOtg7CzDtP%2FlI6dlSIBUB9fHQEQAFwrWxAKEgBRHFMRBBQGUitcJVlHaVMbXkAGRgcASAlBAkA3ZStr&amp;t=W1dCFBBFC1pXUwkEAEAdQFkJBVsVARYEUx1SCltXWwg%3D" target="_blank">京东</a> &nbsp; <a href="https://www.amazon.cn/gp/product/B00D2ID4PK/ref=as_li_qf_sp_asin_il_tl?ie=UTF8&amp;camp=536&amp;creative=3200&amp;creativeASIN=B00D2ID4PK&amp;linkCode=as2&amp;tag=oucn-23" target="_blank">亚马逊</a>]</div></li><li><div class="nail"><a href="http://union-click.jd.com/jdc?e=0&amp;p=AyIHZR5aEQISA1AYUyUCEw9WGFgRAiJDCkMFSjJLQhBaUAscSkIBR0ROVw1VC0dFFQMaBFYYXxUdS0IJRmtgUmAPNngNQWIRWy1uDl53ZwArWVJ1Dh43UxhZHQQRBVIZaxUDEwZUElsUBxA3ZRtaJVB83%2BOtg7CzDtP%2FlI6dlSIBUB9fHQEQAFwrWxAKEgBRHVocBhcDUitcJVlHaVMbXkAGRgcASAlBAkA3ZStr&amp;t=W1dCFBBFC1pXUwkEAEAdQFkJBVsUChEEVh9bCltXWwg%3D" target="_blank"><img src="./代码评审歪诗 - 为程序员服务_files/spring-internal.jpg"></a></div><div class="title"><a class="bookName" href="http://union-click.jd.com/jdc?e=0&amp;p=AyIHZR5aEQISA1AYUyUCEw9WGFgRAiJDCkMFSjJLQhBaUAscSkIBR0ROVw1VC0dFFQMaBFYYXxUdS0IJRmtgUmAPNngNQWIRWy1uDl53ZwArWVJ1Dh43UxhZHQQRBVIZaxUDEwZUElsUBxA3ZRtaJVB83%2BOtg7CzDtP%2FlI6dlSIBUB9fHQEQAFwrWxAKEgBRHVocBhcDUitcJVlHaVMbXkAGRgcASAlBAkA3ZStr&amp;t=W1dCFBBFC1pXUwkEAEAdQFkJBVsUChEEVh9bCltXWwg%3D" target="_blank"><nobr>Spring技术内幕：深入解析Spring架构与设计原理（第2版）</nobr></a>[<a href="http://union-click.jd.com/jdc?e=0&amp;p=AyIHZR5aEQISA1AYUyUCEw9WGFgRAiJDCkMFSjJLQhBaUAscSkIBR0ROVw1VC0dFFQMaBFYYXxUdS0IJRmtgUmAPNngNQWIRWy1uDl53ZwArWVJ1Dh43UxhZHQQRBVIZaxUDEwZUElsUBxA3ZRtaJVB83%2BOtg7CzDtP%2FlI6dlSIBUB9fHQEQAFwrWxAKEgBRHVocBhcDUitcJVlHaVMbXkAGRgcASAlBAkA3ZStr&amp;t=W1dCFBBFC1pXUwkEAEAdQFkJBVsUChEEVh9bCltXWwg%3D" target="_blank">京东</a> &nbsp; <a href="https://www.amazon.cn/gp/product/B00BTCLUNE/ref=as_li_qf_sp_asin_il_tl?ie=UTF8&amp;camp=536&amp;creative=3200&amp;creativeASIN=B00BTCLUNE&amp;linkCode=as2&amp;tag=oucn-23" target="_blank">亚马逊</a>]</div></li></ul></div></div>
+
+</div>
+</div>
+<script src="./代码评审歪诗 - 为程序员服务_files/jquery-1.7.2.min.js.下载"></script>
+<script src="./代码评审歪诗 - 为程序员服务_files/loginUser" charset="utf-8"></script>
+<script src="./代码评审歪诗 - 为程序员服务_files/prettify.js.下载" type="text/javascript"></script>
+<script src="./代码评审歪诗 - 为程序员服务_files/site.js.下载"></script>
+
+<script>
+function resizeImg(o,maxWidth) {
+    var img = $(o);
+    if(img.width() > maxWidth) {
+        var h = Math.round(maxWidth / img.width() * img.height());
+        img.width(maxWidth).height(h);
+    }
+}
+function resizeImgs(){
+    var maxWidth = $('div.txtContent').width();
+    $('.txtContent img').each(
+        function(i,o){resizeImg(o,maxWidth);}
+    );
+}
+$(resizeImgs);
+</script>
+<script>
+    function showBooks(books) {
+        var h = '<div class="tgL books"><span>&nbsp;</span>好书：';
+        var maxCount = 5;
+        var lineCn = books.length>maxCount?maxCount:books.length;
+        function getProvidersHtml(b) {
+            var h='';
+            if (b.providers) {
+                h += '[';
+                var first = true;
+                for (var p in b.providers) {
+                    var pUrl = b.providers[p]['url'];
+                    
+                    if (first) {
+                        first = false;
+                    } else {
+                        h += ' &nbsp; ';
+                    }
+                    h += ('<a href="' + pUrl +'" target="_blank">' + p +  '</a>');
+                    
+                }
+                h += ']';
+            }
+            return h;
+        }
+
+        for (var i=0; i<lineCn;i++) {
+            if (i>0) h += '<span class="sep"> | </span>';
+            var book = books[i];
+            h += ('<a href="'+ book.url +'" target="_blank">' + book.title + '</a>');
+            h += getProvidersHtml(book);
+        }
+
+
+        h += '</div>';
+        $(h).insertBefore($('div.comments'));
+
+        var rightHtml = '<div class="barBox booksNail"><div class="t">好书推荐</div>';
+        rightHtml += '<div><ul>';
+        var startIdx = books.length > 6 ? books.length-6 : 0;
+        for (var i=startIdx; i<books.length;i++) {
+            var book = books[i];
+            rightHtml += ('<li><div class="nail"><a href="' + book.url + '" target="_blank"><img src="//outofmemory.cn/static/book/' + book.image + '" /></a></div>');
+            rightHtml += ('<div class="title"><a class="bookName" href="'+book.url+'" target="_blank"><nobr>'+book.title+ '</nobr></a>');
+            var providerH = getProvidersHtml(book);
+            rightHtml += providerH;
+            rightHtml += '</div></li>';
+        }
+        rightHtml += '</ul></div>';
+        rightHtml += '</div>';
+
+        $(rightHtml).insertAfter($('div.sidebar div:last'))
+    }
+</script>
+<script src="./代码评审歪诗 - 为程序员服务_files/list" type="text/javascript"></script>
+ <script>
+    $(function(ev){
+        function shouldRemove(){return false;}
+        var nodesCache={};
+        var isLoading=false;
+        $('.breadPath .separator').hover(function(e){
+            if (isLoading) return;
+            $('.breadPath .selected').removeClass('selected');
+            var ele=$(this);
+            var a=ele.prev('a');
+            $('<div class="menu"><div class="loadingWrap"><img src="/static/imgs/loading.gif"/></div></div>').appendTo($(document.body));
+            var l = ele.position().left+25 + 'px';
+            var t = ele.position().top+-2 +'px';
+            $('.menu').css({'left':l,'top':t,'display':'block'});
+            var pageCode=a.prop('pathname');
+            if(pageCode.charAt(0)!='/') pageCode='/' + pageCode;
+            if (typeof nodesCache[pageCode] != 'undefined') {
+                $('.menu').html(nodesCache[pageCode]);
+                return;
+            }
+            isLoading=true;
+            $.get('/page/nodes'+pageCode,function(h){
+                $('.menu').html(h);
+                nodesCache[pageCode]=h;
+                isLoading=false;
+            });
+        },function(e){
+            if(shouldRemove()){
+                var ele=$(this);
+                ele.removeClass('selected');
+                ele.prev('a').removeClass('selected');
+            }
+        });
+        $(document.body).click(function(ev){
+            if($(this).parents('.menu').length == 0) {
+                $('.menu').hide('fast',function(ev){
+                    $('.menu').remove();
+                });
+                $('.breadPath .selected').removeClass('selected');
+                isLoading=false;
+            }
+        });
+    });
+</script>
+ <script>$('pre').each(function(){var o=$(this);o.addClass('prettyprint').addClass(o.attr('lang'));});$(prettyPrint);</script>
+
+<div class="wrap">
+    
+    
+    
+
+    <div class="footer">
+
+    <span class="timespent"><i>0.054@0208160746</i></span>
+    © 2012 - 2015 <a href="http://outofmemory.cn/">OutOfMemory.CN</a>
+        &nbsp; &nbsp;
+        <a href="mailto:outofmemory_cn@126.com">联系我们</a>
+        
+        
+        &nbsp;<a href="http://outofmemory.cn/c/dotNet-outOfMemoryException" title=".Net c#内存溢出处理">.Net内存溢出处理</a>
+        &nbsp;<a href="http://outofmemory.cn/c/java-outOfMemoryError" title="Java内存溢出处理">Java内存溢出处理</a>
+        &nbsp;<a href="http://outofmemory.cn/novel/outofmemory/">OutOfMemory小说连载</a>
+        &nbsp;<a href="http://doc.outofmemory.cn/">程序员文档</a>
+        &nbsp;<a href="http://outofmemory.cn/sitemap/">站点地图</a>
+
+        
+        <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-36036446-1', 'outofmemory.cn');
+    ga('send', 'pageview');
+    ga('set',  '&uid', window.loginUser.id); // 使用已登录的 user_id 来设置用户 ID。
+</script>
+
+        <div class="bdtj"><script type="text/javascript">
+
+
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?2051de3619785a7bff6213250ea9fbbd";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+</div>
+    </div>
+</div>
+
+
+
+
+<div class="codeTools" style="left: 854.5px; top: 3422.5px;"><div id="copyCode">复制代码</div><div id="saveCode">保存代码</div><div id="runCode" style="display: none;">试试效果</div></div><div style="position: absolute; left: 861px; top: 3431px; width: 50px; height: 14px; z-index: 99;"><embed id="ZeroClipboardMovie_1" src="/static/clipboard/ZeroClipboard10.swf" loop="false" menu="false" quality="best" bgcolor="#ffffff" width="50" height="14" name="ZeroClipboardMovie_1" allowscriptaccess="always" allowfullscreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" flashvars="id=1&amp;width=50&amp;height=14" wmode="transparent"></div></body></html>

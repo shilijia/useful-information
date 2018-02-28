@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<!-- saved from url=(0049)http://www.cnblogs.com/sharpxiajun/p/3395607.html -->
+<html lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script async="" src="./session机制详解以及session的相关应用 - 夏天的森林 - 博客园_files/analytics.js.下载"></script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>session机制详解以及session的相关应用 - 夏天的森林 - 博客园</title>
+<link type="text/css" rel="stylesheet" href="./session机制详解以及session的相关应用 - 夏天的森林 - 博客园_files/blog-common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="./session机制详解以及session的相关应用 - 夏天的森林 - 博客园_files/bundle-red_autumnal_leaves.css">
+<link type="text/css" rel="stylesheet" href="./session机制详解以及session的相关应用 - 夏天的森林 - 博客园_files/90635.css">
+<link id="mobile-style" media="only screen and (max-width: 768px)" type="text/css" rel="stylesheet" href="./session机制详解以及session的相关应用 - 夏天的森林 - 博客园_files/bundle-red_autumnal_leaves-mobile.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/sharpxiajun/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/sharpxiajun/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/sharpxiajun/wlwmanifest.xml">
+<script src="./session机制详解以及session的相关应用 - 夏天的森林 - 博客园_files/jquery.js.下载" type="text/javascript"></script>  
+<script type="text/javascript">var currentBlogApp = 'sharpxiajun', cb_enable_mathjax=false;var isLogined=false;</script>
+<script src="./session机制详解以及session的相关应用 - 夏天的森林 - 博客园_files/blog-common.js.下载" type="text/javascript"></script>
+</head>
+<body>
+<a name="top"></a>
+<div id="page_begin_html"></div><script>load_page_begin_html();</script>
+
+<!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+	<a id="lnkBlogLogo" href="http://www.cnblogs.com/sharpxiajun/"><img id="blogLogo" src="./session机制详解以及session的相关应用 - 夏天的森林 - 博客园_files/logo.gif" alt="返回主页"></a>			
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/sharpxiajun/">夏天的森林</a></h1>
+<h2>好记性不如烂笔头</h2>
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li><a id="blog_nav_sitehome" class="menu" href="http://www.cnblogs.com/">博客园</a></li>
+<li><a id="blog_nav_myhome" class="menu" href="http://www.cnblogs.com/sharpxiajun/">首页</a></li>
+<li><a id="blog_nav_newpost" class="menu" rel="nofollow" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a></li>
+<li><a id="blog_nav_contact" class="menu" rel="nofollow" href="https://msg.cnblogs.com/send/%E5%A4%8F%E5%A4%A9%E7%9A%84%E6%A3%AE%E6%9E%97">联系</a></li>
+<li><a id="blog_nav_rss" class="menu" href="http://www.cnblogs.com/sharpxiajun/rss">订阅</a>
+<!--<a id="blog_nav_rss_image" class="aHeaderXML" href="http://www.cnblogs.com/sharpxiajun/rss"><img src="//www.cnblogs.com/images/xml.gif" alt="订阅" /></a>--></li>
+<li><a id="blog_nav_admin" class="menu" rel="nofollow" href="https://i.cnblogs.com/">管理</a></li>
+</ul>
+		<div class="blogStats">
+			
+			<div id="blog_stats">
+<span id="stats_post_count">随笔 - 134&nbsp; </span>
+<span id="stats_article_count">文章 - 0&nbsp; </span>
+<span id="stats-comment_count">评论 - 1357</span>
+</div>
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		
+<div id="post_detail">
+<!--done-->
+<div id="topics">
+	<div class="post">
+		<h1 class="postTitle">
+			<a id="cb_post_title_url" class="postTitle2" href="http://www.cnblogs.com/sharpxiajun/p/3395607.html">session机制详解以及session的相关应用</a>
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			<div id="cnblogs_post_body"><p class="p0" style="text-indent: 21pt; margin-top: 0pt; margin-bottom: 0pt;"><span style="font-family: &#39;微软雅黑&#39;; font-size: 10.5pt; mso-spacerun: &#39;yes&#39;;">session<span style="font-family: 微软雅黑;">是</span><span style="font-family: Calibri;">web</span><span style="font-family: 微软雅黑;">开发里一个重要的概念，在大多数</span><span style="font-family: Calibri;">web</span><span style="font-family: 微软雅黑;">应用里</span><span style="font-family: Calibri;">session</span><span style="font-family: 微软雅黑;">都是被当做现成的东西，拿来就直接用，但是一些复杂的</span><span style="font-family: Calibri;">web</span><span style="font-family: 微软雅黑;">应用里能拿来用的</span><span style="font-family: Calibri;">session</span><span style="font-family: 微软雅黑;">已经满足不了实际的需求，当碰到这样的情况时候我们需要更加深入的理解</span><span style="font-family: Calibri;">session</span><span style="font-family: 微软雅黑;">的机制，本文将梳理下</span><span style="font-family: Calibri;">session</span><span style="font-family: 微软雅黑;">的相关知识，为设计可替代</span><span style="font-family: Calibri;">web</span><span style="font-family: 微软雅黑;">容器自带的</span><span style="font-family: Calibri;">session</span><span style="font-family: 微软雅黑;">机制打个基础。</span></span></p>
+<p class="p0" style="text-indent: 21pt; margin-top: 0pt; margin-bottom: 0pt;">&nbsp;</p>
+<h2 style="margin-top: 0pt; margin-bottom: 0pt;"><span style="font-family: &#39;微软雅黑&#39;; font-size: 16pt; font-weight: bold; mso-spacerun: &#39;yes&#39;;">1.1&nbsp;</span><span style="font-family: &#39;微软雅黑&#39;; font-size: 16pt; font-weight: bold; mso-spacerun: &#39;yes&#39;;">session<span style="font-family: 微软雅黑;">的概念</span></span></h2>
+<p class="p0" style="text-indent: 21pt; margin-top: 0pt; margin-bottom: 0pt;"><span style="font-family: &#39;微软雅黑&#39;; font-size: 10.5pt; mso-spacerun: &#39;yes&#39;;"><span style="font-family: 微软雅黑;"><!--EndFragment--></span></span></p>
+<p class="p0" style="text-indent: 21pt; margin-top: 0pt; margin-bottom: 0pt;">&nbsp;</p>
+<p class="p0" style="text-indent: 21pt; margin-top: 0pt; margin-bottom: 0pt;"><span style="font-family: &#39;微软雅黑&#39;; font-size: 10.5pt; mso-spacerun: &#39;yes&#39;;">在计算机专业术语里：<span style="font-family: Calibri;">session</span><span style="font-family: 微软雅黑;">是指一个终端用户与交互系统进行通信的时间间隔，通常指从注册入系统到注销系统之间所经过的时间以及如果需要的话，可能还有一定操作空间。</span></span></p>
+<p class="p0" style="text-indent: 21pt; margin-top: 0pt; margin-bottom: 0pt;">&nbsp;</p>
+<p class="p0" style="text-indent: 21pt; margin-top: 0pt; margin-bottom: 0pt;"><span style="font-family: &#39;微软雅黑&#39;; font-size: 10.5pt; mso-spacerun: &#39;yes&#39;;">具体到<span style="font-family: Calibri;">web</span><span style="font-family: 微软雅黑;">应用里的</span><span style="font-family: Calibri;">session</span><span style="font-family: 微软雅黑;">，大家都做过</span><span style="font-family: Calibri;">web</span><span style="font-family: 微软雅黑;">开发，这里我就先不提出</span><span style="font-family: Calibri;">web</span><span style="font-family: 微软雅黑;">里</span><span style="font-family: Calibri;">session</span><span style="font-family: 微软雅黑;">的定义，先和大伙讲下和</span><span style="font-family: Calibri;">session</span><span style="font-family: 微软雅黑;">相关的技术背景。</span></span></p>
+<p class="p0" style="text-indent: 21pt; margin-top: 0pt; margin-bottom: 0pt;">&nbsp;</p>
+<p class="p0" style="text-indent: 21pt; margin-top: 0pt; margin-bottom: 0pt;"><span style="font-family: &#39;微软雅黑&#39;; font-size: 10.5pt; mso-spacerun: &#39;yes&#39;;">早期的<span style="font-family: Calibri;">web</span><span style="font-family: 微软雅黑;">应用或者说早期的网站都是一种处理静态资源的网站，功能主要是查看文档，看看图片，而现在的</span><span style="font-family: Calibri;">web</span><span style="font-family: 微软雅黑;">应用和早期的差别已经很大，互联网的网站更准确的定义应该是互联网软件即网站就是软件，网站所代表的软件和早期软件的定义是不一样的，早期的软件都是在单机环境下运行，而互联网的普及让软件和网络技术融合在一起，这就要求网站所代表的软件应该要有一个对事务处理的记忆功能，事务处理的记忆功能就是我们常说的要有状态。而实现</span><span style="font-family: Calibri;">web</span><span style="font-family: 微软雅黑;">应用技术的核心</span><span style="font-family: Calibri;">http</span><span style="font-family: 微软雅黑;">协议是一个无状态的协议，</span><span style="font-family: Calibri;">http</span><span style="font-family: 微软雅黑;">这种设计也许是历史遗留问题，也许无状态的</span><span style="font-family: Calibri;">http</span><span style="font-family: 微软雅黑;">是最简单也是最有效的通讯方式，但是当网站成为软件后，状态的保持就是一个很重要的功能。</span></span></p>
+<p class="p0" style="text-indent: 21pt; margin-top: 0pt; margin-bottom: 0pt;"><span style="font-family: &#39;微软雅黑&#39;; font-size: 10.5pt; mso-spacerun: &#39;yes&#39;;"><span style="font-family: 微软雅黑;"><!--EndFragment--></span></span></p>
+<p class="p0" style="text-indent: 21pt; margin-top: 0pt; margin-bottom: 0pt;"><span style="font-family: &#39;微软雅黑&#39;; font-size: 10.5pt; mso-spacerun: &#39;yes&#39;;">因此在<span style="font-family: Calibri;">web</span><span style="font-family: 微软雅黑;">应用开发里就出现了保持</span><span style="font-family: Calibri;">http</span><span style="font-family: 微软雅黑;">链接状态的技术：一个是</span><span style="font-family: Calibri;">cookie</span><span style="font-family: 微软雅黑;">技术，另一种是</span><span style="font-family: Calibri;">session</span><span style="font-family: 微软雅黑;">技术。</span></span></p>
+<p class="p0" style="text-indent: 21pt; margin-top: 0pt; margin-bottom: 0pt;">&nbsp;</p>
+<p class="p0" style="text-indent: 21pt; margin-top: 0pt; margin-bottom: 0pt;"><span style="font-family: &#39;微软雅黑&#39;; font-size: 10.5pt; mso-spacerun: &#39;yes&#39;;">cookie<span style="font-family: 微软雅黑;">技术是客户端的解决方案（当然随着</span><span style="font-family: Calibri;">html5</span><span style="font-family: 微软雅黑;">的出现，比</span><span style="font-family: Calibri;">cookie</span><span style="font-family: 微软雅黑;">更为强劲和安全的技术出现了，但是鉴于</span><span style="font-family: Calibri;">html5</span><span style="font-family: 微软雅黑;">的普及度不够，就不做本文讨论的内容了），</span><span style="font-family: Calibri;">Cookie</span><span style="font-family: 微软雅黑;">就是由服务器发给客户端的特殊信息，而这些信息以文本文件的方式存放在客户端，然后客户端每次向服务器发送请求的时候都会带上这些特殊的信息。让我们说得更具体一些：当用户使用浏览器访问一个支持</span><span style="font-family: Calibri;">Cookie</span><span style="font-family: 微软雅黑;">的网站的时候，用户会提供包括用户名在内的个人信息并且提交至服务器；接着，服务器在向客户端回传相应的超文本的同时也会发回这些个人信息，当然这些信息并不是存放在</span><span style="font-family: Calibri;">HTTP</span><span style="font-family: 微软雅黑;">响应体（</span><span style="font-family: Calibri;">Response&nbsp;Body</span><span style="font-family: 微软雅黑;">）中的，而是存放于</span><span style="font-family: Calibri;">HTTP</span><span style="font-family: 微软雅黑;">响应头（</span><span style="font-family: Calibri;">Response&nbsp;Header</span><span style="font-family: 微软雅黑;">）；当客户端浏览器接收到来自服务器的响应之后，浏览器会将这些信息存放在一个统一的位置，对于</span><span style="font-family: Calibri;">Windows</span><span style="font-family: 微软雅黑;">操作系统而言，我们可以从：&nbsp;</span><span style="font-family: Calibri;">[</span><span style="font-family: 微软雅黑;">系统盘</span><span style="font-family: Calibri;">]:\Documents&nbsp;and&nbsp;Settings\[</span><span style="font-family: 微软雅黑;">用户名</span><span style="font-family: Calibri;">]\Cookies</span><span style="font-family: 微软雅黑;">目录中找到存储的</span><span style="font-family: Calibri;">Cookie</span><span style="font-family: 微软雅黑;">；自此，客户端再向服务器发送请求的时候，都会把相应的</span><span style="font-family: Calibri;">Cookie</span><span style="font-family: 微软雅黑;">再次发回至服务器。而这次，</span><span style="font-family: Calibri;">Cookie</span><span style="font-family: 微软雅黑;">信息则存放在</span><span style="font-family: Calibri;">HTTP</span><span style="font-family: 微软雅黑;">请求头（</span><span style="font-family: Calibri;">Request&nbsp;Header</span><span style="font-family: 微软雅黑;">）了。有了</span><span style="font-family: Calibri;">Cookie</span><span style="font-family: 微软雅黑;">这样的技术实现，服务器在接收到来自客户端浏览器的请求之后，就能够通过分析存放于请求头的</span><span style="font-family: Calibri;">Cookie</span><span style="font-family: 微软雅黑;">得到客户端特有的信息，从而动态生成与该客户端相对应的内容。通常，我们可以从很多网站的登录界面中看到“请记住我”这样的选项，如果你勾选了它之后再登录，那么在下一次访问该网站的时候就不需要进行重复而繁琐的登录动作了，而这个功能就是通过</span><span style="font-family: Calibri;">Cookie</span><span style="font-family: 微软雅黑;">实现的。</span></span></p>
+<p class="p0" style="text-indent: 21pt; margin-top: 0pt; margin-bottom: 0pt;">&nbsp;</p>
+<p class="p0" style="text-indent: 21pt; margin-top: 0pt; margin-bottom: 0pt;"><span style="font-family: &#39;微软雅黑&#39;; font-size: 10.5pt; mso-spacerun: &#39;yes&#39;;">session<span style="font-family: 微软雅黑;">技术则是服务端的解决方案，它是通过服务器来保持状态的。由于</span><span style="font-family: Calibri;">Session</span><span style="font-family: 微软雅黑;">这个词汇包含的语义很多，因此需要在这里明确一下&nbsp;</span><span style="font-family: Calibri;">Session</span><span style="font-family: 微软雅黑;">的含义。首先，我们通常都会把</span><span style="font-family: Calibri;">Session</span><span style="font-family: 微软雅黑;">翻译成会话，因此我们可以把客户端浏览器与服务器之间一系列交互的动作称为一个&nbsp;</span><span style="font-family: Calibri;">Session</span><span style="font-family: 微软雅黑;">。从这个语义出发，我们会提到</span><span style="font-family: Calibri;">Session</span><span style="font-family: 微软雅黑;">持续的时间，会提到在</span><span style="font-family: Calibri;">Session</span><span style="font-family: 微软雅黑;">过程中进行了什么操作等等；其次，</span><span style="font-family: Calibri;">Session</span><span style="font-family: 微软雅黑;">指的是服务器端为客户端所开辟的存储空间，在其中保存的信息就是用于保持状态。从这个语义出发，我们则会提到往</span><span style="font-family: Calibri;">Session</span><span style="font-family: 微软雅黑;">中存放什么内容，如何根据键值从&nbsp;</span><span style="font-family: Calibri;">Session</span><span style="font-family: 微软雅黑;">中获取匹配的内容等。要使用</span><span style="font-family: Calibri;">Session</span><span style="font-family: 微软雅黑;">，第一步当然是创建</span><span style="font-family: Calibri;">Session</span><span style="font-family: 微软雅黑;">了。那么</span><span style="font-family: Calibri;">Session</span><span style="font-family: 微软雅黑;">在何时创建呢？当然还是在服务器端程序运行的过程中创建的，不同语言实现的应用程序有不同创建</span><span style="font-family: Calibri;">Session</span><span style="font-family: 微软雅黑;">的方法，而在</span><span style="font-family: Calibri;">Java</span><span style="font-family: 微软雅黑;">中是通过调用</span><span style="font-family: Calibri;">HttpServletRequest</span><span style="font-family: 微软雅黑;">的</span><span style="font-family: Calibri;">getSession</span><span style="font-family: 微软雅黑;">方法（使用</span><span style="font-family: Calibri;">true</span><span style="font-family: 微软雅黑;">作为参数）创建的。在创建了</span><span style="font-family: Calibri;">Session</span><span style="font-family: 微软雅黑;">的同时，服务器会为该</span><span style="font-family: Calibri;">Session</span><span style="font-family: 微软雅黑;">生成唯一的</span><span style="font-family: Calibri;">Session&nbsp;id</span><span style="font-family: 微软雅黑;">，而这个</span><span style="font-family: Calibri;">Session&nbsp;id</span><span style="font-family: 微软雅黑;">在随后的请求中会被用来重新获得已经创建的</span><span style="font-family: Calibri;">Session</span><span style="font-family: 微软雅黑;">；在</span><span style="font-family: Calibri;">Session</span><span style="font-family: 微软雅黑;">被创建之后，就可以调用</span><span style="font-family: Calibri;">Session</span><span style="font-family: 微软雅黑;">相关的方法往</span><span style="font-family: Calibri;">Session</span><span style="font-family: 微软雅黑;">中增加内容了，而这些内容只会保存在服务器中，发到客户端的只有</span><span style="font-family: Calibri;">Session&nbsp;id</span><span style="font-family: 微软雅黑;">；当客户端再次发送请求的时候，会将这个</span><span style="font-family: Calibri;">Session&nbsp;id</span><span style="font-family: 微软雅黑;">带上，服务器接受到请求之后就会依据</span><span style="font-family: Calibri;">Session&nbsp;id</span><span style="font-family: 微软雅黑;">找到相应的</span><span style="font-family: Calibri;">Session</span><span style="font-family: 微软雅黑;">，从而再次使用之。正式这样一个过程，用户的状态也就得以保持了。</span></span></p>
+<p class="p0" style="text-indent: 21pt; margin-top: 0pt; margin-bottom: 0pt;">&nbsp;</p>
+<p class="p0" style="text-indent: 21pt; margin-top: 0pt; margin-bottom: 0pt;"><span style="font-family: &#39;微软雅黑&#39;; font-size: 10.5pt; font-weight: bold; mso-spacerun: &#39;yes&#39;;">由此我们可以得出，<span style="font-family: Calibri;">session</span><span style="font-family: 微软雅黑;">是解决</span><span style="font-family: Calibri;">http</span><span style="font-family: 微软雅黑;">协议无状态问题的服务端解决方案，它能让客户端和服务端一系列交互动作变成一个完整的事务，能使网站变成一个真正意义上的软件。</span></span></p>
+<p class="p0" style="text-indent: 21pt; margin-top: 0pt; margin-bottom: 0pt;">&nbsp;</p>
+<h2 style="margin-top: 0pt; margin-bottom: 0pt;"><span style="font-family: &#39;微软雅黑&#39;; font-size: 16pt; font-weight: bold; mso-spacerun: &#39;yes&#39;;">1.2&nbsp;</span><span style="font-family: &#39;微软雅黑&#39;; font-size: 16pt; font-weight: bold; mso-spacerun: &#39;yes&#39;;">cookie<span style="font-family: 微软雅黑;">与</span><span style="font-family: Cambria;">session</span><span style="font-family: 微软雅黑;">的关系</span></span></h2>
+<p class="p0" style="text-indent: 21pt; margin-top: 0pt; margin-bottom: 0pt;"><span style="font-family: &#39;微软雅黑&#39;; font-size: 10.5pt; mso-spacerun: &#39;yes&#39;;">cookie<span style="font-family: 微软雅黑;">和</span><span style="font-family: Calibri;">session</span><span style="font-family: 微软雅黑;">的方案虽然分别属于客户端和服务端，但是服务端的</span><span style="font-family: Calibri;">session</span><span style="font-family: 微软雅黑;">的实现对客户端的</span><span style="font-family: Calibri;">cookie</span><span style="font-family: 微软雅黑;">有依赖关系的，上面我讲到服务端执行</span><span style="font-family: Calibri;">session</span><span style="font-family: 微软雅黑;">机制时候会生成</span><span style="font-family: Calibri;">session</span><span style="font-family: 微软雅黑;">的</span><span style="font-family: Calibri;">id</span><span style="font-family: 微软雅黑;">值，这个</span><span style="font-family: Calibri;">id</span><span style="font-family: 微软雅黑;">值会发送给客户端，客户端每次请求都会把这个</span><span style="font-family: Calibri;">id</span><span style="font-family: 微软雅黑;">值放到</span><span style="font-family: Calibri;">http</span><span style="font-family: 微软雅黑;">请求的头部发送给服务端，而这个</span><span style="font-family: Calibri;">id</span><span style="font-family: 微软雅黑;">值在客户端会保存下来，保存的容器就是</span><span style="font-family: Calibri;">cookie</span><span style="font-family: 微软雅黑;">，因此当我们完全禁掉浏览器的</span><span style="font-family: Calibri;">cookie</span><span style="font-family: 微软雅黑;">的时候，服务端的</span><span style="font-family: Calibri;">session</span><span style="font-family: 微软雅黑;">也会不能正常使用（注意：有些资料说</span><span style="font-family: Calibri;">ASP</span><span style="font-family: 微软雅黑;">解决这个问题，当浏览器的</span><span style="font-family: Calibri;">cookie</span><span style="font-family: 微软雅黑;">被禁掉，服务端的</span><span style="font-family: Calibri;">session</span><span style="font-family: 微软雅黑;">任然可以正常使用，</span><span style="font-family: Calibri;">ASP</span><span style="font-family: 微软雅黑;">我没试验过，但是对于网络上很多用</span><span style="font-family: Calibri;">php</span><span style="font-family: 微软雅黑;">和</span><span style="font-family: Calibri;">jsp</span><span style="font-family: 微软雅黑;">编写的网站，我发现禁掉</span><span style="font-family: Calibri;">cookie</span><span style="font-family: 微软雅黑;">，网站的</span><span style="font-family: Calibri;">session</span><span style="font-family: 微软雅黑;">都无法正常的访问）</span></span></p>
+<p class="p0" style="text-indent: 21pt; margin-top: 0pt; margin-bottom: 0pt;">&nbsp;</p>
+<h2 style="margin-top: 0pt; margin-bottom: 0pt;"><span style="font-family: &#39;微软雅黑&#39;; font-size: 16pt; font-weight: bold; mso-spacerun: &#39;yes&#39;;">1.3&nbsp;</span><span style="font-family: &#39;微软雅黑&#39;; font-size: 16pt; font-weight: bold; mso-spacerun: &#39;yes&#39;;">session<span style="font-family: 微软雅黑;">实现的原理</span></span></h2>
+<p class="p0" style="text-indent: 21pt; margin-top: 0pt; margin-bottom: 0pt;"><span style="font-family: &#39;微软雅黑&#39;; font-size: 10.5pt; mso-spacerun: &#39;yes&#39;;">java<span style="font-family: 微软雅黑;">的</span><span style="font-family: Calibri;">web</span><span style="font-family: 微软雅黑;">容器都实现了</span><span style="font-family: Calibri;">session</span><span style="font-family: 微软雅黑;">机制，实现的逻辑思想都是一致的，但是具体方案可能会存在一定差异，这里我以</span><span style="font-family: Calibri;">tomcat</span><span style="font-family: 微软雅黑;">容器为例，探讨下</span><span style="font-family: Calibri;">session</span><span style="font-family: 微软雅黑;">实现的机制。</span></span></p>
+<p class="p0" style="text-indent: 21pt; margin-top: 0pt; margin-bottom: 0pt;"><span style="font-family: &#39;微软雅黑&#39;; font-size: 10.5pt; mso-spacerun: &#39;yes&#39;;">下图是<span style="font-family: Calibri;">tomcat</span><span style="font-family: 微软雅黑;">源码里</span><span style="font-family: Calibri;">session</span><span style="font-family: 微软雅黑;">实现：</span></span></p>
+<p class="p0" style="text-indent: 21pt; margin-top: 0pt; margin-bottom: 0pt;">&nbsp;</p>
+<p class="p0" style="margin-top: 0pt; margin-bottom: 0pt;"><img src="./session机制详解以及session的相关应用 - 夏天的森林 - 博客园_files/29231424-2267ff8d1eda487981b08b620fc7bcd3.png" alt=""></p>
+<p class="p0" style="text-indent: 21pt; margin-top: 0pt; margin-bottom: 0pt;"><span style="font-family: &#39;微软雅黑&#39;; font-size: 10.5pt; mso-spacerun: &#39;yes&#39;;">实现包的路径是：</span><span style="font-family: &#39;Calibri&#39;; font-size: 10.5pt; mso-spacerun: &#39;yes&#39;;">org.apache.catalina.session</span><span style="font-family: &#39;微软雅黑&#39;; font-size: 10.5pt; mso-spacerun: &#39;yes&#39;;">，<span style="font-family: Calibri;">tomcat</span><span style="font-family: 微软雅黑;">对外提供session调用的接口不在这个实现包里，对外接口是在包</span></span><span style="font-family: &#39;Calibri&#39;; font-size: 10.5pt; mso-spacerun: &#39;yes&#39;;">javax.servlet.http</span><span style="font-family: &#39;微软雅黑&#39;; font-size: 10.5pt; mso-spacerun: &#39;yes&#39;;">下的</span><span style="font-family: &#39;Calibri&#39;; font-size: 10.5pt; mso-spacerun: &#39;yes&#39;;">HttpSession</span><span style="font-family: &#39;微软雅黑&#39;; font-size: 10.5pt; mso-spacerun: &#39;yes&#39;;">，而实现包里的</span><span style="font-family: &#39;Calibri&#39;; font-size: 10.5pt; mso-spacerun: &#39;yes&#39;;">StandardSession</span><span style="font-family: &#39;微软雅黑&#39;; font-size: 10.5pt; mso-spacerun: &#39;yes&#39;;">是<span style="font-family: Calibri;">tomcat</span><span style="font-family: 微软雅黑;">提供的标准实现，当然对外</span><span style="font-family: Calibri;">tomcat</span><span style="font-family: 微软雅黑;">不希望用户直接操作</span></span><span style="font-family: &#39;Calibri&#39;; font-size: 10.5pt; mso-spacerun: &#39;yes&#39;;">StandardSession</span><span style="font-family: &#39;微软雅黑&#39;; font-size: 10.5pt; mso-spacerun: &#39;yes&#39;;">，而是提供了一个</span><span style="font-family: &#39;Calibri&#39;; font-size: 10.5pt; mso-spacerun: &#39;yes&#39;;">StandardSessionFacade</span><span style="font-family: &#39;微软雅黑&#39;; font-size: 10.5pt; mso-spacerun: &#39;yes&#39;;">类，<span style="font-family: Calibri;">tomcat</span><span style="font-family: 微软雅黑;">容器里具体操作</span><span style="font-family: Calibri;">session</span><span style="font-family: 微软雅黑;">的组件是</span><span style="font-family: Calibri;">servlet</span><span style="font-family: 微软雅黑;">，而</span><span style="font-family: Calibri;">servlet</span><span style="font-family: 微软雅黑;">操作</span><span style="font-family: Calibri;">session</span><span style="font-family: 微软雅黑;">是通过</span></span><span style="font-family: &#39;Calibri&#39;; font-size: 10.5pt; mso-spacerun: &#39;yes&#39;;">StandardSessionFacade</span><span style="font-family: &#39;微软雅黑&#39;; font-size: 10.5pt; mso-spacerun: &#39;yes&#39;;">进行的，这样就可以防止程序员直接操作</span><span style="font-family: &#39;Calibri&#39;; font-size: 10.5pt; mso-spacerun: &#39;yes&#39;;">StandardSession</span><span style="font-family: &#39;微软雅黑&#39;; font-size: 10.5pt; mso-spacerun: &#39;yes&#39;;">所带来的安全问题。</span><span style="font-family: &#39;微软雅黑&#39;; font-size: 10.5pt; mso-spacerun: &#39;yes&#39;;">(</span><span style="font-family: &#39;Calibri&#39;; font-size: 10.5pt; mso-spacerun: &#39;yes&#39;;">StandardSessionFacade</span><span style="font-family: &#39;微软雅黑&#39;; font-size: 10.5pt; mso-spacerun: &#39;yes&#39;;">使用了设计模式里的</span><span style="font-family: &#39;Calibri&#39;; font-size: 10.5pt; mso-spacerun: &#39;yes&#39;;">Façade</span><span style="font-family: &#39;微软雅黑&#39;; font-size: 10.5pt; mso-spacerun: &#39;yes&#39;;">（外观）模式，外观模式能让不同逻辑层的组件进行解耦</span><span style="font-family: &#39;微软雅黑&#39;; font-size: 10.5pt; mso-spacerun: &#39;yes&#39;;">)<span style="font-family: 微软雅黑;">。</span></span></p>
+<p class="p0" style="text-indent: 21pt; margin-top: 0pt; margin-bottom: 0pt;">&nbsp;</p>
+<p class="p0" style="text-indent: 21pt; margin-top: 0pt; margin-bottom: 0pt;"><span style="font-family: &#39;微软雅黑&#39;; font-size: 10.5pt; mso-spacerun: &#39;yes&#39;;">实现类里有<span style="font-family: Calibri;">Manager</span><span style="font-family: 微软雅黑;">的类是用来管理</span><span style="font-family: Calibri;">session</span><span style="font-family: 微软雅黑;">的工具类，它负责创建和销毁</span><span style="font-family: Calibri;">session</span><span style="font-family: 微软雅黑;">对象，其中</span><span style="font-family: Calibri;">ManagerBase</span><span style="font-family: 微软雅黑;">是所有</span><span style="font-family: Calibri;">session</span><span style="font-family: 微软雅黑;">管理工具类的基类，它是一个抽象类，所有具体实现</span><span style="font-family: Calibri;">session</span><span style="font-family: 微软雅黑;">管理功能的类都要继承这个类，该类有一个受保护的方法，该方法就是创建</span><span style="font-family: Calibri;">sessionId</span><span style="font-family: 微软雅黑;">值的方法（</span><span style="font-family: Calibri;">tomcat</span><span style="font-family: 微软雅黑;">的</span><span style="font-family: Calibri;">session</span><span style="font-family: 微软雅黑;">的</span><span style="font-family: Calibri;">id</span><span style="font-family: 微软雅黑;">值生成的机制是一个随机数加时间加上</span><span style="font-family: Calibri;">jvm</span><span style="font-family: 微软雅黑;">的</span><span style="font-family: Calibri;">id</span><span style="font-family: 微软雅黑;">值，</span><span style="font-family: Calibri;">jvm</span><span style="font-family: 微软雅黑;">的</span><span style="font-family: Calibri;">id</span><span style="font-family: 微软雅黑;">值会根据服务器的硬件信息计算得来，因此不同</span><span style="font-family: Calibri;">jvm</span><span style="font-family: 微软雅黑;">的</span><span style="font-family: Calibri;">id</span><span style="font-family: 微软雅黑;">值都是唯一的），</span><span style="font-family: Calibri;">StandardManager</span><span style="font-family: 微软雅黑;">类是</span><span style="font-family: Calibri;">tomcat</span><span style="font-family: 微软雅黑;">容器里默认的</span><span style="font-family: Calibri;">session</span><span style="font-family: 微软雅黑;">管理实现类，它会将</span><span style="font-family: Calibri;">session</span><span style="font-family: 微软雅黑;">的信息存储到</span><span style="font-family: Calibri;">web</span><span style="font-family: 微软雅黑;">容器所在服务器的内存里。</span><span style="font-family: Calibri;">PersistentManagerBase</span><span style="font-family: 微软雅黑;">也是继承</span><span style="font-family: Calibri;">ManagerBase</span><span style="font-family: 微软雅黑;">类，它是所有持久化存储</span><span style="font-family: Calibri;">session</span><span style="font-family: 微软雅黑;">信息的基类，</span><span style="font-family: Calibri;">PersistentManager</span><span style="font-family: 微软雅黑;">继承了</span><span style="font-family: Calibri;">PersistentManagerBase</span><span style="font-family: 微软雅黑;">，但是这个类只是多了一个静态变量和一个</span><span style="font-family: Calibri;">getName</span><span style="font-family: 微软雅黑;">方法，目前看来意义不大，对于持久化存储</span><span style="font-family: Calibri;">session</span><span style="font-family: 微软雅黑;">，</span><span style="font-family: Calibri;">tomcat</span><span style="font-family: 微软雅黑;">还提供了</span><span style="font-family: Calibri;">StoreBase</span><span style="font-family: 微软雅黑;">的抽象类，它是所有持久化存储</span><span style="font-family: Calibri;">session</span><span style="font-family: 微软雅黑;">的基类，另外</span><span style="font-family: Calibri;">tomcat</span><span style="font-family: 微软雅黑;">还给出了文件存储</span><span style="font-family: Calibri;">FileStore</span><span style="font-family: 微软雅黑;">和数据存储</span><span style="font-family: Calibri;">JDBCStore</span><span style="font-family: 微软雅黑;">两个实现。</span></span></p>
+<p class="p0" style="text-indent: 21pt; margin-top: 0pt; margin-bottom: 0pt;">&nbsp;</p>
+<h2 style="margin-top: 0pt; margin-bottom: 0pt;"><span style="font-family: &#39;微软雅黑&#39;; font-size: 16pt; font-weight: bold; mso-spacerun: &#39;yes&#39;;">1.4&nbsp;</span><span style="font-family: &#39;微软雅黑&#39;; font-size: 16pt; font-weight: bold; mso-spacerun: &#39;yes&#39;;">在实际运用中<span style="font-family: Cambria;">session</span><span style="font-family: 微软雅黑;">所带来的问题</span></span></h2>
+<p class="p0" style="text-indent: 21pt; margin-top: 0pt; margin-bottom: 0pt;"><span style="font-family: &#39;微软雅黑&#39;; font-size: 10.5pt; mso-spacerun: &#39;yes&#39;;">由上面所描述的</span><span style="font-family: &#39;微软雅黑&#39;; font-size: 10.5pt; mso-spacerun: &#39;yes&#39;;">session<span style="font-family: 微软雅黑;">实现机制，我们会发现，为了弥补</span><span style="font-family: Calibri;">http</span><span style="font-family: 微软雅黑;">协议的无状态的特点，服务端会占用一定的内存和</span><span style="font-family: Calibri;">cpu</span><span style="font-family: 微软雅黑;">用来存储和处理</span><span style="font-family: Calibri;">session</span><span style="font-family: 微软雅黑;">计算的开销，这也就是</span><span style="font-family: Calibri;">tomcat</span><span style="font-family: 微软雅黑;">这个的</span><span style="font-family: Calibri;">web</span><span style="font-family: 微软雅黑;">容器的并发连接那么低（</span><span style="font-family: Calibri;">tomcat</span><span style="font-family: 微软雅黑;">官方文档里默认的连接数是</span><span style="font-family: Calibri;">200</span><span style="font-family: 微软雅黑;">）原因之一。因此很多</span><span style="font-family: Calibri;">java</span><span style="font-family: 微软雅黑;">语言编写的网站，在生产环境里</span><span style="font-family: Calibri;">web</span><span style="font-family: 微软雅黑;">容器之前会加一个静态资源服务器，例如：</span><span style="font-family: Calibri;">apache</span><span style="font-family: 微软雅黑;">服务器或</span><span style="font-family: Calibri;">nginx</span><span style="font-family: 微软雅黑;">服务器，静态资源服务器没有解决</span><span style="font-family: Calibri;">http</span><span style="font-family: 微软雅黑;">无状态问题的功能，因此部署静态资源的服务器也就不会让出内存或</span><span style="font-family: Calibri;">cpu</span><span style="font-family: 微软雅黑;">计算资源专门去处理像</span><span style="font-family: Calibri;">session</span><span style="font-family: 微软雅黑;">这样的功能，这些内存和</span><span style="font-family: Calibri;">cpu</span><span style="font-family: 微软雅黑;">资源可以更有效的处理每个</span><span style="font-family: Calibri;">http</span><span style="font-family: 微软雅黑;">请求，因此静态资源服务器的并发连接数更高，所以我们可以让那些没有状态保持要求的请求直接在静态服务器里处理，而要进行状态保持的请求则在java的</span><span style="font-family: Calibri;">web</span><span style="font-family: 微软雅黑;">容器里进行处理，这样能更好的提升网站的效率。</span></span></p>
+<p class="p0" style="text-indent: 21pt; margin-top: 0pt; margin-bottom: 0pt;">&nbsp;</p>
+<p class="p0" style="text-indent: 21pt; margin-top: 0pt; margin-bottom: 0pt;"><span style="font-family: &#39;微软雅黑&#39;; font-size: 10.5pt; mso-spacerun: &#39;yes&#39;;">当下的互联网网站为了提高网站安全性和并发量，服务端的部署的服务器的数量往往是大于或等于两台，多台服务器对外提供的服务是等价的，但是不同的服务器上面肯定会有不同的<span style="font-family: Calibri;">web</span><span style="font-family: 微软雅黑;">容器，由上面的讲述我们知道</span><span style="font-family: Calibri;">session</span><span style="font-family: 微软雅黑;">的实现机制都是</span><span style="font-family: Calibri;">web</span><span style="font-family: 微软雅黑;">容器里内部机制，这就导致一个</span><span style="font-family: Calibri;">web</span><span style="font-family: 微软雅黑;">容器里所生成的</span><span style="font-family: Calibri;">session</span><span style="font-family: 微软雅黑;">的</span><span style="font-family: Calibri;">id</span><span style="font-family: 微软雅黑;">值是不同的，因此当一个请求到了</span><span style="font-family: Calibri;">A</span><span style="font-family: 微软雅黑;">服务器，浏览器得到响应后，客户端存下的是</span><span style="font-family: Calibri;">A</span><span style="font-family: 微软雅黑;">服务器上所生成的</span><span style="font-family: Calibri;">session</span><span style="font-family: 微软雅黑;">的</span><span style="font-family: Calibri;">id</span><span style="font-family: 微软雅黑;">，当在另一个请求分发到了</span><span style="font-family: Calibri;">B</span><span style="font-family: 微软雅黑;">服务器，</span><span style="font-family: Calibri;">B</span><span style="font-family: 微软雅黑;">服务器上的</span><span style="font-family: Calibri;">web</span><span style="font-family: 微软雅黑;">容器是不能识别这个</span><span style="font-family: Calibri;">session</span><span style="font-family: 微软雅黑;">的</span><span style="font-family: Calibri;">id</span><span style="font-family: 微软雅黑;">值，更不会有这个</span><span style="font-family: Calibri;">sessionID</span><span style="font-family: 微软雅黑;">所对应记录下来的信息，这个时候就需要两个不同</span><span style="font-family: Calibri;">web</span><span style="font-family: 微软雅黑;">容器之间进行</span><span style="font-family: Calibri;">session</span><span style="font-family: 微软雅黑;">的同步。</span><span style="font-family: Calibri;">Tomcat</span><span style="font-family: 微软雅黑;">容器有一个官方的解决方案就是使用</span><span style="font-family: Calibri;">apache+tomcat+mod_jk</span><span style="font-family: 微软雅黑;">方案，当一个</span><span style="font-family: Calibri;">web</span><span style="font-family: 微软雅黑;">容器里</span><span style="font-family: Calibri;">session</span><span style="font-family: 微软雅黑;">的信息发生变化后，该</span><span style="font-family: Calibri;">web</span><span style="font-family: 微软雅黑;">容器会向另一个</span><span style="font-family: Calibri;">web</span><span style="font-family: 微软雅黑;">容器进行广播，另一个</span><span style="font-family: Calibri;">web</span><span style="font-family: 微软雅黑;">收到广播后将</span><span style="font-family: Calibri;">session</span><span style="font-family: 微软雅黑;">信息同步到自己的容器里，这个过程是十分消耗系统资源，当访问量增加会严重影响到网站的效率和稳定性。</span></span></p>
+<p class="p0" style="text-indent: 21pt; margin-top: 0pt; margin-bottom: 0pt;">&nbsp;</p>
+<p class="p0" style="text-indent: 21pt; margin-top: 0pt; margin-bottom: 0pt;"><span style="font-family: &#39;微软雅黑&#39;; font-size: 10.5pt; mso-spacerun: &#39;yes&#39;;">我现在所做的网站里有一个解决方案，当用户请求网站的时候会先将请求发送给硬件的负载均衡设备，该设备可以截获客户端发送过来的<span style="font-family: Calibri;">session</span><span style="font-family: 微软雅黑;">的</span><span style="font-family: Calibri;">id</span><span style="font-family: 微软雅黑;">值，然后我们根据这个</span><span style="font-family: Calibri;">id</span><span style="font-family: 微软雅黑;">值找到产生这个</span><span style="font-family: Calibri;">session</span><span style="font-family: 微软雅黑;">的服务器，将请求直接发送给这台服务器。这种解决方案看起来解决了</span><span style="font-family: Calibri;">session</span><span style="font-family: 微软雅黑;">共享问题，其实结果是将集群系统最终变回了单点系统，如果处理请求的</span><span style="font-family: Calibri;">web</span><span style="font-family: 微软雅黑;">容器挂掉了，那么用户的相关会话操作也就废掉了。此外，这种做法也干扰了负载均衡服务器的负载均衡的计算，让请求的分发并不是公平的。</span></span></p>
+<p class="p0" style="text-indent: 21pt; margin-top: 0pt; margin-bottom: 0pt;">&nbsp;</p>
+<p class="p0" style="margin-top: 0pt; margin-bottom: 0pt;"><span style="font-family: &#39;微软雅黑&#39;; font-size: 10.5pt; mso-spacerun: &#39;yes&#39;;">　　一般大型互联公司的网站都是有一个个独立的频道所组成的，例如我们常用的百度，会有百度搜索，百度音乐，百度百科等等，我相信他们不会把这些不同频道都给一个开发团队完成，应该每个频道都是一个独立开发团队，因为每个频道的应用的都是独立的<span style="font-family: Calibri;">web</span><span style="font-family: 微软雅黑;">应用，那么就存在一个跨站点的</span><span style="font-family: Calibri;">session</span><span style="font-family: 微软雅黑;">同步的问题，跨站点的登录可以使用单点登录的（</span><span style="font-family: Calibri;">SSO</span><span style="font-family: 微软雅黑;">）的解决方案，但是不管什么解决方案，跨站点的</span><span style="font-family: Calibri;">session</span><span style="font-family: 微软雅黑;">共享任然是逃避不了的问题。</span></span></p>
+<p class="p0" style="margin-top: 0pt; margin-bottom: 0pt;">&nbsp;</p>
+<h2 style="margin-top: 0pt; margin-bottom: 0pt;"><span style="font-family: &#39;微软雅黑&#39;; font-size: 16pt; font-weight: bold; mso-spacerun: &#39;yes&#39;;">1.5&nbsp;</span><span style="font-family: &#39;微软雅黑&#39;; font-size: 16pt; font-weight: bold; mso-spacerun: &#39;yes&#39;;">解决<span style="font-family: Cambria;">session</span><span style="font-family: 微软雅黑;">相关问题的技术方案</span></span></h2>
+<p class="p0" style="text-indent: 21pt; margin-top: 0pt; margin-bottom: 0pt;"><span style="font-family: &#39;微软雅黑&#39;; font-size: 10.5pt; mso-spacerun: &#39;yes&#39;;">由上所述，<span style="font-family: Calibri;">session</span><span style="font-family: 微软雅黑;">一共有两个问题需要解决：</span></span></p>
+<p class="p0" style="text-indent: -21.25pt; margin-top: 0pt; margin-bottom: 0pt; margin-left: 21.25pt;"><span style="font-family: &#39;Calibri&#39;; font-size: 10.5pt; mso-spacerun: &#39;yes&#39;;">1)&nbsp;</span><span style="font-family: &#39;微软雅黑&#39;; font-size: 10.5pt; mso-spacerun: &#39;yes&#39;;">session<span style="font-family: 微软雅黑;">的存储应该独立于</span><span style="font-family: Calibri;">web</span><span style="font-family: 微软雅黑;">容器，也要独立于部署</span><span style="font-family: Calibri;">web</span><span style="font-family: 微软雅黑;">容器的服务器；</span></span></p>
+<p><span style="font-family: &#39;微软雅黑&#39;; font-size: 10.5pt; mso-spacerun: &#39;yes&#39;;">2）如何进行高效的<span style="font-family: Calibri;">session</span><span style="font-family: 微软雅黑;">同步。</span></span></p>
+<p class="p0" style="text-indent: 21pt; margin-top: 0pt; margin-bottom: 0pt;"><span style="font-family: &#39;微软雅黑&#39;; font-size: 10.5pt; mso-spacerun: &#39;yes&#39;;">在讲到解决这些问题之前，我们首先要考虑下<span style="font-family: Calibri;">session</span><span style="font-family: 微软雅黑;">如何存储才是高效，是存在内存、文件还是数据库了？文件和数据库的存储方式都是将</span><span style="font-family: Calibri;">session</span><span style="font-family: 微软雅黑;">的数据固化到硬盘上，操作硬盘的方式就是</span><span style="font-family: Calibri;">IO</span><span style="font-family: 微软雅黑;">，</span><span style="font-family: Calibri;">IO</span><span style="font-family: 微软雅黑;">操作的效率是远远低于操作内存的数据，因此文件和数据库存储方式是不可取的，所以将</span><span style="font-family: Calibri;">session</span><span style="font-family: 微软雅黑;">数据存储到内存是最佳的选择。因此最好的解决方案就是使用分布式缓存技术，例如：</span><span style="font-family: Calibri;">memcached</span><span style="font-family: 微软雅黑;">和</span><span style="font-family: Calibri;">redis</span><span style="font-family: 微软雅黑;">，将</span><span style="font-family: Calibri;">session</span><span style="font-family: 微软雅黑;">信息的存储独立出来也是解决</span><span style="font-family: Calibri;">session</span><span style="font-family: 微软雅黑;">同步问题的方法。</span></span></p>
+<p class="p0" style="text-indent: 21pt; margin-top: 0pt; margin-bottom: 0pt;"><span style="font-family: &#39;微软雅黑&#39;; font-size: 10.5pt; mso-spacerun: &#39;yes&#39;;">Tomcat<span style="font-family: 微软雅黑;">的</span><span style="font-family: Calibri;">session</span><span style="font-family: 微软雅黑;">同步也有使用</span><span style="font-family: Calibri;">memcache</span><span style="font-family: 微软雅黑;">的解决方案，大家可以参加下面的文章：</span></span></p>
+<p class="p0" style="text-indent: 21pt; margin-top: 0pt; margin-bottom: 0pt;">&nbsp;</p>
+<p class="p0" style="margin-top: 0pt; margin-bottom: 0pt;"><span>　　<a href="http://blog.sina.com.cn/s/blog_5376c71901017bqx.html"><span style="color: #0000ff; font-family: &#39;宋体&#39;; font-size: 12pt; text-decoration: underline; mso-spacerun: &#39;yes&#39;;">http://blog.sina.com.cn/s/blog_5376c71901017bqx.html</span></a></span></p>
+<p class="p0" style="text-indent: 21pt; margin-top: 0pt; margin-bottom: 0pt;"><span style="font-family: &#39;微软雅黑&#39;; font-size: 10.5pt; mso-spacerun: &#39;yes&#39;;">但是该方案只是解决了同步问题，<span style="font-family: Calibri;">session</span><span style="font-family: 微软雅黑;">机制任然和</span><span style="font-family: Calibri;">web</span><span style="font-family: 微软雅黑;">容器紧耦合，我们需要一个高效、可扩展的解决方案，那么我们就应该不是简单的把</span><span style="font-family: Calibri;">session</span><span style="font-family: 微软雅黑;">独立出来存储而是设计一个完全独立的</span><span style="font-family: Calibri;">session</span><span style="font-family: 微软雅黑;">机制，它既能给每个</span><span style="font-family: Calibri;">web</span><span style="font-family: 微软雅黑;">应用提供</span><span style="font-family: Calibri;">session</span><span style="font-family: 微软雅黑;">的功能又可以实现</span><span style="font-family: Calibri;">session</span><span style="font-family: 微软雅黑;">同步，下面是一篇用</span><span style="font-family: Calibri;">zookeeper</span><span style="font-family: 微软雅黑;">实现的分布式</span><span style="font-family: Calibri;">session</span><span style="font-family: 微软雅黑;">方案：</span></span></p>
+<p class="p0" style="margin-top: 0pt; margin-bottom: 0pt;"><!--EndFragment--></p>
+<p class="p0" style="text-indent: 21pt; margin-top: 0pt; margin-bottom: 0pt;"><span><a href="http://www.open-open.com/lib/view/open1378556537303.html"><span style="color: #0000ff; font-family: &#39;宋体&#39;; font-size: 12pt; text-decoration: underline; mso-spacerun: &#39;yes&#39;;">http://www.open-open.com/lib/view/open1378556537303.html</span></a></span></p>
+<p class="p0" style="text-indent: 21pt; margin-top: 0pt; margin-bottom: 0pt;">&nbsp;</p>
+<p class="p0" style="text-indent: 21pt; margin-top: 0pt; margin-bottom: 0pt;"><span style="font-family: &#39;微软雅黑&#39;; font-size: 10.5pt; mso-spacerun: &#39;yes&#39;;">好了写完了，今天只是简单剖析下<span style="font-family: Calibri;">session</span><span style="font-family: 微软雅黑;">机制，以后有机会我拿出一套最好的独立</span><span style="font-family: Calibri;">session</span><span style="font-family: 微软雅黑;">设计机制方案来的。</span></span></p>
+<p class="p0" style="text-indent: 21pt; margin-top: 0pt; margin-bottom: 0pt;"><!--EndFragment--></p>
+<p class="p0" style="margin-top: 0pt; margin-bottom: 0pt;"><!--EndFragment--></p>
+<p><span style="font-family: &#39;微软雅黑&#39;; font-size: 10.5pt; mso-spacerun: &#39;yes&#39;;"><span style="font-family: 微软雅黑;"><!--EndFragment--></span></span></p>
+<p><span style="font-family: &#39;微软雅黑&#39;; font-size: 16pt; font-weight: bold; mso-spacerun: &#39;yes&#39;;"><span style="font-family: 微软雅黑;"><!--EndFragment--></span></span></p>
+<p class="p0" style="margin-top: 0pt; margin-bottom: 0pt;"><span style="font-family: &#39;微软雅黑&#39;; font-size: 10.5pt; mso-spacerun: &#39;yes&#39;;"><span style="font-family: 微软雅黑;"><!--EndFragment--></span></span></p>
+<p class="p0" style="text-indent: 21pt; margin-top: 0pt; margin-bottom: 0pt;"><span style="font-family: &#39;微软雅黑&#39;; font-size: 10.5pt; mso-spacerun: &#39;yes&#39;;"><span style="font-family: 微软雅黑;"><!--EndFragment--></span></span></p>
+<p class="p0" style="text-indent: 21pt; margin-top: 0pt; margin-bottom: 0pt;"><span style="font-family: &#39;微软雅黑&#39;; font-size: 10.5pt; mso-spacerun: &#39;yes&#39;;"><span style="font-family: 微软雅黑;"><!--EndFragment--></span></span></p>
+<p class="p0" style="text-indent: 21pt; margin-top: 0pt; margin-bottom: 0pt;"><span style="font-family: &#39;微软雅黑&#39;; font-size: 10.5pt; mso-spacerun: &#39;yes&#39;;"><span style="font-family: 微软雅黑;"><!--EndFragment--></span></span></p>
+<p><span style="font-family: &#39;微软雅黑&#39;; font-size: 16pt; font-weight: bold; mso-spacerun: &#39;yes&#39;;"><span style="font-family: 微软雅黑;"><!--EndFragment--></span></span></p>
+<p class="p0" style="text-indent: 21pt; margin-top: 0pt; margin-bottom: 0pt;"><span style="font-family: &#39;微软雅黑&#39;; font-size: 10.5pt; mso-spacerun: &#39;yes&#39;;"><span style="font-family: 微软雅黑;"><!--EndFragment--></span></span></p>
+<p class="p0" style="text-indent: 21pt; margin-top: 0pt; margin-bottom: 0pt;"><span style="font-family: &#39;微软雅黑&#39;; font-size: 10.5pt; mso-spacerun: &#39;yes&#39;;"><span style="font-family: 微软雅黑;"><!--EndFragment--></span></span></p>
+<p class="p0" style="margin-top: 0pt; margin-bottom: 0pt;"><!--EndFragment--></p>
+<p class="p0" style="text-indent: 21pt; margin-top: 0pt; margin-bottom: 0pt;"><span style="font-family: &#39;微软雅黑&#39;; font-size: 10.5pt; mso-spacerun: &#39;yes&#39;;"><span style="font-family: 微软雅黑;"><!--EndFragment--></span></span></p>
+<p class="p0" style="text-indent: 21pt; margin-top: 0pt; margin-bottom: 0pt;"><span style="font-family: &#39;微软雅黑&#39;; font-size: 10.5pt; mso-spacerun: &#39;yes&#39;;"><span style="font-family: 微软雅黑;"><!--EndFragment--></span></span></p>
+<p><span style="font-family: &#39;微软雅黑&#39;; font-size: 16pt; font-weight: bold; mso-spacerun: &#39;yes&#39;;"><span style="font-family: 微软雅黑;"><!--EndFragment--></span></span></p>
+<p class="p0" style="text-indent: 21pt; margin-top: 0pt; margin-bottom: 0pt;"><span style="font-family: &#39;微软雅黑&#39;; font-size: 10.5pt; mso-spacerun: &#39;yes&#39;;"><span style="font-family: 微软雅黑;"><!--EndFragment--></span></span></p>
+<p><span style="font-family: &#39;微软雅黑&#39;; font-size: 16pt; font-weight: bold; mso-spacerun: &#39;yes&#39;;"><span style="font-family: 微软雅黑;"><!--EndFragment--></span></span></p>
+<p class="p0" style="text-indent: 21pt; margin-top: 0pt; margin-bottom: 0pt;"><span style="font-family: &#39;微软雅黑&#39;; font-size: 10.5pt; font-weight: bold; mso-spacerun: &#39;yes&#39;;"><span style="font-family: 微软雅黑;"><!--EndFragment--></span></span></p>
+<p class="p0" style="text-indent: 21pt; margin-top: 0pt; margin-bottom: 0pt;"><span style="font-family: &#39;微软雅黑&#39;; font-size: 10.5pt; mso-spacerun: &#39;yes&#39;;"><span style="font-family: 微软雅黑;"><!--EndFragment--></span></span></p>
+<p class="p0" style="text-indent: 21pt; margin-top: 0pt; margin-bottom: 0pt;"><span style="font-family: &#39;微软雅黑&#39;; font-size: 10.5pt; mso-spacerun: &#39;yes&#39;;"><span style="font-family: 微软雅黑;"><!--EndFragment--></span></span></p>
+<p class="p0" style="text-indent: 21pt; margin-top: 0pt; margin-bottom: 0pt;"><span style="font-family: &#39;微软雅黑&#39;; font-size: 10.5pt; mso-spacerun: &#39;yes&#39;;"><span style="font-family: 微软雅黑;"><!--EndFragment--></span></span></p>
+<p class="p0" style="text-indent: 21pt; margin-top: 0pt; margin-bottom: 0pt;"><span style="font-family: &#39;微软雅黑&#39;; font-size: 10.5pt; mso-spacerun: &#39;yes&#39;;"><span style="font-family: 微软雅黑;"><!--EndFragment--></span></span></p>
+<p class="p0" style="text-indent: 21pt; margin-top: 0pt; margin-bottom: 0pt;"><span style="font-family: &#39;微软雅黑&#39;; font-size: 10.5pt; mso-spacerun: &#39;yes&#39;;"><span style="font-family: 微软雅黑;"><!--EndFragment--></span></span></p>
+<!--EndFragment--></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory">分类: <a href="http://www.cnblogs.com/sharpxiajun/category/325368.html" target="_blank">java</a>,<a href="http://www.cnblogs.com/sharpxiajun/category/325369.html" target="_blank">系统设计与架构</a>,<a href="http://www.cnblogs.com/sharpxiajun/category/325378.html" target="_blank">项目经验</a>,<a href="http://www.cnblogs.com/sharpxiajun/category/325375.html" target="_blank">云计算</a></div>
+<div id="EntryTag"></div>
+<div id="blog_post_info"><div id="green_channel">
+        <a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(3395607,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+            <a id="green_channel_follow" onclick="follow(&#39;5f788e31-e290-e011-a53f-842b2b196315&#39;);" href="javascript:void(0);">关注我</a>
+    <a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a>
+    <a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./session机制详解以及session的相关应用 - 夏天的森林 - 博客园_files/icon_weibo_24.png" alt=""></a>
+    <a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="./session机制详解以及session的相关应用 - 夏天的森林 - 博客园_files/wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+    <div id="author_profile_info" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/sharpxiajun/" target="_blank"><img src="./session机制详解以及session的相关应用 - 夏天的森林 - 博客园_files/20160602215924.png" class="author_avatar" alt=""></a>
+        <div id="author_profile_detail" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/sharpxiajun/">夏天的森林</a><br>
+            <a href="http://home.cnblogs.com/u/sharpxiajun/followees">关注 - 18</a><br>
+            <a href="http://home.cnblogs.com/u/sharpxiajun/followers">粉丝 - 3140</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div id="author_profile_honor">荣誉：<a href="http://www.cnblogs.com/expert/" target="_blank">推荐博客</a></div>
+    <div id="author_profile_follow">
+                <a href="javascript:void(0);" onclick="follow(&#39;5f788e31-e290-e011-a53f-842b2b196315&#39;);return false;">+加关注</a>
+    </div>
+</div>
+<div id="div_digg">
+    <div class="diggit" onclick="votePost(3395607,&#39;Digg&#39;)">
+        <span class="diggnum" id="digg_count">29</span>
+    </div>
+    <div class="buryit" onclick="votePost(3395607,&#39;Bury&#39;)">
+        <span class="burynum" id="bury_count">1</span>
+    </div>
+    <div class="clear"></div>
+    <div class="diggword" id="digg_tips">
+    </div>
+</div>
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/sharpxiajun/p/3318265.html" class="p_n_p_prefix">« </a> 上一篇：<a href="http://www.cnblogs.com/sharpxiajun/p/3318265.html" title="发布于2013-09-13 00:24">javascript笔记：javascript的关键所在---作用域链</a><br><a href="http://www.cnblogs.com/sharpxiajun/p/3446660.html" class="p_n_p_prefix">» </a> 下一篇：<a href="http://www.cnblogs.com/sharpxiajun/p/3446660.html" title="发布于2013-11-27 22:13">系统架构：前端监控系统草案（技术路线和用户行为分析相似）</a><br></div>
+</div>
+
+
+		</div>
+		<div class="postDesc">posted @ <span id="post-date">2013-10-29 23:22</span> <a href="http://www.cnblogs.com/sharpxiajun/">夏天的森林</a> 阅读(<span id="post_view_count">27341</span>) 评论(<span id="post_comment_count">9</span>)  <a href="https://i.cnblogs.com/EditPosts.aspx?postid=3395607" rel="nofollow">编辑</a> <a href="http://www.cnblogs.com/sharpxiajun/p/3395607.html#" onclick="AddToWz(3395607);return false;">收藏</a></div>
+	</div>
+	<script type="text/javascript">var allowComments=true,cb_blogId=90635,cb_entryId=3395607,cb_blogApp=currentBlogApp,cb_blogUserGuid='5f788e31-e290-e011-a53f-842b2b196315',cb_entryCreatedDate='2013/10/29 23:22:00';loadViewCount(cb_entryId);</script>
+	
+</div><!--end: topics 文章、评论容器-->
+</div><a name="!comments"></a><div id="blog-comments-placeholder"><div id="comments_pager_top"></div>
+<br>
+<div class="feedback_area_title">评论列表</div>
+<div class="feedbackNoItems"></div>	
+
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/sharpxiajun/p/3395607.html#2805436" class="layer">#1楼</a><a name="2805436" id="comment_anchor_2805436"></a>  <span class="comment_date">2013-10-30 10:24</span> <a id="a_comment_author_2805436" href="http://www.cnblogs.com/shouhuqingtian/" target="_blank">守护晴天</a> <a href="http://msg.cnblogs.com/send/%E5%AE%88%E6%8A%A4%E6%99%B4%E5%A4%A9" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2805436" class="blog_comment_body">关于楼主说的“（注意：有些资料说ASP解决这个问题，当浏览器的cookie被禁掉，服务端的session任然可以正常使用，ASP我没试验过，但是对于网络上很多用php和jsp编写的网站，我发现禁掉cookie，网站的session都无法正常的访问）”，我想说说我的看法。<br><br>我是做ASP.NET开发的，对于SessionId如何在客户端存储，我有点模糊的印象，看到上面这句话以后我又问了一下度娘，得到了算是比较靠谱的答案。<br><br>首先我觉得Session在客户端不一定非要依赖Cookie，还有两个也是可以尝试，但是都有缺点，一个是请求的URL，一个是表单隐藏域。<br><br>URL存在的问题，一个是信息直接暴露出来，安全性有一定隐患（当然sessionid都是加密的），另一个是用户可能会人为修改这个值（但是Cookie也可能被用户伪造）；而表单隐藏域是随表单提交的，如果页面首次加载或者没有表单，实现起来可能就麻烦了。<br><br>asp.net就是用url处理禁用Cookie后保持会话状态的问题的，请看我找的别人的博客（原文参照<a href="http://www.cnblogs.com/365haha/archive/2006/08/21/482491.html" target="_blank">web.config中SessionState的配置</a>）：<br>“ASP.NET会话状态模块在Web.config文件中像下面这样配置：<br>&lt;sessionState mode="InProc" cookieless="false" timeout="20" /&gt;，不用Cookie来传递会话ID。需要采用下面这样的URL：<br>http://my.website.com/(12mfju55vgblubjlwsi4dgjq)/education.aspx，圆括号中长长的字母、数字字符串就是会话ID。ASP.NET引擎从查询字符中提取会话ID，并将用户请求与特定会话联系起来。采取这种方式，不管Cookie还是隐藏表单字段都用不着了。”<br><br>最后说一句，以前只是会用Session和Cookie，但是对它们哥俩了解得不是很深入，看了楼主的文章后，对它们的了解又深入了一层。感谢楼主分享！</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2805436,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2805436,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_2805436_avatar" style="display:none;">http://pic.cnblogs.com/face/u420572.jpg?id=04215403</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/sharpxiajun/p/3395607.html#2805573" class="layer">#2楼</a><a name="2805573" id="comment_anchor_2805573"></a>  <span class="comment_date">2013-10-30 12:32</span> <a id="a_comment_author_2805573" href="http://www.cnblogs.com/noahsky/" target="_blank">noahsky</a> <a href="http://msg.cnblogs.com/send/noahsky" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2805573" class="blog_comment_body">session id在客户端一般使用会话Cookie存储，应该在内存中；不会存在<br>[系统盘]:\Documents and Settings\[用户名]\Cookies目录下</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2805573,&#39;Digg&#39;,this)">支持(1)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2805573,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/sharpxiajun/p/3395607.html#2805576" class="layer">#3楼</a><a name="2805576" id="comment_anchor_2805576"></a>  <span class="comment_date">2013-10-30 12:34</span> <a id="a_comment_author_2805576" href="http://www.cnblogs.com/codezyc/" target="_blank">codezyc</a> <a href="http://msg.cnblogs.com/send/codezyc" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2805576" class="blog_comment_body">好文，谢谢楼主的分享。</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2805576,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2805576,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/sharpxiajun/p/3395607.html#2973373" class="layer">#4楼</a><a name="2973373" id="comment_anchor_2973373"></a>  <span class="comment_date">2014-06-28 16:32</span> <a id="a_comment_author_2973373" href="http://home.cnblogs.com/u/137425/" target="_blank">Ryan_1715575332</a> <a href="http://msg.cnblogs.com/send/Ryan_1715575332" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2973373" class="blog_comment_body">我们公司用cookie来保持会话，其实现在很多主流互联网公司，基本也这么做，你可以试试禁用cookie之后，再访问就会发现不同。<br>当然一般这个cookie值不是由业务系统写入的，一般会有一个统一系统专门做这个，XXX通行证。</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2973373,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2973373,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/sharpxiajun/p/3395607.html#3236879" class="layer">#5楼</a><a name="3236879" id="comment_anchor_3236879"></a>  <span class="comment_date">2015-07-28 15:38</span> <a id="a_comment_author_3236879" href="http://www.cnblogs.com/goodred/" target="_blank">圣灵的充满</a> <a href="http://msg.cnblogs.com/send/%E5%9C%A3%E7%81%B5%E7%9A%84%E5%85%85%E6%BB%A1" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3236879" class="blog_comment_body">温故而知新</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3236879,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3236879,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3236879_avatar" style="display:none;">http://pic.cnblogs.com/face/605223/20160617085948.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/sharpxiajun/p/3395607.html#3479048" class="layer">#6楼</a><a name="3479048" id="comment_anchor_3479048"></a>  <span class="comment_date">2016-07-29 12:20</span> <a id="a_comment_author_3479048" href="http://www.cnblogs.com/kloseking/" target="_blank">小丑鱼1</a> <a href="http://msg.cnblogs.com/send/%E5%B0%8F%E4%B8%91%E9%B1%BC1" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3479048" class="blog_comment_body">分析得不错， 温故知新。。。</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3479048,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3479048,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/sharpxiajun/p/3395607.html#3483674" class="layer">#7楼</a><a name="3483674" id="comment_anchor_3483674"></a>  <span class="comment_date">2016-08-05 14:16</span> <a id="a_comment_author_3483674" href="http://www.cnblogs.com/fangyuc/" target="_blank">杰西卡芳</a> <a href="http://msg.cnblogs.com/send/%E6%9D%B0%E8%A5%BF%E5%8D%A1%E8%8A%B3" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3483674" class="blog_comment_body">深入地了解了session和cookie这块的知识，谢谢楼主分享</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3483674,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3483674,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3483674_avatar" style="display:none;">http://pic.cnblogs.com/face/892249/20170526102433.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/sharpxiajun/p/3395607.html#3502303" class="layer">#8楼</a><a name="3502303" id="comment_anchor_3502303"></a>  <span class="comment_date">2016-09-02 19:14</span> <a id="a_comment_author_3502303" href="http://www.cnblogs.com/w94xa/" target="_blank">choose1</a> <a href="http://msg.cnblogs.com/send/choose1" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3502303" class="blog_comment_body">感谢楼主的分享, 期待后文.</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3502303,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3502303,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3502303_avatar" style="display:none;">http://pic.cnblogs.com/face/893818/20161216211259.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/sharpxiajun/p/3395607.html#3585432" class="layer">#9楼</a><a name="3585432" id="comment_anchor_3585432"></a><span id="comment-maxId" style="display:none;">3585432</span><span id="comment-maxDate" style="display:none;">2016/12/20 15:05:12</span>  <span class="comment_date">2016-12-20 15:05</span> <a id="a_comment_author_3585432" href="http://home.cnblogs.com/u/1079863/" target="_blank">技术宅男++</a> <a href="http://msg.cnblogs.com/send/%E6%8A%80%E6%9C%AF%E5%AE%85%E7%94%B7%2B%2B" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3585432" class="blog_comment_body">谢谢分享</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3585432,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3585432,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	<div id="comments_pager_bottom"></div></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="http://www.cnblogs.com/sharpxiajun/p/3395607.html#" onclick="return RefreshPage();">刷新页面</a><a href="http://www.cnblogs.com/sharpxiajun/p/3395607.html#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login(&#39;commentform&#39;);">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="ad_t2"><a href="http://www.ucancode.com/index.htm" target="_blank">【推荐】50万行VC++源码: 大型组态工控、电力仿真CAD与GIS源码库</a><br><a href="http://www.gcpowertools.com.cn/products/activereports/excel.htm?utm_source=cnblogs&amp;utm_medium=blogpage&amp;utm_term=bottom&amp;utm_content=AR&amp;utm_campaign=community" target="_blank">【报表】Excel 报表开发18 招式，人人都能做报表</a><br><a href="http://click.aliyun.com/m/15483" target="_blank">【活动】阿里云海外云服务全面降价助力企业全球布局</a><br><a href="https://group.cnblogs.com/topic/76829.html" target="_blank">【实用】40+篇云服务器操作及运维基础知识！</a><br></div>
+<div id="opt_under_post"></div>
+<div id="cnblogs_c1" class="c_ad_block"></div>
+<div id="under_post_news"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="http://news.cnblogs.com/n/570511/" target="_blank">京东智慧物流全体成员亮相ICRA，新成员仓储巡检无人机曝光</a><br> ·  <a href="http://news.cnblogs.com/n/570510/" target="_blank">震惊了！网购心脏起搏器存在多达8000个程序漏洞</a><br> ·  <a href="http://news.cnblogs.com/n/570509/" target="_blank">NVIDIA推出基于GPU的人工智能战略 最终落地是机器人</a><br> ·  <a href="http://news.cnblogs.com/n/570506/" target="_blank">人人影视Mac版发布：下片神器</a><br> ·  <a href="http://news.cnblogs.com/n/570508/" target="_blank">10万微商集体诉讼被骗100亿，最大微商集团被爆涉嫌“传销”</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div></div>
+<div id="cnblogs_c2" class="c_ad_block"><a href="http://click.aliyun.com/m/17215/" target="_blank"><img width="468" height="60" src="./session机制详解以及session的相关应用 - 夏天的森林 - 博客园_files/24442-20170417123605337-535991337.jpg" alt="阿里云E4"></a></div>
+<div id="under_post_kb"><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="http://kb.cnblogs.com/page/569992/" target="_blank">程序员的工作、学习与绩效</a><br> ·  <a href="http://kb.cnblogs.com/page/569056/" target="_blank">软件开发为什么很难</a><br> ·  <a href="http://kb.cnblogs.com/page/565901/" target="_blank">唱吧DevOps的落地，微服务CI/CD的范本技术解读</a><br> ·  <a href="http://kb.cnblogs.com/page/566523/" target="_blank">程序员，如何从平庸走向理想？</a><br> ·  <a href="http://kb.cnblogs.com/page/566318/" target="_blank">我为什么鼓励工程师写blog</a><br></div>» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+    fixPostBody();
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverAdT2();
+    deliverAdC1();
+    deliverAdC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);   
+</script>
+</div>
+
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<!--done-->
+<div class="newsItem">
+<h3 class="catListTitle">公告</h3>
+	<div id="blog-news"><div id="profile_block">昵称：<a href="http://home.cnblogs.com/u/sharpxiajun/">夏天的森林</a><br>园龄：<a href="http://home.cnblogs.com/u/sharpxiajun/" title="入园时间：2011-06-07">5年11个月</a><br>荣誉：<a href="http://www.cnblogs.com/expert/">推荐博客</a><br>粉丝：<a href="http://home.cnblogs.com/u/sharpxiajun/followers/">3140</a><br>关注：<a href="http://home.cnblogs.com/u/sharpxiajun/followees/">18</a><div id="p_b_follow"><a href="javascript:void(0);" onclick="follow(&#39;5f788e31-e290-e011-a53f-842b2b196315&#39;)">+加关注</a></div></div></div><script type="text/javascript">loadBlogNews();</script>
+</div>
+
+			<div id="blog-calendar" style=""><table id="blogCalendar" class="Cal" cellspacing="0" cellpadding="0" title="Calendar">
+	<tbody><tr><td colspan="7"><table class="CalTitle" cellspacing="0">
+		<tbody><tr><td class="CalNextPrev"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2017/04/01&#39;);return false;">&lt;</a></td><td align="center">2017年5月</td><td class="CalNextPrev" align="right"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2017/06/01&#39;);return false;">&gt;</a></td></tr>
+	</tbody></table></td></tr><tr><th class="CalDayHeader" align="center" abbr="日" scope="col">日</th><th class="CalDayHeader" align="center" abbr="一" scope="col">一</th><th class="CalDayHeader" align="center" abbr="二" scope="col">二</th><th class="CalDayHeader" align="center" abbr="三" scope="col">三</th><th class="CalDayHeader" align="center" abbr="四" scope="col">四</th><th class="CalDayHeader" align="center" abbr="五" scope="col">五</th><th class="CalDayHeader" align="center" abbr="六" scope="col">六</th></tr><tr><td class="CalOtherMonthDay" align="center">30</td><td align="center">1</td><td align="center">2</td><td align="center">3</td><td align="center">4</td><td align="center">5</td><td class="CalWeekendDay" align="center">6</td></tr><tr><td class="CalWeekendDay" align="center">7</td><td align="center">8</td><td align="center">9</td><td align="center">10</td><td align="center">11</td><td align="center">12</td><td class="CalWeekendDay" align="center">13</td></tr><tr><td class="CalWeekendDay" align="center">14</td><td align="center">15</td><td align="center">16</td><td align="center">17</td><td align="center">18</td><td align="center">19</td><td class="CalWeekendDay" align="center">20</td></tr><tr><td class="CalWeekendDay" align="center">21</td><td align="center">22</td><td align="center">23</td><td align="center">24</td><td align="center">25</td><td align="center">26</td><td class="CalWeekendDay" align="center">27</td></tr><tr><td class="CalWeekendDay" align="center">28</td><td align="center">29</td><td align="center">30</td><td class="CalTodayDay" align="center">31</td><td class="CalOtherMonthDay" align="center">1</td><td class="CalOtherMonthDay" align="center">2</td><td class="CalOtherMonthDay" align="center">3</td></tr><tr><td class="CalOtherMonthDay" align="center">4</td><td class="CalOtherMonthDay" align="center">5</td><td class="CalOtherMonthDay" align="center">6</td><td class="CalOtherMonthDay" align="center">7</td><td class="CalOtherMonthDay" align="center">8</td><td class="CalOtherMonthDay" align="center">9</td><td class="CalOtherMonthDay" align="center">10</td></tr>
+</tbody></table></div><script type="text/javascript">loadBlogDefaultCalendar();</script>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"><div id="sidebar_search" class="sidebar-block">
+<div id="sidebar_search" class="mySearch">
+<h3 class="catListTitle">搜索</h3>
+<div id="sidebar_search_box">
+<div id="widget_my_zzk" class="div_my_zzk"><input type="text" id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk">&nbsp;<input onclick="zzk_go()" type="button" value="找找看" id="btnZzk" class="btn_my_zzk"></div>
+<div id="widget_my_google" class="div_my_zzk"><input type="text" name="google_q" id="google_q" onkeydown="return google_go_enter(event)" class="input_my_zzk">&nbsp;<input onclick="google_go()" type="button" value="谷歌搜索" class="btn_my_zzk"></div>
+</div>
+</div>
+
+</div><div id="sidebar_shortcut" class="sidebar-block">
+<div class="catListLink">
+<h3 class="catListTitle">常用链接</h3>
+<ul>
+<li><a href="http://www.cnblogs.com/sharpxiajun/p/" title="我的博客的随笔列表">我的随笔</a></li><li><a href="http://www.cnblogs.com/sharpxiajun/MyComments.html" title="我发表过的评论列表">我的评论</a></li><li><a href="http://www.cnblogs.com/sharpxiajun/OtherPosts.html" title="我评论过的随笔列表">我的参与</a></li><li><a href="http://www.cnblogs.com/sharpxiajun/RecentComments.html" title="我的博客的评论列表">最新评论</a></li><li><a href="http://www.cnblogs.com/sharpxiajun/tag/" title="我的博客的标签列表">我的标签</a></li>
+</ul>
+<div id="itemListLin_con" style="display:none;">
+<ul>
+
+</ul>
+</div>
+</div></div><div id="sidebar_toptags" class="sidebar-block"></div><div id="sidebar_categories">
+<div id="sidebar_postcategory" class="catListPostCategory sidebar-block">
+<h3 class="catListTitle">随笔分类<span style="font-size:11px;font-weight:normal">(204)</span></h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_0_Link_0" href="http://www.cnblogs.com/sharpxiajun/category/325372.html">android</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_1" href="http://www.cnblogs.com/sharpxiajun/category/325367.html">css(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_2" href="http://www.cnblogs.com/sharpxiajun/category/325370.html">flex&amp;flash</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_3" href="http://www.cnblogs.com/sharpxiajun/category/325376.html">hadoop(11)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_4" href="http://www.cnblogs.com/sharpxiajun/category/325368.html">java(23)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_5" href="http://www.cnblogs.com/sharpxiajun/category/325366.html">javascript(42)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_6" href="http://www.cnblogs.com/sharpxiajun/category/325374.html">php(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_7" href="http://www.cnblogs.com/sharpxiajun/category/325377.html">python</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_8" href="http://www.cnblogs.com/sharpxiajun/category/325379.html">ruby</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_9" href="http://www.cnblogs.com/sharpxiajun/category/325371.html">数据库(9)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_10" href="http://www.cnblogs.com/sharpxiajun/category/325369.html">系统设计与架构(47)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_11" href="http://www.cnblogs.com/sharpxiajun/category/325378.html">项目经验(49)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_12" href="http://www.cnblogs.com/sharpxiajun/category/325373.html">心情(4)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_13" href="http://www.cnblogs.com/sharpxiajun/category/325375.html">云计算(16)</a> </li>
+
+</ul>
+
+</div>
+
+<div id="sidebar_postarchive" class="catListPostArchive sidebar-block">
+<h3 class="catListTitle">随笔档案<span style="font-size:11px;font-weight:normal">(133)</span></h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_1_Link_0" href="http://www.cnblogs.com/sharpxiajun/archive/2016/06.html">2016年6月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_1" href="http://www.cnblogs.com/sharpxiajun/archive/2016/05.html">2016年5月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_2" href="http://www.cnblogs.com/sharpxiajun/archive/2016/02.html">2016年2月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_3" href="http://www.cnblogs.com/sharpxiajun/archive/2016/01.html">2016年1月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_4" href="http://www.cnblogs.com/sharpxiajun/archive/2015/12.html">2015年12月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_5" href="http://www.cnblogs.com/sharpxiajun/archive/2015/11.html">2015年11月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_6" href="http://www.cnblogs.com/sharpxiajun/archive/2015/03.html">2015年3月 (6)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_7" href="http://www.cnblogs.com/sharpxiajun/archive/2015/02.html">2015年2月 (12)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_8" href="http://www.cnblogs.com/sharpxiajun/archive/2015/01.html">2015年1月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_9" href="http://www.cnblogs.com/sharpxiajun/archive/2014/12.html">2014年12月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_10" href="http://www.cnblogs.com/sharpxiajun/archive/2014/11.html">2014年11月 (7)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_11" href="http://www.cnblogs.com/sharpxiajun/archive/2014/09.html">2014年9月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_12" href="http://www.cnblogs.com/sharpxiajun/archive/2014/08.html">2014年8月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_13" href="http://www.cnblogs.com/sharpxiajun/archive/2014/07.html">2014年7月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_14" href="http://www.cnblogs.com/sharpxiajun/archive/2014/01.html">2014年1月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_15" href="http://www.cnblogs.com/sharpxiajun/archive/2013/12.html">2013年12月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_16" href="http://www.cnblogs.com/sharpxiajun/archive/2013/11.html">2013年11月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_17" href="http://www.cnblogs.com/sharpxiajun/archive/2013/10.html">2013年10月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_18" href="http://www.cnblogs.com/sharpxiajun/archive/2013/09.html">2013年9月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_19" href="http://www.cnblogs.com/sharpxiajun/archive/2013/08.html">2013年8月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_20" href="http://www.cnblogs.com/sharpxiajun/archive/2013/06.html">2013年6月 (7)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_21" href="http://www.cnblogs.com/sharpxiajun/archive/2013/05.html">2013年5月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_22" href="http://www.cnblogs.com/sharpxiajun/archive/2013/01.html">2013年1月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_23" href="http://www.cnblogs.com/sharpxiajun/archive/2012/08.html">2012年8月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_24" href="http://www.cnblogs.com/sharpxiajun/archive/2012/07.html">2012年7月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_25" href="http://www.cnblogs.com/sharpxiajun/archive/2012/06.html">2012年6月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_26" href="http://www.cnblogs.com/sharpxiajun/archive/2012/05.html">2012年5月 (5)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_27" href="http://www.cnblogs.com/sharpxiajun/archive/2012/04.html">2012年4月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_28" href="http://www.cnblogs.com/sharpxiajun/archive/2012/03.html">2012年3月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_29" href="http://www.cnblogs.com/sharpxiajun/archive/2012/01.html">2012年1月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_30" href="http://www.cnblogs.com/sharpxiajun/archive/2011/12.html">2011年12月 (9)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_31" href="http://www.cnblogs.com/sharpxiajun/archive/2011/11.html">2011年11月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_32" href="http://www.cnblogs.com/sharpxiajun/archive/2011/10.html">2011年10月 (12)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_33" href="http://www.cnblogs.com/sharpxiajun/archive/2011/09.html">2011年9月 (15)</a> </li>
+
+</ul>
+
+</div>
+
+<div id="sidebar_links658868" class="catList sidebar-block">
+<h3 class="catListTitle">友情链接</h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_2_Link_0" href="http://www.cnblogs.com/aaronjs/" rel="nofollow" target="_blank">【Aaron】</a> </li>
+
+<li><a id="CatList_LinkList_2_Link_1" href="http://www.cnblogs.com/jikey" rel="nofollow" target="_blank">豪情</a> </li>
+
+</ul>
+
+</div>
+
+</div><div id="sidebar_scorerank" class="sidebar-block">
+<div class="catListBlogRank">
+<h3 class="catListTitle">积分与排名</h3>
+<ul>
+	<li class="liScore">
+		积分 -	345483
+	</li>
+	<li class="liRank">
+		排名 -	399
+	</li>
+</ul>
+</div>
+
+
+</div><div id="sidebar_recentcomments" class="sidebar-block"><div id="recent_comments_wrap">
+<div class="catListComment">
+<h3 class="catListTitle">最新评论</h3>
+
+	<div id="RecentCommentsBlock"><ul>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/sharpxiajun/p/3151395.html#3681481">1. Re:hadoop 学习笔记：mapreduce框架详解</a></li>
+        <li class="recent_comment_body">好文！简单易懂</li>
+        <li class="recent_comment_author">--般若波罗蜜yy</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/sharpxiajun/archive/2013/06/03/3114560.html#3675956">2. Re:大数据时代的技术hive：hive的数据类型和数据模型</a></li>
+        <li class="recent_comment_body">写的很赞博主，第三篇呢？没有了么 期待啊</li>
+        <li class="recent_comment_author">--jackyfreezer</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/sharpxiajun/p/5506822.html#3666550">3. Re:Spark笔记：RDD基本操作（上）</a></li>
+        <li class="recent_comment_body">总结的真好，感谢分享。！</li>
+        <li class="recent_comment_author">--天地_2017</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/sharpxiajun/p/4291003.html#3654828">4. Re:关于大型网站技术演进的思考（十三）--网站静态化处理—CSI（5）</a></li>
+        <li class="recent_comment_body">@夏天的森林如果缓存时间没过期的话，是直接从缓存中读取吧...</li>
+        <li class="recent_comment_author">--陈陈jg</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/sharpxiajun/archive/2013/06/02/3114180.html#3643965">5. Re:大数据时代的技术hive：hive介绍</a></li>
+        <li class="recent_comment_body">Start necessary services for Kafka Connect. As Kafka Connect uses Kafka to transfer data, we need to......</li>
+        <li class="recent_comment_author">--093</li>
+</ul>
+</div>
+</div>
+</div></div><div id="sidebar_topviewedposts" class="sidebar-block"><div id="topview_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">阅读排行榜</h3>
+	<div id="TopViewPostsBlock"><ul><li><a href="http://www.cnblogs.com/sharpxiajun/archive/2013/06/02/3114180.html">1. 大数据时代的技术hive：hive介绍(88175)</a></li><li><a href="http://www.cnblogs.com/sharpxiajun/p/3151510.html">2. Web前端学习笔记：Bootstrap框架(73599)</a></li><li><a href="http://www.cnblogs.com/sharpxiajun/p/3936268.html">3. 为什么做java的web开发我们会使用struts2，springMVC和spring这样的框架?(47567)</a></li><li><a href="http://www.cnblogs.com/sharpxiajun/p/3870797.html">4. 架构设计：前后端分离之Web前端架构设计(40529)</a></li><li><a href="http://www.cnblogs.com/sharpxiajun/archive/2013/06/02/3113923.html">5. 分布式网站架构后续：zookeeper技术浅析(39572)</a></li><li><a href="http://www.cnblogs.com/sharpxiajun/p/3151395.html">6. hadoop 学习笔记：mapreduce框架详解(39190)</a></li><li><a href="http://www.cnblogs.com/sharpxiajun/p/4237704.html">7. 关于大型网站技术演进的思考（一）--存储的瓶颈（1）(37052)</a></li><li><a href="http://www.cnblogs.com/sharpxiajun/archive/2013/05/11/3072798.html">8. 我设计的网站的分布式架构(32390)</a></li><li><a href="http://www.cnblogs.com/sharpxiajun/p/3531665.html">9. 系统架构：Web应用架构的新趋势---前端和后端分离的一点想法(29880)</a></li><li><a href="http://www.cnblogs.com/sharpxiajun/p/4148932.html">10. javascript技术难点（三）之this、new、apply和call详解(29103)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topcommentedposts" class="sidebar-block"><div id="topfeedback_posts_wrap">
+<div class="catListFeedback">
+<h3 class="catListTitle">评论排行榜</h3>
+	<div id="TopFeedbackPostsBlock"><ul><li><a href="http://www.cnblogs.com/sharpxiajun/p/4237704.html">1. 关于大型网站技术演进的思考（一）--存储的瓶颈（1）(97)</a></li><li><a href="http://www.cnblogs.com/sharpxiajun/archive/2013/05/11/3072798.html">2. 我设计的网站的分布式架构(82)</a></li><li><a href="http://www.cnblogs.com/sharpxiajun/p/3936268.html">3. 为什么做java的web开发我们会使用struts2，springMVC和spring这样的框架?(62)</a></li><li><a href="http://www.cnblogs.com/sharpxiajun/p/4162153.html">4. web前端工程师在移动互联网时代里的地位问题(54)</a></li><li><a href="http://www.cnblogs.com/sharpxiajun/p/3151510.html">5. Web前端学习笔记：Bootstrap框架(52)</a></li><li><a href="http://www.cnblogs.com/sharpxiajun/p/3950466.html">6. 关于如何提高Web服务端并发效率的异步编程技术(43)</a></li><li><a href="http://www.cnblogs.com/sharpxiajun/p/3292962.html">7. 与国内某知名互联网公司交流后的心得(42)</a></li><li><a href="http://www.cnblogs.com/sharpxiajun/p/4133462.html">8. 谈谈javascript语法里一些难点问题（一）(40)</a></li><li><a href="http://www.cnblogs.com/sharpxiajun/archive/2013/01/16/2863404.html">9. 把自己开发的网站前端开发框架和大家分享下(36)</a></li><li><a href="http://www.cnblogs.com/sharpxiajun/p/4111853.html">10. 关于编写性能高效的javascript事件的技术(35)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topdiggedposts" class="sidebar-block"><div id="topdigg_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">推荐排行榜</h3>
+<div id="TopDiggPostsBlock"><ul><li><a href="http://www.cnblogs.com/sharpxiajun/p/4237704.html">1. 关于大型网站技术演进的思考（一）--存储的瓶颈（1）(210)</a></li><li><a href="http://www.cnblogs.com/sharpxiajun/p/4148932.html">2. javascript技术难点（三）之this、new、apply和call详解(111)</a></li><li><a href="http://www.cnblogs.com/sharpxiajun/p/3936268.html">3. 为什么做java的web开发我们会使用struts2，springMVC和spring这样的框架?(109)</a></li><li><a href="http://www.cnblogs.com/sharpxiajun/p/4072396.html">4. 探真无阻塞加载javascript脚本技术，我们会发现很多意想不到的秘密(103)</a></li><li><a href="http://www.cnblogs.com/sharpxiajun/p/4240419.html">5. 关于大型网站技术演进的思考（二）--存储的瓶颈（2）(85)</a></li><li><a href="http://www.cnblogs.com/sharpxiajun/archive/2013/05/11/3072798.html">6. 我设计的网站的分布式架构(84)</a></li><li><a href="http://www.cnblogs.com/sharpxiajun/p/3151510.html">7. Web前端学习笔记：Bootstrap框架(79)</a></li><li><a href="http://www.cnblogs.com/sharpxiajun/p/4111853.html">8. 关于编写性能高效的javascript事件的技术(68)</a></li><li><a href="http://www.cnblogs.com/sharpxiajun/p/3151395.html">9. hadoop 学习笔记：mapreduce框架详解(64)</a></li><li><a href="http://www.cnblogs.com/sharpxiajun/p/4251714.html">10. 关于大型网站技术演进的思考（三）--存储的瓶颈（3）(62)</a></li></ul></div>
+</div></div></div></div><script type="text/javascript">loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		
+<!--done-->
+Copyright ©2017 夏天的森林
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+
+</body></html>

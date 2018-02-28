@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<!-- saved from url=(0042)http://www.cnblogs.com/abel/p/3441175.html -->
+<html lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="same-origin">
+<title>树莓派 Raspberry-Pi 折腾系列：系统安装及一些必要的配置 - ABEL - 博客园</title>
+<link type="text/css" rel="stylesheet" href="./树莓派 Raspberry-Pi 折腾系列：系统安装及一些必要的配置 - ABEL - 博客园_files/blog-common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="./树莓派 Raspberry-Pi 折腾系列：系统安装及一些必要的配置 - ABEL - 博客园_files/bundle-SimpleBlue.css">
+<link type="text/css" rel="stylesheet" href="./树莓派 Raspberry-Pi 折腾系列：系统安装及一些必要的配置 - ABEL - 博客园_files/88341.css">
+<link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="./树莓派 Raspberry-Pi 折腾系列：系统安装及一些必要的配置 - ABEL - 博客园_files/bundle-SimpleBlue-mobile.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/abel/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/abel/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/abel/wlwmanifest.xml">
+<script async="" src="./树莓派 Raspberry-Pi 折腾系列：系统安装及一些必要的配置 - ABEL - 博客园_files/analytics.js.下载"></script><script type="text/javascript" src="./树莓派 Raspberry-Pi 折腾系列：系统安装及一些必要的配置 - ABEL - 博客园_files/encoder.js.下载"></script><script src="./树莓派 Raspberry-Pi 折腾系列：系统安装及一些必要的配置 - ABEL - 博客园_files/jquery-2.2.0.min.js.下载"></script>
+<script type="text/javascript">var currentBlogApp = 'abel', cb_enable_mathjax=false;var isLogined=true;</script>
+<script src="./树莓派 Raspberry-Pi 折腾系列：系统安装及一些必要的配置 - ABEL - 博客园_files/blog-common.js.下载" type="text/javascript"></script>
+</head>
+<body>
+<a name="top"></a>
+
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+		
+<!--done-->
+<div class="title"><a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/abel/">ABEL</a></div>
+<div class="subtitle">三端开发人员「前端、服务端、客户端」　　新浪微博: <a href="http://weibo.com/abelyao/" target="_blank" style="color:#FFF;">@阿博</a> 欢迎交流</div>
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li id="nav_sitehome"></li>
+<li id="nav_myhome"><a id="blog_nav_myhome" class="menu" href="http://www.cnblogs.com/abel/">首页</a></li>
+<li id="nav_newpost"></li>
+<li id="nav_contact"></li>
+<li id="nav_rss"><a id="blog_nav_rss" class="menu" href="http://www.cnblogs.com/abel/rss">订阅</a>
+<!--<a id="blog_nav_rss_image" class="aHeaderXML" href="http://www.cnblogs.com/abel/rss"><img src="//www.cnblogs.com/images/xml.gif" alt="订阅" /></a>--></li>
+<li id="nav_admin"><a id="blog_nav_admin" class="menu" rel="nofollow" href="https://i.cnblogs.com/">管理</a></li>
+</ul>
+
+		<div class="blogStats">
+			
+			<div id="blog_stats">
+<!--done-->
+随笔-10&nbsp;
+文章-0&nbsp;
+评论-117&nbsp;
+</div>
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		
+<div id="post_detail">
+<!--done-->
+<div id="topics">
+	<div class="post">
+		<h1 class="postTitle">
+			<a id="cb_post_title_url" class="postTitle2" href="http://www.cnblogs.com/abel/p/3441175.html">树莓派 Raspberry-Pi 折腾系列：系统安装及一些必要的配置</a>
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			<div id="cnblogs_post_body" class="blogpost-body"><p>入手树莓派将近一个月了，很折腾，许多资源不好找，也很乱。简单整理一下自己用到的东西，方便以后自己或别人继续折腾。</p>  <p><img style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; display: block; padding-right: 0px; border-top-width: 0px; margin-right: auto" border="0" alt="" src="./树莓派 Raspberry-Pi 折腾系列：系统安装及一些必要的配置 - ABEL - 博客园_files/raspberry-pi-0.jpg"></p>  <h4>0. 操作系统下载</h4>  <p>树莓派官方 <strong><span style="color: #c0504d">Raspbian</span></strong> 系统下载：<a href="http://www.raspberrypi.org/downloads" target="_blank">http://www.raspberrypi.org/downloads</a>     <br>或直接下载 <a href="http://downloads.raspberrypi.org/raspbian_latest.torrent" target="_blank">http://downloads.raspberrypi.org/raspbian_latest.torrent</a> 最新版的 BT 种子。</p>  <p>还有一个选择是由国人制作的超级精简版，更低内存占用：<a href="http://pan.baidu.com/share/link?shareid=167943&amp;uk=1412008571" target="_blank">http://pan.baidu.com/share/link?shareid=167943&amp;uk=1412008571</a></p>  <p>&nbsp;</p>  <h4>1. 系统安装</h4>  <p>所谓“安装系统”其实不如说是“恢复”下载到的系统镜像到内存卡上，这个过程也没什么难度，就是看内存卡的速度，慢慢等而已。需要注意的是，市面上部分 4G 的内存卡，实际大小才 3.6G 多，会提示空间不足，所以还是直接购买 8G 吧，也差不了几块钱。    <br>在 Windows 下可以使用 <strong><span style="color: #c0504d">Win32 Disk Imager</span></strong> 进行镜像恢复，非常方便，也是树莓派官方推荐的方法。官方下载地址：<a href="http://sourceforge.net/projects/win32diskimager/" target="_blank">http://sourceforge.net/projects/win32diskimager/</a></p>  <p><img style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; display: block; padding-right: 0px; border-top-width: 0px; margin-right: auto" border="0" alt="" src="./树莓派 Raspberry-Pi 折腾系列：系统安装及一些必要的配置 - ABEL - 博客园_files/raspberry-pi-1.gif"></p>  <p>&nbsp;</p>  <h4>2. 通过 SSH 远程访问</h4>  <p>老实说，我一直把树莓派定位为“<span style="color: #c0504d">一个扔在某个角落就可以自己跑得很欢的小电脑</span>”，加上那仅有的两个 USB 口，一个插了 USB 无限网卡，另一个再拖个键盘或鼠标啥的，实在很不方便，那么最好还是能远程访问吧。     <br>好在树莓派默认是有开启 SSH 的，但是我们系统刚安装，IP 还没设置，怎么找到它的 IP 地址呢？这时候就推荐使用另一个神器 <span style="color: #c0504d"><strong>PortScan</strong></span> 来找出我们的机器：</p>  <p><img style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; display: block; padding-right: 0px; border-top-width: 0px; margin-right: auto" border="0" alt="" src="./树莓派 Raspberry-Pi 折腾系列：系统安装及一些必要的配置 - ABEL - 博客园_files/raspberry-pi-2.gif"></p>  <p>打开 PortScan 选择扫描范围，可以很方便的找出局域网中的其它机器，一般家庭中也没太多机器，找出树莓派是很容易的，如果是在公司，有很多机器的话，那么可以忽略那些有机器名的，然后剩下的一个一个尝试吧…    <br>PortScan 下载地址：<a href="http://abel.oss.aliyuncs.com/file/PortScan.zip" target="_blank">http://abel.oss.aliyuncs.com/file/PortScan.zip</a></p>  <p>&nbsp;</p>  <h4>3. ROOT 账号设置</h4>  <p>如果你安装的是官方的 Raspbian 系统，那么默认的登录帐号为 <strong><span style="color: #c0504d">pi</span></strong> 密码是 <strong><span style="color: #c0504d">raspberry</span></strong>     <br>为了方便折腾，建议第一时间启用 ROOT 账号吧~ 这个也很简单的，只需要执行一下两句命令即可：</p>  <div class="cnblogs_code" style="border-top: #cccccc 1px solid; border-right: #cccccc 1px solid; border-bottom: #cccccc 1px solid; padding-bottom: 5px; padding-top: 5px; padding-left: 5px; border-left: #cccccc 1px solid; padding-right: 5px; background-color: #f5f5f5">   <pre>//<span style="color: #000000"> 设置 root 账号的密码，会让你输入两次新密码
+sudo passwd root
+
+</span>//<span style="color: #000000"> 启用 root 账号登录
+sudo passwd </span>--unlock root</pre>
+</div>
+
+<p>执行完之后，用 <span style="color: #c0504d"><strong>reboot</strong></span> 命令重启就可以用 root 登录啦。</p>
+
+<p>&nbsp;</p>
+
+<h4>4. 扩展可用空间</h4>
+
+<p>第一次用 root 登录，会自动弹出树莓派的高级设置面板（以后也可以通过 <strong><span style="color: #c0504d">raspi-config</span></strong> 命令进入）：</p>
+
+<p><img style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; display: block; padding-right: 0px; border-top-width: 0px; margin-right: auto" border="0" alt="" src="./树莓派 Raspberry-Pi 折腾系列：系统安装及一些必要的配置 - ABEL - 博客园_files/raspberry-pi-3.gif"></p>
+
+<p>选择第一项 <strong><span style="color: #c0504d">Expand Filesystem</span></strong> 扩展 SD 卡上可用的空间，不然以后会有很多大软件，不能安装（提示空间不足，例如 mysql）。 
+
+  <br>扩展之后可以通过 <span style="color: #c0504d"><strong>df -h</strong></span> 命令看到效果~</p>
+
+<p>&nbsp;</p>
+
+<h4>5. 更换软件源（apt-get sources）</h4>
+
+<p>树莓派的服务器实在太太太太太太慢了！会导致你安装一个几M的东西都要等大半天！肿么办！ 
+  <br>好在树莓派官方有提供一个镜像列表：<a href="http://www.raspbian.org/RaspbianMirrors" target="_blank">http://www.raspbian.org/RaspbianMirrors</a> 
+
+  <br>在里面找到了几个国内的镜像，经过几番尝试，觉得来自中科大的速度非常不错~ 咱们就换成中科大的吧，镜像主页：<a href="https://lug.ustc.edu.cn/wiki/mirrors/help/raspbian" target="_blank">https://lug.ustc.edu.cn/wiki/mirrors/help/raspbian</a></p>
+
+<p>根据教程，咱们来编辑 <span style="color: #c0504d"><strong>/etc/apt/sources.list</strong></span> 文件。这里推荐用 <strong><span style="color: #c0504d">nano</span></strong> 命令编辑，舍得去弄什么 VIM 啦。命令如下：</p>
+
+<div class="cnblogs_code" style="border-top: #cccccc 1px solid; border-right: #cccccc 1px solid; border-bottom: #cccccc 1px solid; padding-bottom: 5px; padding-top: 5px; padding-left: 5px; border-left: #cccccc 1px solid; padding-right: 5px; background-color: #f5f5f5">
+  <pre>nano /etc/apt/sources.list</pre>
+</div>
+
+<p>进入编辑界面，删除原有的内容，粘贴中科大提供的内容，结果如下：</p>
+
+<p><img style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; display: block; padding-right: 0px; border-top-width: 0px; margin-right: auto" border="0" alt="" src="./树莓派 Raspberry-Pi 折腾系列：系统安装及一些必要的配置 - ABEL - 博客园_files/raspberry-pi-4.gif"></p>
+
+<p>然后使用 <strong><span style="color: #c0504d">Ctrl+O</span></strong> 保存文件，<span style="color: #c0504d"><strong>Ctrl+X</strong></span> 退出编辑器。 
+
+  <br>然后执行 <strong><span style="color: #c0504d">apt-get update</span></strong> 命令更新软件列表。</p>
+
+<p>&nbsp;</p>
+
+<h4>6. 设置静态 IP 地址</h4>
+
+<p>回到刚刚第二点提到的，不知道 IP 地址的问题，咱们要给树莓派设置一个静态 IP，省得 IP 变换又要重新找机器。还是用 nano 来编辑网络接口文件：</p>
+
+<div class="cnblogs_code" style="border-top: #cccccc 1px solid; border-right: #cccccc 1px solid; border-bottom: #cccccc 1px solid; padding-bottom: 5px; padding-top: 5px; padding-left: 5px; border-left: #cccccc 1px solid; padding-right: 5px; background-color: #f5f5f5">
+  <pre>nano /etc/network/interfaces</pre>
+</div>
+
+<p>如果你要设置的是<strong><span style="color: #c0504d">有线</span></strong>网卡的 IP 地址，那么把 <strong><span style="color: #c0504d">eth0</span></strong> 的 <strong><span style="color: #c0504d">dhcp</span></strong> 改成 <strong><span style="color: #c0504d">static</span></strong> 然后在下一行追加 IP 信息，结果大概如下：</p>
+
+<div class="cnblogs_code" style="border-top: #cccccc 1px solid; border-right: #cccccc 1px solid; border-bottom: #cccccc 1px solid; padding-bottom: 5px; padding-top: 5px; padding-left: 5px; border-left: #cccccc 1px solid; padding-right: 5px; background-color: #f5f5f5">
+  <pre><span style="color: #000000">iface eth0 inet static
+address </span><span style="color: #800080">192.168</span>.<span style="color: #800080">1.200</span><span style="color: #000000"> # 设定的静态IP地址
+netmask </span><span style="color: #800080">255.255</span>.<span style="color: #800080">255.0</span><span style="color: #000000"> # 网络掩码
+gateway </span><span style="color: #800080">192.168</span>.<span style="color: #800080">1.1</span>    # 网关</pre>
+</div>
+
+<p>如果你要设置的是<strong><span style="color: #c0504d">无线</span></strong>网卡的，那么除了把 <strong><span style="color: #c0504d">wlan0</span></strong> 的 <strong><span style="color: #c0504d">dhcp</span></strong> 改成 <strong><span style="color: #c0504d">static</span></strong> 之外，还需要填写无线网的名称和密码，编辑后的结果大概如下：</p>
+
+<div class="cnblogs_code" style="border-top: #cccccc 1px solid; border-right: #cccccc 1px solid; border-bottom: #cccccc 1px solid; padding-bottom: 5px; padding-top: 5px; padding-left: 5px; border-left: #cccccc 1px solid; padding-right: 5px; background-color: #f5f5f5"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./树莓派 Raspberry-Pi 折腾系列：系统安装及一些必要的配置 - ABEL - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+  <pre><span style="color: #000000">iface wlan0 inet static
+    wpa</span>-<span style="color: #000000">ssid Your_Wifi_SSID
+    wpa</span>-<span style="color: #000000">psk Your_Wifi_Password
+address </span><span style="color: #800080">192.168</span>.<span style="color: #800080">1.200</span><span style="color: #000000"> # 设定的静态IP地址
+netmask </span><span style="color: #800080">255.255</span>.<span style="color: #800080">255.0</span><span style="color: #000000"> # 网络掩码
+gateway </span><span style="color: #800080">192.168</span>.<span style="color: #800080">1.1</span><span style="color: #000000">   # 网关
+network </span><span style="color: #800080">192.168</span>.<span style="color: #800080">1.1</span><span style="color: #000000">   # 网络地址
+#wpa</span>-roam /etc/wpa_supplicant/wpa_supplicant.conf</pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./树莓派 Raspberry-Pi 折腾系列：系统安装及一些必要的配置 - ABEL - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+
+<p>▲ 注意注释掉最后一行</p>
+
+<p>搞定之后，咱们用 <strong><span style="color: #c0504d">poweroff</span></strong> 命令关掉树莓派，等到机器上的绿灯不闪了，把电源拔掉，再把网线拔掉，重新连接电源，稍等一会，看看是不是就通过无线网络的 IP 地址可以访问了。</p>
+
+<p>&nbsp;</p>
+
+<h4>最后</h4>
+
+<p>至此，要折腾树莓派的几个准备工作都完成了，有了这些，以后折腾也更佳方便。 
+  <br>由于我当初手贱没有购买面驱动的 USB 网卡，买的是一个要自己编译驱动的，所以我折腾的东西还有很多，下次专门再来说说无线网卡驱动的事吧。</p></div><div id="MySignature" style="display: block;"><a href="http://weibo.com/u/3544000923?s=6uyXnP" target="_blank"><img border="0" src="./树莓派 Raspberry-Pi 折腾系列：系统安装及一些必要的配置 - ABEL - 博客园_files/7.png"></a></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory">分类: <a href="http://www.cnblogs.com/abel/category/535983.html" target="_blank">树莓派</a></div>
+<div id="EntryTag">标签: <a href="http://www.cnblogs.com/abel/tag/%E6%A0%91%E8%8E%93%E6%B4%BE/">树莓派</a>, <a href="http://www.cnblogs.com/abel/tag/Raspberry-Pi/">Raspberry-Pi</a></div>
+<div id="blog_post_info"><div id="green_channel">
+        <a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(3441175,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+            <a id="green_channel_follow" onclick="follow(&#39;c2f1849c-ad73-e011-a53f-842b2b196315&#39;);" href="javascript:void(0);">关注我</a>
+    <a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a>
+    <a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./树莓派 Raspberry-Pi 折腾系列：系统安装及一些必要的配置 - ABEL - 博客园_files/icon_weibo_24.png" alt=""></a>
+    <a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="./树莓派 Raspberry-Pi 折腾系列：系统安装及一些必要的配置 - ABEL - 博客园_files/wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+    <div id="author_profile_info" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/abel/" target="_blank"><img src="./树莓派 Raspberry-Pi 折腾系列：系统安装及一些必要的配置 - ABEL - 博客园_files/20130913010518.png" class="author_avatar" alt=""></a>
+        <div id="author_profile_detail" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/abel/">ABEL</a><br>
+            <a href="http://home.cnblogs.com/u/abel/followees">关注 - 0</a><br>
+            <a href="http://home.cnblogs.com/u/abel/followers">粉丝 - 50</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div id="author_profile_honor"></div>
+    <div id="author_profile_follow">
+                <a href="javascript:void(0);" onclick="follow(&#39;c2f1849c-ad73-e011-a53f-842b2b196315&#39;);return false;">+加关注</a>
+    </div>
+</div>
+<div id="div_digg">
+    <div class="diggit" onclick="votePost(3441175,&#39;Digg&#39;)">
+        <span class="diggnum" id="digg_count">5</span>
+    </div>
+    <div class="buryit" onclick="votePost(3441175,&#39;Bury&#39;)">
+        <span class="burynum" id="bury_count">0</span>
+    </div>
+    <div class="clear"></div>
+    <div class="diggword" id="digg_tips">
+    </div>
+</div>
+<script type="text/javascript">
+    currentDiggType = 0;
+</script></div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/abel/p/3371813.html" class="p_n_p_prefix">« </a> 上一篇：<a href="http://www.cnblogs.com/abel/p/3371813.html" title="发布于2013-10-16 11:30">[原创] JavaScript 图片放大镜插件 enlarge.js 以及移动版 enlarge.touch.js</a><br><a href="http://www.cnblogs.com/abel/p/3493631.html" class="p_n_p_prefix">» </a> 下一篇：<a href="http://www.cnblogs.com/abel/p/3493631.html" title="发布于2013-12-27 10:12">简单修改 MySQL 的 root 账号密码</a><br></div>
+</div>
+
+
+		</div>
+		<div class="postDesc">posted @ <span id="post-date">2013-11-25 11:44</span> <a href="http://www.cnblogs.com/abel/">ABEL</a> 阅读(<span id="post_view_count">90988</span>) 评论(<span id="post_comment_count">6</span>)  <a href="https://i.cnblogs.com/EditPosts.aspx?postid=3441175" rel="nofollow">编辑</a> <a href="http://www.cnblogs.com/abel/p/3441175.html#" onclick="AddToWz(3441175);return false;">收藏</a></div>
+	</div>
+	<script type="text/javascript">var allowComments=true,cb_blogId=88341,cb_entryId=3441175,cb_blogApp=currentBlogApp,cb_blogUserGuid='c2f1849c-ad73-e011-a53f-842b2b196315',cb_entryCreatedDate='2013/11/25 11:44:00';loadViewCount(cb_entryId);var cb_postType=1;</script>
+	
+</div><!--end: topics 文章、评论容器-->
+</div><a name="!comments"></a><div id="blog-comments-placeholder"><div id="comments_pager_top"></div>
+<!--done-->
+<div class="feedback_area_title">评论列表</div>
+<div class="feedbackNoItems"></div>
+	
+
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"><a href="javascript:void(0);" onclick="return ReplyComment(2823954,&#39;obUpDyk6Q7wJqOmyX1ROKM3raPtP3DW6msbDrh9o7bZbedc0rJWSxg==&#39;)">回复</a><a href="javascript:void(0);" onclick="return QuoteComment(2823954,&#39;obUpDyk6Q7wJqOmyX1ROKM3raPtP3DW6msbDrh9o7bZbedc0rJWSxg==&#39;)">引用</a></span>
+				</div>
+				<a href="http://www.cnblogs.com/abel/p/3441175.html#2823954" class="layer">#1楼</a><a name="2823954" id="comment_anchor_2823954"></a>  <span class="comment_date">2013-11-25 18:13</span> <a id="a_comment_author_2823954" href="http://www.cnblogs.com/wujiakun/" target="_blank">Angkor--:--</a> <a href="http://msg.cnblogs.com/send/Angkor--%3A--" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2823954" class="blog_comment_body">不错……你玩过 netduino plus2 吗？ ……</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2823954,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2823954,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_2823954_avatar" style="display:none;">http://pic.cnblogs.com/face/285407/20150905173839.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"><a href="javascript:void(0);" onclick="return ReplyComment(2823960,&#39;oVaSSEJ/eRkIBgxEzeop+GtI3IOXJmHHTGrjrTWmy9/8Sk6iw2DNcg==&#39;)">回复</a><a href="javascript:void(0);" onclick="return QuoteComment(2823960,&#39;oVaSSEJ/eRkIBgxEzeop+GtI3IOXJmHHTGrjrTWmy9/8Sk6iw2DNcg==&#39;)">引用</a></span>
+				</div>
+				<a href="http://www.cnblogs.com/abel/p/3441175.html#2823960" class="layer">#2楼</a><a name="2823960" id="comment_anchor_2823960"></a>[<span class="louzhu">楼主</span>]  <span class="comment_date">2013-11-25 18:24</span> <a id="a_comment_author_2823960" href="http://www.cnblogs.com/abel/" target="_blank">ABEL</a> <a href="http://msg.cnblogs.com/send/ABEL" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2823960" class="blog_comment_body"><a href="http://www.cnblogs.com/abel/p/3441175.html#2823954" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,2823954);">@</a>
+吴哥-Angkor<br><fieldset class="comment_quote"><legend><a href="http://www.cnblogs.com/abel/p/3441175.html#2823954" title="查看引用原文">引用</a></legend>不错……你玩过 netduino plus2 吗？ ……</fieldset><br>没有哦，这个是… 基于 .NET Micro Framework ？！<br>我选树莓派主要是看中比较完善的社区，要查点什么还比较容易，不然折腾起来太不爽了…</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2823960,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2823960,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_2823960_avatar" style="display:none;">http://pic.cnblogs.com/face/296737/20130913010518.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"><a href="javascript:void(0);" onclick="return ReplyComment(2824000,&#39;TNVOgyAY7LJZ6uSkRJuRnTrHfSnJIGdnxjee0TNdwqVud1CJ876qfQ==&#39;)">回复</a><a href="javascript:void(0);" onclick="return QuoteComment(2824000,&#39;TNVOgyAY7LJZ6uSkRJuRnTrHfSnJIGdnxjee0TNdwqVud1CJ876qfQ==&#39;)">引用</a></span>
+				</div>
+				<a href="http://www.cnblogs.com/abel/p/3441175.html#2824000" class="layer">#3楼</a><a name="2824000" id="comment_anchor_2824000"></a>  <span class="comment_date">2013-11-25 19:43</span> <a id="a_comment_author_2824000" href="http://www.cnblogs.com/bitzhuwei/" target="_blank">BIT祝威</a> <a href="http://msg.cnblogs.com/send/BIT%E7%A5%9D%E5%A8%81" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2824000" class="blog_comment_body">LZ你的树莓是从哪儿买的？淘宝吗？求推荐个？<br>另外，用树莓做平板电脑或手机的教程您能推荐几个吗？</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2824000,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2824000,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_2824000_avatar" style="display:none;">http://pic.cnblogs.com/face/383191/20161130001005.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"><a href="javascript:void(0);" onclick="return ReplyComment(2824037,&#39;oVaSSEJ/eRkIBgxEzeop+GtI3IOXJmHHTGrjrTWmy9/8Sk6iw2DNcg==&#39;)">回复</a><a href="javascript:void(0);" onclick="return QuoteComment(2824037,&#39;oVaSSEJ/eRkIBgxEzeop+GtI3IOXJmHHTGrjrTWmy9/8Sk6iw2DNcg==&#39;)">引用</a></span>
+				</div>
+				<a href="http://www.cnblogs.com/abel/p/3441175.html#2824037" class="layer">#4楼</a><a name="2824037" id="comment_anchor_2824037"></a>[<span class="louzhu">楼主</span>]  <span class="comment_date">2013-11-25 21:18</span> <a id="a_comment_author_2824037" href="http://www.cnblogs.com/abel/" target="_blank">ABEL</a> <a href="http://msg.cnblogs.com/send/ABEL" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2824037" class="blog_comment_body"><a href="http://www.cnblogs.com/abel/p/3441175.html#2824000" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,2824000);">@</a>
+BIT祝威<br><fieldset class="comment_quote"><legend><a href="http://www.cnblogs.com/abel/p/3441175.html#2824000" title="查看引用原文">引用</a></legend>LZ你的树莓是从哪儿买的？淘宝吗？求推荐个？<br>另外，用树莓做平板电脑或手机的教程您能推荐几个吗？</fieldset><br>是的，淘宝买的，传说中的 UK 原产，淘宝上搜一下就有咯，记得是230多元吧</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2824037,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2824037,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_2824037_avatar" style="display:none;">http://pic.cnblogs.com/face/296737/20130913010518.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"><a href="javascript:void(0);" onclick="return ReplyComment(3133921,&#39;tB+tSr5eFIUZuL+g6EbMvqvUC1F92/OAM8n8kSC869/WCwd2+JZZAg==&#39;)">回复</a><a href="javascript:void(0);" onclick="return QuoteComment(3133921,&#39;tB+tSr5eFIUZuL+g6EbMvqvUC1F92/OAM8n8kSC869/WCwd2+JZZAg==&#39;)">引用</a></span>
+				</div>
+				<a href="http://www.cnblogs.com/abel/p/3441175.html#3133921" class="layer">#5楼</a><a name="3133921" id="comment_anchor_3133921"></a>  <span class="comment_date">2015-03-02 21:39</span> <a id="a_comment_author_3133921" href="http://home.cnblogs.com/u/726565/" target="_blank">aooer</a> <a href="http://msg.cnblogs.com/send/aooer" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3133921" class="blog_comment_body">我手贱买了国产版，不过感觉跟uk版没差就是价格贵了点</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3133921,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3133921,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"><a href="javascript:void(0);" onclick="return ReplyComment(3477372,&#39;79HVEZSVtPxTzYrR1zjtBWJfXHf9AFg1xGqbabdMvVhYkfhtmK5hMg==&#39;)">回复</a><a href="javascript:void(0);" onclick="return QuoteComment(3477372,&#39;79HVEZSVtPxTzYrR1zjtBWJfXHf9AFg1xGqbabdMvVhYkfhtmK5hMg==&#39;)">引用</a></span>
+				</div>
+				<a href="http://www.cnblogs.com/abel/p/3441175.html#3477372" class="layer">#6楼</a><a name="3477372" id="comment_anchor_3477372"></a><span id="comment-maxId" style="display:none;">3477372</span><span id="comment-maxDate" style="display:none;">2016/7/27 9:34:33</span>  <span class="comment_date">2016-07-27 09:34</span> <a id="a_comment_author_3477372" href="http://home.cnblogs.com/u/999210/" target="_blank">思思83</a> <a href="http://msg.cnblogs.com/send/%E6%80%9D%E6%80%9D83" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3477372" class="blog_comment_body">为什么我这里安装不行呢，总是出错，求指教</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3477372,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3477372,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	<div id="comments_pager_bottom"></div></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="http://www.cnblogs.com/abel/p/3441175.html#" onclick="return RefreshPage();">刷新页面</a><a href="http://www.cnblogs.com/abel/p/3441175.html#top">返回顶部</a></div>
+<div id="comment_form_container"><script type="text/javascript" src="./树莓派 Raspberry-Pi 折腾系列：系统安装及一些必要的配置 - ABEL - 博客园_files/mention.js.下载"></script>
+<div id="commentform_title">发表评论</div>
+<span id="tip_comment" style="color:Red"></span>
+<p>
+昵称：<input type="text" id="tbCommentAuthor" class="author" disabled="disabled" size="50" value="daoning">
+</p>
+<div class="commentbox_main">
+<div class="commentbox_title">
+<div class="commentbox_title_left">评论内容：</div>
+<div class="commentbox_title_right">
+<img id="ubb_quote" class="comment_icon" src="./树莓派 Raspberry-Pi 折腾系列：系统安装及一些必要的配置 - ABEL - 博客园_files/quote.gif" alt="引用" title="添加引用" onclick="insertUBB(&#39;tbCommentBody&#39;,&#39;quote&#39;)">
+<img id="ubb_bold" class="comment_icon" src="./树莓派 Raspberry-Pi 折腾系列：系统安装及一些必要的配置 - ABEL - 博客园_files/b.png" alt="粗体" title="添加粗体" onclick="insertUBB(&#39;tbCommentBody&#39;,&#39;b&#39;)">
+<img id="ubb_url" class="comment_icon" src="./树莓派 Raspberry-Pi 折腾系列：系统安装及一些必要的配置 - ABEL - 博客园_files/lk.png" alt="链接" title="添加链接" onclick="insertUbbUrl(&#39;tbCommentBody&#39;)">
+<img id="ubb_indent" class="comment_icon" src="./树莓派 Raspberry-Pi 折腾系列：系统安装及一些必要的配置 - ABEL - 博客园_files/indent.png" alt="缩进" title="添加首行缩进" onclick="insertIndent(&#39;tbCommentBody&#39;)">
+<img id="ubb_code" class="comment_icon" src="./树莓派 Raspberry-Pi 折腾系列：系统安装及一些必要的配置 - ABEL - 博客园_files/InsertCode.gif" alt="代码" title="添加代码" onclick="insertUbbCode()">
+<img id="ubb_img" class="comment_icon" src="./树莓派 Raspberry-Pi 折腾系列：系统安装及一些必要的配置 - ABEL - 博客园_files/img.gif" alt="图片" title="上传图片" onclick="OpenImageUploadWindow();">
+</div>
+</div>
+<div class="clear"></div>
+<textarea id="tbCommentBody" class="comment_textarea"></textarea>
+</div>
+<p id="commentbox_opt">
+<input id="btn_comment_submit" type="button" class="comment_btn" value="提交评论">
+<span id="span_comment_canceledit" style="display:none"><a href="javascript:void(0);" onclick="return CancelCommentEdit()">不改了</a></span>
+<a href="javascript:void(0);" onclick="return logout();">退出</a>
+        <a id="commentbox_opt_sub" href="javascript:void(0);" title="订阅后有新评论时会邮件通知您" onclick="commentManager.Subscribe()">订阅评论</a>
+</p>
+<div id="tip_comment2" style="color:Red"></div>
+<p>
+[Ctrl+Enter快捷键提交]
+</p>
+<div style="display:none">
+<span id="comment_edit_id"></span><span id="span_parentcomment_id"></span>
+<span id="span_parent_id"></span>
+<span id="span_comment_replyto"></span>
+<span id="span_comment_posted"></span>
+</div>
+</div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="ad_t2"><a href="http://www.ucancode.com/index.htm" target="_blank">【推荐】超50万VC++源码: 大型工控、组态\仿真、建模CAD源码2018！</a><br></div>
+<div id="opt_under_post"></div>
+<div id="cnblogs_c1" class="c_ad_block"><a href="http://www.gcpowertools.com.cn/products/spreadjs/?utm_source=cnblogs&amp;utm_medium=blogpage&amp;utm_term=bottom&amp;utm_content=SpreadJS2&amp;utm_campaign=community" target="_blank"><img width="300" height="250" src="./树莓派 Raspberry-Pi 折腾系列：系统安装及一些必要的配置 - ABEL - 博客园_files/24442-20171206093644566-325426505.png" alt="SpreadJS2_1206"></a></div>
+<div id="under_post_news"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="https://news.cnblogs.com/n/588687/" target="_blank">传奇男人尼古拉·特斯拉：桃花旺竟终身未婚 专利大赚却潦倒余生</a><br> ·  <a href="https://news.cnblogs.com/n/588760/" target="_blank">搜狗王砚峰：智能语音的爆发要靠产业支撑</a><br> ·  <a href="https://news.cnblogs.com/n/588756/" target="_blank">一图读懂第41次《中国互联网络发展状况统计报告》</a><br> ·  <a href="https://news.cnblogs.com/n/588763/" target="_blank">克鲁格曼认为比特币是泡沫</a><br> ·  <a href="https://news.cnblogs.com/n/588761/" target="_blank">要想成为顶尖成功人士，你必须完成2个思维转变</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div></div>
+<div id="cnblogs_c2" class="c_ad_block"><a href="http://click.aliyun.com/m/34770/" target="_blank"><img width="468" height="60" src="./树莓派 Raspberry-Pi 折腾系列：系统安装及一些必要的配置 - ABEL - 博客园_files/24442-20171208101900738-116140477.jpg" alt="阿里云C2-1208"></a></div>
+<div id="under_post_kb"><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="http://kb.cnblogs.com/page/586236/" target="_blank">领域驱动设计在互联网业务开发中的实践</a><br> ·  <a href="http://kb.cnblogs.com/page/585502/" target="_blank">步入云计算</a><br> ·  <a href="http://kb.cnblogs.com/page/531409/" target="_blank">以操作系统的角度述说线程与进程</a><br> ·  <a href="http://kb.cnblogs.com/page/141729/" target="_blank">软件测试转型之路</a><br> ·  <a href="http://kb.cnblogs.com/page/177402/" target="_blank">门内门外看招聘</a><br></div>» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+    fixPostBody();
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverAdT2();
+    deliverAdC1();
+    deliverAdC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate, cb_postType);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);   
+</script>
+</div>
+
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<!--done-->
+<div class="newsItem">
+<h3 class="catListTitle">公告</h3>
+	<div id="blog-news"><iframe width="240" height="400" class="share_self" frameborder="0" scrolling="no" src="./树莓派 Raspberry-Pi 折腾系列：系统安装及一些必要的配置 - ABEL - 博客园_files/index.html"></iframe><div id="profile_block">昵称：<a href="https://home.cnblogs.com/u/abel/">ABEL</a><br>园龄：<a href="https://home.cnblogs.com/u/abel/" title="入园时间：2011-05-01">6年9个月</a><br>粉丝：<a href="https://home.cnblogs.com/u/abel/followers/">50</a><br>关注：<a href="https://home.cnblogs.com/u/abel/followees/">0</a><div id="p_b_follow"><a href="javascript:void(0);" onclick="follow(&#39;c2f1849c-ad73-e011-a53f-842b2b196315&#39;)">+加关注</a></div><script>getFollowStatus('c2f1849c-ad73-e011-a53f-842b2b196315')</script></div></div><script type="text/javascript">loadBlogNews();</script>
+</div>
+
+			<div id="calendar"><div id="blog-calendar" style=""><table id="blogCalendar" class="Cal" cellspacing="0" cellpadding="0" title="Calendar">
+	<tbody><tr><td colspan="7"><table class="CalTitle" cellspacing="0">
+		<tbody><tr><td class="CalNextPrev"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2018/01/01&#39;);return false;">&lt;</a></td><td align="center">2018年2月</td><td class="CalNextPrev" align="right"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2018/03/01&#39;);return false;">&gt;</a></td></tr>
+	</tbody></table></td></tr><tr><th class="CalDayHeader" align="center" abbr="日" scope="col">日</th><th class="CalDayHeader" align="center" abbr="一" scope="col">一</th><th class="CalDayHeader" align="center" abbr="二" scope="col">二</th><th class="CalDayHeader" align="center" abbr="三" scope="col">三</th><th class="CalDayHeader" align="center" abbr="四" scope="col">四</th><th class="CalDayHeader" align="center" abbr="五" scope="col">五</th><th class="CalDayHeader" align="center" abbr="六" scope="col">六</th></tr><tr><td class="CalOtherMonthDay" align="center">28</td><td class="CalOtherMonthDay" align="center">29</td><td class="CalOtherMonthDay" align="center">30</td><td class="CalOtherMonthDay" align="center">31</td><td class="CalTodayDay" align="center">1</td><td align="center">2</td><td class="CalWeekendDay" align="center">3</td></tr><tr><td class="CalWeekendDay" align="center">4</td><td align="center">5</td><td align="center">6</td><td align="center">7</td><td align="center">8</td><td align="center">9</td><td class="CalWeekendDay" align="center">10</td></tr><tr><td class="CalWeekendDay" align="center">11</td><td align="center">12</td><td align="center">13</td><td align="center">14</td><td align="center">15</td><td align="center">16</td><td class="CalWeekendDay" align="center">17</td></tr><tr><td class="CalWeekendDay" align="center">18</td><td align="center">19</td><td align="center">20</td><td align="center">21</td><td align="center">22</td><td align="center">23</td><td class="CalWeekendDay" align="center">24</td></tr><tr><td class="CalWeekendDay" align="center">25</td><td align="center">26</td><td align="center">27</td><td align="center">28</td><td class="CalOtherMonthDay" align="center">1</td><td class="CalOtherMonthDay" align="center">2</td><td class="CalOtherMonthDay" align="center">3</td></tr><tr><td class="CalOtherMonthDay" align="center">4</td><td class="CalOtherMonthDay" align="center">5</td><td class="CalOtherMonthDay" align="center">6</td><td class="CalOtherMonthDay" align="center">7</td><td class="CalOtherMonthDay" align="center">8</td><td class="CalOtherMonthDay" align="center">9</td><td class="CalOtherMonthDay" align="center">10</td></tr>
+</tbody></table></div><script type="text/javascript">loadBlogDefaultCalendar();</script></div>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"><div id="sidebar_search" class="sidebar-block">
+<div id="sidebar_search" class="mySearch">
+<h3 class="catListTitle">搜索</h3>
+<div id="sidebar_search_box">
+
+<div id="widget_my_google" class="div_my_zzk"><input type="text" name="google_q" id="google_q" onkeydown="return google_go_enter(event)" class="input_my_zzk">&nbsp;<input onclick="google_go()" type="button" value="谷歌搜索" class="btn_my_zzk"></div>
+</div>
+</div>
+
+</div><div id="sidebar_recentposts" class="sidebar-block">
+<div class="catListEssay">
+<h3 class="catListTitle">最新随笔</h3>
+<ul>
+<li><a href="http://www.cnblogs.com/abel/p/3548166.html">1. U盘安装 Windows XP 原版 ISO 的几点心得</a></li><li><a href="http://www.cnblogs.com/abel/p/3493631.html">2. 简单修改 MySQL 的 root 账号密码</a></li><li><a href="http://www.cnblogs.com/abel/p/3441175.html">3. 树莓派 Raspberry-Pi 折腾系列：系统安装及一些必要的配置</a></li><li><a href="http://www.cnblogs.com/abel/p/3371813.html">4. [原创] JavaScript 图片放大镜插件 enlarge.js 以及移动版 enlarge.touch.js</a></li><li><a href="http://www.cnblogs.com/abel/p/3258696.html">5. 丢掉 WinPE，使用 DISKPART 来分区吧</a></li><li><a href="http://www.cnblogs.com/abel/p/3247027.html">6. 【原创】只用 HTML / CSS 画出一把 UKULELE（夏威夷四弦吉他）</a></li><li><a href="http://www.cnblogs.com/abel/p/3237294.html">7. 用网页模拟手机（安卓）通知列表中的「清除」效果</a></li><li><a href="http://www.cnblogs.com/abel/p/3235839.html">8. 关于 Google Chrome 中的全屏模式和 APP 模式</a></li><li><a href="http://www.cnblogs.com/abel/p/3213409.html">9. 简单好用的 AJAX 上传插件，还可以抛弃难看的 file 按钮哦~</a></li><li><a href="http://www.cnblogs.com/abel/p/3194678.html">10. C# 操作 Excel 常见问题收集和整理（定期更新，欢迎交流）</a></li>
+</ul>
+</div>
+</div><div id="sidebar_toptags" class="sidebar-block">
+<div class="catListTag">
+<h3 class="catListTitle">我的标签</h3>
+<ul>
+<li><a href="http://www.cnblogs.com/abel/tag/html/">html</a>(2)</li><li><a href="http://www.cnblogs.com/abel/tag/JavaScirpt/">JavaScirpt</a>(2)</li><li><a href="http://www.cnblogs.com/abel/tag/javascript/">javascript</a>(2)</li><li><a href="http://www.cnblogs.com/abel/tag/css/">css</a>(2)</li><li><a href="http://www.cnblogs.com/abel/tag/diskpart/">diskpart</a>(1)</li><li><a href="http://www.cnblogs.com/abel/tag/Excel/">Excel</a>(1)</li><li><a href="http://www.cnblogs.com/abel/tag/AJAX/">AJAX</a>(1)</li><li><a href="http://www.cnblogs.com/abel/tag/APP/">APP</a>(1)</li><li><a href="http://www.cnblogs.com/abel/tag/C%23/">C#</a>(1)</li><li><a href="http://www.cnblogs.com/abel/tag/chrome/">chrome</a>(1)</li><li><a href="http://www.cnblogs.com/abel/tag/">更多</a></li>
+</ul>
+</div></div><div id="sidebar_categories">
+<div class="catListPostCategory">
+<h3 class="catListTitle">随笔分类<span style="font-size:11px;font-weight:normal">(10)</span></h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_0_Link_0" href="http://www.cnblogs.com/abel/category/497982.html">.NET 开发(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_1" href="http://www.cnblogs.com/abel/category/508517.html">操作系统(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_2" href="http://www.cnblogs.com/abel/category/497166.html">前端开发(4)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_3" href="http://www.cnblogs.com/abel/category/505071.html">软件应用(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_4" href="http://www.cnblogs.com/abel/category/535983.html">树莓派(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_5" href="http://www.cnblogs.com/abel/category/497439.html">数据库(1)</a> </li>
+
+</ul>
+
+</div>
+
+<div class="catListPostArchive">
+<h3 class="catListTitle">随笔档案<span style="font-size:11px;font-weight:normal">(10)</span></h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_1_Link_0" href="http://www.cnblogs.com/abel/archive/2014/02.html">2014年2月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_1" href="http://www.cnblogs.com/abel/archive/2013/12.html">2013年12月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_2" href="http://www.cnblogs.com/abel/archive/2013/11.html">2013年11月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_3" href="http://www.cnblogs.com/abel/archive/2013/10.html">2013年10月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_4" href="http://www.cnblogs.com/abel/archive/2013/08.html">2013年8月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_5" href="http://www.cnblogs.com/abel/archive/2013/07.html">2013年7月 (2)</a> </li>
+
+</ul>
+
+</div>
+
+</div><div id="sidebar_scorerank" class="sidebar-block">
+<div class="catListBlogRank">
+<h3 class="catListTitle">积分与排名</h3>
+<ul>
+	<li class="liScore">
+		积分 -	38687
+	</li>
+	<li class="liRank">
+		排名 -	9513
+	</li>
+</ul>
+</div>
+
+
+</div><div id="sidebar_recentcomments" class="sidebar-block"><div id="recent_comments_wrap">
+<div class="catListComment">
+<h3 class="catListTitle">最新评论</h3>
+	<div id="RecentCommentsBlock"><ul>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/abel/p/3235839.html#3598677">1. Re:关于 Google Chrome 中的全屏模式和 APP 模式</a></li>
+        <li class="recent_comment_body">@大傻逼ing有效果的，我用的最新55稳定版都有。--app=url，url不能少了http或https协议前缀...</li>
+        <li class="recent_comment_author">--两眼欲读</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/abel/p/3235839.html#3580509">2. Re:关于 Google Chrome 中的全屏模式和 APP 模式</a></li>
+        <li class="recent_comment_body">今天试了这个app模式，竟然没有效果<br>不知道是不是谷歌浏览器版本的问题</li>
+        <li class="recent_comment_author">--大傻逼ing</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/abel/p/3194678.html#3497592">3. Re:C# 操作 Excel 常见问题收集和整理（定期更新，欢迎交流）</a></li>
+        <li class="recent_comment_body">有没有遇到，在excel中对单元格做了数据验证，在填充单元格时弹出数据格式错误的消息框，如何解决？</li>
+        <li class="recent_comment_author">--&lt;渔人&gt;</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/abel/p/3441175.html#3477372">4. Re:树莓派 Raspberry-Pi 折腾系列：系统安装及一些必要的配置</a></li>
+        <li class="recent_comment_body">为什么我这里安装不行呢，总是出错，求指教</li>
+        <li class="recent_comment_author">--思思83</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/abel/p/3371813.html#3465030">5. Re:[原创] JavaScript 图片放大镜插件 enlarge.js 以及移动版 enlarge.touch.js</a></li>
+        <li class="recent_comment_body">楼主，域名无法访问了</li>
+        <li class="recent_comment_author">--子了</li>
+</ul>
+</div>
+</div>
+</div></div><div id="sidebar_topviewedposts" class="sidebar-block"><div id="topview_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">阅读排行榜</h3>
+	<div id="TopViewPostsBlock"><ul><li><a href="http://www.cnblogs.com/abel/p/3441175.html">1. 树莓派 Raspberry-Pi 折腾系列：系统安装及一些必要的配置(90989)</a></li><li><a href="http://www.cnblogs.com/abel/p/3235839.html">2. 关于 Google Chrome 中的全屏模式和 APP 模式(18656)</a></li><li><a href="http://www.cnblogs.com/abel/p/3194678.html">3. C# 操作 Excel 常见问题收集和整理（定期更新，欢迎交流）(10733)</a></li><li><a href="http://www.cnblogs.com/abel/p/3247027.html">4. 【原创】只用 HTML / CSS 画出一把 UKULELE（夏威夷四弦吉他）(7241)</a></li><li><a href="http://www.cnblogs.com/abel/p/3213409.html">5. 简单好用的 AJAX 上传插件，还可以抛弃难看的 file 按钮哦~(6005)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topcommentedposts" class="sidebar-block"><div id="topfeedback_posts_wrap">
+<div class="catListFeedback">
+<h3 class="catListTitle">评论排行榜</h3>
+	<div id="TopFeedbackPostsBlock"><ul><li><a href="http://www.cnblogs.com/abel/p/3194678.html">1. C# 操作 Excel 常见问题收集和整理（定期更新，欢迎交流）(51)</a></li><li><a href="http://www.cnblogs.com/abel/p/3258696.html">2. 丢掉 WinPE，使用 DISKPART 来分区吧(35)</a></li><li><a href="http://www.cnblogs.com/abel/p/3247027.html">3. 【原创】只用 HTML / CSS 画出一把 UKULELE（夏威夷四弦吉他）(12)</a></li><li><a href="http://www.cnblogs.com/abel/p/3441175.html">4. 树莓派 Raspberry-Pi 折腾系列：系统安装及一些必要的配置(6)</a></li><li><a href="http://www.cnblogs.com/abel/p/3371813.html">5. [原创] JavaScript 图片放大镜插件 enlarge.js 以及移动版 enlarge.touch.js(6)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topdiggedposts" class="sidebar-block"><div id="topdigg_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">推荐排行榜</h3>
+<div id="TopDiggPostsBlock"><ul><li><a href="http://www.cnblogs.com/abel/p/3194678.html">1. C# 操作 Excel 常见问题收集和整理（定期更新，欢迎交流）(32)</a></li><li><a href="http://www.cnblogs.com/abel/p/3247027.html">2. 【原创】只用 HTML / CSS 画出一把 UKULELE（夏威夷四弦吉他）(11)</a></li><li><a href="http://www.cnblogs.com/abel/p/3441175.html">3. 树莓派 Raspberry-Pi 折腾系列：系统安装及一些必要的配置(5)</a></li><li><a href="http://www.cnblogs.com/abel/p/3371813.html">4. [原创] JavaScript 图片放大镜插件 enlarge.js 以及移动版 enlarge.touch.js(2)</a></li><li><a href="http://www.cnblogs.com/abel/p/3258696.html">5. 丢掉 WinPE，使用 DISKPART 来分区吧(2)</a></li></ul></div>
+</div></div></div></div><script type="text/javascript">loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		
+<!--done-->
+Copyright ©2018 ABEL
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+<!--PageEndHtml Block Begin-->
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F639babf816f2ceefefc39e172ab6daff' type='text/javascript'%3E%3C/script%3E"));
+</script><script src="./树莓派 Raspberry-Pi 折腾系列：系统安装及一些必要的配置 - ABEL - 博客园_files/h.js.下载" type="text/javascript"></script>
+<!--PageEndHtml Block End-->
+
+
+</body></html>

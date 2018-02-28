@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<!-- saved from url=(0043)http://www.cnblogs.com/dailc/p/6128823.html -->
+<html lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>排序算法之桶排序的深入理解以及性能分析 - 撒网要见鱼 - 博客园</title>
+<link type="text/css" rel="stylesheet" href="./排序算法之桶排序的深入理解以及性能分析 - 撒网要见鱼 - 博客园_files/blog-common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="./排序算法之桶排序的深入理解以及性能分析 - 撒网要见鱼 - 博客园_files/bundle-BlackLowKey.css">
+<link type="text/css" rel="stylesheet" href="./排序算法之桶排序的深入理解以及性能分析 - 撒网要见鱼 - 博客园_files/305820.css">
+<link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="./排序算法之桶排序的深入理解以及性能分析 - 撒网要见鱼 - 博客园_files/bundle-BlackLowKey-mobile.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/dailc/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/dailc/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/dailc/wlwmanifest.xml">
+<script async="" src="./排序算法之桶排序的深入理解以及性能分析 - 撒网要见鱼 - 博客园_files/analytics.js.下载"></script><script src="./排序算法之桶排序的深入理解以及性能分析 - 撒网要见鱼 - 博客园_files/jquery.js.下载" type="text/javascript"></script>  
+<script type="text/javascript">var currentBlogApp = 'dailc', cb_enable_mathjax=false;var isLogined=true;</script>
+<script src="./排序算法之桶排序的深入理解以及性能分析 - 撒网要见鱼 - 博客园_files/blog-common.js.下载" type="text/javascript"></script>
+</head>
+<body>
+<a name="top"></a>
+<!--PageBeginHtml Block Begin-->
+<link rel="stylesheet" href="./排序算法之桶排序的深入理解以及性能分析 - 撒网要见鱼 - 博客园_files/zui.min.css">
+<!--PageBeginHtml Block End-->
+
+<!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+	<a id="lnkBlogLogo" href="http://www.cnblogs.com/dailc/"><img id="blogLogo" src="./排序算法之桶排序的深入理解以及性能分析 - 撒网要见鱼 - 博客园_files/logo.gif" alt="返回主页"></a>			
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/dailc/">撒网要见鱼</a></h1>
+<h2>临渊羡鱼，不如退而结网!</h2>
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li><a id="blog_nav_sitehome" class="menu" href="http://www.cnblogs.com/">博客园</a></li>
+<li><a id="blog_nav_myhome" class="menu" href="http://www.cnblogs.com/dailc/">首页</a></li>
+<li><a id="blog_nav_newpost" class="menu" rel="nofollow" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a></li>
+<li><a id="blog_nav_contact" class="menu" rel="nofollow" href="https://msg.cnblogs.com/send/%E6%92%92%E7%BD%91%E8%A6%81%E8%A7%81%E9%B1%BC">联系</a></li>
+<li><a id="blog_nav_rss" class="menu" href="http://www.cnblogs.com/dailc/rss">订阅</a>
+<!--<a id="blog_nav_rss_image" class="aHeaderXML" href="http://www.cnblogs.com/dailc/rss"><img src="//www.cnblogs.com/images/xml.gif" alt="订阅" /></a>--></li>
+<li><a id="blog_nav_admin" class="menu" rel="nofollow" href="https://i.cnblogs.com/">管理</a></li>
+</ul>
+		<div class="blogStats">
+			
+			<div id="blog_stats">
+<span id="stats_post_count">随笔 - 19&nbsp; </span>
+<span id="stats_article_count">文章 - 0&nbsp; </span>
+<span id="stats-comment_count">评论 - 18</span>
+</div>
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		
+<div id="post_detail">
+<!--done-->
+<div id="topics">
+	<div class="post">
+		<h1 class="postTitle">
+			<a id="cb_post_title_url" class="postTitle2" href="http://www.cnblogs.com/dailc/p/6128823.html">排序算法之桶排序的深入理解以及性能分析</a>
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			<div id="cnblogs_post_body" class="blogpost-body cnblogs-markdown"><h2 id="前言">前言</h2>
+<p>本文为算法分析系列博文之一，深入探究桶排序，分析各自环境下的性能，同时辅以性能分析示例加以佐证</p>
+<h2 id="实现思路与步骤">实现思路与步骤</h2>
+<h3 id="思路">思路</h3>
+<ol>
+<li>设置固定空桶数</li>
+<li>将数据放到对应的空桶中</li>
+<li>将每个不为空的桶进行排序</li>
+<li>拼接不为空的桶中的数据，得到结果</li>
+</ol>
+<h3 id="步骤演示">步骤演示</h3>
+<p>假设一组数据(20长度)为</p>
+<pre><code class="hljs json">[<span class="hljs-number">63</span>,<span class="hljs-number">157</span>,<span class="hljs-number">189</span>,<span class="hljs-number">51</span>,<span class="hljs-number">101</span>,<span class="hljs-number">47</span>,<span class="hljs-number">141</span>,<span class="hljs-number">121</span>,<span class="hljs-number">157</span>,<span class="hljs-number">156</span>,<span class="hljs-number">194</span>,<span class="hljs-number">117</span>,<span class="hljs-number">98</span>,<span class="hljs-number">139</span>,<span class="hljs-number">67</span>,<span class="hljs-number">133</span>,<span class="hljs-number">181</span>,<span class="hljs-number">13</span>,<span class="hljs-number">28</span>,<span class="hljs-number">109</span>] </code></pre>
+<p>现在需要按5个分桶，进行桶排序，实现步骤如下:</p>
+<ol>
+<li><p>找到数组中的最大值194和最小值13，然后根据桶数为5，计算出每个桶中的数据范围为<code>(194-13+1)/5=36.4</code></p></li>
+<li>遍历原始数据，(以第一个数据63为例)先找到该数据对应的桶序列<code>Math.floor(63 - 13) / 36.4) =1</code>，然后将该数据放入序列为1的桶中(从0开始算)</li>
+<li>当向同一个序列的桶中第二次插入数据时，判断桶中已存在的数字与新插入的数字的大小，按从左到右，从小打大的顺序插入。如第一个桶已经有了63，再插入51，67后，桶中的排序为(51,63,67) <strong>一般通过链表来存放桶中数据，但js中可以使用数组来模拟</strong></li>
+<li>全部数据装桶完毕后，按序列，从小到大合并所有非空的桶(如0,1,2,3,4桶)</li>
+<li><p>合并完之后就是已经排完序的数据</p></li>
+</ol>
+<h3 id="步骤图示">步骤图示</h3>
+<p><img src="./排序算法之桶排序的深入理解以及性能分析 - 撒网要见鱼 - 博客园_files/demo_js_algorithmSort_bucketSort_1.png"></p>
+<h2 id="实现代码">实现代码</h2>
+<p>以下分别以JS和Java的实现代码为例</p>
+<h3 id="js实现代码数组替代链表版本">JS实现代码(数组替代链表版本)</h3>
+<pre><code class="hljs swift"><span class="hljs-keyword">var</span> bucketSort = function(arr, bucketCount) {
+    <span class="hljs-keyword">if</span> (arr.length &lt;= <span class="hljs-number">1</span>) {
+        <span class="hljs-keyword">return</span> arr;
+    }
+    bucketCount = bucketCount || <span class="hljs-number">10</span>;
+    <span class="hljs-comment">//初始化桶</span>
+    <span class="hljs-keyword">var</span> len = arr.length,
+    buckets = [],
+    result = [],
+    <span class="hljs-built_in">max</span> = arr[<span class="hljs-number">0</span>],
+    <span class="hljs-built_in">min</span> = arr[<span class="hljs-number">0</span>];
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">1</span>; i &lt; len; i++) {
+        <span class="hljs-built_in">min</span> = <span class="hljs-built_in">min</span> &lt;= arr[i] ? <span class="hljs-built_in">min</span>: arr[i];
+        <span class="hljs-built_in">max</span> = <span class="hljs-built_in">max</span> &gt;= arr[i] ? <span class="hljs-built_in">max</span>: arr[i];
+    }
+    <span class="hljs-comment">//求出每一个桶的数值范围</span>
+    <span class="hljs-keyword">var</span> space = (<span class="hljs-built_in">max</span> - <span class="hljs-built_in">min</span> + <span class="hljs-number">1</span>) / bucketCount;
+    <span class="hljs-comment">//将数值装入桶中</span>
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) {
+        <span class="hljs-comment">//找到相应的桶序列</span>
+        <span class="hljs-keyword">var</span> index = <span class="hljs-type">Math</span>.floor((arr[i] - <span class="hljs-built_in">min</span>) / space);
+        <span class="hljs-comment">//判断是否桶中已经有数值</span>
+        <span class="hljs-keyword">if</span> (buckets[index]) {
+            <span class="hljs-comment">//数组从小到大排列</span>
+            <span class="hljs-keyword">var</span> bucket = buckets[index];
+            <span class="hljs-keyword">var</span> k = bucket.length - <span class="hljs-number">1</span>;
+            <span class="hljs-keyword">while</span> (k &gt;= <span class="hljs-number">0</span> &amp;&amp; buckets[index][k] &gt; arr[i]) {
+                buckets[index][k + <span class="hljs-number">1</span>] = buckets[index][k];
+                k--
+            }
+            buckets[index][k + <span class="hljs-number">1</span>] = arr[i];
+        } <span class="hljs-keyword">else</span> {
+            <span class="hljs-comment">//新增数值入桶，暂时用数组模拟链表</span>
+            buckets[index] = [];
+            buckets[index].push(arr[i]);
+        }
+    }
+    <span class="hljs-comment">//开始合并数组</span>
+    <span class="hljs-keyword">var</span> n = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">while</span> (n &lt; bucketCount) {
+        <span class="hljs-keyword">if</span> (buckets[n]) {
+            result = result.concat(buckets[n]);
+        }
+        n++;
+    }
+    <span class="hljs-keyword">return</span> result;
+};
+<span class="hljs-comment">//开始排序</span>
+arr = bucketSort(arr, <span class="hljs-keyword">self</span>.bucketCount);</code></pre>
+<h3 id="js实现代码模拟链表实现版本">JS实现代码(模拟链表实现版本)</h3>
+<pre><code class="hljs javascript"><span class="hljs-keyword">var</span> L = <span class="hljs-built_in">require</span>(<span class="hljs-string">'linklist'</span>); <span class="hljs-comment">//链表</span>
+<span class="hljs-keyword">var</span> sort = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">arr, bucketCount</span>) </span>{
+    <span class="hljs-keyword">if</span>(arr.length &lt;= <span class="hljs-number">1</span>) {
+        <span class="hljs-keyword">return</span> arr;
+    }
+    bucketCount = bucketCount || <span class="hljs-number">10</span>;
+    <span class="hljs-comment">//初始化桶</span>
+    <span class="hljs-keyword">var</span> len = arr.length,
+        buckets = [],
+        result = [],
+        max = arr[<span class="hljs-number">0</span>],
+        min = arr[<span class="hljs-number">0</span>];
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> i = <span class="hljs-number">1</span>; i &lt; len; i++) {
+        min = min &lt;= arr[i] ? min : arr[i];
+        max = max &gt;= arr[i] ? max : arr[i];
+    }
+    <span class="hljs-comment">//求出每一个桶的数值范围</span>
+    <span class="hljs-keyword">var</span> space = (max - min + <span class="hljs-number">1</span>) / bucketCount;
+    <span class="hljs-comment">//将数值装入桶中</span>
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) {
+        <span class="hljs-comment">//找到相应的桶序列</span>
+        <span class="hljs-keyword">var</span> index = <span class="hljs-built_in">Math</span>.floor((arr[i] - min) / space);
+        <span class="hljs-comment">//判断是否桶中已经有数值</span>
+        <span class="hljs-keyword">if</span>(buckets[index]) {
+            <span class="hljs-comment">//数组从小到大排列</span>
+            <span class="hljs-keyword">var</span> bucket = buckets[index];
+            <span class="hljs-keyword">var</span> insert = <span class="hljs-literal">false</span>; <span class="hljs-comment">//插入标石</span>
+            L.reTraversal(bucket, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">item, done</span>) </span>{
+                <span class="hljs-keyword">if</span>(arr[i] &lt;= item.v) { <span class="hljs-comment">//小于，左边插入</span>
+                    L.append(item, _val(arr[i]));
+                    insert = <span class="hljs-literal">true</span>;
+                    done(); <span class="hljs-comment">//退出遍历</span>
+                }
+            });
+            <span class="hljs-keyword">if</span>(!insert) { <span class="hljs-comment">//大于，右边插入</span>
+                L.append(bucket, _val(arr[i]));
+            }
+        } <span class="hljs-keyword">else</span> {
+            <span class="hljs-keyword">var</span> bucket = L.init();
+            L.append(bucket, _val(arr[i]));
+            buckets[index] = bucket; <span class="hljs-comment">//链表实现</span>
+        }
+    }
+    <span class="hljs-comment">//开始合并数组</span>
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>, j = <span class="hljs-number">0</span>; i &lt; bucketCount; i++) {
+        L.reTraversal(buckets[i], <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">item</span>) </span>{
+            <span class="hljs-comment">// console.log(i+":"+item.v);</span>
+            result[j++] = item.v;
+        });
+    }
+    <span class="hljs-keyword">return</span> result;
+};
+
+<span class="hljs-comment">//链表存储对象</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">_val</span>(<span class="hljs-params">v</span>) </span>{
+    <span class="hljs-keyword">return</span> {
+        v: v
+    }
+}
+<span class="hljs-comment">//开始排序</span>
+arr = bucketSort(arr, self.bucketCount);</code></pre>
+<p>其中，linklist为引用的第三方库，地址<br>
+<a href="https://github.com/dead-horse/js-linklist">linklist</a></p>
+<h3 id="java实现代码">Java实现代码</h3>
+<pre><code class="hljs fortran"><span class="hljs-keyword">public</span> static <span class="hljs-keyword">double</span>[] bucketSort(<span class="hljs-keyword">double</span> arr[], <span class="hljs-built_in">int</span> bucketCount) {
+
+    <span class="hljs-built_in">int</span> len = arr.length;
+    <span class="hljs-keyword">double</span>[] result = new <span class="hljs-keyword">double</span>[len];
+    <span class="hljs-keyword">double</span> <span class="hljs-built_in">min</span> = arr[<span class="hljs-number">0</span>];
+    <span class="hljs-keyword">double</span> <span class="hljs-built_in">max</span> = arr[<span class="hljs-number">0</span>];
+    //找到最大值和最小值
+    for (<span class="hljs-built_in">int</span> i = <span class="hljs-number">1</span>; i &lt; len; i++) {
+        <span class="hljs-built_in">min</span> = <span class="hljs-built_in">min</span> &lt;= arr[i] ? <span class="hljs-built_in">min</span>: arr[i];
+        <span class="hljs-built_in">max</span> = <span class="hljs-built_in">max</span> &gt;= arr[i] ? <span class="hljs-built_in">max</span>: arr[i];
+    }
+    //求出每一个桶的数值范围
+    <span class="hljs-keyword">double</span> space = (<span class="hljs-built_in">max</span> - <span class="hljs-built_in">min</span> + <span class="hljs-number">1</span>) / bucketCount;
+    //先创建好每一个桶的空间,这里使用了泛型数组
+    ArrayList &lt; <span class="hljs-keyword">Double</span> &gt; [] arrList = new ArrayList[bucketCount];
+    //把arr中的数均匀的的分布到[<span class="hljs-number">0</span>,<span class="hljs-number">1</span>)上，每个桶是一个list，存放落在此桶上的元素   
+    for (<span class="hljs-built_in">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) {
+        <span class="hljs-built_in">int</span> <span class="hljs-built_in">index</span> = (<span class="hljs-built_in">int</span>) Math.<span class="hljs-built_in">floor</span>((arr[i] - <span class="hljs-built_in">min</span>) / space);
+        <span class="hljs-keyword">if</span> (arrList[<span class="hljs-built_in">index</span>] == null) {
+            //如果链表里没有东西
+            arrList[<span class="hljs-built_in">index</span>] = new ArrayList &lt; <span class="hljs-keyword">Double</span> &gt; ();
+            arrList[<span class="hljs-built_in">index</span>].add(arr[i]);
+        } <span class="hljs-keyword">else</span> {
+            //排序
+            <span class="hljs-built_in">int</span> k = arrList[<span class="hljs-built_in">index</span>].<span class="hljs-built_in">size</span>() - <span class="hljs-number">1</span>;
+            <span class="hljs-keyword">while</span> (k &gt;= <span class="hljs-number">0</span> &amp;&amp; (<span class="hljs-keyword">Double</span>) arrList[<span class="hljs-built_in">index</span>].get(k) &gt; arr[i]) {
+                <span class="hljs-keyword">if</span> (k + <span class="hljs-number">1</span> &gt; arrList[<span class="hljs-built_in">index</span>].<span class="hljs-built_in">size</span>() - <span class="hljs-number">1</span>) {
+                    arrList[<span class="hljs-built_in">index</span>].add(arrList[<span class="hljs-built_in">index</span>].get(k));
+                } <span class="hljs-keyword">else</span> {
+                    arrList[<span class="hljs-built_in">index</span>].set(k + <span class="hljs-number">1</span>, arrList[<span class="hljs-built_in">index</span>].get(k));
+                }
+                k--;
+            }
+            <span class="hljs-keyword">if</span> (k + <span class="hljs-number">1</span> &gt; arrList[<span class="hljs-built_in">index</span>].<span class="hljs-built_in">size</span>() - <span class="hljs-number">1</span>) {
+                arrList[<span class="hljs-built_in">index</span>].add(arr[i]);
+            } <span class="hljs-keyword">else</span> {
+                arrList[<span class="hljs-built_in">index</span>].set(k + <span class="hljs-number">1</span>, arr[i]);
+            }
+        }
+
+    }
+
+    //把各个桶的排序结果合并  ,<span class="hljs-built_in">count</span>是当前的数组下标
+    <span class="hljs-built_in">int</span> <span class="hljs-built_in">count</span> = <span class="hljs-number">0</span>;
+
+    for (<span class="hljs-built_in">int</span> i = <span class="hljs-number">0</span>; i &lt; bucketCount; i++) {
+        <span class="hljs-keyword">if</span> (null <span class="hljs-comment">!= arrList[i] &amp;&amp; arrList[i].size() &gt; 0) {</span>
+            Iterator &lt; <span class="hljs-keyword">Double</span> &gt; iter = arrList[i].iterator();
+            <span class="hljs-keyword">while</span> (iter.hasNext()) {
+                <span class="hljs-keyword">Double</span> d = (<span class="hljs-keyword">Double</span>) iter.next();
+                result[<span class="hljs-built_in">count</span>] = d;
+                <span class="hljs-built_in">count</span>++;
+            }
+        }
+    }
+    <span class="hljs-keyword">return</span> result;
+}
+//开始排序,其中arr为需要排序的数组
+<span class="hljs-keyword">double</span>[] result = bucketSort(arr,bucketCount);</code></pre>
+<h2 id="算法复杂度">算法复杂度</h2>
+<p>算法复杂度的计算，这里我们直接抛开常数，只计算与N(数组长度)与M(分桶数)相关的语句</p>
+<h3 id="时间复杂度">时间复杂度</h3>
+<p>因为时间复杂度度考虑的是最坏的情况，所以桶排序的时间复杂度可以这样去看(只看主要耗时部分，而且常熟部分K一般都省去)</p>
+<ul>
+<li>N次循环，每一个数据装入桶</li>
+<li>然后M次循环，每一个桶中的数据进行排序(每一个桶中有N/M个数据)，假设为使用比较先进的排序算法进行排序</li>
+</ul>
+<p>一般较为先进的排序算法时间复杂度是O(N*logN)，实际的桶排序执行过程中，桶中数据是以链表形式插入的，那么整个桶排序的时间复杂度为:</p>
+<pre><code class="hljs lisp">O(<span class="hljs-name">N</span>)+O(<span class="hljs-name">M*</span>(<span class="hljs-name">N/M</span>)*log(N/M))=O(N*(<span class="hljs-name">log</span>(<span class="hljs-name">N/M</span>)<span class="hljs-number">+1</span>))</code></pre>
+<p><strong>所以，理论上来说(N个数都符合均匀分布)，当M=N时，有一个最小值为O(N)</strong></p>
+<p><em>PS:这里有人提到最后还有M个桶的合并，其实首先M一般远小于N，其次再效率最高时是M=N，这是就算把这个算进去，也是O(N</em>(1+log(N/M)+M/N))，极小值还是O(2<em>N)=O(N)</em></p>
+<pre><code class="hljs matlab">求M的极小值，具体计算为:(其中N可以看作一个很大的常数)
+F(M) = <span class="hljs-built_in">log</span>(N/M)+M/N) = LogN-LogM+M/N
+它的导函数
+F'(M) = <span class="hljs-number">-1</span>/M + <span class="hljs-number">1</span>/N
+因为导函数大于<span class="hljs-number">0</span>代表函数递增，小于<span class="hljs-number">0</span>代表函数递减
+所以F(M)在(<span class="hljs-number">0</span>,N) 上递减
+在(N,+∞)上递增
+所以当M=N时取到极小值</code></pre>
+<h3 id="空间复杂度">空间复杂度</h3>
+<p>空间复杂度一般指算法执行过程中需要的额外存储空间</p>
+<p>桶排序中，需要创建M个桶的额外空间，以及N个元素的额外空间</p>
+<p>所以桶排序的空间复杂度为 <strong>O(N+M)</strong></p>
+<h3 id="稳定性">稳定性</h3>
+<p>稳定性是指，比如a在b前面，a=b，排序后，a仍然应该在b前面，这样就算稳定的。</p>
+<p>桶排序中，假如升序排列，a已经在桶中，b插进来是永远都会a右边的(因为一般是从右到左，如果不小于当前元素，则插入改元素的右侧)</p>
+<p><strong>所以桶排序是稳定的</strong></p>
+<p><em>PS:当然了，如果采用元素插入后再分别进行桶内排序，并且桶内排序算法采用快速排序，那么就不是稳定的</em></p>
+<h3 id="适用范围">适用范围</h3>
+<p>用排序主要适用于均匀分布的数字数组，在这种情况下能够达到最大效率</p>
+<h2 id="性能分析">性能分析</h2>
+<p>为了更好的测试桶排序在各自环境的性能，分别用普通JS浏览器，Node.js环境，Java环境进行测试，得出以下的对比分析</p>
+<p>前提数据为:</p>
+<ul>
+<li>10W长度的随机数组</li>
+<li>数组的范围为[0,10000)</li>
+<li>数据为浮点类型</li>
+</ul>
+<h3 id="js浏览器环境下的性能数组替代链表型">JS浏览器环境下的性能(数组替代链表型)</h3>
+<p>本文主要是在webkit内核的浏览器中测试，浏览器中的方案类型为</p>
+<ul>
+<li>数据插入时排序，但是使用数组替代链表</li>
+</ul>
+<p>出人意料，答案并非是理想的那样。</p>
+<p>结果为:</p>
+<ul>
+<li>当分桶数从1-500时，排序效率有所提升(其中[1,100]提升的比较明显)</li>
+<li>当分桶数大于500后，再增加分桶数，性能反而会有明显下降</li>
+<li>而且，排序时间过长，已经超过了毫秒级别</li>
+<li>所以，明显并不符合理想预期</li>
+</ul>
+<h4 id="详细结果">详细结果</h4>
+<p>以下为在前提条件下，分桶数从10-10000变化的耗时对比</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">分桶数</th>
+<th align="center">耗时</th>
+<th align="right">趋势</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">10</td>
+<td align="center">24444ms</td>
+<td align="right">递减</td>
+</tr>
+<tr class="even">
+<td align="left">100</td>
+<td align="center">3246ms</td>
+<td align="right">递减</td>
+</tr>
+<tr class="odd">
+<td align="left">500</td>
+<td align="center">3104ms</td>
+<td align="right">递减</td>
+</tr>
+<tr class="even">
+<td align="left">1000</td>
+<td align="center">3482ms</td>
+<td align="right">递增</td>
+</tr>
+<tr class="odd">
+<td align="left">10000</td>
+<td align="center">9185ms</td>
+<td align="right">递增</td>
+</tr>
+</tbody>
+</table>
+<h4 id="图示">图示</h4>
+<p>其中，分桶为500时的一个排序结果图示(其中平均排序时间在2-3S，超过了理想模型下的预期时间)<br>
+<img src="./排序算法之桶排序的深入理解以及性能分析 - 撒网要见鱼 - 博客园_files/demo_js_algorithmSort_bucketSort_2.png"></p>
+<p>为了探讨是桶排序自身的原因还是JS浏览器环境的局限，所以又单独在Node.js环境下和Java环境下进行分析测试</p>
+<h3 id="node.js环境下的性能数组替代链表型">Node.js环境下的性能(数组替代链表型)</h3>
+<p>这种方案下采用和浏览器中一样的代码(数组替代链表型)</p>
+<p>结果为:</p>
+<ul>
+<li>当分桶数从1-500时，排序效率有所提升(其中[1,100]提升的比较明显)</li>
+<li>当分桶数大于500后，再增加分桶数，性能反而会有明显下降</li>
+<li>而且，排序时间过长，已经超过了毫秒级别</li>
+<li>所以，明显并不符合理想预期模型</li>
+</ul>
+<h4 id="详细结果-1">详细结果</h4>
+<p>以下为在前提条件下，分桶数从1-1000000变化的耗时对比</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">分桶数</th>
+<th align="center">耗时</th>
+<th align="right">趋势</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">1</td>
+<td align="center">9964ms</td>
+<td align="right">递减</td>
+</tr>
+<tr class="even">
+<td align="left">10</td>
+<td align="center">1814ms</td>
+<td align="right">递减</td>
+</tr>
+<tr class="odd">
+<td align="left">100</td>
+<td align="center">279ms</td>
+<td align="right">递减</td>
+</tr>
+<tr class="even">
+<td align="left">500</td>
+<td align="center">204ms</td>
+<td align="right">递减</td>
+</tr>
+<tr class="odd">
+<td align="left">1000</td>
+<td align="center">262ms</td>
+<td align="right">递增</td>
+</tr>
+<tr class="even">
+<td align="left">5000</td>
+<td align="center">1078ms</td>
+<td align="right">递增</td>
+</tr>
+<tr class="odd">
+<td align="left">10000</td>
+<td align="center">2171ms</td>
+<td align="right">递增</td>
+</tr>
+<tr class="even">
+<td align="left">100000</td>
+<td align="center">9110ms</td>
+<td align="right">递增</td>
+</tr>
+</tbody>
+</table>
+<h3 id="node.js环境下的性能模拟链表型">Node.js环境下的性能(模拟链表型)</h3>
+<p>这种方案下采用和浏览器中一样的代码(模拟链表型)，这种方案里的主要差别是不再使用数组替代链表，而是采用模拟链表的方式</p>
+<p>结果为:</p>
+<ul>
+<li>整个1-100000区间，随着分桶数的增加，效率是递增的</li>
+<li>当分桶数从1-1000时，性能远远小于前面的那种数组替代链表类型</li>
+<li>当分桶数大于1000后，再增加分桶数，性能才逐渐超过前面的那种类型</li>
+<li>所以，虽然说这种算法在分桶数较低时性能很低，但是当分桶数提高时，性能有着明显的提供，而且性能和分桶数是线性关系，符合理想预期模型</li>
+</ul>
+<h4 id="详细结果-2">详细结果</h4>
+<p>以下为在前提条件下，分桶数从1-1000000变化的耗时对比</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">分桶数</th>
+<th align="center">耗时</th>
+<th align="right">趋势</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">1</td>
+<td align="center">196405ms</td>
+<td align="right">递减</td>
+</tr>
+<tr class="even">
+<td align="left">10</td>
+<td align="center">30527ms</td>
+<td align="right">递减</td>
+</tr>
+<tr class="odd">
+<td align="left">100</td>
+<td align="center">3029ms</td>
+<td align="right">递减</td>
+</tr>
+<tr class="even">
+<td align="left">500</td>
+<td align="center">976ms</td>
+<td align="right">递减</td>
+</tr>
+<tr class="odd">
+<td align="left">1000</td>
+<td align="center">643ms</td>
+<td align="right">递减</td>
+</tr>
+<tr class="even">
+<td align="left">5000</td>
+<td align="center">340ms</td>
+<td align="right">递减</td>
+</tr>
+<tr class="odd">
+<td align="left">10000</td>
+<td align="center">276ms</td>
+<td align="right">递减</td>
+</tr>
+<tr class="even">
+<td align="left">100000</td>
+<td align="center">312ms</td>
+<td align="right">稳定</td>
+</tr>
+<tr class="odd">
+<td align="left">1000000</td>
+<td align="center">765ms</td>
+<td align="right">递增</td>
+</tr>
+</tbody>
+</table>
+<h3 id="java环境下的性能">Java环境下的性能</h3>
+<p>这种方案主要用来和Node.js后台执行方案的对比</p>
+<p>结果为:</p>
+<ul>
+<li>分桶数从小到大增加时，性能逐步增加</li>
+<li>当分桶数在10000左右时，达到性能最大值</li>
+<li>分桶数在往后增加也不会影响性能(因为实际上没有用到计算)</li>
+<li>虽然说与理想值还有一点差距，但整个结果基本符合预期</li>
+</ul>
+<h4 id="详细结果-3">详细结果</h4>
+<p>以下为在前提条件下，分桶数从1-1000000变化的耗时对比</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">分桶数</th>
+<th align="center">耗时</th>
+<th align="right">趋势</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">1</td>
+<td align="center">39610ms</td>
+<td align="right">递减</td>
+</tr>
+<tr class="even">
+<td align="left">10</td>
+<td align="center">6094ms</td>
+<td align="right">递减</td>
+</tr>
+<tr class="odd">
+<td align="left">100</td>
+<td align="center">1127ms</td>
+<td align="right">递减</td>
+</tr>
+<tr class="even">
+<td align="left">500</td>
+<td align="center">361ms</td>
+<td align="right">递减</td>
+</tr>
+<tr class="odd">
+<td align="left">10000</td>
+<td align="center">192ms</td>
+<td align="right">递减</td>
+</tr>
+<tr class="even">
+<td align="left">100000</td>
+<td align="center">195ms</td>
+<td align="right">稳定</td>
+</tr>
+<tr class="odd">
+<td align="left">1000000</td>
+<td align="center">198ms</td>
+<td align="right">稳定</td>
+</tr>
+</tbody>
+</table>
+<h3 id="总结">总结</h3>
+<p>桶排序决定快慢的关键在于桶内元素的排序算法，所以不同的实现算法，相应的排序代价也是不一样的</p>
+<p>比如，本文中的几个对比</p>
+<ul>
+<li>使用数组模拟链表，桶内元素插入时即排序</li>
+<li>使用模拟链表，桶内元素插入时即排序</li>
+</ul>
+<p>以上几种的排序方案，最终的结果都是不一样的。<br>
+而且还有一点值得注意，浏览器中执行的性能损耗要远大于后端执行。</p>
+<h3 id="关于js数组替代链表方案的性能疑惑">关于JS数组替代链表方案的性能疑惑</h3>
+<p>最开始分析桶排序时，只采用了JS数组替代链表的方案，那时候发现当分桶数大于一定阈值时，性能会有一个明显的下降，刚开始还比较疑惑，不知道是桶排序自身的问题还是浏览器环境的限制还是算法的问题。</p>
+<p>直到后来又分别在Java环境，Node.js环境进行测试，并且尝试更换算法，最终发现原来有以下原因:</p>
+<ul>
+<li>浏览器中执行的性能损耗要远大于后端执行</li>
+<li>使用数组替代链表型，这个方案本身有问题</li>
+<li>另外还试过使用数组替代链表，先插入数据，全部插入完毕后再单个桶内进行快速排序，结果表明这种方案的结果与前面的数组替代链表型是基本一致的</li>
+</ul>
+<p>而且后来采用模拟链表方案，发现结果确实是与预期预估的趋势相符合的。</p>
+<p>所以基本锁定的原因就是:<strong>JS中使用数组替代链表这种方案本身就不合理</strong></p>
+<h3 id="关于如何选择桶排序方案">关于如何选择桶排序方案</h3>
+<p>上述分析中可以看到，当分桶数较小时，模拟链表方案性能要远远小于数组替代链表方案，但基本上当分桶数大于1000多时，模拟链表方案的优势就体现出来了。<br>
+所以实际情况可以根据实际的需要进行选择</p>
+<h2 id="示例demo">示例Demo</h2>
+<p>仍然和以前的系列一样，有提供一个浏览器环境下的性能分析示例工具，参考<br>
+<a href="https://dailc.github.io/jsPerformanceAnalysis/html/performanceAnalysis/demo_performanceAnalysis_jsarraySort.html">JS几种数组排序方式分析比较</a></p>
+<h2 id="原文地址">原文地址</h2>
+<p>原文在我个人博客上面<br>
+<a href="https://dailc.github.io/2016/12/03/baseKnowlenge_algorithm_sort_bucketSort.html">排序算法之桶排序的深入理解以及性能分析</a></p>
+<h2 id="参考">参考</h2>
+<ul>
+<li><a href="http://blog.fens.me/algorithm-bucketsort-nodejs/">深入解析桶排序算法及Node.js上JavaScript的代码实现</a></li>
+</ul>
+</div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory"></div>
+<div id="EntryTag">标签: <a href="http://www.cnblogs.com/dailc/tag/JavaScript/">JavaScript</a>, <a href="http://www.cnblogs.com/dailc/tag/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">基础知识</a>, <a href="http://www.cnblogs.com/dailc/tag/%E7%AE%97%E6%B3%95/">算法</a>, <a href="http://www.cnblogs.com/dailc/tag/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/">排序算法</a>, <a href="http://www.cnblogs.com/dailc/tag/%E6%A1%B6%E6%8E%92%E5%BA%8F/">桶排序</a>, <a href="http://www.cnblogs.com/dailc/tag/%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90/">性能分析</a></div>
+<div id="blog_post_info"><div id="green_channel">
+        <a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(6128823,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+            <a id="green_channel_follow" onclick="follow(&#39;b8b84d49-bae5-e511-9fc1-ac853d9f53cc&#39;);" href="javascript:void(0);">关注我</a>
+    <a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a>
+    <a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./排序算法之桶排序的深入理解以及性能分析 - 撒网要见鱼 - 博客园_files/icon_weibo_24.png" alt=""></a>
+    <a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="./排序算法之桶排序的深入理解以及性能分析 - 撒网要见鱼 - 博客园_files/wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+    <div id="author_profile_info" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/dailc/" target="_blank"><img src="./排序算法之桶排序的深入理解以及性能分析 - 撒网要见鱼 - 博客园_files/sample_face.gif" class="author_avatar" alt=""></a>
+        <div id="author_profile_detail" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/dailc/">撒网要见鱼</a><br>
+            <a href="http://home.cnblogs.com/u/dailc/followees">关注 - 7</a><br>
+            <a href="http://home.cnblogs.com/u/dailc/followers">粉丝 - 25</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div id="author_profile_honor"></div>
+    <div id="author_profile_follow">
+                <a href="javascript:void(0);" onclick="follow(&#39;b8b84d49-bae5-e511-9fc1-ac853d9f53cc&#39;);return false;">+加关注</a>
+    </div>
+</div>
+<div id="div_digg">
+    <div class="diggit" onclick="votePost(6128823,&#39;Digg&#39;)">
+        <span class="diggnum" id="digg_count">0</span>
+    </div>
+    <div class="buryit" onclick="votePost(6128823,&#39;Bury&#39;)">
+        <span class="burynum" id="bury_count">0</span>
+    </div>
+    <div class="clear"></div>
+    <div class="diggword" id="digg_tips">
+    </div>
+</div>
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/dailc/p/6103091.html" class="p_n_p_prefix">« </a> 上一篇：<a href="http://www.cnblogs.com/dailc/p/6103091.html" title="发布于2016-11-25 21:54">JS几种数组遍历方式以及性能分析对比</a><br><a href="http://www.cnblogs.com/dailc/p/6172058.html" class="p_n_p_prefix">» </a> 下一篇：<a href="http://www.cnblogs.com/dailc/p/6172058.html" title="发布于2016-12-13 22:11">一个H5的3D滑动组件实现(兼容2D模式)</a><br></div>
+</div>
+
+
+		</div>
+		<div class="postDesc">posted @ <span id="post-date">2016-12-03 15:20</span> <a href="http://www.cnblogs.com/dailc/">撒网要见鱼</a> 阅读(<span id="post_view_count">382</span>) 评论(<span id="post_comment_count">0</span>)  <a href="https://i.cnblogs.com/EditPosts.aspx?postid=6128823" rel="nofollow">编辑</a> <a href="http://www.cnblogs.com/dailc/p/6128823.html#" onclick="AddToWz(6128823);return false;">收藏</a></div>
+	</div>
+	<script src="./排序算法之桶排序的深入理解以及性能分析 - 撒网要见鱼 - 博客园_files/highlight.min.js.下载"></script><script>markdown_highlight();</script><script type="text/javascript">var allowComments=true,cb_blogId=305820,cb_entryId=6128823,cb_blogApp=currentBlogApp,cb_blogUserGuid='b8b84d49-bae5-e511-9fc1-ac853d9f53cc',cb_entryCreatedDate='2016/12/3 15:20:00';loadViewCount(cb_entryId);var cb_postType=1;</script>
+	
+</div><!--end: topics 文章、评论容器-->
+</div><a name="!comments"></a><div id="blog-comments-placeholder"></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="http://www.cnblogs.com/dailc/p/6128823.html#" onclick="return RefreshPage();">刷新页面</a><a href="http://www.cnblogs.com/dailc/p/6128823.html#top">返回顶部</a></div>
+<div id="comment_form_container">
+<div id="commentform_title">发表评论</div>
+<span id="tip_comment" style="color:Red"></span>
+<p>
+昵称：<input type="text" id="tbCommentAuthor" class="author" disabled="disabled" size="50" value="daoning">
+</p>
+<div class="commentbox_main">
+<div class="commentbox_title">
+<div class="commentbox_title_left">评论内容：</div>
+<div class="commentbox_title_right">
+<img id="ubb_quote" class="comment_icon" src="./排序算法之桶排序的深入理解以及性能分析 - 撒网要见鱼 - 博客园_files/quote.gif" alt="引用" title="添加引用" onclick="insertUBB(&#39;tbCommentBody&#39;,&#39;quote&#39;)">
+<img id="ubb_bold" class="comment_icon" src="./排序算法之桶排序的深入理解以及性能分析 - 撒网要见鱼 - 博客园_files/b.png" alt="粗体" title="添加粗体" onclick="insertUBB(&#39;tbCommentBody&#39;,&#39;b&#39;)">
+<img id="ubb_url" class="comment_icon" src="./排序算法之桶排序的深入理解以及性能分析 - 撒网要见鱼 - 博客园_files/lk.png" alt="链接" title="添加链接" onclick="insertUbbUrl(&#39;tbCommentBody&#39;)">
+<img id="ubb_indent" class="comment_icon" src="./排序算法之桶排序的深入理解以及性能分析 - 撒网要见鱼 - 博客园_files/indent.png" alt="缩进" title="添加首行缩进" onclick="insertIndent(&#39;tbCommentBody&#39;)">
+<img id="ubb_code" class="comment_icon" src="./排序算法之桶排序的深入理解以及性能分析 - 撒网要见鱼 - 博客园_files/InsertCode.gif" alt="代码" title="添加代码" onclick="insertUbbCode()">
+<img id="ubb_img" class="comment_icon" src="./排序算法之桶排序的深入理解以及性能分析 - 撒网要见鱼 - 博客园_files/img.gif" alt="图片" title="上传图片" onclick="OpenImageUploadWindow();">
+</div>
+</div>
+<div class="clear"></div>
+<textarea id="tbCommentBody" class="comment_textarea"></textarea>
+</div>
+<p id="commentbox_opt">
+<input id="btn_comment_submit" type="button" class="comment_btn" value="提交评论">
+<span id="span_comment_canceledit" style="display:none"><a href="javascript:void(0);" onclick="return CancelCommentEdit()">不改了</a></span>
+<a href="javascript:void(0);" onclick="return logout();">退出</a>
+        <a id="commentbox_opt_sub" href="javascript:void(0);" title="订阅后有新评论时会邮件通知您" onclick="commentManager.Subscribe()">订阅评论</a>
+</p>
+<div id="tip_comment2" style="color:Red"></div>
+<p>
+[Ctrl+Enter快捷键提交]
+</p>
+<div style="display:none">
+<span id="comment_edit_id"></span><span id="span_parentcomment_id"></span>
+<span id="span_parent_id"></span>
+<span id="span_comment_replyto"></span>
+<span id="span_comment_posted"></span>
+</div>
+</div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="ad_t2"><a href="http://www.ucancode.com/index.htm" target="_blank">【推荐】50万行VC++源码: 大型组态工控、电力仿真CAD与GIS源码库</a><br><a href="https://cloud.tencent.com/act/bargin?fromSource=gwzcw.705175.705175.705175" target="_blank">【促销】腾讯云技术升级10大核心产品年终让利</a><br><a href="http://click.aliyun.com/m/17164/" target="_blank">【推荐】高性能云服务器2折起，0.73元/日节省80%运维成本</a><br><a href="https://news.cnblogs.com/n/582971/" target="_blank">【新闻】H3 BPM体验平台全面上线</a><br></div>
+<div id="opt_under_post"></div>
+<div id="cnblogs_c1" class="c_ad_block"><a href="http://www.grapecity.com.cn/enterprise-solutions/activereports_server/?utm_source=cnblogs&amp;utm_medium=blogpage&amp;utm_term=bottom&amp;utm_content=AR&amp;utm_campaign=community" target="_blank"><img width="300" height="250" src="./排序算法之桶排序的深入理解以及性能分析 - 撒网要见鱼 - 博客园_files/24442-20171217100625905-249572338.png" alt="葡萄城C1"></a></div>
+<div id="under_post_news"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="https://news.cnblogs.com/n/585239/" target="_blank">乐视网被调出深证成指等多个指数：避免复牌大跌影响大盘？</a><br> ·  <a href="https://news.cnblogs.com/n/585238/" target="_blank">iPhone X 1月中旬全球供需平衡 转入现货模式</a><br> ·  <a href="https://news.cnblogs.com/n/585237/" target="_blank">Twitter今天在其平台上执行新的规则来打击网络暴力行为</a><br> ·  <a href="https://news.cnblogs.com/n/585236/" target="_blank">抢疯的节奏？支付宝暴力加息：收益是余额宝2.5倍</a><br> ·  <a href="https://news.cnblogs.com/n/585235/" target="_blank">野心家王兴：急速扩展 要将美团做到世界第一？</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div></div>
+<div id="cnblogs_c2" class="c_ad_block"><a href="http://click.aliyun.com/m/34770/" target="_blank"><img width="468" height="60" src="./排序算法之桶排序的深入理解以及性能分析 - 撒网要见鱼 - 博客园_files/24442-20171208101900738-116140477.jpg" alt="阿里云C2-1208"></a></div>
+<div id="under_post_kb"><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="http://kb.cnblogs.com/page/531409/" target="_blank">以操作系统的角度述说线程与进程</a><br> ·  <a href="http://kb.cnblogs.com/page/141729/" target="_blank">软件测试转型之路</a><br> ·  <a href="http://kb.cnblogs.com/page/177402/" target="_blank">门内门外看招聘</a><br> ·  <a href="http://kb.cnblogs.com/page/112506/" target="_blank">大道至简，职场上做人做事做管理</a><br> ·  <a href="http://kb.cnblogs.com/page/563790/" target="_blank">关于编程，你的练习是不是有效的？</a><br></div>» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+    fixPostBody();
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverAdT2();
+    deliverAdC1();
+    deliverAdC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate, cb_postType);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);   
+</script>
+</div>
+
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<!--done-->
+<div class="newsItem">
+<h3 class="catListTitle">公告</h3>
+	<div id="blog-news"><div id="blog-news"><a class="github-fork" href="https://github.com/dailc" target="_blank"><img src="./排序算法之桶排序的深入理解以及性能分析 - 撒网要见鱼 - 博客园_files/forkme.png"></a>
+<div class="mygithub">
+  <h3 class="h3-title">github</h3>
+  <a class="mygithub" href="https://github.com/dailc" target="_blank"><img src="./排序算法之桶排序的深入理解以及性能分析 - 撒网要见鱼 - 博客园_files/github.png"></a>
+</div>
+<h3 class="h3-title">个人信息</h3></div><div id="profile_block">昵称：<a href="http://home.cnblogs.com/u/dailc/">撒网要见鱼</a><br>园龄：<a href="http://home.cnblogs.com/u/dailc/" title="入园时间：2016-03-09">1年9个月</a><br>粉丝：<a href="http://home.cnblogs.com/u/dailc/followers/">25</a><br>关注：<a href="http://home.cnblogs.com/u/dailc/followees/">7</a><div id="p_b_follow"><a href="javascript:void(0);" onclick="follow(&#39;b8b84d49-bae5-e511-9fc1-ac853d9f53cc&#39;)">+加关注</a></div></div></div><script type="text/javascript">loadBlogNews();</script>
+</div>
+
+			<div id="blog-calendar" style=""><table id="blogCalendar" class="Cal" cellspacing="0" cellpadding="0" title="Calendar">
+	<tbody><tr><td colspan="7"><table class="CalTitle" cellspacing="0">
+		<tbody><tr><td class="CalNextPrev"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2017/11/01&#39;);return false;">&lt;</a></td><td align="center">2017年12月</td><td class="CalNextPrev" align="right"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2018/01/01&#39;);return false;">&gt;</a></td></tr>
+	</tbody></table></td></tr><tr><th class="CalDayHeader" align="center" abbr="日" scope="col">日</th><th class="CalDayHeader" align="center" abbr="一" scope="col">一</th><th class="CalDayHeader" align="center" abbr="二" scope="col">二</th><th class="CalDayHeader" align="center" abbr="三" scope="col">三</th><th class="CalDayHeader" align="center" abbr="四" scope="col">四</th><th class="CalDayHeader" align="center" abbr="五" scope="col">五</th><th class="CalDayHeader" align="center" abbr="六" scope="col">六</th></tr><tr><td class="CalOtherMonthDay" align="center">26</td><td class="CalOtherMonthDay" align="center">27</td><td class="CalOtherMonthDay" align="center">28</td><td class="CalOtherMonthDay" align="center">29</td><td class="CalOtherMonthDay" align="center">30</td><td align="center">1</td><td class="CalWeekendDay" align="center">2</td></tr><tr><td class="CalWeekendDay" align="center">3</td><td align="center">4</td><td align="center">5</td><td align="center">6</td><td align="center">7</td><td align="center">8</td><td class="CalWeekendDay" align="center">9</td></tr><tr><td class="CalWeekendDay" align="center">10</td><td align="center">11</td><td align="center">12</td><td align="center">13</td><td align="center">14</td><td align="center">15</td><td class="CalWeekendDay" align="center">16</td></tr><tr><td class="CalWeekendDay" align="center">17</td><td align="center">18</td><td class="CalTodayDay" align="center">19</td><td align="center">20</td><td align="center">21</td><td align="center">22</td><td class="CalWeekendDay" align="center">23</td></tr><tr><td class="CalWeekendDay" align="center">24</td><td align="center">25</td><td align="center">26</td><td align="center">27</td><td align="center">28</td><td align="center">29</td><td class="CalWeekendDay" align="center">30</td></tr><tr><td class="CalWeekendDay" align="center">31</td><td class="CalOtherMonthDay" align="center">1</td><td class="CalOtherMonthDay" align="center">2</td><td class="CalOtherMonthDay" align="center">3</td><td class="CalOtherMonthDay" align="center">4</td><td class="CalOtherMonthDay" align="center">5</td><td class="CalOtherMonthDay" align="center">6</td></tr>
+</tbody></table></div><script type="text/javascript">loadBlogDefaultCalendar();</script>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"><div id="sidebar_search" class="sidebar-block">
+<div id="sidebar_search" class="mySearch">
+<h3 class="catListTitle">搜索</h3>
+<div id="sidebar_search_box">
+<div id="widget_my_zzk" class="div_my_zzk"><input type="text" id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk">&nbsp;<input onclick="zzk_go()" type="button" value="找找看" id="btnZzk" class="btn_my_zzk"></div>
+<div id="widget_my_google" class="div_my_zzk"><input type="text" name="google_q" id="google_q" onkeydown="return google_go_enter(event)" class="input_my_zzk">&nbsp;<input onclick="google_go()" type="button" value="谷歌搜索" class="btn_my_zzk"></div>
+</div>
+</div>
+
+</div><div id="sidebar_shortcut" class="sidebar-block">
+<div class="catListLink">
+<h3 class="catListTitle">常用链接</h3>
+<ul>
+<li><a href="http://www.cnblogs.com/dailc/p/" title="我的博客的随笔列表">我的随笔</a></li><li><a href="http://www.cnblogs.com/dailc/MyComments.html" title="我发表过的评论列表">我的评论</a></li><li><a href="http://www.cnblogs.com/dailc/OtherPosts.html" title="我评论过的随笔列表">我的参与</a></li><li><a href="http://www.cnblogs.com/dailc/RecentComments.html" title="我的博客的评论列表">最新评论</a></li><li><a href="http://www.cnblogs.com/dailc/tag/" title="我的博客的标签列表">我的标签</a></li>
+</ul>
+<div id="itemListLin_con" style="display:none;">
+<ul>
+
+</ul>
+</div>
+</div></div><div id="sidebar_toptags" class="sidebar-block">
+<div class="catListTag">
+<h3 class="catListTitle">我的标签</h3>
+<ul>
+<li><a href="http://www.cnblogs.com/dailc/tag/JavaScript/">JavaScript</a>(12)</li><li><a href="http://www.cnblogs.com/dailc/tag/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">基础知识</a>(11)</li><li><a href="http://www.cnblogs.com/dailc/tag/%E7%A7%BB%E5%8A%A8%E5%BC%80%E5%8F%91/">移动开发</a>(5)</li><li><a href="http://www.cnblogs.com/dailc/tag/Hybrid/">Hybrid</a>(5)</li><li><a href="http://www.cnblogs.com/dailc/tag/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/">图像处理</a>(2)</li><li><a href="http://www.cnblogs.com/dailc/tag/%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90/">性能分析</a>(2)</li><li><a href="http://www.cnblogs.com/dailc/tag/%E6%97%8B%E8%BD%AC%E6%9C%A8%E9%A9%AC/">旋转木马</a>(1)</li><li><a href="http://www.cnblogs.com/dailc/tag/%E5%9B%BE%E5%83%8F%E5%8E%8B%E7%BC%A9/">图像压缩</a>(1)</li><li><a href="http://www.cnblogs.com/dailc/tag/%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0/">下拉刷新</a>(1)</li><li><a href="http://www.cnblogs.com/dailc/tag/3D%E6%BB%91%E5%8A%A8/">3D滑动</a>(1)</li><li><a href="http://www.cnblogs.com/dailc/tag/">更多</a></li>
+</ul>
+</div></div><div id="sidebar_categories">
+<div id="sidebar_postarchive" class="catListPostArchive sidebar-block">
+<h3 class="catListTitle">随笔档案</h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_0_Link_0" href="http://www.cnblogs.com/dailc/archive/2017/11.html">2017年11月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_1" href="http://www.cnblogs.com/dailc/archive/2017/09.html">2017年9月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_2" href="http://www.cnblogs.com/dailc/archive/2017/06.html">2017年6月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_3" href="http://www.cnblogs.com/dailc/archive/2016/12.html">2016年12月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_4" href="http://www.cnblogs.com/dailc/archive/2016/11.html">2016年11月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_5" href="http://www.cnblogs.com/dailc/archive/2016/10.html">2016年10月 (7)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_6" href="http://www.cnblogs.com/dailc/archive/2016/09.html">2016年9月 (2)</a> </li>
+
+</ul>
+
+</div>
+
+</div><div id="sidebar_recentcomments" class="sidebar-block"><div id="recent_comments_wrap">
+<div class="catListComment">
+<h3 class="catListTitle">最新评论</h3>
+
+	<div id="RecentCommentsBlock"><ul>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/dailc/p/7843204.html#3843034">1. Re:【开源】canvas图像裁剪、压缩、旋转</a></li>
+        <li class="recent_comment_body">@老汉陈删除了多余的空白回复...</li>
+        <li class="recent_comment_author">--撒网要见鱼</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/dailc/p/7843204.html#3842548">2. Re:【开源】canvas图像裁剪、压缩、旋转</a></li>
+        <li class="recent_comment_body">er</li>
+        <li class="recent_comment_author">--老汉陈</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/dailc/p/7843204.html#3842118">3. Re:【开源】canvas图像裁剪、压缩、旋转</a></li>
+        <li class="recent_comment_body">厉害了！</li>
+        <li class="recent_comment_author">--程序媛鼓励师</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/dailc/p/5893341.html#3781125">4. Re:前端筑基篇(一)-&gt;ajax跨域原理以及解决方案</a></li>
+        <li class="recent_comment_body">不错。支持下楼主！<br><a href="http://www.cnblogs.com/dailc/p/6128823.html" target="_blank"></a></li>
+        <li class="recent_comment_author">--思量大海</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/dailc/p/7466758.html#3774472">5. Re:优雅的H5下拉刷新【minirefresh】</a></li>
+        <li class="recent_comment_body">表示支持</li>
+        <li class="recent_comment_author">--匠心十年</li>
+</ul>
+</div>
+</div>
+</div></div><div id="sidebar_topviewedposts" class="sidebar-block"><div id="topview_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">阅读排行榜</h3>
+	<div id="TopViewPostsBlock"><ul><li><a href="http://www.cnblogs.com/dailc/p/5930231.html">1. Hybrid APP基础篇(一)-&gt;什么是Hybrid App(5185)</a></li><li><a href="http://www.cnblogs.com/dailc/p/5930238.html">2. Hybrid APP基础篇(二)-&gt;Native、Hybrid、React Native、Web App方案的分析比较(4781)</a></li><li><a href="http://www.cnblogs.com/dailc/p/5931322.html">3. Hybrid APP基础篇(三)-&gt;Hybrid APP之Native和H5页面交互原理(4230)</a></li><li><a href="http://www.cnblogs.com/dailc/p/5931324.html">4. Hybrid APP基础篇(四)-&gt;JSBridge的原理(3825)</a></li><li><a href="http://www.cnblogs.com/dailc/p/5893341.html">5. 前端筑基篇(一)-&gt;ajax跨域原理以及解决方案(3177)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topcommentedposts" class="sidebar-block"><div id="topfeedback_posts_wrap">
+<div class="catListFeedback">
+<h3 class="catListTitle">评论排行榜</h3>
+	<div id="TopFeedbackPostsBlock"><ul><li><a href="http://www.cnblogs.com/dailc/p/7466758.html">1. 优雅的H5下拉刷新【minirefresh】(8)</a></li><li><a href="http://www.cnblogs.com/dailc/p/5893341.html">2. 前端筑基篇(一)-&gt;ajax跨域原理以及解决方案(4)</a></li><li><a href="http://www.cnblogs.com/dailc/p/7843204.html">3. 【开源】canvas图像裁剪、压缩、旋转(3)</a></li><li><a href="http://www.cnblogs.com/dailc/p/6099662.html">4. JS几种变量交换方式以及性能分析对比(2)</a></li><li><a href="http://www.cnblogs.com/dailc/p/5971276.html">5. JavaScript筑基篇(三)-&gt;JS原型和原型链的理解(1)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topdiggedposts" class="sidebar-block"><div id="topdigg_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">推荐排行榜</h3>
+<div id="TopDiggPostsBlock"><ul><li><a href="http://www.cnblogs.com/dailc/p/7466758.html">1. 优雅的H5下拉刷新【minirefresh】(6)</a></li><li><a href="http://www.cnblogs.com/dailc/p/5930238.html">2. Hybrid APP基础篇(二)-&gt;Native、Hybrid、React Native、Web App方案的分析比较(5)</a></li><li><a href="http://www.cnblogs.com/dailc/p/5893341.html">3. 前端筑基篇(一)-&gt;ajax跨域原理以及解决方案(2)</a></li><li><a href="http://www.cnblogs.com/dailc/p/7843204.html">4. 【开源】canvas图像裁剪、压缩、旋转(2)</a></li><li><a href="http://www.cnblogs.com/dailc/p/6103091.html">5. JS几种数组遍历方式以及性能分析对比(2)</a></li></ul></div>
+</div></div></div></div><script type="text/javascript">loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		
+<!--done-->
+Copyright ©2017 撒网要见鱼
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+
+</body></html>

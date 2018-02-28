@@ -1,0 +1,1389 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- saved from url=(0063)http://www.blogjava.net/amigoxie/archive/2007/11/09/159413.html -->
+<html><head id="Head"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>
+	用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava
+</title><meta id="metaKeywords" name="keywords" content="用Ant实现Java项目的自动构建和部署"><link type="text/css" rel="stylesheet" href="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/common.css"><link id="MainCss" type="text/css" rel="stylesheet" href="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/style.css"><link id="RSSLink" title="RSS" type="application/rss+xml" rel="alternate" href="http://www.blogjava.net/amigoxie/rss.aspx"><link rel="preload" href="https://adservice.google.com/adsid/integrator.js?domain=www.blogjava.net" as="script"><script src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/pubads_impl_rendering_163.js.下载"></script><script src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/ads"></script><script type="text/javascript" async="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/ga.js.下载"></script><script src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/ca-pub-3735342721259711.js.下载"></script><script type="text/javascript" src="https://adservice.google.com/adsid/integrator.js?domain=www.blogjava.net"></script><link rel="prefetch" href="https://securepubads.g.doubleclick.net/static/3p_cookie.html"><script src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/pubads_impl_163.js.下载" async=""></script><link rel="prefetch" href="https://securepubads.g.doubleclick.net/static/3p_cookie.html"></head>
+<body>
+    <form name="Form1" method="post" action="http://www.blogjava.net/amigoxie/archive/2007/11/09/159413.html" id="Form1">
+<div>
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="">
+<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="">
+<input type="hidden" name="__VIEWSTATE" id="
+__VIEWSTATE" value="">
+</div>
+
+<script async="" type="text/javascript" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/gpt.js.下载"></script><script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['Form1'];
+if (!theForm) {
+    theForm = document.Form1;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script>
+
+
+<script src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/WebResource.axd" type="text/javascript"></script>
+
+<script language="JavaScript">
+									function ctlent(evt,id)
+											{
+												if(evt.ctrlKey && evt.keyCode == 13)
+												{	
+													try
+													{
+														TempSave(id);
+													}
+													catch(ex)
+													{
+													}
+													finally
+													{
+													    __doPostBack('AjaxHolder$PostComment$btnSubmit','')
+													}
+												}
+		
+												}</script>
+												<script language="JavaScript">function SetReplyAuhor(author){document.getElementById('AjaxHolder_PostComment_tbComment').value+="@"+author+"\n";document.getElementById('AjaxHolder_PostComment_tbComment').focus();return false}</script>
+<script src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/ScriptResource.axd" type="text/javascript"></script>
+<script src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/ScriptResource(1).axd" type="text/javascript"></script>
+        
+<!--done-->
+<div align="center" id="centerbody">
+<div id="header">
+	
+<!--done-->
+<div class="header">
+	<div class="headerText">
+		<a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.blogjava.net/amigoxie/">阿蜜果</a>
+		<div id="headersubtitle">
+		<span style="display:none">不骄，不矜，勤工，好学，才是好女子</span>
+<font color="white">你所浪费的今天，是昨天死去的人奢望的明天。</font><br>
+<font color="white">你所厌恶的现在，是未来的你回不去的曾经。</font>
+		</div>
+	</div>
+</div>
+
+</div>
+
+<div id="mytopmenu">   
+	
+	    <div id="mylinks">
+<!--done-->
+<a id="MyLinks1_HomeLink" class="menu" href="http://www.blogjava.net/">BlogJava</a>&nbsp;&nbsp;&nbsp;
+<a id="MyLinks1_MyHomeLink" class="menu" href="http://www.blogjava.net/amigoxie/">首页</a>&nbsp;&nbsp;&nbsp;
+<a id="MyLinks1_NewPostLink" class="menu" href="http://www.blogjava.net/amigoxie/admin/EditPosts.aspx?opt=1">新随笔</a>&nbsp;&nbsp;&nbsp;
+<a id="MyLinks1_NewArticleLink" class="menu" href="http://www.blogjava.net/EnterMyBlog.aspx?NewArticle=1">新文章</a>&nbsp;&nbsp;&nbsp;
+<a id="MyLinks1_ContactLink" accesskey="9" class="menu" href="http://www.blogjava.net/amigoxie/contact.aspx?id=1">联系</a>&nbsp;&nbsp;&nbsp;
+<a id="MyLinks1_Syndication" class="menu" href="http://www.blogjava.net/amigoxie/rss">聚合</a><a id="MyLinks1_XMLLink" href="http://www.blogjava.net/amigoxie/rss"><img src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/xml.gif" style="border-width:0px;"></a>&nbsp;&nbsp;&nbsp;
+<a id="MyLinks1_Admin" class="menu" href="http://www.blogjava.net/amigoxie/admin/EditPosts.aspx">管理</a>
+</div>
+		
+<!--done-->
+<div class="blogStats">posts - 300,&nbsp;
+comments - 1617,&nbsp;
+trackbacks - 0
+
+</div>
+	
+</div>
+
+<div id="main">
+<div id="centercontent">
+	
+					
+<!--done-->
+<div class="post">
+	<div class="postTitle">
+		<a id="viewpost1_TitleUrl" class="postTitle2" href="http://www.blogjava.net/amigoxie/archive/2007/11/09/159413.html">用Ant实现Java项目的自动构建和部署</a>
+	</div>
+	<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 原文地址：<a href="http://tech.it168.com/j/2007-11-09/200711091344781.shtml">http://tech.it168.com/j/2007-11-09/200711091344781.shtml</a><br>
+<span style="color: red">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 本文请勿转载！</span></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Ant<span style="font-family: 宋体">是一个</span>Apache<span style="font-family: 宋体">基金会下的跨平台的构件工具，它可以实现项目的自动构建和部署等功能。在本文中，主要让读者熟悉怎样将</span>Ant<span style="font-family: 宋体">应用到</span>Java<span style="font-family: 宋体">项目中，让它简化构建和部署操作。</span></p>
+<p style="margin-left: 21pt; text-indent: -21pt; tab-stops: list 21.0pt"><strong>一．<span style="font: 7pt &#39;Times New Roman&#39;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></strong><strong><span style="font-family: 宋体">安装与配置</span></strong></p>
+<p style="text-indent: 21pt"><span style="font-family: 宋体">下载地址：</span><a href="http://ant.apache.org/">http://ant.apache.org/</a><span style="font-family: 宋体">，在本文中下载的是</span>1.7.0<span style="font-family: 宋体">版本。解压到某个目录（例如</span>E:"apache-ant-1.7.0<span style="font-family: 宋体">），即可使用。</span></p>
+<p style="text-indent: 21pt"><span style="font-family: 宋体">添加系统环境变量：</span>ANT_HOME<span style="font-family: 宋体">，该变量指向</span>Ant<span style="font-family: 宋体">解压后的根目录，在此为</span>E:"apache-ant-1.7.0<span style="font-family: 宋体">。</span></p>
+<p style="text-indent: 21pt"><span style="font-family: 宋体">安装与配置完毕后，读者可以测试一下</span>Ant<span style="font-family: 宋体">是否可用，首先进入</span>Ant<span style="font-family: 宋体">的</span>bin<span style="font-family: 宋体">目录，运行命令</span>ant –version<span style="font-family: 宋体">，若安装和配置成功，则会显示</span>Ant<span style="font-family: 宋体">版本信息，如下图所示：<br>
+&nbsp;&nbsp;&nbsp; <img height="250" alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/r_ant_01.jpg" width="640" border="0"><br>
+</span></p>
+<p style="text-indent: 21pt"><span style="font-family: 宋体">由上可以看出，读者运行</span>Ant<span style="font-family: 宋体">的命令时，需要进入到</span>Ant<span style="font-family: 宋体">的</span>bin<span style="font-family: 宋体">目录，如何才能让系统自动找到</span>Ant<span style="font-family: 宋体">呢？这时需要读者在系统环境变量</span>path<span style="font-family: 宋体">中添加</span>Ant<span style="font-family: 宋体">的</span>bin<span style="font-family: 宋体">目录。设置完成后，我们就可以在任何目录（例如</span>C:"Documents and Settings"AmigoXie<span style="font-family: 宋体">目录）输入</span>Ant<span style="font-family: 宋体">的命令，来获得命令的运行结果。</span></p>
+<p style="margin-left: 21pt; text-indent: -21pt; tab-stops: list 21.0pt"><strong>二．<span style="font: 7pt &#39;Times New Roman&#39;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></strong><strong>Ant</strong><strong><span style="font-family: 宋体">的关键元素</span></strong></p>
+<p style="text-indent: 21pt">Ant<span style="font-family: 宋体">的构件文件是基于</span>XML<span style="font-family: 宋体">编写的，默认名称为</span>build.xml<span style="font-family: 宋体">。为了更清楚的了解</span>Ant<span style="font-family: 宋体">，在这里编写一个简单的</span>Ant<span style="font-family: 宋体">程序，用来展现</span>Ant<span style="font-family: 宋体">的功能，让读者对</span>Ant<span style="font-family: 宋体">有一个初步的了解。首先在</span>E<span style="font-family: 宋体">盘下建立一个</span>build.xml<span style="font-family: 宋体">文件，内容如下：<br>
+</span></p>
+<div style="border-right: #cccccc 1px solid; padding-right: 5px; border-top: #cccccc 1px solid; padding-left: 4px; font-size: 13px; padding-bottom: 4px; border-left: #cccccc 1px solid; width: 98%; word-break: break-all; padding-top: 4px; border-bottom: #cccccc 1px solid; background-color: #eeeeee"><img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top"><span style="color: #0000ff">&lt;?</span><span style="color: #ff00ff">xml&nbsp;version="1.0"</span><span style="color: #0000ff">?&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top"></span><span style="color: #0000ff">&lt;</span><span style="color: #800000">project&nbsp;</span><span style="color: #ff0000">name</span><span style="color: #0000ff">="helloWorld"</span><span style="color: #0000ff">&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000ff">&lt;</span><span style="color: #800000">target&nbsp;</span><span style="color: #ff0000">name</span><span style="color: #0000ff">="sayHelloWorld"</span><span style="color: #0000ff">&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000ff">&lt;</span><span style="color: #800000">echo&nbsp;</span><span style="color: #ff0000">message</span><span style="color: #0000ff">="Hello,Amigo"</span><span style="color: #0000ff">/&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000ff">&lt;/</span><span style="color: #800000">target</span><span style="color: #0000ff">&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top"></span><span style="color: #0000ff">&lt;/</span><span style="color: #800000">project</span><span style="color: #0000ff">&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top"></span></div>
+<p style="text-indent: 21pt"><span style="font-family: 宋体">读者可以进入</span>E<span style="font-family: 宋体">盘，然后运行</span>ant sayHelloWorld<span style="font-family: 宋体">，可以看到如下的运行结果：<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<img height="230" alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/r_ant_02.jpg" width="640" border="0"><br>
+</span></p>
+<p style="text-indent: 21pt"><span style="font-family: 宋体">其中</span>sayHelloWorld<span style="font-family: 宋体">为需要执行的任务的名称。如果文件名不为</span>build.xml<span style="font-family: 宋体">，而为</span>hello.xml<span style="font-family: 宋体">时，读者运行同样的命令时，命令窗口会出现如下错误：</span></p>
+<p style="text-indent: 21pt">Buildfile: build.xml does not exist!</p>
+<p style="text-indent: 21pt">Build failed</p>
+<p style="text-indent: 21pt"><span style="font-family: 宋体">由上面的命令的错误提示可以看出，</span>ant<span style="font-family: 宋体">命令默认寻找</span>build.xml<span style="font-family: 宋体">文件。若文件名为</span>hello.xml<span style="font-family: 宋体">时，读者还需要对命令做少许改变，改为：</span>ant –f hello.xml sayHelloWorld<span style="font-family: 宋体">、</span>ant –buildfile hello.xml sayHelloWorld<span style="font-family: 宋体">或</span>ant –file hello.xml sayHelloWorld<span style="font-family: 宋体">。</span></p>
+<p style="text-indent: 21pt"><span style="font-family: 宋体">接下来开始向读者讲解本节的重点：</span>Ant<span style="font-family: 宋体">的关键元素</span>project<span style="font-family: 宋体">、</span>target<span style="font-family: 宋体">、</span>property<span style="font-family: 宋体">和</span>task<span style="font-family: 宋体">。</span></p>
+<p style="margin-left: 18pt; text-indent: -18pt; tab-stops: list 18.0pt"><strong>1.<span style="font: 7pt &#39;Times New Roman&#39;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></strong><strong>project</strong><strong><span style="font-family: 宋体">元素</span></strong></p>
+<p style="text-indent: 18pt">project<span style="font-family: 宋体">元素是</span>Ant<span style="font-family: 宋体">构件文件的根元素，</span>Ant<span style="font-family: 宋体">构件文件至少应该包含一个</span>project<span style="font-family: 宋体">元素，否则会发生错误。在每个</span>project<span style="font-family: 宋体">元素下，可包含多个</span>target<span style="font-family: 宋体">元素。接下来向读者展示一下</span>project<span style="font-family: 宋体">元素的各属性。</span></p>
+<p style="margin-left: 39pt; text-indent: -18pt; tab-stops: list 39.0pt"><strong>1）</strong><strong>name</strong><strong><span style="font-family: 宋体">属性</span></strong></p>
+<p style="margin-left: 21pt"><span style="font-family: 宋体">用于指定</span>project<span style="font-family: 宋体">元素的名称。</span></p>
+<p style="margin-left: 39pt; text-indent: -18pt; tab-stops: list 39.0pt"><strong>2）</strong><strong>default</strong><strong><span style="font-family: 宋体">属性</span></strong></p>
+<p style="margin-left: 21pt"><span style="font-family: 宋体">用于指定</span>project<span style="font-family: 宋体">默认执行时所执行的</span>target<span style="font-family: 宋体">的名称。</span></p>
+<p style="margin-left: 39pt; text-indent: -18pt; tab-stops: list 39.0pt"><strong>3）</strong><strong>basedir</strong><strong><span style="font-family: 宋体">属性</span></strong></p>
+<p style="text-indent: 21pt"><span style="font-family: 宋体">用于指定基路径的位置。该属性没有指定时，使用</span>Ant<span style="font-family: 宋体">的构件文件的附目录作为基准目录。</span></p>
+<p style="text-indent: 21pt"><span style="font-family: 宋体">下面给读者一个简单的例子来展示</span>project<span style="font-family: 宋体">的各元素的使用。修改</span>E:"build.xml<span style="font-family: 宋体">文件，修改后的内容如下：</span></p>
+<div style="border-right: #cccccc 1px solid; padding-right: 5px; border-top: #cccccc 1px solid; padding-left: 4px; font-size: 13px; padding-bottom: 4px; border-left: #cccccc 1px solid; width: 98%; word-break: break-all; padding-top: 4px; border-bottom: #cccccc 1px solid; background-color: #eeeeee"><img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top"><span style="color: #0000ff">&lt;?</span><span style="color: #ff00ff">xml&nbsp;version="1.0"</span><span style="color: #0000ff">?&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top"></span><span style="color: #0000ff">&lt;</span><span style="color: #800000">project&nbsp;</span><span style="color: #ff0000">name</span><span style="color: #0000ff">="projectStudy"</span><span style="color: #ff0000">&nbsp;default</span><span style="color: #0000ff">="sayBaseDir"</span><span style="color: #ff0000">&nbsp;basedir</span><span style="color: #0000ff">="E:"</span><span style="color: #ff0000">apache-ant-1.7.0"</span><span style="color: #0000ff">&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000ff">&lt;</span><span style="color: #800000">target&nbsp;</span><span style="color: #ff0000">name</span><span style="color: #0000ff">="sayBaseDir"</span><span style="color: #0000ff">&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000ff">&lt;</span><span style="color: #800000">echo&nbsp;</span><span style="color: #ff0000">message</span><span style="color: #0000ff">="The&nbsp;base&nbsp;dir&nbsp;is:&nbsp;${basedir}"</span><span style="color: #0000ff">/&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000ff">&lt;/</span><span style="color: #800000">target</span><span style="color: #0000ff">&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top"></span><span style="color: #0000ff">&lt;/</span><span style="color: #800000">project</span><span style="color: #0000ff">&gt;</span></div>
+<p style="text-indent: 21pt"><span style="font-family: 宋体">从上面的内容我们可以看出，在这里定义了</span>default<span style="font-family: 宋体">属性的值为</span>sayBaseDir<span style="font-family: 宋体">，即当运行</span>ant<span style="font-family: 宋体">命令时，若未指明执行的</span>target<span style="font-family: 宋体">时，默认执行的</span>target<span style="font-family: 宋体">的</span>sayBaseDir<span style="font-family: 宋体">，同时还定义了</span>basedir<span style="font-family: 宋体">属性的值为</span>E:"apache-ant-1.7.0<span style="font-family: 宋体">，进入</span>E<span style="font-family: 宋体">盘后运行</span>ant<span style="font-family: 宋体">命令，可看到运行的结果，如下图所示：<br>
+&nbsp;&nbsp;&nbsp; <img height="227" alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/r_ant_03.jpg" width="640" border="0"><br>
+</span></p>
+<p style="text-indent: 21pt"><span style="font-family: 宋体">因为设定了</span>basedir<span style="font-family: 宋体">的值，所以</span>basedir<span style="font-family: 宋体">属性的值变成了读者设置的值。读者可以自行将</span>project<span style="font-family: 宋体">元素的</span>basedir<span style="font-family: 宋体">属性去掉后运行</span>ant<span style="font-family: 宋体">看看运行结果，此时</span>basedir<span style="font-family: 宋体">的值变成了</span>E:"<span style="font-family: 宋体">，即为</span>Ant<span style="font-family: 宋体">构件文件的父目录。</span></p>
+<p style="text-indent: 21pt"><span style="font-family: 宋体">有的时候，读者可能有这种需求，即想得到某个</span>project<span style="font-family: 宋体">下所有的</span>target<span style="font-family: 宋体">的名称，读者可以通过在</span>ant<span style="font-family: 宋体">命令里加上</span>-proecthelp<span style="font-family: 宋体">来达到该目的。例如针对上述的例子我们运行</span>ant –projecthelp<span style="font-family: 宋体">，输出结果如下：</span></p>
+<p style="text-indent: 21pt">Buildfile: build.xml</p>
+<p style="text-indent: 21pt">Main targets:</p>
+<p style="text-indent: 21pt">Other targets:</p>
+<p style="text-indent: 21pt">&nbsp;sayBaseDir</p>
+<p style="text-indent: 21pt">Default target: sayBaseDir</p>
+<p style="margin-left: 18pt; text-indent: -18pt; tab-stops: list 18.0pt"><strong>2.<span style="font: 7pt &#39;Times New Roman&#39;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></strong><strong>target</strong><strong><span style="font-family: 宋体">元素</span></strong></p>
+<p style="text-indent: 21pt"><span style="font-family: 宋体">它为</span>Ant<span style="font-family: 宋体">的基本执行单元，它可以包含一个或多个具体的任务。多个</span>target<span style="font-family: 宋体">可以存在相互依赖关系。它有如下属性：</span></p>
+<p style="margin-left: 39pt; text-indent: -18pt; tab-stops: list 39.0pt"><strong>1）</strong><strong>name</strong><strong><span style="font-family: 宋体">属性</span></strong></p>
+<p style="text-indent: 21pt"><span style="font-family: 宋体">指定</span>target<span style="font-family: 宋体">元素的名称，这个属性在一个</span>project<span style="font-family: 宋体">元素中是唯一的。我们可以通过指定</span>target<span style="font-family: 宋体">元素的名称来指定某个</span>target<span style="font-family: 宋体">。</span></p>
+<p style="margin-left: 39pt; text-indent: -18pt; tab-stops: list 39.0pt"><strong>2）</strong><strong>depends</strong><strong><span style="font-family: 宋体">属性</span></strong></p>
+<p style="text-indent: 21pt"><span style="font-family: 宋体">用于描述</span>target<span style="font-family: 宋体">之间的依赖关系，若与多个</span>target<span style="font-family: 宋体">存在依赖关系时，需要以“</span>,<span style="font-family: 宋体">”间隔。</span>Ant<span style="font-family: 宋体">会依照</span>depends<span style="font-family: 宋体">属性中</span>target<span style="font-family: 宋体">出现的顺序依次执行每个</span>target<span style="font-family: 宋体">。被依赖的</span>target<span style="font-family: 宋体">会先执行。</span></p>
+<p style="margin-left: 39pt; text-indent: -18pt; tab-stops: list 39.0pt"><strong>3）</strong><strong>if</strong><strong><span style="font-family: 宋体">属性</span></strong></p>
+<p style="margin-left: 21pt"><span style="font-family: 宋体">用于验证指定的属性是否存在，若不存在，所在</span>target<span style="font-family: 宋体">将不会被执行。</span></p>
+<p style="margin-left: 39pt; text-indent: -18pt; tab-stops: list 39.0pt"><strong>4）</strong><strong>unless</strong><strong><span style="font-family: 宋体">属性</span></strong></p>
+<p style="text-indent: 21pt"><span style="font-family: 宋体">该属性的功能与</span>if<span style="font-family: 宋体">属性的功能正好相反，它也用于验证指定的属性是否存在，若不存在，所在</span>target<span style="font-family: 宋体">将会被执行。</span></p>
+<p style="margin-left: 39pt; text-indent: -18pt; tab-stops: list 39.0pt"><strong>5）</strong><strong>description</strong><strong><span style="font-family: 宋体">属性</span></strong></p>
+<p style="margin-left: 21pt"><span style="font-family: 宋体">该属性是关于</span>target<span style="font-family: 宋体">功能的简短描述和说明。</span></p>
+<p style="text-indent: 21pt"><span style="font-family: 宋体">下面带领读者来看一个各属性综合使用的例子。修改</span>E:"build.xml<span style="font-family: 宋体">文件，修改后的内容如下：<br>
+</span></p>
+<div style="border-right: #cccccc 1px solid; padding-right: 5px; border-top: #cccccc 1px solid; padding-left: 4px; font-size: 13px; padding-bottom: 4px; border-left: #cccccc 1px solid; width: 98%; word-break: break-all; padding-top: 4px; border-bottom: #cccccc 1px solid; background-color: #eeeeee"><img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top"><span style="color: #0000ff">&lt;?</span><span style="color: #ff00ff">xml&nbsp;version="1.0"</span><span style="color: #0000ff">?&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top"></span><span style="color: #0000ff">&lt;</span><span style="color: #800000">project&nbsp;</span><span style="color: #ff0000">name</span><span style="color: #0000ff">="targetStudy"</span><span style="color: #0000ff">&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000ff">&lt;</span><span style="color: #800000">target&nbsp;</span><span style="color: #ff0000">name</span><span style="color: #0000ff">="targetA"</span><span style="color: #ff0000">&nbsp;if</span><span style="color: #0000ff">="ant.java.version"</span><span style="color: #0000ff">&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000ff">&lt;</span><span style="color: #800000">echo&nbsp;</span><span style="color: #ff0000">message</span><span style="color: #0000ff">="Java&nbsp;Version:&nbsp;${ant.java.version}"</span><span style="color: #0000ff">/&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000ff">&lt;/</span><span style="color: #800000">target</span><span style="color: #0000ff">&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000ff">&lt;</span><span style="color: #800000">target&nbsp;</span><span style="color: #ff0000">name</span><span style="color: #0000ff">="targetB"</span><span style="color: #ff0000">&nbsp;depends</span><span style="color: #0000ff">="targetA"</span><span style="color: #ff0000">&nbsp;unless</span><span style="color: #0000ff">="amigo"</span><span style="color: #0000ff">&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000ff">&lt;</span><span style="color: #800000">description</span><span style="color: #0000ff">&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a&nbsp;depend&nbsp;example!<br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000ff">&lt;/</span><span style="color: #800000">description</span><span style="color: #0000ff">&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000ff">&lt;</span><span style="color: #800000">echo&nbsp;</span><span style="color: #ff0000">message</span><span style="color: #0000ff">="The&nbsp;base&nbsp;dir&nbsp;is:&nbsp;${basedir}"</span><span style="color: #0000ff">/&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000ff">&lt;/</span><span style="color: #800000">target</span><span style="color: #0000ff">&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top"></span><span style="color: #0000ff">&lt;/</span><span style="color: #800000">project</span><span style="color: #0000ff">&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top"></span></div>
+<p style="text-indent: 21pt"><span style="font-family: 宋体">进入</span>E<span style="font-family: 宋体">盘后运行</span>ant targetB<span style="font-family: 宋体">，可看到如下图所示的运行结果：<br>
+&nbsp;&nbsp;&nbsp; <img height="274" alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/r_ant_04.jpg" width="640" border="0"><br>
+</span></p>
+<p style="text-indent: 21pt"><span style="font-family: 宋体">读者分析结果后可以看到，我们运行的是名为</span>targetB<span style="font-family: 宋体">的</span>target<span style="font-family: 宋体">，因该</span>target<span style="font-family: 宋体">依赖于</span>targetA<span style="font-family: 宋体">，所以</span>targetA<span style="font-family: 宋体">将首先被执行，同时因为系统安装了</span>java<span style="font-family: 宋体">环境，所以</span>ant.java.version<span style="font-family: 宋体">属性存在，执行了</span>targetA<span style="font-family: 宋体">这个</span>target<span style="font-family: 宋体">，输出信息：</span>[echo] Java Version: 1.5<span style="font-family: 宋体">，</span>targetA<span style="font-family: 宋体">执行完毕后，接着执行</span>targetB<span style="font-family: 宋体">，因为</span>amigo<span style="font-family: 宋体">不存在，而</span>unless<span style="font-family: 宋体">属性是在不存在时进入所在的</span>target<span style="font-family: 宋体">的，由此可知</span>targetB<span style="font-family: 宋体">得以执行，输出信息：</span>The base dir is: E:"<span style="font-family: 宋体">。</span></p>
+<p style="margin-left: 18pt; text-indent: -18pt; tab-stops: list 18.0pt"><strong>3.<span style="font: 7pt &#39;Times New Roman&#39;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></strong><strong>property</strong><strong><span style="font-family: 宋体">元素</span></strong></p>
+<p style="text-indent: 18pt"><span style="font-family: 宋体">该元素可看作参量或者参数的定义，</span>project<span style="font-family: 宋体">的属性可以通过</span>property<span style="font-family: 宋体">元素来设定，也可在</span>Ant<span style="font-family: 宋体">之外设定。若要在外部引入某文件，例如</span>build.properties<span style="font-family: 宋体">文件，可以通过如下内容将其引入：</span>&lt;property file=” build.properties”/&gt;</p>
+<p style="text-indent: 18pt">property<span style="font-family: 宋体">元素可用作</span>task<span style="font-family: 宋体">的属性值。在</span>task<span style="font-family: 宋体">中是通过将属性名放在“</span>${<span style="font-family: 宋体">”和“</span>}<span style="font-family: 宋体">”之间，并放在</span>task<span style="font-family: 宋体">属性值的位置来实现的。</span></p>
+<p style="text-indent: 18pt">Ant<span style="font-family: 宋体">提供了一些内置的属性，它能得到的系统属性的列表与</span>Java<span style="font-family: 宋体">文档中</span>System.getPropertis()<span style="font-family: 宋体">方法得到的属性一致，这些系统属性可参考</span>sun<span style="font-family: 宋体">网站的说明。</span></p>
+<p style="text-indent: 18pt"><span style="font-family: 宋体">同时，</span>Ant<span style="font-family: 宋体">还提供了一些它自己的内置属性，如下：</span></p>
+<p style="text-indent: 18pt">basedir<span style="font-family: 宋体">：</span>project<span style="font-family: 宋体">基目录的绝对路径，该属性在讲解</span>project<span style="font-family: 宋体">元素时有详细说明，不再赘述；</span></p>
+<p style="text-indent: 18pt">ant.file<span style="font-family: 宋体">：</span>buildfile<span style="font-family: 宋体">的绝对路径，如上面的各例子中，</span>ant.file<span style="font-family: 宋体">的值为</span>E:"build.xml<span style="font-family: 宋体">；</span></p>
+<p style="text-indent: 18pt">ant.version<span style="font-family: 宋体">：</span>Ant<span style="font-family: 宋体">的版本，在本文中，值为</span>1.7.0<span style="font-family: 宋体">；</span></p>
+<p style="text-indent: 18pt">ant.project.name<span style="font-family: 宋体">：当前指定的</span>project<span style="font-family: 宋体">的名字，即前文说到的</span>project<span style="font-family: 宋体">的</span>name<span style="font-family: 宋体">属性的值；</span></p>
+<p style="text-indent: 18pt">ant.java.version<span style="font-family: 宋体">：</span>Ant<span style="font-family: 宋体">检测到的</span>JDK<span style="font-family: 宋体">的版本，在上例运行结果中可看到为</span>1.5<span style="font-family: 宋体">。</span></p>
+<p style="text-indent: 18pt"><span style="font-family: 宋体">下面让读者来看一个</span>property<span style="font-family: 宋体">元素使用的简单例子。修改</span>E:"build.xml<span style="font-family: 宋体">文件，内容如下：</span></p>
+<div style="border-right: #cccccc 1px solid; padding-right: 5px; border-top: #cccccc 1px solid; padding-left: 4px; font-size: 13px; padding-bottom: 4px; border-left: #cccccc 1px solid; width: 98%; word-break: break-all; padding-top: 4px; border-bottom: #cccccc 1px solid; background-color: #eeeeee"><img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top"><span style="color: #0000ff">&lt;?</span><span style="color: #ff00ff">xml&nbsp;version="1.0"</span><span style="color: #0000ff">?&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top"></span><span style="color: #0000ff">&lt;</span><span style="color: #800000">project&nbsp;</span><span style="color: #ff0000">name</span><span style="color: #0000ff">="propertyStudy"</span><span style="color: #ff0000">&nbsp;default</span><span style="color: #0000ff">="example"</span><span style="color: #0000ff">&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top"></span><span style="color: #0000ff">&lt;</span><span style="color: #800000">property&nbsp;</span><span style="color: #ff0000">name</span><span style="color: #0000ff">="name"</span><span style="color: #ff0000">&nbsp;value</span><span style="color: #0000ff">="amigo"</span><span style="color: #0000ff">/&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top"></span><span style="color: #0000ff">&lt;</span><span style="color: #800000">property&nbsp;</span><span style="color: #ff0000">name</span><span style="color: #0000ff">="age"</span><span style="color: #ff0000">&nbsp;value</span><span style="color: #0000ff">="25"</span><span style="color: #0000ff">/&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top"></span><span style="color: #0000ff">&lt;</span><span style="color: #800000">target&nbsp;</span><span style="color: #ff0000">name</span><span style="color: #0000ff">="example"</span><span style="color: #0000ff">&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000ff">&lt;</span><span style="color: #800000">echo&nbsp;</span><span style="color: #ff0000">message</span><span style="color: #0000ff">="name:&nbsp;${name},&nbsp;age:&nbsp;${age}"</span><span style="color: #0000ff">/&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top"></span><span style="color: #0000ff">&lt;/</span><span style="color: #800000">target</span><span style="color: #0000ff">&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top"></span><span style="color: #0000ff">&lt;/</span><span style="color: #800000">project</span><span style="color: #0000ff">&gt;</span></div>
+<p style="text-indent: 18pt"><span style="font-family: 宋体">该例的运行结果如下图所示：<br>
+&nbsp;&nbsp;&nbsp; <img height="229" alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/r_ant_05.jpg" width="640" border="0"><br>
+</span></p>
+<p style="text-indent: 18pt"><span style="font-family: 宋体">由此读者可以看出，通过如下两个语句：</span></p>
+<p style="text-indent: 18pt">&lt;property name="name" value="amigo"/&gt;</p>
+<p style="text-indent: 18pt">&lt;property name="age" value="25"/&gt;</p>
+<p style="text-indent: 18pt"><span style="font-family: 宋体">我们设置了名为</span>name<span style="font-family: 宋体">和</span>age<span style="font-family: 宋体">的两个属性，这两个属性设置后，读者在下文中可以通过</span>${name}<span style="font-family: 宋体">和</span>${age}<span style="font-family: 宋体">分别取得这两个属性的值。</span></p>
+<p style="margin-left: 21pt; text-indent: -21pt; tab-stops: list 21.0pt"><strong>三．<span style="font: 7pt &#39;Times New Roman&#39;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></strong><strong>Ant</strong><strong><span style="font-family: 宋体">的常用任务</span></strong></p>
+<p style="text-indent: 21pt"><span style="font-family: 宋体">在</span>Ant<span style="font-family: 宋体">工具中每一个任务封装了具体要执行的功能，是</span>Ant<span style="font-family: 宋体">工具的基本执行单位。在本小节中，主要引导读者来看下</span>Ant<span style="font-family: 宋体">的常用任务及其使用举例。</span></p>
+<p style="margin-left: 18pt; text-indent: -18pt; tab-stops: list 18.0pt"><strong>1.<span style="font: 7pt &#39;Times New Roman&#39;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></strong><strong>copy</strong><strong><span style="font-family: 宋体">任务</span></strong></p>
+<p style="margin-left: 18pt"><span style="font-family: 宋体">该任务主要用来对文件和目录的复制功能。举例如下：</span></p>
+<p style="margin-left: 18pt">Eg1.<span style="font-family: 宋体">复制单个文件：</span>&lt;copy file="file.txt" tofile="copy.txt"/&gt;</p>
+<p style="margin-left: 18pt">Eg2.<span style="font-family: 宋体">对文件目录进行复制：</span></p>
+<p style="margin-left: 18pt">&nbsp;&nbsp; &lt;copy todir="../newdir/dest_dir"&gt;</p>
+<p style="margin-left: 18pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;fileset dir="src_dir"/&gt;</p>
+<p style="margin-left: 18pt">&nbsp;&lt;/copy&gt;</p>
+<p style="margin-left: 18pt">Eg3. <span style="font-family: 宋体">将文件复制到另外的目录：</span></p>
+<p style="margin-left: 18pt">&nbsp;&lt;copy file="file.txt" todir="../other/dir"/&gt;</p>
+<p style="margin-left: 18pt; text-indent: -18pt; tab-stops: list 18.0pt"><strong>2.<span style="font: 7pt &#39;Times New Roman&#39;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></strong><strong>delete</strong><strong><span style="font-family: 宋体">任务</span></strong></p>
+<p style="margin-left: 18pt"><span style="font-family: 宋体">对文件或目录进行删除，举例如下：</span></p>
+<p style="margin-left: 18pt">Eg1. <span style="font-family: 宋体">删除某个文件：</span>&lt;delete file="photo/amigo.jpg"/&gt;</p>
+<p style="margin-left: 18pt">Eg2. <span style="font-family: 宋体">删除某个目录：</span>&lt;delete dir="photo"/&gt;</p>
+<p style="margin-left: 18pt">Eg3. <span style="font-family: 宋体">删除所有的备份目录或空目录：</span></p>
+<p style="margin-left: 18pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;delete includeEmptyDirs="true"&gt;</p>
+<p style="margin-left: 18pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;fileset dir="." includes="**/*.bak"/&gt;</p>
+<p style="margin-left: 18pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/delete&gt;</p>
+<p style="margin-left: 18pt; text-indent: -18pt; tab-stops: list 18.0pt"><strong>3.<span style="font: 7pt &#39;Times New Roman&#39;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></strong><strong>mkdir</strong><strong><span style="font-family: 宋体">任务</span></strong></p>
+<p style="margin-left: 18pt"><span style="font-family: 宋体">创建目录。</span>eg<span style="font-family: 宋体">：</span>&lt;mkdir dir="build"/&gt;</p>
+<p style="margin-left: 18pt; text-indent: -18pt; tab-stops: list 18.0pt"><strong>4.<span style="font: 7pt &#39;Times New Roman&#39;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></strong><strong>move</strong><strong><span style="font-family: 宋体">任务</span></strong></p>
+<p style="margin-left: 18pt"><span style="font-family: 宋体">移动文件或目录，举例如下：</span></p>
+<p style="margin-left: 18pt">Eg1. <span style="font-family: 宋体">移动单个文件：</span>&lt;move file="fromfile" tofile=”tofile”/&gt;</p>
+<p style="margin-left: 18pt">Eg2. <span style="font-family: 宋体">移动单个文件到另一个目录：</span>&lt;move file="fromfile" todir=”movedir”/&gt;</p>
+<p style="margin-left: 18pt">Eg3. <span style="font-family: 宋体">移动某个目录到另一个目录：</span></p>
+<p style="margin-left: 18pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;move todir="newdir"&gt;</p>
+<p style="margin-left: 18pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;fileset dir="olddir"/&gt;</p>
+<p style="margin-left: 18pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/move&gt;</p>
+<p style="margin-left: 18pt; text-indent: -18pt; tab-stops: list 18.0pt"><strong>5.<span style="font: 7pt &#39;Times New Roman&#39;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></strong><strong>echo</strong><strong><span style="font-family: 宋体">任务</span></strong></p>
+<p style="text-indent: 18pt"><span style="font-family: 宋体">该任务的作用是根据日志或监控器的级别输出信息。它包括</span>message<span style="font-family: 宋体">、</span>file<span style="font-family: 宋体">、</span>append<span style="font-family: 宋体">和</span>level<span style="font-family: 宋体">四个属性，举例如下：</span></p>
+<p style="text-indent: 18pt">&lt;echo message="Hello,Amigo" file="logs/system.log" append="true"&gt;</p>
+<p style="margin-left: 21pt; text-indent: -21pt; tab-stops: list 21.0pt"><strong>四．<span style="font: 7pt &#39;Times New Roman&#39;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></strong><strong><span style="font-family: 宋体">利用</span>Ant</strong><strong><span style="font-family: 宋体">构建和部署</span>Java</strong><strong><span style="font-family: 宋体">工程</span></strong></p>
+<p style="text-indent: 21pt">Ant<span style="font-family: 宋体">可以代替使用</span>javac<span style="font-family: 宋体">、</span>java<span style="font-family: 宋体">和</span>jar<span style="font-family: 宋体">等命令来执行</span>java<span style="font-family: 宋体">操作，从而达到轻松的构建和部署</span>Java<span style="font-family: 宋体">工程的目的。下面来看几个知识点。</span></p>
+<p style="margin-left: 18pt; text-indent: -18pt; tab-stops: list 18.0pt"><strong>1.<span style="font: 7pt &#39;Times New Roman&#39;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></strong><strong><span style="font-family: 宋体">利用</span>Ant</strong><strong><span style="font-family: 宋体">的</span>javac</strong><strong><span style="font-family: 宋体">任务来编译</span>java</strong><strong><span style="font-family: 宋体">程序</span></strong></p>
+<p style="margin-left: 18pt">Ant<span style="font-family: 宋体">的</span>javac<span style="font-family: 宋体">任务用于实现编译</span>Java<span style="font-family: 宋体">程序的功能。下面来看一个简单的例子：</span></p>
+<p style="text-indent: 18pt"><span style="font-family: 宋体">首先我们建立名为</span>antstudy<span style="font-family: 宋体">的</span>Java<span style="font-family: 宋体">工程，建立</span>src<span style="font-family: 宋体">目录为源代码目录，在</span>src<span style="font-family: 宋体">目录下建立</span>HelloWorld.java<span style="font-family: 宋体">这个类文件。该类文件的内容如下：</span></p>
+<div style="border-right: #cccccc 1px solid; padding-right: 5px; border-top: #cccccc 1px solid; padding-left: 4px; font-size: 13px; padding-bottom: 4px; border-left: #cccccc 1px solid; width: 98%; word-break: break-all; padding-top: 4px; border-bottom: #cccccc 1px solid; background-color: #eeeeee"><img id="Codehighlighter1_24_119_Open_Image" onclick="this.style.display=&#39;none&#39;; Codehighlighter1_24_119_Open_Text.style.display=&#39;none&#39;; Codehighlighter1_24_119_Closed_Image.style.display=&#39;inline&#39;; Codehighlighter1_24_119_Closed_Text.style.display=&#39;inline&#39;;" alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/ExpandedBlockStart.gif" align="top"><img id="Codehighlighter1_24_119_Closed_Image" style="display: none" onclick="this.style.display=&#39;none&#39;; Codehighlighter1_24_119_Closed_Text.style.display=&#39;none&#39;; Codehighlighter1_24_119_Open_Image.style.display=&#39;inline&#39;; Codehighlighter1_24_119_Open_Text.style.display=&#39;inline&#39;;" alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/ContractedBlock.gif" align="top"><span style="color: #0000ff">public</span><span style="color: #000000">&nbsp;</span><span style="color: #0000ff">class</span><span style="color: #000000">&nbsp;HelloWorld&nbsp;</span><span id="Codehighlighter1_24_119_Closed_Text" style="border-right: #808080 1px solid; border-top: #808080 1px solid; display: none; border-left: #808080 1px solid; border-bottom: #808080 1px solid; background-color: #ffffff"><img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/dot.gif"></span><span id="Codehighlighter1_24_119_Open_Text"><span style="color: #000000">{<br>
+<img id="Codehighlighter1_69_117_Open_Image" onclick="this.style.display=&#39;none&#39;; Codehighlighter1_69_117_Open_Text.style.display=&#39;none&#39;; Codehighlighter1_69_117_Closed_Image.style.display=&#39;inline&#39;; Codehighlighter1_69_117_Closed_Text.style.display=&#39;inline&#39;;" alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/ExpandedSubBlockStart.gif" align="top"><img id="Codehighlighter1_69_117_Closed_Image" style="display: none" onclick="this.style.display=&#39;none&#39;; Codehighlighter1_69_117_Closed_Text.style.display=&#39;none&#39;; Codehighlighter1_69_117_Open_Image.style.display=&#39;inline&#39;; Codehighlighter1_69_117_Open_Text.style.display=&#39;inline&#39;;" alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/ContractedSubBlock.gif" align="top">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000ff">public</span><span style="color: #000000">&nbsp;</span><span style="color: #0000ff">static</span><span style="color: #000000">&nbsp;</span><span style="color: #0000ff">void</span><span style="color: #000000">&nbsp;main(String[]&nbsp;args)&nbsp;</span><span id="Codehighlighter1_69_117_Closed_Text" style="border-right: #808080 1px solid; border-top: #808080 1px solid; display: none; border-left: #808080 1px solid; border-bottom: #808080 1px solid; background-color: #ffffff"><img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/dot.gif"></span><span id="Codehighlighter1_69_117_Open_Text"><span style="color: #000000">{<br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/InBlock.gif" align="top">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println(</span><span style="color: #000000">"</span><span style="color: #000000">Hello,Amigo</span><span style="color: #000000">"</span><span style="color: #000000">);<br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/ExpandedSubBlockEnd.gif" align="top">&nbsp;&nbsp;&nbsp;&nbsp;}</span></span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/ExpandedBlockEnd.gif" align="top">}</span></span></div>
+<p style="text-align: left" align="left"><span style="font-family: 宋体">&nbsp;&nbsp; 同时在</span>antstudy<span style="font-family: 宋体">工程的根目录下建立</span>build.xml<span style="font-family: 宋体">文件，在该文件中编译</span>src<span style="font-family: 宋体">目录下的</span>java<span style="font-family: 宋体">文件，并将编译后的</span>class<span style="font-family: 宋体">文件放入</span>build/classes<span style="font-family: 宋体">目录中，在编译前，需清除</span>classes<span style="font-family: 宋体">目录，该文件的内容如下：<br>
+</span></p>
+<div style="border-right: #cccccc 1px solid; padding-right: 5px; border-top: #cccccc 1px solid; padding-left: 4px; font-size: 13px; padding-bottom: 4px; border-left: #cccccc 1px solid; width: 98%; word-break: break-all; padding-top: 4px; border-bottom: #cccccc 1px solid; background-color: #eeeeee"><img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top"><span style="color: #0000ff">&lt;?</span><span style="color: #ff00ff">xml&nbsp;version="1.0"</span><span style="color: #0000ff">?&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top"></span><span style="color: #0000ff">&lt;</span><span style="color: #800000">project&nbsp;</span><span style="color: #ff0000">name</span><span style="color: #0000ff">="javacTest"</span><span style="color: #ff0000">default</span><span style="color: #0000ff">="compile"</span><span style="color: #ff0000">&nbsp;basedir</span><span style="color: #0000ff">="."</span><span style="color: #0000ff">&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000ff">&lt;</span><span style="color: #800000">target&nbsp;</span><span style="color: #ff0000">name</span><span style="color: #0000ff">="clean"</span><span style="color: #0000ff">&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000ff">&lt;</span><span style="color: #800000">delete&nbsp;</span><span style="color: #ff0000">dir</span><span style="color: #0000ff">="build"</span><span style="color: #0000ff">/&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000ff">&lt;/</span><span style="color: #800000">target</span><span style="color: #0000ff">&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000ff">&lt;</span><span style="color: #800000">target&nbsp;</span><span style="color: #ff0000">name</span><span style="color: #0000ff">="compile"</span><span style="color: #ff0000">&nbsp;depends</span><span style="color: #0000ff">="clean"</span><span style="color: #0000ff">&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000ff">&lt;</span><span style="color: #800000">mkdir&nbsp;</span><span style="color: #ff0000">dir</span><span style="color: #0000ff">="build/classes"</span><span style="color: #0000ff">/&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000ff">&lt;</span><span style="color: #800000">javac&nbsp;</span><span style="color: #ff0000">srcdir</span><span style="color: #0000ff">="src"</span><span style="color: #ff0000">&nbsp;destdir</span><span style="color: #0000ff">="build/classes"</span><span style="color: #0000ff">/&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000ff">&lt;/</span><span style="color: #800000">target</span><span style="color: #0000ff">&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top"></span><span style="color: #0000ff">&lt;/</span><span style="color: #800000">project</span><span style="color: #0000ff">&gt;</span></div>
+<p style="text-align: left" align="left"><span style="font-family: 宋体">&nbsp;&nbsp;&nbsp;&nbsp;运行该</span>build.xml<span style="font-family: 宋体">文件，可在工程中看到新增了</span>build/classes<span style="font-family: 宋体">目录，并在该目录中生成了编译后的</span>HelloWorld.class<span style="font-family: 宋体">文件。</span></p>
+<p style="margin-left: 18pt; text-indent: -18pt; tab-stops: list 18.0pt"><strong>2.<span style="font: 7pt &#39;Times New Roman&#39;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></strong><strong><span style="font-family: 宋体">使用</span>Ant</strong><strong><span style="font-family: 宋体">的</span>java</strong><strong><span style="font-family: 宋体">任务运行</span>Java</strong><strong><span style="font-family: 宋体">程序</span></strong></p>
+<p style="text-align: left" align="left">Ant<span style="font-family: 宋体">中可以使用</span>java<span style="font-family: 宋体">任务实现运行</span>Java<span style="font-family: 宋体">程序的功能。下面在</span>1<span style="font-family: 宋体">的例子中进行如下的修改，修改后的</span>build.xml<span style="font-family: 宋体">文件的内容如下：<br>
+</span></p>
+<div style="border-right: #cccccc 1px solid; padding-right: 5px; border-top: #cccccc 1px solid; padding-left: 4px; font-size: 13px; padding-bottom: 4px; border-left: #cccccc 1px solid; width: 98%; word-break: break-all; padding-top: 4px; border-bottom: #cccccc 1px solid; background-color: #eeeeee"><img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top"><span style="color: #0000ff">&lt;?</span><span style="color: #ff00ff">xml&nbsp;version="1.0"</span><span style="color: #0000ff">?&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top"></span><span style="color: #0000ff">&lt;</span><span style="color: #800000">project&nbsp;</span><span style="color: #ff0000">name</span><span style="color: #0000ff">="javaTest"</span><span style="color: #ff0000">&nbsp;default</span><span style="color: #0000ff">="jar"</span><span style="color: #ff0000">&nbsp;basedir</span><span style="color: #0000ff">="."</span><span style="color: #0000ff">&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000ff">&lt;</span><span style="color: #800000">target&nbsp;</span><span style="color: #ff0000">name</span><span style="color: #0000ff">="clean"</span><span style="color: #0000ff">&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000ff">&lt;</span><span style="color: #800000">delete&nbsp;</span><span style="color: #ff0000">dir</span><span style="color: #0000ff">="build"</span><span style="color: #0000ff">/&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000ff">&lt;/</span><span style="color: #800000">target</span><span style="color: #0000ff">&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000ff">&lt;</span><span style="color: #800000">target&nbsp;</span><span style="color: #ff0000">name</span><span style="color: #0000ff">="compile"</span><span style="color: #ff0000">&nbsp;depends</span><span style="color: #0000ff">="clean"</span><span style="color: #0000ff">&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000ff">&lt;</span><span style="color: #800000">mkdir&nbsp;</span><span style="color: #ff0000">dir</span><span style="color: #0000ff">="build/classes"</span><span style="color: #0000ff">/&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000ff">&lt;</span><span style="color: #800000">javac&nbsp;</span><span style="color: #ff0000">srcdir</span><span style="color: #0000ff">="src"</span><span style="color: #ff0000">&nbsp;destdir</span><span style="color: #0000ff">="build/classes"</span><span style="color: #0000ff">/&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000ff">&lt;/</span><span style="color: #800000">target</span><span style="color: #0000ff">&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000ff">&lt;</span><span style="color: #800000">target&nbsp;</span><span style="color: #ff0000">name</span><span style="color: #0000ff">="run"</span><span style="color: #ff0000">&nbsp;depends</span><span style="color: #0000ff">="compile"</span><span style="color: #0000ff">&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000ff">&lt;</span><span style="color: #800000">java&nbsp;</span><span style="color: #ff0000">classname</span><span style="color: #0000ff">="HelloWorld"</span><span style="color: #0000ff">&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000ff">&lt;</span><span style="color: #800000">classpath</span><span style="color: #0000ff">&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000ff">&lt;</span><span style="color: #800000">pathelement&nbsp;</span><span style="color: #ff0000">path</span><span style="color: #0000ff">="build/classes"</span><span style="color: #0000ff">/&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000ff">&lt;/</span><span style="color: #800000">classpath</span><span style="color: #0000ff">&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000ff">&lt;/</span><span style="color: #800000">java</span><span style="color: #0000ff">&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000ff">&lt;/</span><span style="color: #800000">target</span><span style="color: #0000ff">&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top"></span><span style="color: #0000ff">&lt;/</span><span style="color: #800000">project</span><span style="color: #0000ff">&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top"></span></div>
+<p style="text-align: left" align="left"><span style="font-family: 宋体">&nbsp;&nbsp;&nbsp; 运行该</span>build.xml<span style="font-family: 宋体">文件，可在控制台看到</span>HelloWorld<span style="font-family: 宋体">的</span>main<span style="font-family: 宋体">方法的输出。</span></p>
+<p style="margin-left: 18pt; text-indent: -18pt; tab-stops: list 18.0pt"><strong>3.<span style="font: 7pt &#39;Times New Roman&#39;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></strong><strong><span style="font-family: 宋体">使用</span>Ant</strong><strong><span style="font-family: 宋体">的</span>jar</strong><strong><span style="font-family: 宋体">任务生成</span>jar</strong><strong><span style="font-family: 宋体">文件</span></strong></p>
+<p style="text-indent: 18pt"><span style="font-family: 宋体">读者可以在上例的基础上更进一步，来生成</span>jar<span style="font-family: 宋体">包，可在</span>run<span style="font-family: 宋体">这个</span>target<span style="font-family: 宋体">下再加上如下</span>target<span style="font-family: 宋体">：<br>
+</span></p>
+<div style="border-right: #cccccc 1px solid; padding-right: 5px; border-top: #cccccc 1px solid; padding-left: 4px; font-size: 13px; padding-bottom: 4px; border-left: #cccccc 1px solid; width: 98%; word-break: break-all; padding-top: 4px; border-bottom: #cccccc 1px solid; background-color: #eeeeee"><img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top"><span style="color: #0000ff">&lt;</span><span style="color: #800000">target&nbsp;</span><span style="color: #ff0000">name</span><span style="color: #0000ff">="jar"</span><span style="color: #ff0000">&nbsp;depends</span><span style="color: #0000ff">="run"</span><span style="color: #0000ff">&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top"></span><span style="color: #0000ff">&lt;</span><span style="color: #800000">jar&nbsp;</span><span style="color: #ff0000">destfile</span><span style="color: #0000ff">="helloworld.jar"</span><span style="color: #ff0000">&nbsp;basedir</span><span style="color: #0000ff">="build/classes"</span><span style="color: #0000ff">&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000ff">&lt;</span><span style="color: #800000">manifest</span><span style="color: #0000ff">&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000ff">&lt;</span><span style="color: #800000">attribute&nbsp;</span><span style="color: #ff0000">name</span><span style="color: #0000ff">="Main-class"</span><span style="color: #ff0000">&nbsp;value</span><span style="color: #0000ff">="HelloWorld"</span><span style="color: #0000ff">/&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000ff">&lt;/</span><span style="color: #800000">manifest</span><span style="color: #0000ff">&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000ff">&lt;/</span><span style="color: #800000">jar</span><span style="color: #0000ff">&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top"></span><span style="color: #0000ff">&lt;/</span><span style="color: #800000">target</span><span style="color: #0000ff">&gt;</span></div>
+<p style="text-indent: 18pt"><span style="font-family: 宋体">此时将</span>ant<span style="font-family: 宋体">的</span>project<span style="font-family: 宋体">的</span>default<span style="font-family: 宋体">属性设置为</span>jar<span style="font-family: 宋体">，同时运行该</span>build.xml<span style="font-family: 宋体">文件，运行完毕后，可看到在工程目录下生成了一个</span>jar<span style="font-family: 宋体">包</span>HelloWorld.jar<span style="font-family: 宋体">。</span></p>
+<p style="margin-left: 18pt; text-indent: -18pt; tab-stops: list 18.0pt"><strong>4.<span style="font: 7pt &#39;Times New Roman&#39;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></strong><strong><span style="font-family: 宋体">使用</span>Ant</strong><strong><span style="font-family: 宋体">的</span>war</strong><strong><span style="font-family: 宋体">任务打包</span>J2EE Web</strong><strong><span style="font-family: 宋体">项目</span></strong></p>
+<p style="margin-left: 18pt"><span style="font-family: 宋体">建立一个</span>J2EE Web<span style="font-family: 宋体">工程，其目录结构如下图所示：<br>
+<img height="287" alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/r_ant_06.jpg" width="255" border="0"><br>
+</span></p>
+<p style="text-indent: 17.95pt"><span style="font-family: 宋体">其中</span>src<span style="font-family: 宋体">为源代码目录，</span>WebRoot<span style="font-family: 宋体">为各</span>jsp<span style="font-family: 宋体">存放目录，</span>lib<span style="font-family: 宋体">为工程的包目录。在</span>antwebproject<span style="font-family: 宋体">工程目录下建立了</span>build.xml<span style="font-family: 宋体">文件，该文件为该工程的</span>Ant<span style="font-family: 宋体">构件文件。读者可以</span>src<span style="font-family: 宋体">目录下放入在前续例子中开发的</span>HelloWorld.java<span style="font-family: 宋体">文件，并在</span>WebRoot<span style="font-family: 宋体">下建立</span>index.jsp<span style="font-family: 宋体">文件，其内容很简单，就是输出</span>Hello<span style="font-family: 宋体">信息，代码如下所示：</span><span style="font-size: 10pt; color: teal; font-family: &#39;Courier New&#39;"></span></p>
+<div style="border-right: #cccccc 1px solid; padding-right: 5px; border-top: #cccccc 1px solid; padding-left: 4px; font-size: 13px; padding-bottom: 4px; border-left: #cccccc 1px solid; width: 98%; word-break: break-all; padding-top: 4px; border-bottom: #cccccc 1px solid; background-color: #eeeeee"><img id="Codehighlighter1_2_84_Open_Image" onclick="this.style.display=&#39;none&#39;; Codehighlighter1_2_84_Open_Text.style.display=&#39;none&#39;; Codehighlighter1_2_84_Closed_Image.style.display=&#39;inline&#39;; Codehighlighter1_2_84_Closed_Text.style.display=&#39;inline&#39;;" alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/ExpandedBlockStart.gif" align="top"><img id="Codehighlighter1_2_84_Closed_Image" style="display: none" onclick="this.style.display=&#39;none&#39;; Codehighlighter1_2_84_Closed_Text.style.display=&#39;none&#39;; Codehighlighter1_2_84_Open_Image.style.display=&#39;inline&#39;; Codehighlighter1_2_84_Open_Text.style.display=&#39;inline&#39;;" alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/ContractedBlock.gif" align="top"><span style="color: #000000; background-color: #ffff00">&lt;%</span><span id="Codehighlighter1_2_84_Closed_Text" style="border-right: #808080 1px solid; border-top: #808080 1px solid; display: none; border-left: #808080 1px solid; border-bottom: #808080 1px solid; background-color: #ffffff"><img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/dot.gif"></span><span id="Codehighlighter1_2_84_Open_Text"><span style="color: #000000; background-color: #f5f5f5">@&nbsp;page&nbsp;language</span><span style="color: #000000; background-color: #f5f5f5">=</span><span style="color: #000000; background-color: #f5f5f5">"</span><span style="color: #000000; background-color: #f5f5f5">java</span><span style="color: #000000; background-color: #f5f5f5">"</span><span style="color: #000000; background-color: #f5f5f5">&nbsp;contentType</span><span style="color: #000000; background-color: #f5f5f5">=</span><span style="color: #000000; background-color: #f5f5f5">"</span><span style="color: #000000; background-color: #f5f5f5">text/html;&nbsp;charset=</span><span style="color: #000000; background-color: #f5f5f5">"</span><span style="color: #000000; background-color: #f5f5f5">UTF</span><span style="color: #000000; background-color: #f5f5f5">-</span><span style="color: #000000; background-color: #f5f5f5">8</span><span style="color: #000000; background-color: #f5f5f5">"</span><span style="color: #000000; background-color: #f5f5f5">&nbsp;pageEncoding=</span><span style="color: #000000; background-color: #f5f5f5">"</span><span style="color: #000000; background-color: #f5f5f5">UTF</span><span style="color: #000000; background-color: #f5f5f5">-</span><span style="color: #000000; background-color: #f5f5f5">8</span><span style="color: #000000; background-color: #f5f5f5">"</span></span><span style="color: #000000; background-color: #ffff00">%&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top"></span><span style="color: #0000ff">&lt;!</span><span style="color: #ff00ff">DOCTYPE&nbsp;html&nbsp;PUBLIC&nbsp;"-//W3C//DTD&nbsp;HTML&nbsp;4.01&nbsp;Transitional//EN"&nbsp;"http://www.w3.org/TR/html4/loose.dtd"</span><span style="color: #0000ff">&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top"></span><span style="color: #0000ff">&lt;</span><span style="color: #800000">html</span><span style="color: #0000ff">&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000ff">&lt;</span><span style="color: #800000">head</span><span style="color: #0000ff">&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000ff">&lt;</span><span style="color: #800000">meta&nbsp;</span><span style="color: #ff0000">http-equiv</span><span style="color: #0000ff">="Content-Type"</span><span style="color: #ff0000">&nbsp;content</span><span style="color: #0000ff">="text/html;&nbsp;charset=ISO-8859-1"</span><span style="color: #0000ff">&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000ff">&lt;</span><span style="color: #800000">title</span><span style="color: #0000ff">&gt;</span><span style="color: #000000">ant打包测试</span><span style="color: #0000ff">&lt;/</span><span style="color: #800000">title</span><span style="color: #0000ff">&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000ff">&lt;/</span><span style="color: #800000">head</span><span style="color: #0000ff">&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000ff">&lt;</span><span style="color: #800000">body</span><span style="color: #0000ff">&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hello,Ant<br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000ff">&lt;/</span><span style="color: #800000">body</span><span style="color: #0000ff">&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top"></span><span style="color: #0000ff">&lt;/</span><span style="color: #800000">html</span><span style="color: #0000ff">&gt;</span></div>
+<p style="text-align: left" align="left"><span style="font-family: 宋体">&nbsp;&nbsp; 接下来编写</span>build.xml<span style="font-family: 宋体">文件，其内容如下：</span></p>
+<div style="border-right: #cccccc 1px solid; padding-right: 5px; border-top: #cccccc 1px solid; padding-left: 4px; font-size: 13px; padding-bottom: 4px; border-left: #cccccc 1px solid; width: 98%; word-break: break-all; padding-top: 4px; border-bottom: #cccccc 1px solid; background-color: #eeeeee"><img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top"><span style="color: #0000ff">&lt;?</span><span style="color: #ff00ff">xml&nbsp;version="1.0"</span><span style="color: #0000ff">?&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top"></span><span style="color: #0000ff">&lt;</span><span style="color: #800000">project&nbsp;</span><span style="color: #ff0000">name</span><span style="color: #0000ff">="antwebproject"</span><span style="color: #ff0000">&nbsp;&nbsp;default</span><span style="color: #0000ff">="war"</span><span style="color: #ff0000">basedir</span><span style="color: #0000ff">="."</span><span style="color: #0000ff">&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top">&nbsp;</span><span style="color: #0000ff">&lt;</span><span style="color: #800000">property&nbsp;</span><span style="color: #ff0000">name</span><span style="color: #0000ff">="classes"</span><span style="color: #ff0000">&nbsp;value</span><span style="color: #0000ff">="build/classes"</span><span style="color: #0000ff">/&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000ff">&lt;</span><span style="color: #800000">property&nbsp;</span><span style="color: #ff0000">name</span><span style="color: #0000ff">="build"</span><span style="color: #ff0000">value</span><span style="color: #0000ff">="build"</span><span style="color: #0000ff">/&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000ff">&lt;</span><span style="color: #800000">property&nbsp;</span><span style="color: #ff0000">name</span><span style="color: #0000ff">="lib"</span><span style="color: #ff0000">value</span><span style="color: #0000ff">="WebRoot/WEB-INF/lib"</span><span style="color: #0000ff">/&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #008000">&lt;!--</span><span style="color: #008000">&nbsp;删除build路径</span><span style="color: #008000">--&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000ff">&lt;</span><span style="color: #800000">target&nbsp;</span><span style="color: #ff0000">name</span><span style="color: #0000ff">="clean"</span><span style="color: #0000ff">&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000ff">&lt;</span><span style="color: #800000">delete&nbsp;</span><span style="color: #ff0000">dir</span><span style="color: #0000ff">="build"</span><span style="color: #0000ff">/&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000ff">&lt;/</span><span style="color: #800000">target</span><span style="color: #0000ff">&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #008000">&lt;!--</span><span style="color: #008000">&nbsp;建立build/classes路径，并编译class文件到build/classes路径下</span><span style="color: #008000">--&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000ff">&lt;</span><span style="color: #800000">target&nbsp;</span><span style="color: #ff0000">name</span><span style="color: #0000ff">="compile"</span><span style="color: #ff0000">&nbsp;depends</span><span style="color: #0000ff">="clean"</span><span style="color: #0000ff">&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000ff">&lt;</span><span style="color: #800000">mkdir&nbsp;</span><span style="color: #ff0000">dir</span><span style="color: #0000ff">="${classes}"</span><span style="color: #0000ff">/&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000ff">&lt;</span><span style="color: #800000">javac&nbsp;</span><span style="color: #ff0000">srcdir</span><span style="color: #0000ff">="src"</span><span style="color: #ff0000">&nbsp;destdir</span><span style="color: #0000ff">="${classes}"</span><span style="color: #0000ff">/&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000ff">&lt;/</span><span style="color: #800000">target</span><span style="color: #0000ff">&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #008000">&lt;!--</span><span style="color: #008000">&nbsp;打war包</span><span style="color: #008000">--&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000ff">&lt;</span><span style="color: #800000">target&nbsp;</span><span style="color: #ff0000">name</span><span style="color: #0000ff">="war"</span><span style="color: #ff0000">&nbsp;depends</span><span style="color: #0000ff">="compile"</span><span style="color: #0000ff">&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top"></span><span style="color: #0000ff">&lt;</span><span style="color: #800000">war&nbsp;</span><span style="color: #ff0000">destfile</span><span style="color: #0000ff">="${build}/antwebproject.war"</span><span style="color: #ff0000">&nbsp;webxml</span><span style="color: #0000ff">="WebRoot/WEB-INF/web.xml"</span><span style="color: #0000ff">&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #008000">&lt;!--</span><span style="color: #008000">&nbsp;拷贝WebRoot下除了WEB-INF和META-INF的两个文件夹</span><span style="color: #008000">--&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000ff">&lt;</span><span style="color: #800000">fileset&nbsp;</span><span style="color: #ff0000">dir</span><span style="color: #0000ff">="WebRoot"</span><span style="color: #ff0000">&nbsp;includes</span><span style="color: #0000ff">="**/*.jsp"</span><span style="color: #0000ff">/&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #008000">&lt;!--</span><span style="color: #008000">&nbsp;拷贝lib目录下的jar包</span><span style="color: #008000">--&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000ff">&lt;</span><span style="color: #800000">lib&nbsp;</span><span style="color: #ff0000">dir</span><span style="color: #0000ff">="${lib}"</span><span style="color: #0000ff">/&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #008000">&lt;!--</span><span style="color: #008000">&nbsp;拷贝build/classes下的class文件</span><span style="color: #008000">--&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000ff">&lt;</span><span style="color: #800000">classesdir</span><span style="color: #0000ff">="${classes}"</span><span style="color: #0000ff">/&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000ff">&lt;/</span><span style="color: #800000">war</span><span style="color: #0000ff">&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000ff">&lt;/</span><span style="color: #800000">target</span><span style="color: #0000ff">&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top"></span><span style="color: #0000ff">&lt;/</span><span style="color: #800000">project</span><span style="color: #0000ff">&gt;</span><span style="color: #000000"><br>
+<img alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/None.gif" align="top"></span></div>
+<p style="text-align: left" align="left"><span style="font-family: 宋体">&nbsp;&nbsp;&nbsp; 各</span>target<span style="font-family: 宋体">的作用在内容中已经进行说明，在此不再赘述。运行该</span>build<span style="font-family: 宋体">文件，更新目录后，可看到在</span>build<span style="font-family: 宋体">目录下生成了</span>antwebproject.war<span style="font-family: 宋体">文件，解开后可看到其目录结构如下：</span></p>
+<p style="margin-left: 17.95pt; text-indent: 10.5pt">--META-INF</p>
+<p style="margin-left: 17.95pt; text-indent: 10.5pt">&nbsp;&nbsp;&nbsp;&nbsp; --MANIFEST.MF</p>
+<p style="margin-left: 17.95pt; text-indent: 10.5pt">--index.jsp</p>
+<p style="margin-left: 17.95pt; text-indent: 10.5pt">--WEB-INF</p>
+<p style="margin-left: 17.95pt; text-indent: 10.5pt">&nbsp;&nbsp;&nbsp;&nbsp; --lib</p>
+<p style="margin-left: 17.95pt; text-indent: 10.5pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --log4j-1.2.9.jar</p>
+<p style="margin-left: 17.95pt; text-indent: 10.5pt">&nbsp;&nbsp;&nbsp;&nbsp; --classes</p>
+<p style="margin-left: 17.95pt; text-indent: 10.5pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --HelloWorld.class</p>
+<p style="margin-left: 17.95pt; text-indent: 10.5pt">&nbsp;&nbsp;&nbsp;&nbsp; --web.xml</p>
+<p style="margin-left: 17.95pt; text-indent: 10.5pt">&nbsp;&nbsp;&nbsp;&nbsp; <span style="font-family: 宋体">读者可以将该</span>war<span style="font-family: 宋体">包拷贝到</span>Tomcat<span style="font-family: 宋体">的目录下看一下运行结果。</span></p>
+<p style="margin-left: 21pt; text-indent: -21pt; tab-stops: list 21.0pt"><strong>五．<span style="font: 7pt &#39;Times New Roman&#39;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></strong><strong><span style="font-family: 宋体">总结</span></strong></p>
+<p style="text-indent: 21pt"><span style="font-family: 宋体">在本文中，笔者由浅至深详细描述了</span>Ant<span style="font-family: 宋体">的安装与配置、关键元素和常用任务。并通过实例讲述了</span>Ant<span style="font-family: 宋体">在我们</span>Java<span style="font-family: 宋体">项目中的应用，讲述了编译、运行</span>java<span style="font-family: 宋体">程序，以及打</span>jar<span style="font-family: 宋体">包、</span>war<span style="font-family: 宋体">包等知识，引领读者进入</span>Ant<span style="font-family: 宋体">的奇妙世界。在本文中可以看到，</span>Ant<span style="font-family: 宋体">在自动构建和部署</span>Java<span style="font-family: 宋体">程序方面方便易用，而且非常灵活，不失为我们</span>Java<span style="font-family: 宋体">开发者的绝佳帮手。</span></p>
+
+	<div class="postDesc">posted on 2007-11-09 17:31 <a href="http://www.blogjava.net/amigoxie/">阿蜜果</a> 阅读(117943) <a href="http://www.blogjava.net/amigoxie/archive/2007/11/09/159413.html#Post">评论(30)</a> &nbsp;<a href="http://www.blogjava.net/amigoxie/admin/EditPosts.aspx?postid=159413">编辑</a> &nbsp;<a href="http://www.blogjava.net/amigoxie/AddToFavorite.aspx?id=159413">收藏</a>  所属分类: <a href="http://www.blogjava.net/amigoxie/category/26734.html">Ant</a> </div>
+</div>
+<img src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/159413.html" width="1" height="1">
+
+<!--
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+xmlns:dc="http://purl.org/dc/elements/1.1/"
+xmlns:trackback="http://madskills.com/public/xml/rss/module/trackback/">
+<rdf:Description
+rdf:about="http://www.blogjava.net/amigoxie/archive/2007/11/09/159413.html"
+dc:identifier="http://www.blogjava.net/amigoxie/archive/2007/11/09/159413.html"
+dc:title="用Ant实现Java项目的自动构建和部署"
+trackback:ping="http://www.blogjava.net/amigoxie/services/trackbacks/159413.aspx" />
+</rdf:RDF>
+-->
+
+<script type="text/javascript">
+//<![CDATA[
+Sys.WebForms.PageRequestManager._initialize('AjaxHolder$scriptmanager1', document.getElementById('Form1'));
+Sys.WebForms.PageRequestManager.getInstance()._updateControls(['tAjaxHolder$UpdatePanel1'], [], [], 90);
+//]]>
+</script>
+
+<div id="AjaxHolder_UpdatePanel1">
+	    
+    <a name="pagedcomment"></a>
+<!--done-->
+<br>
+
+
+<br>
+<div class="feedbackTitle">FeedBack:</div>
+<div class="feedbackNoItems"></div>
+
+
+		<div class="feedbackItem">
+			<div class="feedbackListTitle"><a title="permalink: re: 用Ant实现Java项目的自动构建和部署[未登录]" href="http://www.blogjava.net/amigoxie/archive/2007/11/09/159413.html#159416">#</a>&nbsp;<a name="159416"></a>re: 用Ant实现Java项目的自动构建和部署[未登录]</div>
+			<div class="feedbackListSubtitle">
+				2007-11-09 17:37 | <a id="AjaxHolder_Comments_CommentList_ctl00_NameLink" href="http://www.blogjava.net/apple0668" target="_blank">apple0668</a><br>
+				<div align="left">还不错，学习啦！实际开发中ant的使用多不多？&nbsp;&nbsp;<a onclick="return SetReplyAuhor(&quot;apple0668&quot;)" href="http://www.blogjava.net/amigoxie/archive/2007/11/09/159413.html#post">回复</a>&nbsp;&nbsp;<a title="查看该作者发表过的评论" href="http://www.blogjava.net/comment?author=apple0668" target="_blank">更多评论</a><br><a id="AjaxHolder_Comments_CommentList_ctl00_DeleteLink" href="javascript:__doPostBack(&#39;AjaxHolder$Comments$CommentList$ctl00$DeleteLink&#39;,&#39;&#39;)"></a>&nbsp;&nbsp;<a id="AjaxHolder_Comments_CommentList_ctl00_EditLink" causesvalidation="False"></a></div>
+			</div>		
+			
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListTitle"><a title="permalink: re: 用Ant实现Java项目的自动构建和部署" href="http://www.blogjava.net/amigoxie/archive/2007/11/09/159413.html#159420">#</a>&nbsp;<a name="159420"></a>re: 用Ant实现Java项目的自动构建和部署</div>
+			<div class="feedbackListSubtitle">
+				2007-11-09 17:51 | <a id="AjaxHolder_Comments_CommentList_ctl01_NameLink" href="http://www.blogjava.net/amigoxie/" target="_blank">阿蜜果</a><br>
+				<div align="left">@apple0668
+<br>恩，比较常用。&nbsp;&nbsp;<a onclick="return SetReplyAuhor(&quot;阿蜜果&quot;)" href="http://www.blogjava.net/amigoxie/archive/2007/11/09/159413.html#post">回复</a>&nbsp;&nbsp;<a title="查看该作者发表过的评论" href="http://www.blogjava.net/comment?author=%e9%98%bf%e8%9c%9c%e6%9e%9c" target="_blank">更多评论</a><br><a id="AjaxHolder_Comments_CommentList_ctl01_DeleteLink" href="javascript:__doPostBack(&#39;AjaxHolder$Comments$CommentList$ctl01$DeleteLink&#39;,&#39;&#39;)"></a>&nbsp;&nbsp;<a id="AjaxHolder_Comments_CommentList_ctl01_EditLink" causesvalidation="False"></a></div>
+			</div>		
+			
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListTitle"><a title="permalink: re: 用Ant实现Java项目的自动构建和部署" href="http://www.blogjava.net/amigoxie/archive/2007/11/09/159413.html#159421">#</a>&nbsp;<a name="159421"></a>re: 用Ant实现Java项目的自动构建和部署</div>
+			<div class="feedbackListSubtitle">
+				2007-11-09 18:08 | <a id="AjaxHolder_Comments_CommentList_ctl02_NameLink" href="http://www.blogjava.net/beansoft/" target="_blank">BeanSoft</a><br>
+				<div align="left">Ant 入门讲解视频(22分03秒)
+<br><a href="http://www.blogjava.net/beansoft/archive/2007/11/03/157955.html" target="_new">http://www.blogjava.net/beansoft/archive/2007/11/03/157955.html</a>
+<br>
+<br>用的多&nbsp;&nbsp;<a onclick="return SetReplyAuhor(&quot;BeanSoft&quot;)" href="http://www.blogjava.net/amigoxie/archive/2007/11/09/159413.html#post">回复</a>&nbsp;&nbsp;<a title="查看该作者发表过的评论" href="http://www.blogjava.net/comment?author=BeanSoft" target="_blank">更多评论</a><br><a id="AjaxHolder_Comments_CommentList_ctl02_DeleteLink" href="javascript:__doPostBack(&#39;AjaxHolder$Comments$CommentList$ctl02$DeleteLink&#39;,&#39;&#39;)"></a>&nbsp;&nbsp;<a id="AjaxHolder_Comments_CommentList_ctl02_EditLink" causesvalidation="False"></a></div>
+			</div>		
+			
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListTitle"><a title="permalink: re: 用Ant实现Java项目的自动构建和部署[未登录]" href="http://www.blogjava.net/amigoxie/archive/2007/11/09/159413.html#159429">#</a>&nbsp;<a name="159429"></a>re: 用Ant实现Java项目的自动构建和部署[未登录]</div>
+			<div class="feedbackListSubtitle">
+				2007-11-09 19:06 | <a id="AjaxHolder_Comments_CommentList_ctl03_NameLink" href="http://www.fallever.com/" target="_blank">jeff</a><br>
+				<div align="left">嗯。。又会是一篇经典教程！&nbsp;&nbsp;<a onclick="return SetReplyAuhor(&quot;jeff&quot;)" href="http://www.blogjava.net/amigoxie/archive/2007/11/09/159413.html#post">回复</a>&nbsp;&nbsp;<a title="查看该作者发表过的评论" href="http://www.blogjava.net/comment?author=jeff" target="_blank">更多评论</a><br><a id="AjaxHolder_Comments_CommentList_ctl03_DeleteLink" href="javascript:__doPostBack(&#39;AjaxHolder$Comments$CommentList$ctl03$DeleteLink&#39;,&#39;&#39;)"></a>&nbsp;&nbsp;<a id="AjaxHolder_Comments_CommentList_ctl03_EditLink" causesvalidation="False"></a></div>
+			</div>		
+			
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListTitle"><a title="permalink: re: 用Ant实现Java项目的自动构建和部署" href="http://www.blogjava.net/amigoxie/archive/2007/11/09/159413.html#159580">#</a>&nbsp;<a name="159580"></a>re: 用Ant实现Java项目的自动构建和部署</div>
+			<div class="feedbackListSubtitle">
+				2007-11-10 17:10 | <a id="AjaxHolder_Comments_CommentList_ctl04_NameLink" target="_blank">穷</a><br>
+				<div align="left">我觉得应该开个wiki才对，把你和BEAN的整合下<br>&nbsp;&nbsp;<a onclick="return SetReplyAuhor(&quot;穷&quot;)" href="http://www.blogjava.net/amigoxie/archive/2007/11/09/159413.html#post">回复</a>&nbsp;&nbsp;<a title="查看该作者发表过的评论" href="http://www.blogjava.net/comment?author=%e7%a9%b7" target="_blank">更多评论</a><br><a id="AjaxHolder_Comments_CommentList_ctl04_DeleteLink" href="javascript:__doPostBack(&#39;AjaxHolder$Comments$CommentList$ctl04$DeleteLink&#39;,&#39;&#39;)"></a>&nbsp;&nbsp;<a id="AjaxHolder_Comments_CommentList_ctl04_EditLink" causesvalidation="False"></a></div>
+			</div>		
+			
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListTitle"><a title="permalink: re: 用Ant实现Java项目的自动构建和部署" href="http://www.blogjava.net/amigoxie/archive/2007/11/09/159413.html#162745">#</a>&nbsp;<a name="162745"></a>re: 用Ant实现Java项目的自动构建和部署</div>
+			<div class="feedbackListSubtitle">
+				2007-11-23 23:01 | <a id="AjaxHolder_Comments_CommentList_ctl05_NameLink" href="http://www.blogjava.net/magicblw/" target="_blank">怎么羡慕天空的飞鸟</a><br>
+				<div align="left">很不错，支持一下。&nbsp;&nbsp;<a onclick="return SetReplyAuhor(&quot;怎么羡慕天空的飞鸟&quot;)" href="http://www.blogjava.net/amigoxie/archive/2007/11/09/159413.html#post">回复</a>&nbsp;&nbsp;<a title="查看该作者发表过的评论" href="http://www.blogjava.net/comment?author=%e6%80%8e%e4%b9%88%e7%be%a1%e6%85%95%e5%a4%a9%e7%a9%ba%e7%9a%84%e9%a3%9e%e9%b8%9f" target="_blank">更多评论</a><br><a id="AjaxHolder_Comments_CommentList_ctl05_DeleteLink" href="javascript:__doPostBack(&#39;AjaxHolder$Comments$CommentList$ctl05$DeleteLink&#39;,&#39;&#39;)"></a>&nbsp;&nbsp;<a id="AjaxHolder_Comments_CommentList_ctl05_EditLink" causesvalidation="False"></a></div>
+			</div>		
+			
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListTitle"><a title="permalink: re: 用Ant实现Java项目的自动构建和部署" href="http://www.blogjava.net/amigoxie/archive/2007/11/09/159413.html#388069">#</a>&nbsp;<a name="388069"></a>re: 用Ant实现Java项目的自动构建和部署</div>
+			<div class="feedbackListSubtitle">
+				2012-09-19 14:54 | <a id="AjaxHolder_Comments_CommentList_ctl06_NameLink" target="_blank">tushu321</a><br>
+				<div align="left">很详细，顶一下&nbsp;&nbsp;<a onclick="return SetReplyAuhor(&quot;tushu321&quot;)" href="http://www.blogjava.net/amigoxie/archive/2007/11/09/159413.html#post">回复</a>&nbsp;&nbsp;<a title="查看该作者发表过的评论" href="http://www.blogjava.net/comment?author=tushu321" target="_blank">更多评论</a><br><a id="AjaxHolder_Comments_CommentList_ctl06_DeleteLink" href="javascript:__doPostBack(&#39;AjaxHolder$Comments$CommentList$ctl06$DeleteLink&#39;,&#39;&#39;)"></a>&nbsp;&nbsp;<a id="AjaxHolder_Comments_CommentList_ctl06_EditLink" causesvalidation="False"></a></div>
+			</div>		
+			
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListTitle"><a title="permalink: re: 用Ant实现Java项目的自动构建和部署" href="http://www.blogjava.net/amigoxie/archive/2007/11/09/159413.html#391470">#</a>&nbsp;<a name="391470"></a>re: 用Ant实现Java项目的自动构建和部署</div>
+			<div class="feedbackListSubtitle">
+				2012-11-16 17:19 | <a id="AjaxHolder_Comments_CommentList_ctl07_NameLink" href="http://xn--hxy/" target="_blank">低洼地</a><br>
+				<div align="left">的挖的挖啊<br>&nbsp;&nbsp;<a onclick="return SetReplyAuhor(&quot;低洼地&quot;)" href="http://www.blogjava.net/amigoxie/archive/2007/11/09/159413.html#post">回复</a>&nbsp;&nbsp;<a title="查看该作者发表过的评论" href="http://www.blogjava.net/comment?author=%e4%bd%8e%e6%b4%bc%e5%9c%b0" target="_blank">更多评论</a><br><a id="AjaxHolder_Comments_CommentList_ctl07_DeleteLink" href="javascript:__doPostBack(&#39;AjaxHolder$Comments$CommentList$ctl07$DeleteLink&#39;,&#39;&#39;)"></a>&nbsp;&nbsp;<a id="AjaxHolder_Comments_CommentList_ctl07_EditLink" causesvalidation="False"></a></div>
+			</div>		
+			
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListTitle"><a title="permalink: re: 用Ant实现Java项目的自动构建和部署" href="http://www.blogjava.net/amigoxie/archive/2007/11/09/159413.html#392826">#</a>&nbsp;<a name="392826"></a>re: 用Ant实现Java项目的自动构建和部署</div>
+			<div class="feedbackListSubtitle">
+				2012-12-11 18:15 | <a id="AjaxHolder_Comments_CommentList_ctl08_NameLink" href="http://whutec.sinaapp.com/" target="_blank">suifengsuoyu</a><br>
+				<div align="left">确实不错，支持下&nbsp;&nbsp;<a onclick="return SetReplyAuhor(&quot;suifengsuoyu&quot;)" href="http://www.blogjava.net/amigoxie/archive/2007/11/09/159413.html#post">回复</a>&nbsp;&nbsp;<a title="查看该作者发表过的评论" href="http://www.blogjava.net/comment?author=suifengsuoyu" target="_blank">更多评论</a><br><a id="AjaxHolder_Comments_CommentList_ctl08_DeleteLink" href="javascript:__doPostBack(&#39;AjaxHolder$Comments$CommentList$ctl08$DeleteLink&#39;,&#39;&#39;)"></a>&nbsp;&nbsp;<a id="AjaxHolder_Comments_CommentList_ctl08_EditLink" causesvalidation="False"></a></div>
+			</div>		
+			
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListTitle"><a title="permalink: re: 用Ant实现Java项目的自动构建和部署" href="http://www.blogjava.net/amigoxie/archive/2007/11/09/159413.html#415158">#</a>&nbsp;<a name="415158"></a>re: 用Ant实现Java项目的自动构建和部署</div>
+			<div class="feedbackListSubtitle">
+				2014-06-26 17:34 | <a id="AjaxHolder_Comments_CommentList_ctl09_NameLink" href="http://www.52jialy.com/" target="_blank">Jialy</a><br>
+				<div align="left">挺详细的，学习了<br>&nbsp;&nbsp;<a onclick="return SetReplyAuhor(&quot;Jialy&quot;)" href="http://www.blogjava.net/amigoxie/archive/2007/11/09/159413.html#post">回复</a>&nbsp;&nbsp;<a title="查看该作者发表过的评论" href="http://www.blogjava.net/comment?author=Jialy" target="_blank">更多评论</a><br><a id="AjaxHolder_Comments_CommentList_ctl09_DeleteLink" href="javascript:__doPostBack(&#39;AjaxHolder$Comments$CommentList$ctl09$DeleteLink&#39;,&#39;&#39;)"></a>&nbsp;&nbsp;<a id="AjaxHolder_Comments_CommentList_ctl09_EditLink" causesvalidation="False"></a></div>
+			</div>		
+			
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListTitle"><a title="permalink: re: 用Ant实现Java项目的自动构建和部署" href="http://www.blogjava.net/amigoxie/archive/2007/11/09/159413.html#416003">#</a>&nbsp;<a name="416003"></a>re: 用Ant实现Java项目的自动构建和部署</div>
+			<div class="feedbackListSubtitle">
+				2014-07-19 16:48 | <a id="AjaxHolder_Comments_CommentList_ctl10_NameLink" href="http://lll/" target="_blank">lll</a><br>
+				<div align="left">&lt;?xml version="1.0"?&gt;<br>&lt;project name="javaTest" default="jar" basedir="."&gt;<br>    &lt;target name="clean"&gt;<br>       &lt;delete dir="build"/&gt;<br>    &lt;/target&gt;<br><br>    &lt;target name="compile" depends="clean"&gt;<br>       &lt;mkdir dir="build/classes"/&gt;<br>      &lt;javac srcdir="src" destdir="build/classes"/&gt;<br>    &lt;/target&gt;<br><br>    &lt;target name="run" depends="compile"&gt;<br>       &lt;java classname="HelloWorld"&gt;<br>           &lt;classpath&gt;<br>              &lt;pathelement path="build/classes"/&gt;<br>           &lt;/classpath&gt;<br>       &lt;/java&gt;<br>    &lt;/target&gt;<br>&lt;/project&gt;<br><br><br>这里的default应该是 default="run" 吧？&nbsp;&nbsp;<a onclick="return SetReplyAuhor(&quot;lll&quot;)" href="http://www.blogjava.net/amigoxie/archive/2007/11/09/159413.html#post">回复</a>&nbsp;&nbsp;<a title="查看该作者发表过的评论" href="http://www.blogjava.net/comment?author=lll" target="_blank">更多评论</a><br><a id="AjaxHolder_Comments_CommentList_ctl10_DeleteLink" href="javascript:__doPostBack(&#39;AjaxHolder$Comments$CommentList$ctl10$DeleteLink&#39;,&#39;&#39;)"></a>&nbsp;&nbsp;<a id="AjaxHolder_Comments_CommentList_ctl10_EditLink" causesvalidation="False"></a></div>
+			</div>		
+			
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListTitle"><a title="permalink: re: 用Ant实现Java项目的自动构建和部署" href="http://www.blogjava.net/amigoxie/archive/2007/11/09/159413.html#417039">#</a>&nbsp;<a name="417039"></a>re: 用Ant实现Java项目的自动构建和部署</div>
+			<div class="feedbackListSubtitle">
+				2014-08-17 13:20 | <a id="AjaxHolder_Comments_CommentList_ctl11_NameLink" target="_blank">Dominic</a><br>
+				<div align="left">good，赞一个！&nbsp;&nbsp;<a onclick="return SetReplyAuhor(&quot;Dominic&quot;)" href="http://www.blogjava.net/amigoxie/archive/2007/11/09/159413.html#post">回复</a>&nbsp;&nbsp;<a title="查看该作者发表过的评论" href="http://www.blogjava.net/comment?author=Dominic" target="_blank">更多评论</a><br><a id="AjaxHolder_Comments_CommentList_ctl11_DeleteLink" href="javascript:__doPostBack(&#39;AjaxHolder$Comments$CommentList$ctl11$DeleteLink&#39;,&#39;&#39;)"></a>&nbsp;&nbsp;<a id="AjaxHolder_Comments_CommentList_ctl11_EditLink" causesvalidation="False"></a></div>
+			</div>		
+			
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListTitle"><a title="permalink: re: 用Ant实现Java项目的自动构建和部署" href="http://www.blogjava.net/amigoxie/archive/2007/11/09/159413.html#417126">#</a>&nbsp;<a name="417126"></a>re: 用Ant实现Java项目的自动构建和部署</div>
+			<div class="feedbackListSubtitle">
+				2014-08-19 22:40 | <a id="AjaxHolder_Comments_CommentList_ctl12_NameLink" target="_blank">范正军</a><br>
+				<div align="left">多谢前辈分享，学习了&nbsp;&nbsp;<a onclick="return SetReplyAuhor(&quot;范正军&quot;)" href="http://www.blogjava.net/amigoxie/archive/2007/11/09/159413.html#post">回复</a>&nbsp;&nbsp;<a title="查看该作者发表过的评论" href="http://www.blogjava.net/comment?author=%e8%8c%83%e6%ad%a3%e5%86%9b" target="_blank">更多评论</a><br><a id="AjaxHolder_Comments_CommentList_ctl12_DeleteLink" href="javascript:__doPostBack(&#39;AjaxHolder$Comments$CommentList$ctl12$DeleteLink&#39;,&#39;&#39;)"></a>&nbsp;&nbsp;<a id="AjaxHolder_Comments_CommentList_ctl12_EditLink" causesvalidation="False"></a></div>
+			</div>		
+			
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListTitle"><a title="permalink: re: 用Ant实现Java项目的自动构建和部署" href="http://www.blogjava.net/amigoxie/archive/2007/11/09/159413.html#417132">#</a>&nbsp;<a name="417132"></a>re: 用Ant实现Java项目的自动构建和部署</div>
+			<div class="feedbackListSubtitle">
+				2014-08-20 09:04 | <a id="AjaxHolder_Comments_CommentList_ctl13_NameLink" target="_blank">学生宿舍</a><br>
+				<div align="left">@lll<br>是应该等于jar的，完成打包。&nbsp;&nbsp;<a onclick="return SetReplyAuhor(&quot;学生宿舍&quot;)" href="http://www.blogjava.net/amigoxie/archive/2007/11/09/159413.html#post">回复</a>&nbsp;&nbsp;<a title="查看该作者发表过的评论" href="http://www.blogjava.net/comment?author=%e5%ad%a6%e7%94%9f%e5%ae%bf%e8%88%8d" target="_blank">更多评论</a><br><a id="AjaxHolder_Comments_CommentList_ctl13_DeleteLink" href="javascript:__doPostBack(&#39;AjaxHolder$Comments$CommentList$ctl13$DeleteLink&#39;,&#39;&#39;)"></a>&nbsp;&nbsp;<a id="AjaxHolder_Comments_CommentList_ctl13_EditLink" causesvalidation="False"></a></div>
+			</div>		
+			
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListTitle"><a title="permalink: re: 用Ant实现Java项目的自动构建和部署[未登录]" href="http://www.blogjava.net/amigoxie/archive/2007/11/09/159413.html#417305">#</a>&nbsp;<a name="417305"></a>re: 用Ant实现Java项目的自动构建和部署[未登录]</div>
+			<div class="feedbackListSubtitle">
+				2014-08-25 15:08 | <a id="AjaxHolder_Comments_CommentList_ctl14_NameLink" target="_blank">phoenix</a><br>
+				<div align="left">不错，顶一个！&nbsp;&nbsp;<a onclick="return SetReplyAuhor(&quot;phoenix&quot;)" href="http://www.blogjava.net/amigoxie/archive/2007/11/09/159413.html#post">回复</a>&nbsp;&nbsp;<a title="查看该作者发表过的评论" href="http://www.blogjava.net/comment?author=phoenix" target="_blank">更多评论</a><br><a id="AjaxHolder_Comments_CommentList_ctl14_DeleteLink" href="javascript:__doPostBack(&#39;AjaxHolder$Comments$CommentList$ctl14$DeleteLink&#39;,&#39;&#39;)"></a>&nbsp;&nbsp;<a id="AjaxHolder_Comments_CommentList_ctl14_EditLink" causesvalidation="False"></a></div>
+			</div>		
+			
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListTitle"><a title="permalink: re: 用Ant实现Java项目的自动构建和部" href="http://www.blogjava.net/amigoxie/archive/2007/11/09/159413.html#417500">#</a>&nbsp;<a name="417500"></a>re: 用Ant实现Java项目的自动构建和部</div>
+			<div class="feedbackListSubtitle">
+				2014-08-29 15:45 | <a id="AjaxHolder_Comments_CommentList_ctl15_NameLink" target="_blank">回风落雪</a><br>
+				<div align="left">bucuo!&nbsp;&nbsp;<a onclick="return SetReplyAuhor(&quot;回风落雪&quot;)" href="http://www.blogjava.net/amigoxie/archive/2007/11/09/159413.html#post">回复</a>&nbsp;&nbsp;<a title="查看该作者发表过的评论" href="http://www.blogjava.net/comment?author=%e5%9b%9e%e9%a3%8e%e8%90%bd%e9%9b%aa" target="_blank">更多评论</a><br><a id="AjaxHolder_Comments_CommentList_ctl15_DeleteLink" href="javascript:__doPostBack(&#39;AjaxHolder$Comments$CommentList$ctl15$DeleteLink&#39;,&#39;&#39;)"></a>&nbsp;&nbsp;<a id="AjaxHolder_Comments_CommentList_ctl15_EditLink" causesvalidation="False"></a></div>
+			</div>		
+			
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListTitle"><a title="permalink: re: 用Ant实现Java项目的自动构建和部署" href="http://www.blogjava.net/amigoxie/archive/2007/11/09/159413.html#417611">#</a>&nbsp;<a name="417611"></a>re: 用Ant实现Java项目的自动构建和部署</div>
+			<div class="feedbackListSubtitle">
+				2014-09-02 18:34 | <a id="AjaxHolder_Comments_CommentList_ctl16_NameLink" href="http://chenchaochao.com/" target="_blank">陈超超</a><br>
+				<div align="left">很好啊&nbsp;&nbsp;<a onclick="return SetReplyAuhor(&quot;陈超超&quot;)" href="http://www.blogjava.net/amigoxie/archive/2007/11/09/159413.html#post">回复</a>&nbsp;&nbsp;<a title="查看该作者发表过的评论" href="http://www.blogjava.net/comment?author=%e9%99%88%e8%b6%85%e8%b6%85" target="_blank">更多评论</a><br><a id="AjaxHolder_Comments_CommentList_ctl16_DeleteLink" href="javascript:__doPostBack(&#39;AjaxHolder$Comments$CommentList$ctl16$DeleteLink&#39;,&#39;&#39;)"></a>&nbsp;&nbsp;<a id="AjaxHolder_Comments_CommentList_ctl16_EditLink" causesvalidation="False"></a></div>
+			</div>		
+			
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListTitle"><a title="permalink: re: 用Ant实现Java项目的自动构建和部署" href="http://www.blogjava.net/amigoxie/archive/2007/11/09/159413.html#417996">#</a>&nbsp;<a name="417996"></a>re: 用Ant实现Java项目的自动构建和部署</div>
+			<div class="feedbackListSubtitle">
+				2014-09-16 19:53 | <a id="AjaxHolder_Comments_CommentList_ctl17_NameLink" target="_blank">shaw</a><br>
+				<div align="left">不错，ant基本了解了&nbsp;&nbsp;<a onclick="return SetReplyAuhor(&quot;shaw&quot;)" href="http://www.blogjava.net/amigoxie/archive/2007/11/09/159413.html#post">回复</a>&nbsp;&nbsp;<a title="查看该作者发表过的评论" href="http://www.blogjava.net/comment?author=shaw" target="_blank">更多评论</a><br><a id="AjaxHolder_Comments_CommentList_ctl17_DeleteLink" href="javascript:__doPostBack(&#39;AjaxHolder$Comments$CommentList$ctl17$DeleteLink&#39;,&#39;&#39;)"></a>&nbsp;&nbsp;<a id="AjaxHolder_Comments_CommentList_ctl17_EditLink" causesvalidation="False"></a></div>
+			</div>		
+			
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListTitle"><a title="permalink: re: 用Ant实现Java项目的自动构建和部署" href="http://www.blogjava.net/amigoxie/archive/2007/11/09/159413.html#418127">#</a>&nbsp;<a name="418127"></a>re: 用Ant实现Java项目的自动构建和部署</div>
+			<div class="feedbackListSubtitle">
+				2014-09-20 17:18 | <a id="AjaxHolder_Comments_CommentList_ctl18_NameLink" target="_blank">elvin_lee</a><br>
+				<div align="left">谢楼主~_~&nbsp;&nbsp;<a onclick="return SetReplyAuhor(&quot;elvin_lee&quot;)" href="http://www.blogjava.net/amigoxie/archive/2007/11/09/159413.html#post">回复</a>&nbsp;&nbsp;<a title="查看该作者发表过的评论" href="http://www.blogjava.net/comment?author=elvin_lee" target="_blank">更多评论</a><br><a id="AjaxHolder_Comments_CommentList_ctl18_DeleteLink" href="javascript:__doPostBack(&#39;AjaxHolder$Comments$CommentList$ctl18$DeleteLink&#39;,&#39;&#39;)"></a>&nbsp;&nbsp;<a id="AjaxHolder_Comments_CommentList_ctl18_EditLink" causesvalidation="False"></a></div>
+			</div>		
+			
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListTitle"><a title="permalink: re: 用Ant实现Java项目的自动构建和部署[未登录]" href="http://www.blogjava.net/amigoxie/archive/2007/11/09/159413.html#418972">#</a>&nbsp;<a name="418972"></a>re: 用Ant实现Java项目的自动构建和部署[未登录]</div>
+			<div class="feedbackListSubtitle">
+				2014-10-23 16:50 | <a id="AjaxHolder_Comments_CommentList_ctl19_NameLink" target="_blank">Black</a><br>
+				<div align="left">很好，学习了&nbsp;&nbsp;<a onclick="return SetReplyAuhor(&quot;Black&quot;)" href="http://www.blogjava.net/amigoxie/archive/2007/11/09/159413.html#post">回复</a>&nbsp;&nbsp;<a title="查看该作者发表过的评论" href="http://www.blogjava.net/comment?author=Black" target="_blank">更多评论</a><br><a id="AjaxHolder_Comments_CommentList_ctl19_DeleteLink" href="javascript:__doPostBack(&#39;AjaxHolder$Comments$CommentList$ctl19$DeleteLink&#39;,&#39;&#39;)"></a>&nbsp;&nbsp;<a id="AjaxHolder_Comments_CommentList_ctl19_EditLink" causesvalidation="False"></a></div>
+			</div>		
+			
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListTitle"><a title="permalink: re: 用Ant实现Java项目的自动构建和部署" href="http://www.blogjava.net/amigoxie/archive/2007/11/09/159413.html#419930">#</a>&nbsp;<a name="419930"></a>re: 用Ant实现Java项目的自动构建和部署</div>
+			<div class="feedbackListSubtitle">
+				2014-11-11 17:38 | <a id="AjaxHolder_Comments_CommentList_ctl20_NameLink" target="_blank">weiryoung</a><br>
+				<div align="left">学习了，赞一个&nbsp;&nbsp;<a onclick="return SetReplyAuhor(&quot;weiryoung&quot;)" href="http://www.blogjava.net/amigoxie/archive/2007/11/09/159413.html#post">回复</a>&nbsp;&nbsp;<a title="查看该作者发表过的评论" href="http://www.blogjava.net/comment?author=weiryoung" target="_blank">更多评论</a><br><a id="AjaxHolder_Comments_CommentList_ctl20_DeleteLink" href="javascript:__doPostBack(&#39;AjaxHolder$Comments$CommentList$ctl20$DeleteLink&#39;,&#39;&#39;)"></a>&nbsp;&nbsp;<a id="AjaxHolder_Comments_CommentList_ctl20_EditLink" causesvalidation="False"></a></div>
+			</div>		
+			
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListTitle"><a title="permalink: re: 用Ant实现Java项目的自动构建和部署" href="http://www.blogjava.net/amigoxie/archive/2007/11/09/159413.html#420098">#</a>&nbsp;<a name="420098"></a>re: 用Ant实现Java项目的自动构建和部署</div>
+			<div class="feedbackListSubtitle">
+				2014-11-14 16:53 | <a id="AjaxHolder_Comments_CommentList_ctl21_NameLink" target="_blank">猫脚</a><br>
+				<div align="left">初次接触，一下就看明白了。&nbsp;&nbsp;<a onclick="return SetReplyAuhor(&quot;猫脚&quot;)" href="http://www.blogjava.net/amigoxie/archive/2007/11/09/159413.html#post">回复</a>&nbsp;&nbsp;<a title="查看该作者发表过的评论" href="http://www.blogjava.net/comment?author=%e7%8c%ab%e8%84%9a" target="_blank">更多评论</a><br><a id="AjaxHolder_Comments_CommentList_ctl21_DeleteLink" href="javascript:__doPostBack(&#39;AjaxHolder$Comments$CommentList$ctl21$DeleteLink&#39;,&#39;&#39;)"></a>&nbsp;&nbsp;<a id="AjaxHolder_Comments_CommentList_ctl21_EditLink" causesvalidation="False"></a></div>
+			</div>		
+			
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListTitle"><a title="permalink: re: 用Ant实现Java项目的自动构建和部署[未登录]" href="http://www.blogjava.net/amigoxie/archive/2007/11/09/159413.html#420206">#</a>&nbsp;<a name="420206"></a>re: 用Ant实现Java项目的自动构建和部署[未登录]</div>
+			<div class="feedbackListSubtitle">
+				2014-11-17 21:06 | <a id="AjaxHolder_Comments_CommentList_ctl22_NameLink" href="http://aa/" target="_blank">hhh</a><br>
+				<div align="left">&lt;h1&gt;dddddddd&lt;/h1&gt;&nbsp;&nbsp;<a onclick="return SetReplyAuhor(&quot;hhh&quot;)" href="http://www.blogjava.net/amigoxie/archive/2007/11/09/159413.html#post">回复</a>&nbsp;&nbsp;<a title="查看该作者发表过的评论" href="http://www.blogjava.net/comment?author=hhh" target="_blank">更多评论</a><br><a id="AjaxHolder_Comments_CommentList_ctl22_DeleteLink" href="javascript:__doPostBack(&#39;AjaxHolder$Comments$CommentList$ctl22$DeleteLink&#39;,&#39;&#39;)"></a>&nbsp;&nbsp;<a id="AjaxHolder_Comments_CommentList_ctl22_EditLink" causesvalidation="False"></a></div>
+			</div>		
+			
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListTitle"><a title="permalink: re: 用Ant实现Java项目的自动构建和部署" href="http://www.blogjava.net/amigoxie/archive/2007/11/09/159413.html#421020">#</a>&nbsp;<a name="421020"></a>re: 用Ant实现Java项目的自动构建和部署</div>
+			<div class="feedbackListSubtitle">
+				2014-12-04 10:21 | <a id="AjaxHolder_Comments_CommentList_ctl23_NameLink" target="_blank">何世喜</a><br>
+				<div align="left">@陈超超<br>写的非常好！&nbsp;&nbsp;<a onclick="return SetReplyAuhor(&quot;何世喜&quot;)" href="http://www.blogjava.net/amigoxie/archive/2007/11/09/159413.html#post">回复</a>&nbsp;&nbsp;<a title="查看该作者发表过的评论" href="http://www.blogjava.net/comment?author=%e4%bd%95%e4%b8%96%e5%96%9c" target="_blank">更多评论</a><br><a id="AjaxHolder_Comments_CommentList_ctl23_DeleteLink" href="javascript:__doPostBack(&#39;AjaxHolder$Comments$CommentList$ctl23$DeleteLink&#39;,&#39;&#39;)"></a>&nbsp;&nbsp;<a id="AjaxHolder_Comments_CommentList_ctl23_EditLink" causesvalidation="False"></a></div>
+			</div>		
+			
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListTitle"><a title="permalink: re: 用Ant实现Java项目的自动构建和部署" href="http://www.blogjava.net/amigoxie/archive/2007/11/09/159413.html#427821">#</a>&nbsp;<a name="427821"></a>re: 用Ant实现Java项目的自动构建和部署</div>
+			<div class="feedbackListSubtitle">
+				2015-10-19 17:06 | <a id="AjaxHolder_Comments_CommentList_ctl24_NameLink" target="_blank">朱坤家</a><br>
+				<div align="left">我试了一下，使用ant运行java程序的时候，应该将default="jar"改成default="run".&nbsp;&nbsp;<a onclick="return SetReplyAuhor(&quot;朱坤家&quot;)" href="http://www.blogjava.net/amigoxie/archive/2007/11/09/159413.html#post">回复</a>&nbsp;&nbsp;<a title="查看该作者发表过的评论" href="http://www.blogjava.net/comment?author=%e6%9c%b1%e5%9d%a4%e5%ae%b6" target="_blank">更多评论</a><br><a id="AjaxHolder_Comments_CommentList_ctl24_DeleteLink" href="javascript:__doPostBack(&#39;AjaxHolder$Comments$CommentList$ctl24$DeleteLink&#39;,&#39;&#39;)"></a>&nbsp;&nbsp;<a id="AjaxHolder_Comments_CommentList_ctl24_EditLink" causesvalidation="False"></a></div>
+			</div>		
+			
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListTitle"><a title="permalink: re: 用Ant实现Java项目的自动构建和部署" href="http://www.blogjava.net/amigoxie/archive/2007/11/09/159413.html#429424">#</a>&nbsp;<a name="429424"></a>re: 用Ant实现Java项目的自动构建和部署</div>
+			<div class="feedbackListSubtitle">
+				2016-02-24 19:53 | <a id="AjaxHolder_Comments_CommentList_ctl25_NameLink" target="_blank">后进</a><br>
+				<div align="left">学习了，thanks&nbsp;&nbsp;<a onclick="return SetReplyAuhor(&quot;后进&quot;)" href="http://www.blogjava.net/amigoxie/archive/2007/11/09/159413.html#post">回复</a>&nbsp;&nbsp;<a title="查看该作者发表过的评论" href="http://www.blogjava.net/comment?author=%e5%90%8e%e8%bf%9b" target="_blank">更多评论</a><br><a id="AjaxHolder_Comments_CommentList_ctl25_DeleteLink" href="javascript:__doPostBack(&#39;AjaxHolder$Comments$CommentList$ctl25$DeleteLink&#39;,&#39;&#39;)"></a>&nbsp;&nbsp;<a id="AjaxHolder_Comments_CommentList_ctl25_EditLink" causesvalidation="False"></a></div>
+			</div>		
+			
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListTitle"><a title="permalink: re: 用Ant实现Java项目的自动构建和部署" href="http://www.blogjava.net/amigoxie/archive/2007/11/09/159413.html#429626">#</a>&nbsp;<a name="429626"></a>re: 用Ant实现Java项目的自动构建和部署</div>
+			<div class="feedbackListSubtitle">
+				2016-03-11 17:54 | <a id="AjaxHolder_Comments_CommentList_ctl26_NameLink" target="_blank">Concern.Zheng</a><br>
+				<div align="left">@朱坤家<br>没错，是这样的&nbsp;&nbsp;<a onclick="return SetReplyAuhor(&quot;Concern.Zheng&quot;)" href="http://www.blogjava.net/amigoxie/archive/2007/11/09/159413.html#post">回复</a>&nbsp;&nbsp;<a title="查看该作者发表过的评论" href="http://www.blogjava.net/comment?author=Concern.Zheng" target="_blank">更多评论</a><br><a id="AjaxHolder_Comments_CommentList_ctl26_DeleteLink" href="javascript:__doPostBack(&#39;AjaxHolder$Comments$CommentList$ctl26$DeleteLink&#39;,&#39;&#39;)"></a>&nbsp;&nbsp;<a id="AjaxHolder_Comments_CommentList_ctl26_EditLink" causesvalidation="False"></a></div>
+			</div>		
+			
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListTitle"><a title="permalink: re: 用Ant实现Java项目的自动构建和部署" href="http://www.blogjava.net/amigoxie/archive/2007/11/09/159413.html#429627">#</a>&nbsp;<a name="429627"></a>re: 用Ant实现Java项目的自动构建和部署</div>
+			<div class="feedbackListSubtitle">
+				2016-03-11 17:56 | <a id="AjaxHolder_Comments_CommentList_ctl27_NameLink" target="_blank">Concern.Zheng</a><br>
+				<div align="left">&lt;classesdir="${classes}"/&gt;<br>最后一个build.xml应该是&lt;classes dir="${classes}" /&gt;&nbsp;&nbsp;<a onclick="return SetReplyAuhor(&quot;Concern.Zheng&quot;)" href="http://www.blogjava.net/amigoxie/archive/2007/11/09/159413.html#post">回复</a>&nbsp;&nbsp;<a title="查看该作者发表过的评论" href="http://www.blogjava.net/comment?author=Concern.Zheng" target="_blank">更多评论</a><br><a id="AjaxHolder_Comments_CommentList_ctl27_DeleteLink" href="javascript:__doPostBack(&#39;AjaxHolder$Comments$CommentList$ctl27$DeleteLink&#39;,&#39;&#39;)"></a>&nbsp;&nbsp;<a id="AjaxHolder_Comments_CommentList_ctl27_EditLink" causesvalidation="False"></a></div>
+			</div>		
+			
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListTitle"><a title="permalink: re: 用Ant实现Java项目的自动构建和部署" href="http://www.blogjava.net/amigoxie/archive/2007/11/09/159413.html#430079">#</a>&nbsp;<a name="430079"></a>re: 用Ant实现Java项目的自动构建和部署</div>
+			<div class="feedbackListSubtitle">
+				2016-04-13 15:53 | <a id="AjaxHolder_Comments_CommentList_ctl28_NameLink" target="_blank">lbb199197</a><br>
+				<div align="left">楼主，学的不错，学习了&nbsp;&nbsp;<a onclick="return SetReplyAuhor(&quot;lbb199197&quot;)" href="http://www.blogjava.net/amigoxie/archive/2007/11/09/159413.html#post">回复</a>&nbsp;&nbsp;<a title="查看该作者发表过的评论" href="http://www.blogjava.net/comment?author=lbb199197" target="_blank">更多评论</a><br><a id="AjaxHolder_Comments_CommentList_ctl28_DeleteLink" href="javascript:__doPostBack(&#39;AjaxHolder$Comments$CommentList$ctl28$DeleteLink&#39;,&#39;&#39;)"></a>&nbsp;&nbsp;<a id="AjaxHolder_Comments_CommentList_ctl28_EditLink" causesvalidation="False"></a></div>
+			</div>		
+			
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListTitle"><a title="permalink: re: 用Ant实现Java项目的自动构建和部署[未登录]" href="http://www.blogjava.net/amigoxie/archive/2007/11/09/159413.html#430412">#</a>&nbsp;<a name="430412"></a>re: 用Ant实现Java项目的自动构建和部署[未登录]<a name="Post"></a></div>
+			<div class="feedbackListSubtitle">
+				2016-05-09 17:08 | <a id="AjaxHolder_Comments_CommentList_ctl29_NameLink" target="_blank">新手</a><br>
+				<div align="left">非常详细，太感谢楼主了！&nbsp;&nbsp;<a onclick="return SetReplyAuhor(&quot;新手&quot;)" href="http://www.blogjava.net/amigoxie/archive/2007/11/09/159413.html#post">回复</a>&nbsp;&nbsp;<a title="查看该作者发表过的评论" href="http://www.blogjava.net/comment?author=%e6%96%b0%e6%89%8b" target="_blank">更多评论</a><br><a id="AjaxHolder_Comments_CommentList_ctl29_DeleteLink" href="javascript:__doPostBack(&#39;AjaxHolder$Comments$CommentList$ctl29$DeleteLink&#39;,&#39;&#39;)"></a>&nbsp;&nbsp;<a id="AjaxHolder_Comments_CommentList_ctl29_EditLink" causesvalidation="False"></a></div>
+			</div>		
+			
+		</div>
+	
+
+
+
+
+<style>
+td { font-size: 12px }
+.commentTextBox 
+{ 
+    font-family : Verdana; 
+    font-size: 13px;
+ }
+</style>
+<!--Beging Temp Save-->
+<style>.userData { BEHAVIOR: url(#default#userdata) }
+	</style>
+<div class="userData" id="CommentsPersistDiv"></div>
+
+<script type="text/javascript">
+function pageLoad()
+{
+    Sys.WebForms.PageRequestManager.getInstance().add_initializeRequest(handleInitializeRequest);
+    //Sys.WebForms.PageRequestManager.getInstance().add_endRequest(handleEndRequest);
+}
+
+function handleInitializeRequest(sender, args)
+{
+    var prm = Sys.WebForms.PageRequestManager.getInstance();
+    var eid = args.get_postBackElement().id;
+    if (eid.indexOf("DeleteLink")>0) 
+    {
+       args.get_postBackElement().innerHTML = "<font color='red'>正在删除...</font>";         
+    }    
+    else if (eid.indexOf("btnSubmit")>0) 
+    {
+       document.getElementById("AjaxHolder_PostComment_ltSubmitMsg").innerHTML="正在提交...";
+       document.getElementById("AjaxHolder_PostComment_btnSubmit").disabled = true;       
+    }   
+    else if(eid.indexOf("refreshList")>0)
+    {
+        document.getElementById("AjaxHolder_PostComment_refreshList").innerHTML="<font color='red'>正在刷新...</font>";
+    }
+   
+}	
+
+function TempSave(ElementID)
+{
+	try
+	{
+	CommentsPersistDiv.setAttribute("CommentContent",document.getElementById(ElementID).value);
+	CommentsPersistDiv.save("CommentXMLStore");
+	}
+	catch(ex)
+	{
+	}
+	
+}
+function Restore(ElementID)
+{
+	CommentsPersistDiv.load("CommentXMLStore");
+	document.getElementById(ElementID).value=CommentsPersistDiv.getAttribute("CommentContent");
+}	
+			
+			
+</script>
+<!--Ene TempSave-->
+<div id="divRefreshComments" style="text-align:right;margin-right:10px;margin-bottom:5px;font-size:12px"><a href="http://www.blogjava.net/RequireRegister.aspx">新用户注册</a>&nbsp;&nbsp;<a id="AjaxHolder_PostComment_refreshList" href="javascript:__doPostBack(&#39;AjaxHolder$PostComment$refreshList&#39;,&#39;&#39;)">刷新评论列表</a>&nbsp;&nbsp;</div>
+<div class="commentform">
+<span id="AjaxHolder_PostComment_ltSubmitMsg" style="color:Red;"></span>
+<br>
+<a name="Feedback"></a>
+	<table cellspacing="1" cellpadding="1" border="0">
+		<tbody><tr>
+		<td id="AjaxHolder_PostComment_tdOnCommentForm" colspan="3" style="line-height:1.5">		
+		</td>
+	
+		</tr>
+		
+		<tr><td colspan="3">只有注册用户<a href="http://www.blogjava.net/login.aspx?ReturnUrl=/amigoxie/archive/2007/11/09/159413.html">登录</a>后才能发表评论。</td></tr>
+		<tr>
+			<td colspan="3"><!--该文被作者在 2007-11-09 17:50 编辑过--></td>
+		</tr>
+		<!--
+		<TR>
+			<TD colSpan="3" height="5"></TD>
+		</TR>	
+		-->	
+		<tr>
+		<td colspan="3">
+		<br>
+		
+<script type="text/javascript">
+var googletag = googletag || {};
+googletag.cmd = googletag.cmd || [];
+(function() {
+var gads = document.createElement('script');
+gads.async = true;
+gads.type = 'text/javascript';
+var useSSL = 'https:' == document.location.protocol;
+gads.src = (useSSL ? 'https:' : 'http:') + 
+'//www.googletagservices.com/tag/js/gpt.js';
+var node = document.getElementsByTagName('script')[0];
+node.parentNode.insertBefore(gads, node);
+})();
+</script>
+
+<script type="text/javascript">
+googletag.cmd.push(function() {
+googletag.defineSlot('/1090369/blogjava_blogpost_bottom', [300, 250], 'div-gpt-ad-1364133350381-0').addService(googletag.pubads());
+googletag.pubads().enableSingleRequest();
+googletag.enableServices();
+});
+</script>
+<!-- blogjava_blogpost_bottom -->
+<div id="div-gpt-ad-1364133350381-0" style="width:300px; height:250px;" data-google-query-id="CKLKjfiUn9cCFcQYKgodPeQLaA">
+<script type="text/javascript">
+googletag.cmd.push(function() { googletag.display('div-gpt-ad-1364133350381-0'); });
+</script>
+<div id="google_ads_iframe_/1090369/blogjava_blogpost_bottom_0__container__" style="border: 0pt none;"><iframe id="google_ads_iframe_/1090369/blogjava_blogpost_bottom_0" title="3rd party ad content" name="google_ads_iframe_/1090369/blogjava_blogpost_bottom_0" width="300" height="250" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" style="border: 0px; vertical-align: bottom;" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/saved_resource.html"></iframe></div></div>
+<br>
+
+		</td>
+		</tr>
+		<tr>			
+		<td colspan="3">
+		
+		</td>
+		</tr>
+		<tr>
+		<td colspan="3"></td>
+		</tr>
+		<tr>
+			<td colspan="3" height="1">网站导航:<div id="blogsite">
+			<a href="http://www.cnblogs.com/" title="开发者的网上家园">博客园</a>&nbsp;&nbsp;
+			<a href="https://news.cnblogs.com/">IT新闻</a>&nbsp;&nbsp;
+			<a href="http://kb.cnblogs.com/">知识库</a>&nbsp;&nbsp;
+			<a href="http://www.cppblog.com/">C++博客</a>&nbsp;&nbsp;
+			<a href="https://q.cnblogs.com/">博问</a>&nbsp;&nbsp;
+			<a href="http://www.blogjava.net/amigoxie/archive/2007/11/09/159413.html?opt=admin">管理</a>
+			</div>
+		</td>
+		</tr>
+		<tr>
+			<td colspan="3" height="5"></td>
+		</tr>	
+		<tr>
+			<td colspan="3">&nbsp;</td>
+		</tr>
+		<tr>
+			<td colspan="3" height="5"></td>
+		</tr>
+		<tr>
+			<td colspan="3">
+				</td>
+		</tr>		
+	</tbody></table>	
+</div>
+<div id="AjaxHolder_PostComment_ValidationSummary1" style="color:Red;display:none;">
+
+	</div>
+
+</div>
+
+				
+	<div id="footer">
+
+<!--done-->
+<div class="footer">
+	
+	Copyright ©2017 阿蜜果 Powered by: <a href="http://www.cnblogs.com/">博客园</a> 模板提供：<a href="http://blog.hjenglish.com/">沪江博客</a><br>
+</div>
+</div>
+</div>
+
+<div id="leftcontent">
+	
+		<div id="leftcontentcontainer">
+			<table id="Calendar1_entryCal" class="Cal" cellspacing="0" cellpadding="0" title="日历" border="0" style="border-width:1px;border-style:solid;border-collapse:collapse;border:0px">
+	<tbody><tr><td colspan="7" style="background-color:Transparent;"><table class="CalTitle" cellspacing="0" border="0" style="width:100%;border-collapse:collapse;">
+		<tbody><tr><td class="CalNextPrev" style="width:15%;"><a href="javascript:__doPostBack(&#39;Calendar1$entryCal&#39;,&#39;V2830&#39;)" style="color:Black" title="转到上一个月">&lt;</a></td><td align="center" style="width:70%;">2007年11月</td><td class="CalNextPrev" align="right" style="width:15%;"><a href="javascript:__doPostBack(&#39;Calendar1$entryCal&#39;,&#39;V2891&#39;)" style="color:Black" title="转到下一个月">&gt;</a></td></tr>
+	</tbody></table></td></tr><tr><th class="CalDayHeader" align="center" abbr="日" scope="col">日</th><th class="CalDayHeader" align="center" abbr="一" scope="col">一</th><th class="CalDayHeader" align="center" abbr="二" scope="col">二</th><th class="CalDayHeader" align="center" abbr="三" scope="col">三</th><th class="CalDayHeader" align="center" abbr="四" scope="col">四</th><th class="CalDayHeader" align="center" abbr="五" scope="col">五</th><th class="CalDayHeader" align="center" abbr="六" scope="col">六</th></tr><tr><td class="CalOtherMonthDay" align="center" style="width:14%;">28</td><td class="CalOtherMonthDay" align="center" style="width:14%;">29</td><td class="CalOtherMonthDay" align="center" style="width:14%;">30</td><td class="CalOtherMonthDay" align="center" style="width:14%;">31</td><td align="center" style="width:14%;">1</td><td align="center" style="width:14%;">2</td><td class="CalWeekendDay" align="center" style="width:14%;">3</td></tr><tr><td class="CalWeekendDay" align="center" style="width:14%;">4</td><td align="center" style="width:14%;">5</td><td align="center" style="width:14%;">6</td><td align="center" style="width:14%;">7</td><td align="center" style="width:14%;">8</td><td align="center" style="width:14%;"><a href="http://www.blogjava.net/amigoxie/archive/2007/11/09.html"><u>9</u></a></td><td class="CalWeekendDay" align="center" style="width:14%;">10</td></tr><tr><td class="CalWeekendDay" align="center" style="width:14%;">11</td><td align="center" style="width:14%;">12</td><td align="center" style="width:14%;">13</td><td align="center" style="width:14%;">14</td><td align="center" style="width:14%;"><a href="http://www.blogjava.net/amigoxie/archive/2007/11/15.html"><u>15</u></a></td><td align="center" style="width:14%;">16</td><td class="CalWeekendDay" align="center" style="width:14%;">17</td></tr><tr><td class="CalWeekendDay" align="center" style="width:14%;">18</td><td align="center" style="width:14%;">19</td><td align="center" style="width:14%;"><a href="http://www.blogjava.net/amigoxie/archive/2007/11/20.html"><u>20</u></a></td><td align="center" style="width:14%;">21</td><td align="center" style="width:14%;">22</td><td align="center" style="width:14%;"><a href="http://www.blogjava.net/amigoxie/archive/2007/11/23.html"><u>23</u></a></td><td class="CalWeekendDay" align="center" style="width:14%;">24</td></tr><tr><td class="CalWeekendDay" align="center" style="width:14%;">25</td><td align="center" style="width:14%;"><a href="http://www.blogjava.net/amigoxie/archive/2007/11/26.html"><u>26</u></a></td><td align="center" style="width:14%;">27</td><td align="center" style="width:14%;">28</td><td align="center" style="width:14%;">29</td><td align="center" style="width:14%;">30</td><td class="CalOtherMonthDay" align="center" style="width:14%;">1</td></tr><tr><td class="CalOtherMonthDay" align="center" style="width:14%;">2</td><td class="CalOtherMonthDay" align="center" style="width:14%;">3</td><td class="CalOtherMonthDay" align="center" style="width:14%;">4</td><td class="CalOtherMonthDay" align="center" style="width:14%;">5</td><td class="CalOtherMonthDay" align="center" style="width:14%;">6</td><td class="CalOtherMonthDay" align="center" style="width:14%;">7</td><td class="CalOtherMonthDay" align="center" style="width:14%;">8</td></tr>
+</tbody></table>
+<br>
+			
+<!--done-->
+<div class="newsItem">
+	<span style="font-size: 10pt; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;生活将我们磨圆，是为了让我们滚得更远——“圆”来如此。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 我的作品：<br>&nbsp; &nbsp; &nbsp;&nbsp;<a href="http://item.jd.com/11849549.html" title="玩转Axure RP——Axure RP高保真原型设计">玩转Axure RP</a>&nbsp; （2015年12月出版）<br>&nbsp; &nbsp; &nbsp;&nbsp;<img src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/o_玩转Axure RP.jpg" width="184" height="233" alt=""><br><br>&nbsp; &nbsp; &nbsp; <a href="http://item.jd.com/11740747.html">Power Designer系统分析与建模实战</a>&nbsp; （2015年7月出版）<br></span><span style="font-size: 10pt">&nbsp; &nbsp; &nbsp;<img src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/o_Power Designer系统分析与建模实战_small.jpg" alt="">&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://item.jd.com/10307445.html">Struts2+Hibernate3+Spring2</a>&nbsp; &nbsp;（2010年5月出版）<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size: 10pt"><img style="width: 143px; height: 206px" height="206" alt="" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/o_newbook.jpg" width="143" border="0"></span></span>
+</div>
+
+			
+<h3>留言簿<span style="font-size:11px;font-weight:normal;">(252)</span></h3>
+<ul>
+	<li>
+		<a id="SingleColumn1_ctl00_lnkMessages" href="http://www.blogjava.net/amigoxie/Contact.aspx?id=1">给我留言</a>
+	</li><li>
+		<a id="SingleColumn1_ctl00_lnkPublicMsgView" href="http://www.blogjava.net/amigoxie/default.aspx?opt=msg">查看公开留言</a>
+	</li><li>
+		<a id="SingleColumn1_ctl00_lnkPrivateMsgView" href="http://www.blogjava.net/amigoxie/admin/MyMessages.aspx">查看私人留言</a>
+	</li>
+</ul>
+
+<!--done-->
+
+		<h1 class="catListTitle">随笔分类</h1>
+		
+				<ul class="catList">
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl01_Link" class="listitem" href="http://www.blogjava.net/amigoxie/category/19978.html">Ajax(3)</a><a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl01_RssLink" title="Subscribe to Ajax(3)" class="listitem" href="http://www.blogjava.net/amigoxie/category/19978.html/rss"><img title="Subscribe to Ajax(3)" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/xml(1).gif" style="border-width:0px;"></a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl02_Link" class="listitem" href="http://www.blogjava.net/amigoxie/category/26734.html">Ant(1)</a><a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl02_RssLink" title="Subscribe to Ant(1)" class="listitem" href="http://www.blogjava.net/amigoxie/category/26734.html/rss"><img title="Subscribe to Ant(1)" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/xml(1).gif" style="border-width:0px;"></a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl03_Link" class="listitem" href="http://www.blogjava.net/amigoxie/category/21019.html">Auto Code(4)</a><a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl03_RssLink" title="Subscribe to Auto Code(4)" class="listitem" href="http://www.blogjava.net/amigoxie/category/21019.html/rss"><img title="Subscribe to Auto Code(4)" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/xml(1).gif" style="border-width:0px;"></a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl04_Link" class="listitem" href="http://www.blogjava.net/amigoxie/category/28632.html">Cewolf</a><a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl04_RssLink" title="Subscribe to Cewolf" class="listitem" href="http://www.blogjava.net/amigoxie/category/28632.html/rss"><img title="Subscribe to Cewolf" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/xml(1).gif" style="border-width:0px;"></a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl05_Link" class="listitem" href="http://www.blogjava.net/amigoxie/category/26622.html">CMMI(1)</a><a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl05_RssLink" title="Subscribe to CMMI(1)" class="listitem" href="http://www.blogjava.net/amigoxie/category/26622.html/rss"><img title="Subscribe to CMMI(1)" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/xml(1).gif" style="border-width:0px;"></a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl06_Link" class="listitem" href="http://www.blogjava.net/amigoxie/category/26617.html">CSS(2)</a><a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl06_RssLink" title="Subscribe to CSS(2)" class="listitem" href="http://www.blogjava.net/amigoxie/category/26617.html/rss"><img title="Subscribe to CSS(2)" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/xml(1).gif" style="border-width:0px;"></a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl07_Link" class="listitem" href="http://www.blogjava.net/amigoxie/category/26973.html">CVS(1)</a><a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl07_RssLink" title="Subscribe to CVS(1)" class="listitem" href="http://www.blogjava.net/amigoxie/category/26973.html/rss"><img title="Subscribe to CVS(1)" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/xml(1).gif" style="border-width:0px;"></a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl08_Link" class="listitem" href="http://www.blogjava.net/amigoxie/category/44743.html">database(16)</a><a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl08_RssLink" title="Subscribe to database(16)" class="listitem" href="http://www.blogjava.net/amigoxie/category/44743.html/rss"><img title="Subscribe to database(16)" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/xml(1).gif" style="border-width:0px;"></a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl09_Link" class="listitem" href="http://www.blogjava.net/amigoxie/category/19985.html">Design Pattern(11)</a><a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl09_RssLink" title="Subscribe to Design Pattern(11)" class="listitem" href="http://www.blogjava.net/amigoxie/category/19985.html/rss"><img title="Subscribe to Design Pattern(11)" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/xml(1).gif" style="border-width:0px;"></a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl10_Link" class="listitem" href="http://www.blogjava.net/amigoxie/category/28631.html">Eclipse BIRT(1)</a><a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl10_RssLink" title="Subscribe to Eclipse BIRT(1)" class="listitem" href="http://www.blogjava.net/amigoxie/category/28631.html/rss"><img title="Subscribe to Eclipse BIRT(1)" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/xml(1).gif" style="border-width:0px;"></a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl11_Link" class="listitem" href="http://www.blogjava.net/amigoxie/category/26618.html">EJB</a><a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl11_RssLink" title="Subscribe to EJB" class="listitem" href="http://www.blogjava.net/amigoxie/category/26618.html/rss"><img title="Subscribe to EJB" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/xml(1).gif" style="border-width:0px;"></a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl12_Link" class="listitem" href="http://www.blogjava.net/amigoxie/category/28630.html">extremecomponents(1)</a><a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl12_RssLink" title="Subscribe to extremecomponents(1)" class="listitem" href="http://www.blogjava.net/amigoxie/category/28630.html/rss"><img title="Subscribe to extremecomponents(1)" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/xml(1).gif" style="border-width:0px;"></a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl13_Link" class="listitem" href="http://www.blogjava.net/amigoxie/category/24766.html">GIS(2)</a><a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl13_RssLink" title="Subscribe to GIS(2)" class="listitem" href="http://www.blogjava.net/amigoxie/category/24766.html/rss"><img title="Subscribe to GIS(2)" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/xml(1).gif" style="border-width:0px;"></a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl14_Link" class="listitem" href="http://www.blogjava.net/amigoxie/category/19976.html">Hibernate(8)</a><a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl14_RssLink" title="Subscribe to Hibernate(8)" class="listitem" href="http://www.blogjava.net/amigoxie/category/19976.html/rss"><img title="Subscribe to Hibernate(8)" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/xml(1).gif" style="border-width:0px;"></a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl15_Link" class="listitem" href="http://www.blogjava.net/amigoxie/category/26795.html">iBATIS(2)</a><a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl15_RssLink" title="Subscribe to iBATIS(2)" class="listitem" href="http://www.blogjava.net/amigoxie/category/26795.html/rss"><img title="Subscribe to iBATIS(2)" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/xml(1).gif" style="border-width:0px;"></a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl16_Link" class="listitem" href="http://www.blogjava.net/amigoxie/category/31475.html">IDE(1)</a><a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl16_RssLink" title="Subscribe to IDE(1)" class="listitem" href="http://www.blogjava.net/amigoxie/category/31475.html/rss"><img title="Subscribe to IDE(1)" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/xml(1).gif" style="border-width:0px;"></a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl17_Link" class="listitem" href="http://www.blogjava.net/amigoxie/category/27509.html">Inno Setup(2)</a><a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl17_RssLink" title="Subscribe to Inno Setup(2)" class="listitem" href="http://www.blogjava.net/amigoxie/category/27509.html/rss"><img title="Subscribe to Inno Setup(2)" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/xml(1).gif" style="border-width:0px;"></a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl18_Link" class="listitem" href="http://www.blogjava.net/amigoxie/category/50034.html">IT评论(2)</a><a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl18_RssLink" title="Subscribe to IT评论(2)" class="listitem" href="http://www.blogjava.net/amigoxie/category/50034.html/rss"><img title="Subscribe to IT评论(2)" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/xml(1).gif" style="border-width:0px;"></a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl19_Link" class="listitem" href="http://www.blogjava.net/amigoxie/category/19973.html">Java(36)</a><a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl19_RssLink" title="Subscribe to Java(36)" class="listitem" href="http://www.blogjava.net/amigoxie/category/19973.html/rss"><img title="Subscribe to Java(36)" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/xml(1).gif" style="border-width:0px;"></a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl20_Link" class="listitem" href="http://www.blogjava.net/amigoxie/category/19974.html">Javascript(32)</a><a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl20_RssLink" title="Subscribe to Javascript(32)" class="listitem" href="http://www.blogjava.net/amigoxie/category/19974.html/rss"><img title="Subscribe to Javascript(32)" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/xml(1).gif" style="border-width:0px;"></a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl21_Link" class="listitem" href="http://www.blogjava.net/amigoxie/category/26733.html">JBoss(1)</a><a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl21_RssLink" title="Subscribe to JBoss(1)" class="listitem" href="http://www.blogjava.net/amigoxie/category/26733.html/rss"><img title="Subscribe to JBoss(1)" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/xml(1).gif" style="border-width:0px;"></a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl22_Link" class="listitem" href="http://www.blogjava.net/amigoxie/category/26621.html">JFreeChart(3)</a><a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl22_RssLink" title="Subscribe to JFreeChart(3)" class="listitem" href="http://www.blogjava.net/amigoxie/category/26621.html/rss"><img title="Subscribe to JFreeChart(3)" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/xml(1).gif" style="border-width:0px;"></a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl23_Link" class="listitem" href="http://www.blogjava.net/amigoxie/category/27354.html">JFreeReport(3)</a><a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl23_RssLink" title="Subscribe to JFreeReport(3)" class="listitem" href="http://www.blogjava.net/amigoxie/category/27354.html/rss"><img title="Subscribe to JFreeReport(3)" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/xml(1).gif" style="border-width:0px;"></a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl24_Link" class="listitem" href="http://www.blogjava.net/amigoxie/category/26619.html">JSF</a><a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl24_RssLink" title="Subscribe to JSF" class="listitem" href="http://www.blogjava.net/amigoxie/category/26619.html/rss"><img title="Subscribe to JSF" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/xml(1).gif" style="border-width:0px;"></a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl25_Link" class="listitem" href="http://www.blogjava.net/amigoxie/category/41619.html">Linux(3)</a><a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl25_RssLink" title="Subscribe to Linux(3)" class="listitem" href="http://www.blogjava.net/amigoxie/category/41619.html/rss"><img title="Subscribe to Linux(3)" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/xml(1).gif" style="border-width:0px;"></a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl26_Link" class="listitem" href="http://www.blogjava.net/amigoxie/category/19984.html">MySql(11)</a><a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl26_RssLink" title="Subscribe to MySql(11)" class="listitem" href="http://www.blogjava.net/amigoxie/category/19984.html/rss"><img title="Subscribe to MySql(11)" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/xml(1).gif" style="border-width:0px;"></a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl27_Link" class="listitem" href="http://www.blogjava.net/amigoxie/category/19979.html">Open Source(4)</a><a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl27_RssLink" title="Subscribe to Open Source(4)" class="listitem" href="http://www.blogjava.net/amigoxie/category/19979.html/rss"><img title="Subscribe to Open Source(4)" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/xml(1).gif" style="border-width:0px;"></a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl28_Link" class="listitem" href="http://www.blogjava.net/amigoxie/category/28717.html">Oracle(5)</a><a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl28_RssLink" title="Subscribe to Oracle(5)" class="listitem" href="http://www.blogjava.net/amigoxie/category/28717.html/rss"><img title="Subscribe to Oracle(5)" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/xml(1).gif" style="border-width:0px;"></a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl29_Link" class="listitem" href="http://www.blogjava.net/amigoxie/category/19982.html">Other(13)</a><a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl29_RssLink" title="Subscribe to Other(13)" class="listitem" href="http://www.blogjava.net/amigoxie/category/19982.html/rss"><img title="Subscribe to Other(13)" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/xml(1).gif" style="border-width:0px;"></a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl30_Link" class="listitem" href="http://www.blogjava.net/amigoxie/category/19975.html">Spring(12)</a><a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl30_RssLink" title="Subscribe to Spring(12)" class="listitem" href="http://www.blogjava.net/amigoxie/category/19975.html/rss"><img title="Subscribe to Spring(12)" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/xml(1).gif" style="border-width:0px;"></a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl31_Link" class="listitem" href="http://www.blogjava.net/amigoxie/category/28716.html">Sql Server(1)</a><a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl31_RssLink" title="Subscribe to Sql Server(1)" class="listitem" href="http://www.blogjava.net/amigoxie/category/28716.html/rss"><img title="Subscribe to Sql Server(1)" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/xml(1).gif" style="border-width:0px;"></a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl32_Link" class="listitem" href="http://www.blogjava.net/amigoxie/category/19977.html">Struts(7)</a><a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl32_RssLink" title="Subscribe to Struts(7)" class="listitem" href="http://www.blogjava.net/amigoxie/category/19977.html/rss"><img title="Subscribe to Struts(7)" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/xml(1).gif" style="border-width:0px;"></a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl33_Link" class="listitem" href="http://www.blogjava.net/amigoxie/category/28622.html">Struts2(8)</a><a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl33_RssLink" title="Subscribe to Struts2(8)" class="listitem" href="http://www.blogjava.net/amigoxie/category/28622.html/rss"><img title="Subscribe to Struts2(8)" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/xml(1).gif" style="border-width:0px;"></a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl34_Link" class="listitem" href="http://www.blogjava.net/amigoxie/category/28718.html">Tomcat</a><a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl34_RssLink" title="Subscribe to Tomcat" class="listitem" href="http://www.blogjava.net/amigoxie/category/28718.html/rss"><img title="Subscribe to Tomcat" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/xml(1).gif" style="border-width:0px;"></a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl35_Link" class="listitem" href="http://www.blogjava.net/amigoxie/category/28629.html">UML</a><a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl35_RssLink" title="Subscribe to UML" class="listitem" href="http://www.blogjava.net/amigoxie/category/28629.html/rss"><img title="Subscribe to UML" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/xml(1).gif" style="border-width:0px;"></a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl36_Link" class="listitem" href="http://www.blogjava.net/amigoxie/category/26620.html">Web(8)</a><a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl36_RssLink" title="Subscribe to Web(8)" class="listitem" href="http://www.blogjava.net/amigoxie/category/26620.html/rss"><img title="Subscribe to Web(8)" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/xml(1).gif" style="border-width:0px;"></a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl37_Link" class="listitem" href="http://www.blogjava.net/amigoxie/category/26504.html">Web Service(3)</a><a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl37_RssLink" title="Subscribe to Web Service(3)" class="listitem" href="http://www.blogjava.net/amigoxie/category/26504.html/rss"><img title="Subscribe to Web Service(3)" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/xml(1).gif" style="border-width:0px;"></a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl38_Link" class="listitem" href="http://www.blogjava.net/amigoxie/category/19981.html">Workflow</a><a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl38_RssLink" title="Subscribe to Workflow" class="listitem" href="http://www.blogjava.net/amigoxie/category/19981.html/rss"><img title="Subscribe to Workflow" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/xml(1).gif" style="border-width:0px;"></a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl39_Link" class="listitem" href="http://www.blogjava.net/amigoxie/category/54829.html">产品原型设计(9)</a><a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl39_RssLink" title="Subscribe to 产品原型设计(9)" class="listitem" href="http://www.blogjava.net/amigoxie/category/54829.html/rss"><img title="Subscribe to 产品原型设计(9)" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/xml(1).gif" style="border-width:0px;"></a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl40_Link" class="listitem" href="http://www.blogjava.net/amigoxie/category/19983.html">似水流年(13)</a><a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl40_RssLink" title="Subscribe to 似水流年(13)" class="listitem" href="http://www.blogjava.net/amigoxie/category/19983.html/rss"><img title="Subscribe to 似水流年(13)" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/xml(1).gif" style="border-width:0px;"></a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl41_Link" class="listitem" href="http://www.blogjava.net/amigoxie/category/40798.html">协议(12)</a><a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl41_RssLink" title="Subscribe to 协议(12)" class="listitem" href="http://www.blogjava.net/amigoxie/category/40798.html/rss"><img title="Subscribe to 协议(12)" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/xml(1).gif" style="border-width:0px;"></a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl42_Link" class="listitem" href="http://www.blogjava.net/amigoxie/category/47530.html">原创小说(1)</a><a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl42_RssLink" title="Subscribe to 原创小说(1)" class="listitem" href="http://www.blogjava.net/amigoxie/category/47530.html/rss"><img title="Subscribe to 原创小说(1)" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/xml(1).gif" style="border-width:0px;"></a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl43_Link" class="listitem" href="http://www.blogjava.net/amigoxie/category/50033.html">技术评论</a><a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl43_RssLink" title="Subscribe to 技术评论" class="listitem" href="http://www.blogjava.net/amigoxie/category/50033.html/rss"><img title="Subscribe to 技术评论" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/xml(1).gif" style="border-width:0px;"></a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl44_Link" class="listitem" href="http://www.blogjava.net/amigoxie/category/53732.html">架构师之路(13)</a><a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl44_RssLink" title="Subscribe to 架构师之路(13)" class="listitem" href="http://www.blogjava.net/amigoxie/category/53732.html/rss"><img title="Subscribe to 架构师之路(13)" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/xml(1).gif" style="border-width:0px;"></a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl45_Link" class="listitem" href="http://www.blogjava.net/amigoxie/category/45106.html">电信知识(3)</a><a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl45_RssLink" title="Subscribe to 电信知识(3)" class="listitem" href="http://www.blogjava.net/amigoxie/category/45106.html/rss"><img title="Subscribe to 电信知识(3)" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/xml(1).gif" style="border-width:0px;"></a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl46_Link" class="listitem" href="http://www.blogjava.net/amigoxie/category/25161.html">网络通信相关(11)</a><a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl46_RssLink" title="Subscribe to 网络通信相关(11)" class="listitem" href="http://www.blogjava.net/amigoxie/category/25161.html/rss"><img title="Subscribe to 网络通信相关(11)" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/xml(1).gif" style="border-width:0px;"></a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl47_Link" class="listitem" href="http://www.blogjava.net/amigoxie/category/41156.html">职场感悟(7)</a><a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl47_RssLink" title="Subscribe to 职场感悟(7)" class="listitem" href="http://www.blogjava.net/amigoxie/category/41156.html/rss"><img title="Subscribe to 职场感悟(7)" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/xml(1).gif" style="border-width:0px;"></a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl48_Link" class="listitem" href="http://www.blogjava.net/amigoxie/category/47773.html">解决方案(12)</a><a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl48_RssLink" title="Subscribe to 解决方案(12)" class="listitem" href="http://www.blogjava.net/amigoxie/category/47773.html/rss"><img title="Subscribe to 解决方案(12)" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/xml(1).gif" style="border-width:0px;"></a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl49_Link" class="listitem" href="http://www.blogjava.net/amigoxie/category/24691.html">项目管理(8)</a><a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl49_RssLink" title="Subscribe to 项目管理(8)" class="listitem" href="http://www.blogjava.net/amigoxie/category/24691.html/rss"><img title="Subscribe to 项目管理(8)" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/xml(1).gif" style="border-width:0px;"></a></li>
+			
+				</ul>
+			
+	
+		<h1 class="catListTitle">随笔档案</h1>
+		
+				<ul class="catList">
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl01_Link" class="listitem" href="http://www.blogjava.net/amigoxie/archive/2017/07.html">2017年7月 (1)</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl02_Link" class="listitem" href="http://www.blogjava.net/amigoxie/archive/2016/10.html">2016年10月 (1)</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl03_Link" class="listitem" href="http://www.blogjava.net/amigoxie/archive/2016/08.html">2016年8月 (1)</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl04_Link" class="listitem" href="http://www.blogjava.net/amigoxie/archive/2016/03.html">2016年3月 (2)</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl05_Link" class="listitem" href="http://www.blogjava.net/amigoxie/archive/2015/11.html">2015年11月 (1)</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl06_Link" class="listitem" href="http://www.blogjava.net/amigoxie/archive/2015/09.html">2015年9月 (1)</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl07_Link" class="listitem" href="http://www.blogjava.net/amigoxie/archive/2015/06.html">2015年6月 (3)</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl08_Link" class="listitem" href="http://www.blogjava.net/amigoxie/archive/2015/05.html">2015年5月 (4)</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl09_Link" class="listitem" href="http://www.blogjava.net/amigoxie/archive/2014/12.html">2014年12月 (2)</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl10_Link" class="listitem" href="http://www.blogjava.net/amigoxie/archive/2014/07.html">2014年7月 (1)</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl11_Link" class="listitem" href="http://www.blogjava.net/amigoxie/archive/2014/06.html">2014年6月 (1)</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl12_Link" class="listitem" href="http://www.blogjava.net/amigoxie/archive/2014/05.html">2014年5月 (2)</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl13_Link" class="listitem" href="http://www.blogjava.net/amigoxie/archive/2014/01.html">2014年1月 (2)</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl14_Link" class="listitem" href="http://www.blogjava.net/amigoxie/archive/2013/10.html">2013年10月 (1)</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl15_Link" class="listitem" href="http://www.blogjava.net/amigoxie/archive/2013/08.html">2013年8月 (1)</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl16_Link" class="listitem" href="http://www.blogjava.net/amigoxie/archive/2013/07.html">2013年7月 (1)</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl17_Link" class="listitem" href="http://www.blogjava.net/amigoxie/archive/2013/04.html">2013年4月 (1)</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl18_Link" class="listitem" href="http://www.blogjava.net/amigoxie/archive/2013/02.html">2013年2月 (1)</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl19_Link" class="listitem" href="http://www.blogjava.net/amigoxie/archive/2012/11.html">2012年11月 (2)</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl20_Link" class="listitem" href="http://www.blogjava.net/amigoxie/archive/2012/10.html">2012年10月 (1)</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl21_Link" class="listitem" href="http://www.blogjava.net/amigoxie/archive/2012/01.html">2012年1月 (1)</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl22_Link" class="listitem" href="http://www.blogjava.net/amigoxie/archive/2011/11.html">2011年11月 (8)</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl23_Link" class="listitem" href="http://www.blogjava.net/amigoxie/archive/2011/10.html">2011年10月 (4)</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl24_Link" class="listitem" href="http://www.blogjava.net/amigoxie/archive/2011/09.html">2011年9月 (1)</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl25_Link" class="listitem" href="http://www.blogjava.net/amigoxie/archive/2011/08.html">2011年8月 (2)</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl26_Link" class="listitem" href="http://www.blogjava.net/amigoxie/archive/2011/07.html">2011年7月 (5)</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl27_Link" class="listitem" href="http://www.blogjava.net/amigoxie/archive/2011/02.html">2011年2月 (2)</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl28_Link" class="listitem" href="http://www.blogjava.net/amigoxie/archive/2011/01.html">2011年1月 (1)</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl29_Link" class="listitem" href="http://www.blogjava.net/amigoxie/archive/2010/12.html">2010年12月 (3)</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl30_Link" class="listitem" href="http://www.blogjava.net/amigoxie/archive/2010/11.html">2010年11月 (9)</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl31_Link" class="listitem" href="http://www.blogjava.net/amigoxie/archive/2010/09.html">2010年9月 (1)</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl32_Link" class="listitem" href="http://www.blogjava.net/amigoxie/archive/2010/07.html">2010年7月 (2)</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl33_Link" class="listitem" href="http://www.blogjava.net/amigoxie/archive/2010/06.html">2010年6月 (2)</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl34_Link" class="listitem" href="http://www.blogjava.net/amigoxie/archive/2010/05.html">2010年5月 (5)</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl35_Link" class="listitem" href="http://www.blogjava.net/amigoxie/archive/2010/04.html">2010年4月 (2)</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl36_Link" class="listitem" href="http://www.blogjava.net/amigoxie/archive/2009/12.html">2009年12月 (4)</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl37_Link" class="listitem" href="http://www.blogjava.net/amigoxie/archive/2009/11.html">2009年11月 (2)</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl38_Link" class="listitem" href="http://www.blogjava.net/amigoxie/archive/2009/10.html">2009年10月 (1)</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl39_Link" class="listitem" href="http://www.blogjava.net/amigoxie/archive/2009/09.html">2009年9月 (3)</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl40_Link" class="listitem" href="http://www.blogjava.net/amigoxie/archive/2009/08.html">2009年8月 (5)</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl41_Link" class="listitem" href="http://www.blogjava.net/amigoxie/archive/2009/07.html">2009年7月 (5)</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl42_Link" class="listitem" href="http://www.blogjava.net/amigoxie/archive/2009/05.html">2009年5月 (1)</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl43_Link" class="listitem" href="http://www.blogjava.net/amigoxie/archive/2008/10.html">2008年10月 (3)</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl44_Link" class="listitem" href="http://www.blogjava.net/amigoxie/archive/2008/09.html">2008年9月 (3)</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl45_Link" class="listitem" href="http://www.blogjava.net/amigoxie/archive/2008/08.html">2008年8月 (1)</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl46_Link" class="listitem" href="http://www.blogjava.net/amigoxie/archive/2008/06.html">2008年6月 (2)</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl47_Link" class="listitem" href="http://www.blogjava.net/amigoxie/archive/2008/05.html">2008年5月 (3)</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl48_Link" class="listitem" href="http://www.blogjava.net/amigoxie/archive/2008/04.html">2008年4月 (2)</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl49_Link" class="listitem" href="http://www.blogjava.net/amigoxie/archive/2008/02.html">2008年2月 (2)</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl50_Link" class="listitem" href="http://www.blogjava.net/amigoxie/archive/2008/01.html">2008年1月 (11)</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl51_Link" class="listitem" href="http://www.blogjava.net/amigoxie/archive/2007/12.html">2007年12月 (9)</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl52_Link" class="listitem" href="http://www.blogjava.net/amigoxie/archive/2007/11.html">2007年11月 (7)</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl53_Link" class="listitem" href="http://www.blogjava.net/amigoxie/archive/2007/10.html">2007年10月 (9)</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl54_Link" class="listitem" href="http://www.blogjava.net/amigoxie/archive/2007/09.html">2007年9月 (12)</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl55_Link" class="listitem" href="http://www.blogjava.net/amigoxie/archive/2007/08.html">2007年8月 (24)</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl56_Link" class="listitem" href="http://www.blogjava.net/amigoxie/archive/2007/07.html">2007年7月 (10)</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl57_Link" class="listitem" href="http://www.blogjava.net/amigoxie/archive/2007/06.html">2007年6月 (2)</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl58_Link" class="listitem" href="http://www.blogjava.net/amigoxie/archive/2007/05.html">2007年5月 (3)</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl59_Link" class="listitem" href="http://www.blogjava.net/amigoxie/archive/2007/04.html">2007年4月 (18)</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl60_Link" class="listitem" href="http://www.blogjava.net/amigoxie/archive/2007/03.html">2007年3月 (24)</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl61_Link" class="listitem" href="http://www.blogjava.net/amigoxie/archive/2007/02.html">2007年2月 (24)</a></li>
+			
+				</ul>
+			
+	
+		<h1 class="catListTitle">文章分类</h1>
+		
+				<ul class="catList">
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl02_LinkList_ctl01_Link" class="listitem" href="http://www.blogjava.net/amigoxie/category/20144.html">喜爱歌词(12)</a><a id="SingleColumn1_Categories_CatList_ctl02_LinkList_ctl01_RssLink" title="Subscribe to 喜爱歌词(12)" class="listitem" href="http://www.blogjava.net/amigoxie/category/20144.html/rss"><img title="Subscribe to 喜爱歌词(12)" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/xml(1).gif" style="border-width:0px;"></a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl02_LinkList_ctl02_Link" class="listitem" href="http://www.blogjava.net/amigoxie/category/20145.html">生活点滴(3)</a><a id="SingleColumn1_Categories_CatList_ctl02_LinkList_ctl02_RssLink" title="Subscribe to 生活点滴(3)" class="listitem" href="http://www.blogjava.net/amigoxie/category/20145.html/rss"><img title="Subscribe to 生活点滴(3)" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/xml(1).gif" style="border-width:0px;"></a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl02_LinkList_ctl03_Link" class="listitem" href="http://www.blogjava.net/amigoxie/category/20521.html">芝麻粒知识(8)</a><a id="SingleColumn1_Categories_CatList_ctl02_LinkList_ctl03_RssLink" title="Subscribe to 芝麻粒知识(8)" class="listitem" href="http://www.blogjava.net/amigoxie/category/20521.html/rss"><img title="Subscribe to 芝麻粒知识(8)" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/xml(1).gif" style="border-width:0px;"></a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl02_LinkList_ctl04_Link" class="listitem" href="http://www.blogjava.net/amigoxie/category/20044.html">英语(1)</a><a id="SingleColumn1_Categories_CatList_ctl02_LinkList_ctl04_RssLink" title="Subscribe to 英语(1)" class="listitem" href="http://www.blogjava.net/amigoxie/category/20044.html/rss"><img title="Subscribe to 英语(1)" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/xml(1).gif" style="border-width:0px;"></a></li>
+			
+				</ul>
+			
+	
+		<h1 class="catListTitle">相册</h1>
+		
+				<ul class="catList">
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl03_LinkList_ctl01_Link" class="listitem" href="http://www.blogjava.net/amigoxie/gallery/21128.html">java学习相关</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl03_LinkList_ctl02_Link" class="listitem" href="http://www.blogjava.net/amigoxie/gallery/21336.html">other</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl03_LinkList_ctl03_Link" class="listitem" href="http://www.blogjava.net/amigoxie/gallery/54828.html">产品经理相关</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl03_LinkList_ctl04_Link" class="listitem" href="http://www.blogjava.net/amigoxie/gallery/54926.html">图书相关</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl03_LinkList_ctl05_Link" class="listitem" href="http://www.blogjava.net/amigoxie/gallery/54387.html">工具相关</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl03_LinkList_ctl06_Link" class="listitem" href="http://www.blogjava.net/amigoxie/gallery/20040.html">日历</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl03_LinkList_ctl07_Link" class="listitem" href="http://www.blogjava.net/amigoxie/gallery/53733.html">架构师相关</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl03_LinkList_ctl08_Link" class="listitem" href="http://www.blogjava.net/amigoxie/gallery/20754.html">设计模式相关</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl03_LinkList_ctl09_Link" class="listitem" href="http://www.blogjava.net/amigoxie/gallery/40799.html">贴图</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl03_LinkList_ctl10_Link" class="listitem" href="http://www.blogjava.net/amigoxie/gallery/21156.html">走走拍拍</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl03_LinkList_ctl11_Link" class="listitem" href="http://www.blogjava.net/amigoxie/gallery/55231.html">饭团</a></li>
+			
+				</ul>
+			
+	
+		<h1 class="catListTitle">关注blog</h1>
+		
+				<ul class="catList">
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl04_LinkList_ctl01_Link" class="listitem" href="http://www.blogjava.net/beansoft/">BeanSoft</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl04_LinkList_ctl02_Link" class="listitem" href="http://www.blogjava.net/JAVA-HE" target="_blank">JAVA-HE</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl04_LinkList_ctl03_Link" class="listitem" href="http://www.blogjava.net/kenzhh/" target="_blank">kenzhang</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl04_LinkList_ctl04_Link" class="listitem" href="http://www.blogjava.net/improviser/" target="_blank">即兴的灵感</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl04_LinkList_ctl05_Link" class="listitem" href="http://www.blogjava.net/badboyryan/" target="_blank">坏男孩</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl04_LinkList_ctl06_Link" class="listitem" href="http://sunweiqin.blog.51cto.com/" target="_blank">孙卫琴</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl04_LinkList_ctl07_Link" class="listitem" href="http://www.blogjava.net/crespo9907/" target="_blank">施伟</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl04_LinkList_ctl08_Link" class="listitem" href="http://www.blogjava.net/qixiangnj" target="_blank">蚂蚁</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl04_LinkList_ctl09_Link" class="listitem" href="http://www.blogjava.net/nokiaguy" target="_blank">银河使者</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_ctl04_LinkList_ctl10_Link" class="listitem" href="http://blog.csdn.net/tj19832" target="_blank">鼠标</a></li>
+			
+				</ul>
+			
+	
+
+
+<h3>积分与排名</h3>
+<ul>
+	<li>
+		积分 -
+		2057427
+	</li><li>
+		排名 -
+		3
+	</li>
+</ul>
+
+<h3>最新评论
+	<a id="SingleColumn1__1cf9ea0_RSSHyperlink1" href="http://www.blogjava.net/amigoxie/CommentsRSS.aspx"><img src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/xml.gif" style="border-width:0px;"></a></h3>
+<div class="RecentComment">
+	
+			<ul>
+		
+			<li style="word-break:break-all">
+				<a id="SingleColumn1__1cf9ea0_CommentList_ctl01_Hyperlink1" href="http://www.blogjava.net/amigoxie/archive/2016/08/16/427292.html#431593">1.&nbsp;re: 新书推荐：《Power Designer系统分析与建模实战》</a>
+			</li>
+			<li style="word-break:break-all">
+				@智禄<br>谢谢指出，下次改版修正：）
+			</li>
+			<li style="text-align:right;margin-right:4px">
+				--阿蜜果</li>
+		
+			<li style="word-break:break-all">
+				<a id="SingleColumn1__1cf9ea0_CommentList_ctl02_Hyperlink1" href="http://www.blogjava.net/amigoxie/archive/2016/08/12/427292.html#431539">2.&nbsp;re: 新书推荐：《Power Designer系统分析与建模实战》</a>
+			</li>
+			<li style="word-break:break-all">
+				6.1.3 9.存储函数<br>存储函数与存储函数类似，……<br>此处应该是：存储函数与存储过程类似，……<br>我买的是多看上的电子版，请修改<br>
+			</li>
+			<li style="text-align:right;margin-right:4px">
+				--智禄</li>
+		
+			<li style="word-break:break-all">
+				<a id="SingleColumn1__1cf9ea0_CommentList_ctl03_Hyperlink1" href="http://www.blogjava.net/amigoxie/archive/2016/08/11/427292.html#431536">3.&nbsp;re: 新书推荐：《Power Designer系统分析与建模实战》</a>
+			</li>
+			<li style="word-break:break-all">
+				您好，今天买了您的这本书，为了更好的学习，麻烦将书中的样例工程文件发给我，万分感谢，感谢作者写出这么好的书，我特别需要，祝大卖~~<br>yaozhilu@foxmail.com
+			</li>
+			<li style="text-align:right;margin-right:4px">
+				--智禄</li>
+		
+			<li style="word-break:break-all">
+				<a id="SingleColumn1__1cf9ea0_CommentList_ctl04_Hyperlink1" href="http://www.blogjava.net/amigoxie/archive/2016/08/09/427292.html#431504">4.&nbsp;re: 新书推荐：《Power Designer系统分析与建模实战》</a>
+			</li>
+			<li style="word-break:break-all">
+				您好，书不错，已经买了，麻烦发套样例工程吧，最好详细点的，万分感激！
+<br>jackylee365@163.com
+			</li>
+			<li style="text-align:right;margin-right:4px">
+				--李成龙</li>
+		
+			<li style="word-break:break-all">
+				<a id="SingleColumn1__1cf9ea0_CommentList_ctl05_Hyperlink1" href="http://www.blogjava.net/amigoxie/archive/2016/07/06/427292.html#431106">5.&nbsp;re: 新书推荐：《Power Designer系统分析与建模实战》</a>
+			</li>
+			<li style="word-break:break-all">
+				书已买，看着很受用，但是能否发送里面的样例工程文件给我么？这样可以更好的对照学习，感谢！mail:583838959@qq.com
+			</li>
+			<li style="text-align:right;margin-right:4px">
+				--赵静龙</li>
+		
+			</ul>
+		
+</div>
+
+<h3>阅读排行榜</h3>
+<div class="RecentComment">
+	
+			<ul style="word-break:break-all">
+		
+			<li>
+				<a id="SingleColumn1__1688146_TopList_ctl01_Hyperlink1" href="http://www.blogjava.net/amigoxie/archive/2014/07/06/415503.html">1.&nbsp;常用加密算法的Java实现总结(二)——对称加密算法DES、3DES和AES(128028)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1__1688146_TopList_ctl02_Hyperlink1" href="http://www.blogjava.net/amigoxie/archive/2007/11/09/159413.html">2.&nbsp;用Ant实现Java项目的自动构建和部署(117942)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1__1688146_TopList_ctl03_Hyperlink1" href="http://www.blogjava.net/amigoxie/archive/2007/10/23/155162.html">3.&nbsp;异常备忘：java.lang.UnsupportedClassVersionError: Bad version number in .class file(111105)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1__1688146_TopList_ctl04_Hyperlink1" href="http://www.blogjava.net/amigoxie/archive/2014/06/01/414299.html">4.&nbsp;常用加密算法的Java实现总结(一)——单向加密算法MD5和SHA(59327)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1__1688146_TopList_ctl05_Hyperlink1" href="http://www.blogjava.net/amigoxie/archive/2007/10/08/151086.html">5.&nbsp;通用权限管理系统设计篇（三）——概要设计说明书(57768)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1__1688146_TopList_ctl06_Hyperlink1" href="http://www.blogjava.net/amigoxie/archive/2014/05/31/414287.html">6.&nbsp;Java代码规范、格式化和checkstyle检查配置文档(53933)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1__1688146_TopList_ctl07_Hyperlink1" href="http://www.blogjava.net/amigoxie/archive/2007/09/26/148207.html">7.&nbsp;使用XFire+Spring构建Web Service（一）——helloWorld篇(49024)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1__1688146_TopList_ctl08_Hyperlink1" href="http://www.blogjava.net/amigoxie/archive/2012/11/28/392121.html">8.&nbsp;基于注解的Spring MVC+Hibernate简单入门(48875)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1__1688146_TopList_ctl09_Hyperlink1" href="http://www.blogjava.net/amigoxie/archive/2014/12/24/421788.html">9.&nbsp;关系型数据的分布式处理系统MyCAT（1）—概述和基本使用教程(44904)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1__1688146_TopList_ctl10_Hyperlink1" href="http://www.blogjava.net/amigoxie/archive/2013/02/22/395605.html">10.&nbsp;在阿里云Linux服务器上安装MySQL(39732)</a>
+			</li>
+		
+			</ul>
+		
+</div>
+
+<h3>评论排行榜</h3>
+<div class="RecentComment">
+	
+			<ul style="word-break:break-all">
+		
+			<li>
+				<a id="SingleColumn1__31989d6_TopList_ctl01_Hyperlink1" href="http://www.blogjava.net/amigoxie/archive/2007/09/28/149074.html">1.&nbsp;使用XFire+Spring构建Web Service（二）(102)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1__31989d6_TopList_ctl02_Hyperlink1" href="http://www.blogjava.net/amigoxie/archive/2007/09/26/148207.html">2.&nbsp;使用XFire+Spring构建Web Service（一）——helloWorld篇(70)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1__31989d6_TopList_ctl03_Hyperlink1" href="http://www.blogjava.net/amigoxie/archive/2007/10/08/151086.html">3.&nbsp;通用权限管理系统设计篇（三）——概要设计说明书(64)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1__31989d6_TopList_ctl04_Hyperlink1" href="http://www.blogjava.net/amigoxie/archive/2007/10/23/155162.html">4.&nbsp;异常备忘：java.lang.UnsupportedClassVersionError: Bad version number in .class file(54)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1__31989d6_TopList_ctl05_Hyperlink1" href="http://www.blogjava.net/amigoxie/archive/2007/10/06/150646.html">5.&nbsp;通用权限管理设计篇（二）——数据库设计(40)</a>
+			</li>
+		
+			</ul>
+		
+</div>
+</div>
+	
+</div>
+</div>
+</div>
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-3735342721259711";
+google_ad_width = 728;
+google_ad_height = 90;
+google_ad_format = "728x90_as";
+google_ad_type = "text_image";
+google_ad_channel = "";
+google_ui_features = "rc:6";
+//-->
+</script>
+<script type="text/javascript" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/show_ads.js.下载">
+</script><ins id="aswift_0_expand" style="display:inline-table;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:728px;background-color:transparent;"><ins id="aswift_0_anchor" style="display:block;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:728px;background-color:transparent;"><iframe width="728" height="90" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;width:728px;height:90px;" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/saved_resource(1).html"></iframe></ins></ins>
+    
+<script type="text/javascript">
+//<![CDATA[
+var Page_ValidationSummaries =  new Array(document.getElementById("AjaxHolder_PostComment_ValidationSummary1"));
+//]]>
+</script>
+
+<script type="text/javascript">
+//<![CDATA[
+var AjaxHolder_PostComment_ValidationSummary1 = document.all ? document.all["AjaxHolder_PostComment_ValidationSummary1"] : document.getElementById("AjaxHolder_PostComment_ValidationSummary1");
+AjaxHolder_PostComment_ValidationSummary1.showmessagebox = "True";
+AjaxHolder_PostComment_ValidationSummary1.showsummary = "False";
+//]]>
+</script>
+
+
+<script type="text/javascript">
+//<![CDATA[
+
+document.getElementById('AjaxHolder_PostComment_ValidationSummary1').dispose = function() {
+    Array.remove(Page_ValidationSummaries, document.getElementById('AjaxHolder_PostComment_ValidationSummary1'));
+}
+Sys.Application.initialize();
+//]]>
+</script>
+</form>
+    <script type="text/javascript" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/ShowHidden.js.下载"></script>
+	<script type="text/javascript">
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', 'UA-476124-3']);
+	  _gaq.push(['_trackPageview']);
+
+	  (function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+	</script>
+
+
+<iframe id="google_osd_static_frame_1001025157490" name="google_osd_static_frame" style="display: none; width: 0px; height: 0px;" src="./用Ant实现Java项目的自动构建和部署 - 阿蜜果 - BlogJava_files/saved_resource(2).html"></iframe></body></html>

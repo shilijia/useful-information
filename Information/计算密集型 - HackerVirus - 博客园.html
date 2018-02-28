@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<!-- saved from url=(0044)http://www.cnblogs.com/Leo_wl/p/6338067.html -->
+<html lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>计算密集型 - HackerVirus - 博客园</title>
+<link type="text/css" rel="stylesheet" href="./计算密集型 - HackerVirus - 博客园_files/blog-common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="./计算密集型 - HackerVirus - 博客园_files/bundle-white.css">
+<link id="mobile-style" media="only screen and (max-width: 768px)" type="text/css" rel="stylesheet" href="./计算密集型 - HackerVirus - 博客园_files/bundle-white-mobile.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/Leo_wl/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/Leo_wl/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/Leo_wl/wlwmanifest.xml">
+<script async="" src="./计算密集型 - HackerVirus - 博客园_files/analytics.js.下载"></script><script src="./计算密集型 - HackerVirus - 博客园_files/jquery.js.下载" type="text/javascript"></script>  
+<script type="text/javascript">var currentBlogApp = 'Leo_wl', cb_enable_mathjax=false;var isLogined=false;</script>
+<script src="./计算密集型 - HackerVirus - 博客园_files/blog-common.js.下载" type="text/javascript"></script>
+</head>
+<body>
+<a name="top"></a>
+<!--PageBeginHtml Block Begin-->
+<link type="text/css" rel="stylesheet" href="./计算密集型 - HackerVirus - 博客园_files/customcss.aspx">
+
+
+<a name="top"></a>
+<!-- Baidu Button BEGIN -->
+
+
+
+<!-- Baidu Button END -->
+<link type="text/css" rel="stylesheet" href="./计算密集型 - HackerVirus - 博客园_files/customcss(1).aspx">
+<!--PageBeginHtml Block Begin-->
+<link type="text/css" rel="stylesheet" href="./计算密集型 - HackerVirus - 博客园_files/shThemeDIY.css">
+<!--PageBeginHtml Block End-->
+<!-- Markdown -->
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="./计算密集型 - HackerVirus - 博客园_files/Markdown.prettify.css" type="text/css">
+<!-- Markdown End -->
+<!--PageBeginHtml Block End-->
+
+<div id="banner">
+	
+<div class="header">
+	<div>
+		<a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/Leo_wl/">Leo_wlCnBlogs</a>
+	</div>
+	<div>
+		<font color="Red"><b>自由、创新、研究、探索
+Linux/Windows Mono/DotNet [ Open Source .NET Development/ 使用开源工具进行DotNet软件开发]</b></font><br><font color="Green"><b>锐意进取，志存高远.</b></font><font color="blue"><b>成就梦想，只争朝夕.</b></font><font color="Orange"><b>从你开始，创新世界.</b>【That I exist is a perpetual supprise which is life. Focus on eCommerce】</font>
+	</div>
+</div>
+</div>
+<div id="leftcontent">
+	
+		
+<h1 class="listtitle">导航</h1>
+<ul class="list">
+			<li class="listitem"><a id="blog_nav_sitehome" class="listitem" href="http://www.cnblogs.com/">博客园</a></li>
+			<li class="listitem"><a id="blog_nav_myhome" class="listitem" href="http://www.cnblogs.com/Leo_wl/">首页</a></li>
+			<li class="listitem"><a id="blog_nav_newpost" class="listitem" rel="nofollow" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a></li>
+			<li class="listitem"><a id="blog_nav_contact" accesskey="9" class="listitem" rel="nofollow" href="https://msg.cnblogs.com/send/HackerVirus">联系</a></li>
+			<li class="listitem"><a id="blog_nav_rss" class="listitem" href="http://www.cnblogs.com/Leo_wl/rss">订阅</a><a id="blog_nav_rss_image" href="http://www.cnblogs.com/Leo_wl/rss"><img src="./计算密集型 - HackerVirus - 博客园_files/xml.gif" alt="订阅"></a>
+			</li><li class="listitem"><a id="blog_nav_admin" class="listitem" rel="nofollow" href="https://i.cnblogs.com/">管理</a></li>
+</ul>
+		<div id="blog-calendar" style=""><table id="blogCalendar" class="Cal" cellspacing="0" cellpadding="0" title="Calendar">
+	<tbody><tr><td colspan="7"><table class="CalTitle" cellspacing="0">
+		<tbody><tr><td class="CalNextPrev"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2017/09/01&#39;);return false;">&lt;</a></td><td align="center">2017年10月</td><td class="CalNextPrev" align="right"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2017/11/01&#39;);return false;">&gt;</a></td></tr>
+	</tbody></table></td></tr><tr><th class="CalDayHeader" align="center" abbr="日" scope="col">日</th><th class="CalDayHeader" align="center" abbr="一" scope="col">一</th><th class="CalDayHeader" align="center" abbr="二" scope="col">二</th><th class="CalDayHeader" align="center" abbr="三" scope="col">三</th><th class="CalDayHeader" align="center" abbr="四" scope="col">四</th><th class="CalDayHeader" align="center" abbr="五" scope="col">五</th><th class="CalDayHeader" align="center" abbr="六" scope="col">六</th></tr><tr><td class="CalOtherMonthDay" align="center">24</td><td class="CalOtherMonthDay" align="center">25</td><td class="CalOtherMonthDay" align="center">26</td><td class="CalOtherMonthDay" align="center">27</td><td class="CalOtherMonthDay" align="center">28</td><td class="CalOtherMonthDay" align="center">29</td><td class="CalOtherMonthDay" align="center">30</td></tr><tr><td class="CalWeekendDay" align="center">1</td><td align="center">2</td><td align="center">3</td><td align="center">4</td><td align="center">5</td><td align="center">6</td><td class="CalWeekendDay" align="center">7</td></tr><tr><td class="CalWeekendDay" align="center">8</td><td align="center"><a href="http://www.cnblogs.com/Leo_wl/archive/2017/10/09.html"><u>9</u></a></td><td align="center"><a href="http://www.cnblogs.com/Leo_wl/archive/2017/10/10.html"><u>10</u></a></td><td align="center">11</td><td align="center">12</td><td align="center"><a href="http://www.cnblogs.com/Leo_wl/archive/2017/10/13.html"><u>13</u></a></td><td class="CalTodayDay" align="center">14</td></tr><tr><td class="CalWeekendDay" align="center">15</td><td align="center">16</td><td align="center">17</td><td align="center">18</td><td align="center">19</td><td align="center">20</td><td class="CalWeekendDay" align="center">21</td></tr><tr><td class="CalWeekendDay" align="center">22</td><td align="center">23</td><td align="center">24</td><td align="center">25</td><td align="center">26</td><td align="center">27</td><td class="CalWeekendDay" align="center">28</td></tr><tr><td class="CalWeekendDay" align="center">29</td><td align="center">30</td><td align="center">31</td><td class="CalOtherMonthDay" align="center">1</td><td class="CalOtherMonthDay" align="center">2</td><td class="CalOtherMonthDay" align="center">3</td><td class="CalOtherMonthDay" align="center">4</td></tr>
+</tbody></table></div><script type="text/javascript">loadBlogDefaultCalendar();</script>
+		
+<div class="listtitle">公告</div>
+	<ul class="list">
+		<li class="listitem">
+			<div id="blog-news">
+
+
+
+<font><strong><a href="http://weibo.com/u/3209909971/home?wvr=5&amp;lf=reg">我的标签</a>
+</strong></font><hr>
+<div id="div1">
+    <a class="blue" href="http://www.cnblogs.com/xing901022/p/3694709.html">2014</a>
+    <a class="red" href="http://www.cnblogs.com/xing901022/p/3248913.html">2013下</a>
+    <a class="red" href="http://www.cnblogs.com/xing901022/archive/2013/01/18/2857982.html">2013上</a>
+    <a class="red" href="http://www.cnblogs.com/xing901022/archive/2012/10/19/2699162.html">2012下</a>
+    <a class="green" href="http://zh.linuxvirtualserver.org/">LVS中文</a>
+    <a class="green" href="http://code.taobao.org/">开源</a>
+    <a class="blue" href="http://www.cnblogs.com/xing901022/archive/2013/04/09/3248870.html">反向代理</a>
+    <a class="blue" href="http://www.cnblogs.com/xing901022/p/3248469.html">CUDA</a>
+</div>
+<p>
+<a style="padding-right: 20px" href="http://wpa.qq.com/msgrd?v=3&amp;uin=1340601454&amp;site=qq&amp;menu=yes" target="_blank"><img style="vertical-align: bottom; border: 0px;" src="./计算密集型 - HackerVirus - 博客园_files/pa" alt="点击这里给我发消息"></a></p><p>微信订阅号：<span style="color: #222222; font-family: &#39;Helvetica Neue&#39;, &#39;Hiragino Sans GB&#39;, &#39;Microsoft YaHei&#39;, 黑体, Arial, sans-serif; line-height: 22.3999996185303px; background-color: #ffffff;">HackerVirus</span></p><p><img style="line-height: 1.5" src="./计算密集型 - HackerVirus - 博客园_files/141844064735565.png" alt="">&nbsp;</p><p>&nbsp;</p>
+<font color="green">技术QQ群:114818988</font><br> 
+<a href="http://hackervirus.byethost18.com/" target="_blank" title="http://hackervirus.byethost18.com"><font size="3" color="red">欢迎点击访问个人网站</font></a>
+<a href="http://xyz.freelogs.com/stats/h/hackervirus2020/" target="_top"><img border="0" alt="hit counter html code" src="./计算密集型 - HackerVirus - 博客园_files/index.php" align="middle" hspace="4" vspace="2"></a>
+<br><a style="font-size: 12" href="http://www.freelogs.com/create.php" target="_top"><font style="font-size: 12" color="#666666">hit counter html code</font></a>&nbsp;&nbsp;<span style="color: #ff5e4a; line-height: 1.5;">&nbsp;</span><p>
+ </p>
+    <a href="http://info.flagcounter.com/ekni"><img src="./计算密集型 - HackerVirus - 博客园_files/saved_resource" alt="Flag Counter" border="0"></a>     
+
+<hr>
+
+<!--<div align="left">访问：<a href="http://www.amazingcounter.com"><img border="0" src="http://cb.amazingcounters.com/counter.php?i=2887339&c=8662330" alt="track web hits" /></a> </div>-->
+
+<p>
+
+</p><hr>
+
+<p></p>
+
+<p>
+
+
+
+</p>
+
+<!-- JiaThis Button BEGIN -->
+
+
+<!-- JiaThis Button END -->
+<p style="display: block" id="back-top">
+<a href="http://i.cnblogs.com/Configure.aspx?editor=1#top"><span></span></a>
+</p><div id="profile_block">昵称：<a href="http://home.cnblogs.com/u/Leo_wl/">HackerVirus</a><br>园龄：<a href="http://home.cnblogs.com/u/Leo_wl/" title="入园时间：2009-12-16">7年9个月</a><br>粉丝：<a href="http://home.cnblogs.com/u/Leo_wl/followers/">2357</a><br>关注：<a href="http://home.cnblogs.com/u/Leo_wl/followees/">247</a><div id="p_b_follow"><a href="javascript:void(0);" onclick="follow(&#39;775228d3-ede9-de11-ba8f-001cf0cd104b&#39;)">+加关注</a></div></div></div><script type="text/javascript">loadBlogNews();</script>
+	</li>
+</ul>
+		
+
+	
+</div>
+<div id="centercontent">
+	
+<div id="post_detail">
+<div class="singlepost">
+	<div class="posttitle">
+		<a id="cb_post_title_url" class="singleposttitle" href="http://www.cnblogs.com/Leo_wl/p/6338067.html">计算密集型</a>
+	</div>
+	
+	<div id="cnblogs_post_body"><h1 class="postTitle"><a id="cb_post_title_url" class="postTitle2" href="http://www.cnblogs.com/LoveOfPrince/p/6336472.html">计算密集型分布式内存存储和运算平台架构</a></h1>
+<div class="clear">&nbsp;</div>
+<div class="postBody">
+<div id="cnblogs_post_body">
+<p>避嫌声明：所有图文都是根据自己的理解原创，且已离开这家公司三年以上，不存在保密协议，写此文只是用来分享知识、探究不足。</p>
+<p>牢骚：本来想弄个ppt交互展示的，不过我的js权限还没批。。。</p>
+<p>&nbsp;</p>
+<h1>1. 相关概念</h1>
+<h2>1.1 内存数据库</h2>
+<p>关系型数据库处理永久、稳定的数据，内存数据库就是将其数据放在内存中，活动事务只与内存数据打交道，重新设计了体系结构并且在数据缓存、快速算法、并行操作方面也进行了相应的改进，所以数据处理速度比磁盘数据库要快很多，一般都在10倍以上。但它不容易恢复，可能暂时不一致或非绝对正确的，要求较大的内存量，而64位操作系统可以支持更大的地址（2T），为内存数据库的实现提供了可能。</p>
+<h2>1.2 计算密集型</h2>
+<p>计算密集型是指，每个请求的命令中，大都包含不同的参数值，很难重用前一次计算的结果，所以要按照约定的业务逻辑重新计算，并按照约定的格式返回数据，且计算在总耗时中占比较大。</p>
+<h1>2. 数据存储</h1>
+<h2>2.1 DB</h2>
+<p>数据存储在DB中，直接访问数据库。但数据库压力太大，系统瓶颈明显。</p>
+<p>&nbsp;</p>
+<p><img src="./计算密集型 - HackerVirus - 博客园_files/516867-20170121091157156-1226313278.png" alt=""></p>
+<h2>2.2 DB + All In One Cache</h2>
+<p>将DB中的数据加载到节点的内存中，并定时从数据更新日志库中读取来更新内存的数据，极大减轻数据库的压力。</p>
+<p><img src="./计算密集型 - HackerVirus - 博客园_files/516867-20170121091302359-377043355.png" alt=""></p>
+<p>但随着数据的膨胀，节点启动加载慢，升级时间长，宕机恢复难等。</p>
+<h2>2.3 DB + File + All In One Cache</h2>
+<p>每天晚上从DB读取数据，生成带有数据同步标识的数据文件，分发到各个服务器节点。节点启动时，直接从本地数据文件加载，大大提高了启动速度。</p>
+<p><img src="./计算密集型 - HackerVirus - 博客园_files/516867-20170121091423593-1637316074.png" alt=""></p>
+<p>但随着DB中数据的更新，实例间数据不一致性严重。</p>
+<h2>2.4 DB + File + All In One Cache + AMQ Sync</h2>
+<p>通过DP服务定时监控数据更新日志库中的记录，通过AMQ发布给订阅的每个节点，节点根据当前同步的标识决定是否处理消息记录，根据消息记录的属性执行具体的增删改操作，使得数据的一致性较好。</p>
+<p><img src="./计算密集型 - HackerVirus - 博客园_files/516867-20170121091527281-480800686.png" alt=""></p>
+<p>但单个节点内存过大，大数据量时仍会变慢，卡顿现象频繁且耗时较长。</p>
+<h2>2.5 DB + File + Distributed&nbsp;Cache + AMQ Sync</h2>
+<p>按照业务将数据拆分到不同的节点上，通过管理节点分配任务，使得内存大小可控，卡顿频率和耗时明显减少。</p>
+<p><img src="./计算密集型 - HackerVirus - 博客园_files/516867-20170121091622578-974699498.png" alt=""></p>
+<p>但生产bug、业务逻辑变更或新增需求时，只能重启服务，不够灵敏，可维护性差。</p>
+<h2>&nbsp;2.6 DB + File + Distributed&nbsp;Cache + AMQ Sync +CodeDom</h2>
+<p>利用CodeDom实现动态编译，在运行时增加或修改业务逻辑。</p>
+<p><img src="./计算密集型 - HackerVirus - 博客园_files/516867-20170121091657218-1496772046.png" alt=""></p>
+<p>另外，可以为每个节点对应一个独立的DataProcess。</p>
+<h1>3. 数据运算</h1>
+<h2>3.1 存储过程</h2>
+<p>将业务逻辑写到存储过程中，难以维护，请求排队现象严重。</p>
+<p><img src="./计算密集型 - HackerVirus - 博客园_files/516867-20170121092834265-1026168297.png" alt=""></p>
+<h2>3.2 内存运算</h2>
+<p>通过缓存节点的中间层对外提供服务，在缓存数据的基础上，提供：获取单个运算结果的API（对外），获取数据集合的Enumerator（对内），获取数据运算结果集合的Report（对外），内存读取速度较快。</p>
+<p><img src="./计算密集型 - HackerVirus - 博客园_files/516867-20170121093010234-1647853758.png" alt=""></p>
+<p>但很难有效的负载均衡，无法高效并行。</p>
+<h2>3.3 负载均衡+并行</h2>
+<p>通过Master节点，将请求分给对应的若干工作节点并行处理，再对结果进行合并和归纳，返回给客户端，实现高效并行处理。</p>
+<p><img src="./计算密集型 - HackerVirus - 博客园_files/516867-20170121093057140-1031439974.png" alt=""></p>
+<p>延伸：数据运算的耗时，大都在查找、比较、排序、序列化、压缩、加密处理等，根据性能分析逐个调优。</p>
+<h1>4. 系统调优</h1>
+<h2>4.1 GC</h2>
+<p>当内存越大时，二代回收耗费几秒甚至十几秒，会挂起所有线程而使节点在这段时间内不能正常工作。</p>
+<p>1.可设置多核并发的Server GC模式，为每个核创建单独的大小堆和GC线程，减少回收的粒度和影响。</p>
+<p>2.监控将要发生回收的工作节点，通知Mater并暂停该工作节点提供服务，直至GC完成。</p>
+<h2>4.2 Cache</h2>
+<p>1.运行时内存的增加，主要是因为创建了很多临时对象。所以，要尽量少用Linq，尽量避免创建不必要的对象。<br>2.频繁使用的字符串可尝试采用驻留机制。<br>3.将不常用的历史数据以文件方式存储和更新而不放入内存。<br>4.业务拆分减少每个节点要加载的数据。<br>5.尽量避免创建大对象，必要时通过弱引用+延迟加载处理大对象。</p>
+
+</div>
+
+</div></div><div id="MySignature" style="display: block;"><div id="MySignature" style="height: 200px; background-color: #fffeee; "><div id="MySignature" style="margin-top: 15px; float: left; ">
+<div>作者：<a href="http://home.cnblogs.com/u/Leo_wl/" target="_blank">Leo_wl</a></div>
+　　　　<div>出处：<a href="http://www.cnblogs.com/Leo_wl/" target="_blank">http://www.cnblogs.com/Leo_wl/</a></div>
+　　　　<div>本文版权归作者和博客园共有，欢迎转载，但未经作者同意必须保留此段声明，且在文章页面明显位置给出原文连接，否则保留追究法律责任的权利。 </div>
+<span>版权信息</span>
+</div></div></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory">分类: <a href="http://www.cnblogs.com/Leo_wl/category/225695.html" target="_blank">[20]DesignAnalysis</a></div>
+<div id="EntryTag"></div>
+<div id="blog_post_info"><div id="green_channel">
+        <a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(6338067,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+            <a id="green_channel_follow" onclick="follow(&#39;775228d3-ede9-de11-ba8f-001cf0cd104b&#39;);" href="javascript:void(0);">关注我</a>
+    <a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a>
+    <a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./计算密集型 - HackerVirus - 博客园_files/icon_weibo_24.png" alt=""></a>
+    <a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="./计算密集型 - HackerVirus - 博客园_files/wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+    <div id="author_profile_info" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/Leo_wl/" target="_blank"><img src="./计算密集型 - HackerVirus - 博客园_files/u104109.gif" class="author_avatar" alt=""></a>
+        <div id="author_profile_detail" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/Leo_wl/">HackerVirus</a><br>
+            <a href="http://home.cnblogs.com/u/Leo_wl/followees">关注 - 247</a><br>
+            <a href="http://home.cnblogs.com/u/Leo_wl/followers">粉丝 - 2357</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div id="author_profile_honor"></div>
+    <div id="author_profile_follow">
+                <a href="javascript:void(0);" onclick="follow(&#39;775228d3-ede9-de11-ba8f-001cf0cd104b&#39;);return false;">+加关注</a>
+    </div>
+</div>
+<div id="div_digg">
+    <div class="diggit" onclick="votePost(6338067,&#39;Digg&#39;)">
+        <span class="diggnum" id="digg_count">0</span>
+    </div>
+    <div class="buryit" onclick="votePost(6338067,&#39;Bury&#39;)">
+        <span class="burynum" id="bury_count">0</span>
+    </div>
+    <div class="clear"></div>
+    <div class="diggword" id="digg_tips">
+    </div>
+</div>
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/Leo_wl/p/6338065.html" class="p_n_p_prefix">« </a> 上一篇：<a href="http://www.cnblogs.com/Leo_wl/p/6338065.html" title="发布于2017-01-21 22:56">Abp</a><br><a href="http://www.cnblogs.com/Leo_wl/p/6338070.html" class="p_n_p_prefix">» </a> 下一篇：<a href="http://www.cnblogs.com/Leo_wl/p/6338070.html" title="发布于2017-01-21 23:00">Hypertext Application Language（HAL）</a><br></div>
+</div>
+
+
+	<div class="itemdesc">
+		posted on <span id="post-date">2017-01-21 22:58</span> <a href="http://www.cnblogs.com/Leo_wl/">HackerVirus</a> 阅读(<span id="post_view_count">91</span>) 评论(<span id="post_comment_count">0</span>)  <a href="https://i.cnblogs.com/EditPosts.aspx?postid=6338067" rel="nofollow">编辑</a> <a href="http://www.cnblogs.com/Leo_wl/p/6338067.html#" onclick="AddToWz(6338067);return false;">收藏</a>
+	</div>
+
+</div>
+	<script type="text/javascript">var allowComments=true,cb_blogId=64532,cb_entryId=6338067,cb_blogApp=currentBlogApp,cb_blogUserGuid='775228d3-ede9-de11-ba8f-001cf0cd104b',cb_entryCreatedDate='2017/1/21 22:58:00';loadViewCount(cb_entryId);</script>
+	
+</div><a name="!comments"></a><div id="blog-comments-placeholder"></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="http://www.cnblogs.com/Leo_wl/p/6338067.html#" onclick="return RefreshPage();">刷新页面</a><a href="http://www.cnblogs.com/Leo_wl/p/6338067.html#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login(&#39;commentform&#39;);">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="ad_t2"><a href="http://www.ucancode.com/index.htm" target="_blank">【推荐】50万行VC++源码: 大型组态工控、电力仿真CAD与GIS源码库</a><br><a href="https://cloud.tencent.com/solution/la?fromSource=gwzcw.436846.436846.436846" target="_blank">【推荐】搭建微信小程序 就选腾讯云</a><br><a href="http://www.gcpowertools.com.cn/products/activereports_overview.htm?utm_source=cnblogs&amp;utm_medium=blogpage&amp;utm_term=bottom&amp;utm_content=AR&amp;utm_campaign=community" target="_blank">【推荐】报表开发有捷径：快速设计轻松集成，数据可视化和交互</a><br></div>
+<div id="opt_under_post"></div>
+<div id="cnblogs_c1" class="c_ad_block"><a href="http://activity.huaweicloud.com/cloudide/index.html?utm_source=cnblogs&amp;utm_medium=MediaB&amp;utm_campaign=%E5%8D%8E%E4%B8%BA%E4%BA%91-10%E6%9C%88%E5%B9%BF%E5%91%8A%E6%8A%95%E6%94%BE&amp;utm_content=%E5%8D%9A%E5%AE%A2%E5%9B%AD%E5%86%85%E9%A1%B5C1%E7%9F%A9%E5%BD%A2&amp;utm_term=%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91%E4%BA%91-CloudIDE%E5%85%AC%E6%B5%8B" target="_blank"><img width="300" height="250" src="./计算密集型 - HackerVirus - 博客园_files/24442-20171009212224793-54391594.jpg" alt="华为云1009"></a></div>
+<div id="under_post_news"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="http://news.cnblogs.com/n/580144/" target="_blank">荷兰隐私监管机构指责微软侵犯Windows 10用户隐私</a><br> ·  <a href="http://news.cnblogs.com/n/580143/" target="_blank">英国新型LED路面可以检测行人并提示司机和骑车者</a><br> ·  <a href="http://news.cnblogs.com/n/580142/" target="_blank">Facebook现在可以让用户在APP内订购食物</a><br> ·  <a href="http://news.cnblogs.com/n/580141/" target="_blank">关键词搜索已经过时了，Shutterstock教你基于构图来搜索图片</a><br> ·  <a href="http://news.cnblogs.com/n/580136/" target="_blank">黄牛倒卖特斯拉Model 3预订名额：赚取300%暴利</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div></div>
+<div id="cnblogs_c2" class="c_ad_block"><a href="http://click.aliyun.com/m/22446/" target="_blank"><img width="468" height="60" src="./计算密集型 - HackerVirus - 博客园_files/24442-20171001085719794-417760373.jpg" alt="阿里云1001"></a></div>
+<div id="under_post_kb"><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="http://kb.cnblogs.com/page/579480/" target="_blank">实用VPC虚拟私有云设计原则</a><br> ·  <a href="http://kb.cnblogs.com/page/576251/" target="_blank">如何阅读计算机科学类的书</a><br> ·  <a href="http://kb.cnblogs.com/page/578103/" target="_blank">Google 及其云智慧</a><br> ·  <a href="http://kb.cnblogs.com/page/575829/" target="_blank">做到这一点，你也可以成为优秀的程序员</a><br> ·  <a href="http://kb.cnblogs.com/page/566880/" target="_blank">写给立志做码农的大学生</a><br></div>» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div>
+<div id="HistoryToday" class="c_ad_block"><b>历史上的今天:</b><br>2016-01-21 <a href="http://www.cnblogs.com/Leo_wl/p/5148212.html">自动生成在线文档</a><br>2016-01-21 <a href="http://www.cnblogs.com/Leo_wl/p/5148092.html">模板引擎mustache.js</a><br>2015-01-21 <a href="http://www.cnblogs.com/Leo_wl/p/4240401.html">grunt的基本概念和使用</a><br>2015-01-21 <a href="http://www.cnblogs.com/Leo_wl/p/4240394.html">.NET开源项目 TOP 25</a><br>2015-01-21 <a href="http://www.cnblogs.com/Leo_wl/p/4240390.html">JavaScript插件化开发</a><br>2015-01-21 <a href="http://www.cnblogs.com/Leo_wl/p/4240383.html">sp.Net MVC4 + Oracle + EasyUI + Bootstrap2</a><br>2015-01-21 <a href="http://www.cnblogs.com/Leo_wl/p/4240375.html">nodejs开发aspnet5项目</a><br>2015-01-21 <a href="http://www.cnblogs.com/Leo_wl/p/4240369.html">存储的瓶颈1</a><br>2015-01-21 <a href="http://www.cnblogs.com/Leo_wl/p/4238209.html">持续集成及部署利器:Go</a><br>2014-01-21 <a href="http://www.cnblogs.com/Leo_wl/p/3528969.html">ASP.NET MVC 5 -从控制器访问数据模型</a><br>2014-01-21 <a href="http://www.cnblogs.com/Leo_wl/p/3528962.html">随机数的算法</a><br>2014-01-21 <a href="http://www.cnblogs.com/Leo_wl/p/3528954.html">c#拷贝</a><br>2014-01-21 <a href="http://www.cnblogs.com/Leo_wl/p/3528947.html">MVC UnitOfWork EntityFramework架构</a><br>2014-01-21 <a href="http://www.cnblogs.com/Leo_wl/p/3528935.html">Knockout, Web API 和 ASP.Net Web Forms 进行简单数据绑定</a><br>2014-01-21 <a href="http://www.cnblogs.com/Leo_wl/p/3528940.html">在Linux使用GCC编译C语言共享库</a><br>2014-01-21 <a href="http://www.cnblogs.com/Leo_wl/p/3528929.html">工厂方法（Factory Method）模式</a><br>2014-01-21 <a href="http://www.cnblogs.com/Leo_wl/p/3528925.html">Web Api中实现Http方法(Put,Post,Delete)</a><br>2014-01-21 <a href="http://www.cnblogs.com/Leo_wl/p/3528916.html">linux下监控进程需掌握的四个命令</a><br>2014-01-21 <a href="http://www.cnblogs.com/Leo_wl/p/3528906.html">大数据和Hadoop生态圈</a><br>2013-01-21 <a href="http://www.cnblogs.com/Leo_wl/archive/2013/01/21/2870567.html">运行page页面时的事件执行顺序</a><br>2013-01-21 <a href="http://www.cnblogs.com/Leo_wl/archive/2013/01/21/2870566.html">C#cookie自动获取工具发布</a><br>2013-01-21 <a href="http://www.cnblogs.com/Leo_wl/archive/2013/01/21/2870563.html">Windows Azure: Service Bus Queues 入门</a><br>2013-01-21 <a href="http://www.cnblogs.com/Leo_wl/archive/2013/01/21/2870560.html">学习OpenWebkitSharp</a><br>2013-01-21 <a href="http://www.cnblogs.com/Leo_wl/archive/2013/01/21/2870558.html">HTTP权威指南读书</a><br>2013-01-21 <a href="http://www.cnblogs.com/Leo_wl/archive/2013/01/21/2870554.html">并发基础（Runnable、Thread、Executor）</a><br>2013-01-21 <a href="http://www.cnblogs.com/Leo_wl/archive/2013/01/21/2870553.html">扩展方法</a><br>2013-01-21 <a href="http://www.cnblogs.com/Leo_wl/archive/2013/01/21/2870549.html">(译) Facebook工程师2012年小创意合集</a><br>2013-01-21 <a href="http://www.cnblogs.com/Leo_wl/archive/2013/01/21/2870548.html">WPF消息队列示例——结合项目经验</a><br>2013-01-21 <a href="http://www.cnblogs.com/Leo_wl/archive/2013/01/21/2870546.html">iOS开发那些事--编写OCUnit测试方法-应用测试方法</a><br>2013-01-21 <a href="http://www.cnblogs.com/Leo_wl/archive/2013/01/21/2870543.html">三层+临时表存储过程+巧用json+贱招图片加载+无刷新分页</a><br>2013-01-21 <a href="http://www.cnblogs.com/Leo_wl/archive/2013/01/21/2870542.html">详解Menu菜单</a><br>2013-01-21 <a href="http://www.cnblogs.com/Leo_wl/archive/2013/01/21/2870493.html">python 通过thrift 简单操作hbase</a><br>2013-01-21 <a href="http://www.cnblogs.com/Leo_wl/archive/2013/01/21/2870487.html">VS2012打包部署Winform程序</a><br>2013-01-21 <a href="http://www.cnblogs.com/Leo_wl/archive/2013/01/21/2869989.html">结对编程实践</a><br>2013-01-21 <a href="http://www.cnblogs.com/Leo_wl/archive/2013/01/21/2869671.html">实现SSO的一个初步想法</a><br>2013-01-21 <a href="http://www.cnblogs.com/Leo_wl/archive/2013/01/21/2869665.html">ARP协议与RARP协议</a><br>2013-01-21 <a href="http://www.cnblogs.com/Leo_wl/archive/2013/01/21/2869662.html">.NET平台下互操作性介绍</a><br>2013-01-21 <a href="http://www.cnblogs.com/Leo_wl/archive/2013/01/21/2869660.html">使用平台调用调用Win32 函数</a><br>2013-01-21 <a href="http://www.cnblogs.com/Leo_wl/archive/2013/01/21/2869656.html">开始使用THREE.JS</a><br>2013-01-21 <a href="http://www.cnblogs.com/Leo_wl/archive/2013/01/21/2869635.html">BizTalk 2013 Beta 新特性介绍</a><br>2013-01-21 <a href="http://www.cnblogs.com/Leo_wl/archive/2013/01/21/2869630.html">URL过滤</a><br>2013-01-21 <a href="http://www.cnblogs.com/Leo_wl/archive/2013/01/21/2869632.html">MVC 3</a><br>2010-01-21 <a href="http://www.cnblogs.com/Leo_wl/archive/2010/01/21/1653448.html">ASP.NET 2.0 多文件上传小经验</a><br></div>
+<script type="text/javascript">
+    fixPostBody();
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverAdT2();
+    deliverAdC1();
+    deliverAdC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);   
+</script>
+</div>
+
+
+	
+<div class="footer">
+	Powered by: 
+	<br>
+	
+	<a id="Footer1_Hyperlink3" name="Hyperlink1" href="http://www.cnblogs.com/" style="font-family:Verdana;font-size:12px;">博客园</a>
+	<br>
+	Copyright © HackerVirus
+</div>
+</div>
+<div id="rightcontent">
+	
+		<div id="blog_stats">
+<h1 class="listtitle">统计</h1>
+<ul class="list">
+		<li class="listitem">随笔 - 16159
+		</li><li class="listitem">文章 - 25
+		</li><li class="listitem">评论 - 1396
+		</li><li class="listitem">引用 - 0
+	</li>
+</ul></div>
+		<div id="sidebar_categories">
+		<h1 class="listtitle">我的好友</h1>
+		
+				<ul class="list">
+			
+				<li class="listitem"><a id="CategoryDisplay1_Categories_CatList_LinkList_0_Link_0" class="listitem" href="http://www.cnblogs.com/artech/" rel="nofollow">Artech</a> </li>
+			
+				<li class="listitem"><a id="CategoryDisplay1_Categories_CatList_LinkList_0_Link_1" class="listitem" href="http://www.cnblogs.com/team/aspnet/" rel="nofollow">asp.net</a> </li>
+			
+				<li class="listitem"><a id="CategoryDisplay1_Categories_CatList_LinkList_0_Link_2" class="listitem" href="http://banq.jdon.com/" rel="nofollow">Banq</a> </li>
+			
+				<li class="listitem"><a id="CategoryDisplay1_Categories_CatList_LinkList_0_Link_3" class="listitem" href="http://www.cnblogs.com/DotNetNuke/archive" rel="nofollow">DNN</a> </li>
+			
+				<li class="listitem"><a id="CategoryDisplay1_Categories_CatList_LinkList_0_Link_4" class="listitem" href="http://www.domaindrivendesign.org/" rel="nofollow">Domain Driven Design</a> </li>
+			
+				<li class="listitem"><a id="CategoryDisplay1_Categories_CatList_LinkList_0_Link_5" class="listitem" href="http://hacker2012.cnblogs.com/" rel="nofollow">hacker2012</a> </li>
+			
+				<li class="listitem"><a id="CategoryDisplay1_Categories_CatList_LinkList_0_Link_6" class="listitem" href="http://www.infoworld.com/" rel="nofollow">infoworld</a> </li>
+			
+				<li class="listitem"><a id="CategoryDisplay1_Categories_CatList_LinkList_0_Link_7" class="listitem" href="http://www.cnblogs.com/Jax/" rel="nofollow">Jianqiang Bao</a> </li>
+			
+				<li class="listitem"><a id="CategoryDisplay1_Categories_CatList_LinkList_0_Link_8" class="listitem" href="http://www.cnblogs.com/jv9/" rel="nofollow">jv9</a> </li>
+			
+				<li class="listitem"><a id="CategoryDisplay1_Categories_CatList_LinkList_0_Link_9" class="listitem" href="http://weblogs.asp.net/manavi/default.aspx" rel="nofollow">Manavi</a> </li>
+			
+				<li class="listitem"><a id="CategoryDisplay1_Categories_CatList_LinkList_0_Link_10" class="listitem" href="http://martinfowler.com/" rel="nofollow">Martin Fowler</a> </li>
+			
+				<li class="listitem"><a id="CategoryDisplay1_Categories_CatList_LinkList_0_Link_11" class="listitem" href="http://mosesofegypt.net/" rel="nofollow">Muhammad Mosa</a> </li>
+			
+				<li class="listitem"><a id="CategoryDisplay1_Categories_CatList_LinkList_0_Link_12" class="listitem" href="http://www.cnblogs.com/team/mvp/" rel="nofollow">MVP</a> </li>
+			
+				<li class="listitem"><a id="CategoryDisplay1_Categories_CatList_LinkList_0_Link_13" class="listitem" href="http://www.programmer.com.cn/" rel="nofollow">programmer</a> </li>
+			
+				<li class="listitem"><a id="CategoryDisplay1_Categories_CatList_LinkList_0_Link_14" class="listitem" href="http://weblogs.asp.net/scottgu" rel="nofollow">ScottGu博客[英文]</a> </li>
+			
+				<li class="listitem"><a id="CategoryDisplay1_Categories_CatList_LinkList_0_Link_15" class="listitem" href="http://blog.joycode.com/scottgu/" rel="nofollow">ScottGu博客[中文]</a> </li>
+			
+				<li class="listitem"><a id="CategoryDisplay1_Categories_CatList_LinkList_0_Link_16" class="listitem" href="http://www.sqlmag.com/" rel="nofollow">sql mag</a> </li>
+			
+				<li class="listitem"><a id="CategoryDisplay1_Categories_CatList_LinkList_0_Link_17" class="listitem" href="http://www.cnblogs.com/team/wcfs/" rel="nofollow">wcf</a> </li>
+			
+				<li class="listitem"><a id="CategoryDisplay1_Categories_CatList_LinkList_0_Link_18" class="listitem" href="http://www.cnblogs.com/ajiefj/" rel="nofollow">阿捷</a> </li>
+			
+				<li class="listitem"><a id="CategoryDisplay1_Categories_CatList_LinkList_0_Link_19" class="listitem" href="http://dbanotes.net/" rel="nofollow">冯大辉</a> </li>
+			
+				<li class="listitem"><a id="CategoryDisplay1_Categories_CatList_LinkList_0_Link_20" class="listitem" href="http://www.cnblogs.com/houbowei/" rel="nofollow">侯伯薇</a> </li>
+			
+				<li class="listitem"><a id="CategoryDisplay1_Categories_CatList_LinkList_0_Link_21" class="listitem" href="http://www.cnblogs.com/jirigala/" rel="nofollow">吉日嘎拉</a> </li>
+			
+				<li class="listitem"><a id="CategoryDisplay1_Categories_CatList_LinkList_0_Link_22" class="listitem" href="http://home.cnblogs.com/ltp/" rel="nofollow">李天平</a> </li>
+			
+				<li class="listitem"><a id="CategoryDisplay1_Categories_CatList_LinkList_0_Link_23" class="listitem" href="http://www.cnblogs.com/lyj/" rel="nofollow">李永京</a> </li>
+			
+				<li class="listitem"><a id="CategoryDisplay1_Categories_CatList_LinkList_0_Link_24" class="listitem" href="http://www.cnblogs.com/ywqu/" rel="nofollow">灵动生活</a> </li>
+			
+				<li class="listitem"><a id="CategoryDisplay1_Categories_CatList_LinkList_0_Link_25" class="listitem" href="http://www.cnblogs.com/prism/" rel="nofollow">刘铁猛</a> </li>
+			
+				<li class="listitem"><a id="CategoryDisplay1_Categories_CatList_LinkList_0_Link_26" class="listitem" href="http://www.cyqdata.com/" rel="nofollow">秋色园</a> </li>
+			
+				<li class="listitem"><a id="CategoryDisplay1_Categories_CatList_LinkList_0_Link_27" class="listitem" href="http://www.cnblogs.com/KnightsWarrior/" rel="nofollow">圣殿骑士</a> </li>
+			
+				<li class="listitem"><a id="CategoryDisplay1_Categories_CatList_LinkList_0_Link_28" class="listitem" href="http://www.cnblogs.com/turingbooks/archive/2011/04/01/2001926.html">图灵书籍</a> </li>
+			
+				<li class="listitem"><a id="CategoryDisplay1_Categories_CatList_LinkList_0_Link_29" class="listitem" href="http://social.microsoft.com/Forums/zh-CN/categories" rel="nofollow">微软论坛</a> </li>
+			
+				<li class="listitem"><a id="CategoryDisplay1_Categories_CatList_LinkList_0_Link_30" class="listitem" href="http://www.cnblogs.com/cj723/" rel="nofollow">伍迷</a> </li>
+			
+				<li class="listitem"><a id="CategoryDisplay1_Categories_CatList_LinkList_0_Link_31" class="listitem" href="http://www.cnblogs.com/yanyangtian/" rel="nofollow">小洋（燕洋天)</a> </li>
+			
+				<li class="listitem"><a id="CategoryDisplay1_Categories_CatList_LinkList_0_Link_32" class="listitem" href="http://www.cnblogs.com/ups216/" rel="nofollow">徐磊</a> </li>
+			
+				<li class="listitem"><a id="CategoryDisplay1_Categories_CatList_LinkList_0_Link_33" class="listitem" href="http://www.cnblogs.com/SkyD/archive/2011/02/01/1948785.html">徐明璐</a> </li>
+			
+				<li class="listitem"><a id="CategoryDisplay1_Categories_CatList_LinkList_0_Link_34" class="listitem" href="http://www.cnblogs.com/wayfarer/" rel="nofollow">张逸</a> </li>
+			
+				<li class="listitem"><a id="CategoryDisplay1_Categories_CatList_LinkList_0_Link_35" class="listitem" href="http://blog.zhaojie.me/" rel="nofollow">赵劼 Jeffrey Zhao</a> </li>
+			
+				<li class="listitem"><a id="CategoryDisplay1_Categories_CatList_LinkList_0_Link_36" class="listitem" href="http://www.cnblogs.com/zhoujg/" rel="nofollow">周 金根</a> </li>
+			
+				<li class="listitem"><a id="CategoryDisplay1_Categories_CatList_LinkList_0_Link_37" class="listitem" href="http://www.cnblogs.com/xuefeng1982/" rel="nofollow">周雪峰</a> </li>
+			
+				<li class="listitem"><a id="CategoryDisplay1_Categories_CatList_LinkList_0_Link_38" class="listitem" href="http://www.cnblogs.com/zhouyinhui/" rel="nofollow">周银辉</a> </li>
+			
+				</ul>
+			
+	
+</div>
+
+	
+</div>
+
+
+<!--PageEndHtml Block Begin-->
+<!--评论，生成气泡效果标签代码-->
+
+<!--PageEndHtml Block End-->
+
+
+</body></html>

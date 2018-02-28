@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<!-- saved from url=(0051)https://www.cnblogs.com/yaohonv/p/swipecaptcha.html -->
+<html lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="same-origin">
+<title>一步步实现滑动验证码（拼图验证码），Java图片处理关键代码 - echov - 博客园</title>
+<link type="text/css" rel="stylesheet" href="./一步步实现滑动验证码（拼图验证码），Java图片处理关键代码 - echov - 博客园_files/blog-common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="./一步步实现滑动验证码（拼图验证码），Java图片处理关键代码 - echov - 博客园_files/bundle-SimpleMemory.css">
+<link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="./一步步实现滑动验证码（拼图验证码），Java图片处理关键代码 - echov - 博客园_files/bundle-SimpleMemory-mobile.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/yaohonv/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/yaohonv/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/yaohonv/wlwmanifest.xml">
+<script async="" src="./一步步实现滑动验证码（拼图验证码），Java图片处理关键代码 - echov - 博客园_files/analytics.js.下载"></script><script type="text/javascript" src="./一步步实现滑动验证码（拼图验证码），Java图片处理关键代码 - echov - 博客园_files/encoder.js.下载"></script><script src="./一步步实现滑动验证码（拼图验证码），Java图片处理关键代码 - echov - 博客园_files/jquery-2.2.0.min.js.下载"></script>
+<script type="text/javascript">var currentBlogApp = 'yaohonv', cb_enable_mathjax=false;var isLogined=false;</script>
+<script src="./一步步实现滑动验证码（拼图验证码），Java图片处理关键代码 - echov - 博客园_files/blog-common.js.下载" type="text/javascript"></script>
+</head>
+<body>
+<a name="top"></a>
+
+<!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+	<a id="lnkBlogLogo" href="http://www.cnblogs.com/yaohonv/"><img id="blogLogo" src="./一步步实现滑动验证码（拼图验证码），Java图片处理关键代码 - echov - 博客园_files/logo.gif" alt="返回主页"></a>			
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/yaohonv/">echov</a></h1>
+<h2>学而不思则罔，思而不学则殆</h2>
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li><a id="blog_nav_sitehome" class="menu" href="http://www.cnblogs.com/">博客园</a></li>
+<li><a id="blog_nav_myhome" class="menu" href="http://www.cnblogs.com/yaohonv/">首页</a></li>
+<li><a id="blog_nav_newpost" class="menu" rel="nofollow" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a></li>
+<li><a id="blog_nav_contact" class="menu" rel="nofollow" href="https://msg.cnblogs.com/send/echov">联系</a></li>
+<li><a id="blog_nav_rss" class="menu" href="http://www.cnblogs.com/yaohonv/rss">订阅</a>
+<!--<a id="blog_nav_rss_image" class="aHeaderXML" href="http://www.cnblogs.com/yaohonv/rss"><img src="//www.cnblogs.com/images/xml.gif" alt="订阅" /></a>--></li>
+<li><a id="blog_nav_admin" class="menu" rel="nofollow" href="https://i.cnblogs.com/">管理</a></li>
+</ul>
+		<div class="blogStats">
+			
+			<div id="blog_stats">
+<span id="stats_post_count">随笔 - 39&nbsp; </span>
+<span id="stats_article_count">文章 - 0&nbsp; </span>
+<span id="stats-comment_count">评论 - 7</span>
+</div>
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		
+<div id="post_detail">
+<!--done-->
+<div id="topics">
+	<div class="post">
+		<h1 class="postTitle">
+			<a id="cb_post_title_url" class="postTitle2" href="http://www.cnblogs.com/yaohonv/p/swipecaptcha.html">一步步实现滑动验证码（拼图验证码），Java图片处理关键代码</a>
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			<div id="cnblogs_post_body" class="blogpost-body"><p>　　最近滑动验证码在很多网站逐步流行起来，一方面对用户体验来说，比较新颖，操作简单，另一方面相对图形验证码来说，安全性并没有很大的降低。当然到目前为止，没有绝对的安全验证，只是不断增加攻击者的绕过成本。</p>
+<p>&nbsp; &nbsp; &nbsp;&nbsp;接下来分析下滑动验证码的核心流程：</p>
+<ol>
+<li>后端随机生成抠图和带有抠图阴影的背景图片，后台保存随机抠图位置坐标</li>
+<li>前端实现滑动交互，将抠图拼在抠图阴影之上，获取到用户滑动距离值，比如以下示例<img src="./一步步实现滑动验证码（拼图验证码），Java图片处理关键代码 - echov - 博客园_files/191520_98Ci_251057.png" alt="" width="826" height="802"></li>
+<li>前端将用户滑动距离值传入后端，后端校验误差是否在容许范围内。</li>
+</ol>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; 这里单纯校验用户滑动距离是最基本的校验，出于更高的安全考虑，可能还会考虑用户滑动的整个轨迹，用户在当前页面的访问行为等。这些可以很复杂，甚至借助到用户行为数据分析模型，最终的目标都是增加非法的模拟和绕过的难度。这些有机会可以再归纳总结常用到的方法，本文重点集中在如何基于Java来一步步实现滑动验证码的生成。</p>
+<p>&nbsp; &nbsp; 可以看到，滑动图形验证码，重要有两个图片组成，抠块和带有抠块阴影的原图，这里面有两个重要特性保证被暴力破解的难度：抠块的形状随机和抠块所在原图的位置随机。这样就可以在有限的图集中制造出随机的、无规律可寻的抠图和原图的配对。</p>
+<p>&nbsp; &nbsp; 用代码如何从一张大图中抠出一个有特定随机形状的小图呢？</p>
+<p>&nbsp; &nbsp; 第一步，先确定一个抠出图的轮廓，方便后续真正开始执行图片处理操作</p>
+<p>&nbsp; &nbsp; 图片是有像素组成，每个像素点对应一种颜色，颜色可以用RGB形式表示，外加一个透明度，把一张图理解成一个平面图形，左上角为原点，向右x轴，向下y轴，一个坐标值对应该位置像素点的颜色，这样就可以把一张图转换成一个二维数组。基于这个考虑，轮廓也用二维数组来表示，轮廓内元素值为1，轮廓外元素值对应0。</p>
+<p>&nbsp; &nbsp; 这时候就要想这个轮廓形状怎么生成了。有坐标系、有矩形、有圆形，没错，用到数学的图形函数。典型用到一个圆的函数方程和矩形的边线的函数，类似：</p>
+<p>(x-a)²+(y-b)²=r²中，有三个参数a、b、r，即圆心坐标为(a，b)，半径r。这些将抠图放在上文描述的坐标系上很容易就图算出来具体的值。</p>
+<p>示例代码如下：</p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./一步步实现滑动验证码（拼图验证码），Java图片处理关键代码 - echov - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #0000ff;">private</span> <span style="color: #0000ff;">int</span><span style="color: #000000;">[][] getBlockData() {
+        </span><span style="color: #0000ff;">int</span>[][] data = <span style="color: #0000ff;">new</span> <span style="color: #0000ff;">int</span><span style="color: #000000;">[targetLength][targetWidth];
+        </span><span style="color: #0000ff;">double</span> x2 = targetLength-circleR-2<span style="color: #000000;">;
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">随机生成圆的位置</span>
+        <span style="color: #0000ff;">double</span> h1 = circleR + Math.random() * (targetWidth-3*circleR-<span style="color: #000000;">r1);
+        </span><span style="color: #0000ff;">double</span> po = circleR*<span style="color: #000000;">circleR;
+        
+        </span><span style="color: #0000ff;">double</span> xbegin = targetLength-circleR-<span style="color: #000000;">r1;
+        </span><span style="color: #0000ff;">double</span> ybegin = targetWidth-circleR-<span style="color: #000000;">r1;
+        
+        </span><span style="color: #0000ff;">for</span> (<span style="color: #0000ff;">int</span> i = 0; i &lt; targetLength; i++<span style="color: #000000;">) {
+            </span><span style="color: #0000ff;">for</span> (<span style="color: #0000ff;">int</span> j = 0; j &lt; targetWidth; j++<span style="color: #000000;">) {
+                </span><span style="color: #008000;">//</span><span style="color: #008000;">右边○</span>
+                <span style="color: #0000ff;">double</span> d3 = Math.pow(i - x2,2) + Math.pow(j - h1,2<span style="color: #000000;">);
+                
+                </span><span style="color: #0000ff;">if</span> (d1 &lt;=<span style="color: #000000;"> po
+                        </span>|| (j &gt;= ybegin &amp;&amp; d2 &gt;=<span style="color: #000000;"> po)
+                        </span>|| (i &gt;= xbegin &amp;&amp; d3 &gt;=<span style="color: #000000;"> po)
+                        ) {
+                    data[i][j] </span>= 0<span style="color: #000000;">;
+                    
+                }  </span><span style="color: #0000ff;">else</span><span style="color: #000000;"> {
+                    data[i][j] </span>= 1<span style="color: #000000;">;
+                }
+            }
+        }
+        </span><span style="color: #0000ff;">return</span><span style="color: #000000;"> data;
+    }</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./一步步实现滑动验证码（拼图验证码），Java图片处理关键代码 - echov - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp; &nbsp; 第二步，有这个轮廓后就可以依据这个二维数组的值来判定抠图并在原图上抠图位置处加阴影。</p>
+<p>&nbsp; &nbsp; 操作如下：</p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./一步步实现滑动验证码（拼图验证码），Java图片处理关键代码 - echov - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #0000ff;">private</span> <span style="color: #0000ff;">void</span> cutByTemplate(BufferedImage oriImage,BufferedImage targetImage, <span style="color: #0000ff;">int</span>[][] templateImage, <span style="color: #0000ff;">int</span><span style="color: #000000;"> x,
+            </span><span style="color: #0000ff;">int</span><span style="color: #000000;"> y){
+        </span><span style="color: #0000ff;">for</span> (<span style="color: #0000ff;">int</span> i = 0; i &lt; targetLength; i++<span style="color: #000000;">) {
+            </span><span style="color: #0000ff;">for</span> (<span style="color: #0000ff;">int</span> j = 0; j &lt; targetWidth; j++<span style="color: #000000;">) {
+                </span><span style="color: #0000ff;">int</span> rgb =<span style="color: #000000;"> templateImage[i][j];
+                </span><span style="color: #008000;">//</span><span style="color: #008000;"> 原图中对应位置变色处理</span>
+                
+                <span style="color: #0000ff;">int</span> rgb_ori = oriImage.getRGB(x + i, y +<span style="color: #000000;"> j);
+                
+                </span><span style="color: #0000ff;">if</span> (rgb == 1<span style="color: #000000;">) {
+                    </span><span style="color: #008000;">//</span><span style="color: #008000;">抠图上复制对应颜色值</span>
+                    targetImage.setRGB(i, y +<span style="color: #000000;"> j, rgb_ori);
+                    </span><span style="color: #0000ff;">int</span> r = (0xff &amp;<span style="color: #000000;"> rgb_ori);
+                    </span><span style="color: #0000ff;">int</span> g = (0xff &amp; (rgb_ori &gt;&gt; 8<span style="color: #000000;">));
+                    </span><span style="color: #0000ff;">int</span> b = (0xff &amp; (rgb_ori &gt;&gt; 16<span style="color: #000000;">)));
+                    rgb_ori </span>= r + (g &lt;&lt; 8) + (b &lt;&lt; 16) + (200 &lt;&lt; 24<span style="color: #000000;">);
+                    </span><span style="color: #008000;">//</span><span style="color: #008000;">原图对应位置颜色变化</span>
+                    oriImage.setRGB(x + i, y +<span style="color: #000000;"> j, rgb_ori);
+                } 
+            }
+        }
+    }</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./一步步实现滑动验证码（拼图验证码），Java图片处理关键代码 - echov - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>&nbsp;</p>
+<p>&nbsp; &nbsp; 经过前面两步后，就得到了抠图和带抠图阴影的原图。为增加混淆和提高网络加载效果，还需要对图片做进一步处理。一般有两件事需要做，一对图片做模糊处理增加机器识别难度，二做适当同质量压缩。模糊处理很容易想到高斯模糊，原理很好理解，大家可以去google了解下。具体到Java里面的实现，有很多版本，现在不借助任何第三方jar，提供一个示例：</p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./一步步实现滑动验证码（拼图验证码），Java图片处理关键代码 - echov - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> ConvolveOp getGaussianBlurFilter(<span style="color: #0000ff;">int</span><span style="color: #000000;"> radius,
+            </span><span style="color: #0000ff;">boolean</span><span style="color: #000000;"> horizontal) {
+        </span><span style="color: #0000ff;">if</span> (radius &lt; 1<span style="color: #000000;">) {
+            </span><span style="color: #0000ff;">throw</span> <span style="color: #0000ff;">new</span> IllegalArgumentException("Radius must be &gt;= 1"<span style="color: #000000;">);
+        }
+        
+        </span><span style="color: #0000ff;">int</span> size = radius * 2 + 1<span style="color: #000000;">;
+        </span><span style="color: #0000ff;">float</span>[] data = <span style="color: #0000ff;">new</span> <span style="color: #0000ff;">float</span><span style="color: #000000;">[size];
+        
+        </span><span style="color: #0000ff;">float</span> sigma = radius / 3.0f<span style="color: #000000;">;
+        </span><span style="color: #0000ff;">float</span> twoSigmaSquare = 2.0f * sigma *<span style="color: #000000;"> sigma;
+        </span><span style="color: #0000ff;">float</span> sigmaRoot = (<span style="color: #0000ff;">float</span>) Math.sqrt(twoSigmaSquare *<span style="color: #000000;"> Math.PI);
+        </span><span style="color: #0000ff;">float</span> total = 0.0f<span style="color: #000000;">;
+        
+        </span><span style="color: #0000ff;">for</span> (<span style="color: #0000ff;">int</span> i = -radius; i &lt;= radius; i++<span style="color: #000000;">) {
+            </span><span style="color: #0000ff;">float</span> distance = i *<span style="color: #000000;"> i;
+            </span><span style="color: #0000ff;">int</span> index = i +<span style="color: #000000;"> radius;
+            data[index] </span>= (<span style="color: #0000ff;">float</span>) Math.exp(-distance / twoSigmaSquare) /<span style="color: #000000;"> sigmaRoot;
+            total </span>+=<span style="color: #000000;"> data[index];
+        }
+        
+        </span><span style="color: #0000ff;">for</span> (<span style="color: #0000ff;">int</span> i = 0; i &lt; data.length; i++<span style="color: #000000;">) {
+            data[i] </span>/=<span style="color: #000000;"> total;
+        }        
+        
+        Kernel kernel </span>= <span style="color: #0000ff;">null</span><span style="color: #000000;">;
+        </span><span style="color: #0000ff;">if</span><span style="color: #000000;"> (horizontal) {
+            kernel </span>= <span style="color: #0000ff;">new</span> Kernel(size, 1<span style="color: #000000;">, data);
+        } </span><span style="color: #0000ff;">else</span><span style="color: #000000;"> {
+            kernel </span>= <span style="color: #0000ff;">new</span> Kernel(1<span style="color: #000000;">, size, data);
+        }
+        </span><span style="color: #0000ff;">return</span> <span style="color: #0000ff;">new</span> ConvolveOp(kernel, ConvolveOp.EDGE_NO_OP, <span style="color: #0000ff;">null</span><span style="color: #000000;">);
+    }
+
+</span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> simpleBlur(BufferedImage src,BufferedImage dest) {
+            BufferedImageOp op </span>= getGaussianBlurFilter(2,<span style="color: #0000ff;">false</span><span style="color: #000000;">);
+            op.filter(src, dest);
+    }</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./一步步实现滑动验证码（拼图验证码），Java图片处理关键代码 - echov - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>&nbsp;</p>
+<p>&nbsp; &nbsp; 经测试模糊效果很不错。另外是图片压缩，也不借助任何第三方工具，做同质压缩。</p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./一步步实现滑动验证码（拼图验证码），Java图片处理关键代码 - echov - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #008080;"> 1</span> <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">byte</span>[] fromBufferedImage2(BufferedImage img,String imagType) <span style="color: #0000ff;">throws</span><span style="color: #000000;"> IOException {
+</span><span style="color: #008080;"> 2</span> <span style="color: #000000;">        bos.reset();
+</span><span style="color: #008080;"> 3</span>         <span style="color: #008000;">//</span><span style="color: #008000;"> 得到指定Format图片的writer</span>
+<span style="color: #008080;"> 4</span>         Iterator&lt;ImageWriter&gt; iter =<span style="color: #000000;"> ImageIO.getImageWritersByFormatName(imagType);
+</span><span style="color: #008080;"> 5</span>         ImageWriter writer =<span style="color: #000000;"> (ImageWriter) iter.next(); 
+</span><span style="color: #008080;"> 6</span> 
+<span style="color: #008080;"> 7</span>         <span style="color: #008000;">//</span><span style="color: #008000;"> 得到指定writer的输出参数设置(ImageWriteParam )</span>
+<span style="color: #008080;"> 8</span>         ImageWriteParam iwp =<span style="color: #000000;"> writer.getDefaultWriteParam();
+</span><span style="color: #008080;"> 9</span>         iwp.setCompressionMode(ImageWriteParam.MODE_EXPLICIT); <span style="color: #008000;">//</span><span style="color: #008000;"> 设置可否压缩</span>
+<span style="color: #008080;">10</span>         iwp.setCompressionQuality(1f); <span style="color: #008000;">//</span><span style="color: #008000;"> 设置压缩质量参数</span>
+<span style="color: #008080;">11</span> 
+<span style="color: #008080;">12</span> <span style="color: #000000;">        iwp.setProgressiveMode(ImageWriteParam.MODE_DISABLED);
+</span><span style="color: #008080;">13</span> 
+<span style="color: #008080;">14</span>         ColorModel colorModel =<span style="color: #000000;"> ColorModel.getRGBdefault();
+</span><span style="color: #008080;">15</span>         <span style="color: #008000;">//</span><span style="color: #008000;"> 指定压缩时使用的色彩模式</span>
+<span style="color: #008080;">16</span>         iwp.setDestinationType(<span style="color: #0000ff;">new</span><span style="color: #000000;"> javax.imageio.ImageTypeSpecifier(colorModel,
+</span><span style="color: #008080;">17</span>         colorModel.createCompatibleSampleModel(16, 16<span style="color: #000000;">)));
+</span><span style="color: #008080;">18</span>         
+<span style="color: #008080;">19</span> <span style="color: #000000;">        writer.setOutput(ImageIO
+</span><span style="color: #008080;">20</span> <span style="color: #000000;">        .createImageOutputStream(bos));
+</span><span style="color: #008080;">21</span>         IIOImage iIamge = <span style="color: #0000ff;">new</span> IIOImage(img, <span style="color: #0000ff;">null</span>, <span style="color: #0000ff;">null</span><span style="color: #000000;">);
+</span><span style="color: #008080;">22</span>         writer.write(<span style="color: #0000ff;">null</span><span style="color: #000000;">, iIamge, iwp);
+</span><span style="color: #008080;">23</span>         
+<span style="color: #008080;">24</span>         <span style="color: #0000ff;">byte</span>[] d =<span style="color: #000000;"> bos.toByteArray();
+</span><span style="color: #008080;">25</span>         <span style="color: #0000ff;">return</span><span style="color: #000000;"> d;
+</span><span style="color: #008080;">26</span>     }</pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./一步步实现滑动验证码（拼图验证码），Java图片处理关键代码 - echov - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>&nbsp;</p>
+<p>&nbsp; &nbsp; 至此，滑动验证码核心的代码处理流程已全部结束，这里面有很多细节可以不断打磨优化，让滑动体验可以变得更好。希望可以帮助到某些准备自己构建滑动验证码的同学。</p>
+<p>&nbsp; &nbsp; 以上代码实现都非常的精炼，一方面为了保证性能，另一方面好理解。另外由于各方面原因也不便引入过多细节，如果疑问，可留言交流。经测试，该生成滑动图形的流程响应时间可以控制在20ms左右，如果原图分辨率在300px*150px以下，可以到10ms左右，在可接受范围内。如果有更高效的方式，希望多多指教。</p>
+<p>&nbsp;</p>
+<p>https://my.oschina.net/yaohonv/blog/1604185</p></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory">分类: <a href="http://www.cnblogs.com/yaohonv/category/352101.html" target="_blank">J2SE</a></div>
+<div id="EntryTag">标签: <a href="http://www.cnblogs.com/yaohonv/tag/%E6%BB%91%E5%8A%A8%E9%AA%8C%E8%AF%81%E7%A0%81%20Java%20%E5%AE%89%E5%85%A8%E9%AA%8C%E8%AF%81%20%E9%98%B2%E5%88%B7%20%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/">滑动验证码 Java 安全验证 防刷 实现原理</a></div>
+<div id="blog_post_info"><div id="green_channel">
+        <a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(8245526,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+            <a id="green_channel_follow" onclick="follow(&#39;c56b4809-fe4e-e111-aa3f-842b2b196315&#39;);" href="javascript:void(0);">关注我</a>
+    <a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a>
+    <a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./一步步实现滑动验证码（拼图验证码），Java图片处理关键代码 - echov - 博客园_files/icon_weibo_24.png" alt=""></a>
+    <a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="./一步步实现滑动验证码（拼图验证码），Java图片处理关键代码 - echov - 博客园_files/wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+    <div id="author_profile_info" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/yaohonv/" target="_blank"><img src="./一步步实现滑动验证码（拼图验证码），Java图片处理关键代码 - echov - 博客园_files/sample_face.gif" class="author_avatar" alt=""></a>
+        <div id="author_profile_detail" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/yaohonv/">echov</a><br>
+            <a href="http://home.cnblogs.com/u/yaohonv/followees">关注 - 1</a><br>
+            <a href="http://home.cnblogs.com/u/yaohonv/followers">粉丝 - 4</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div id="author_profile_honor"></div>
+    <div id="author_profile_follow">
+                <a href="javascript:void(0);" onclick="follow(&#39;c56b4809-fe4e-e111-aa3f-842b2b196315&#39;);return false;">+加关注</a>
+    </div>
+</div>
+<div id="div_digg">
+    <div class="diggit" onclick="votePost(8245526,&#39;Digg&#39;)">
+        <span class="diggnum" id="digg_count">2</span>
+    </div>
+    <div class="buryit" onclick="votePost(8245526,&#39;Bury&#39;)">
+        <span class="burynum" id="bury_count">0</span>
+    </div>
+    <div class="clear"></div>
+    <div class="diggword" id="digg_tips">
+    </div>
+</div>
+<script type="text/javascript">
+    currentDiggType = 0;
+</script></div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/yaohonv/p/7483732.html" class="p_n_p_prefix">« </a> 上一篇：<a href="http://www.cnblogs.com/yaohonv/p/7483732.html" title="发布于2017-09-06 11:17">dubbo filter链构建过程</a><br><a href="http://www.cnblogs.com/yaohonv/p/java_exception.html" class="p_n_p_prefix">» </a> 下一篇：<a href="http://www.cnblogs.com/yaohonv/p/java_exception.html" title="发布于2018-01-09 13:00">Java异常的正确使用姿势</a><br></div>
+</div>
+
+
+		</div>
+		<div class="postDesc">posted @ <span id="post-date">2018-01-08 23:22</span> <a href="http://www.cnblogs.com/yaohonv/">echov</a> 阅读(<span id="post_view_count">163</span>) 评论(<span id="post_comment_count">1</span>)  <a href="https://i.cnblogs.com/EditPosts.aspx?postid=8245526" rel="nofollow">编辑</a> <a href="https://www.cnblogs.com/yaohonv/p/swipecaptcha.html#" onclick="AddToWz(8245526);return false;">收藏</a></div>
+	</div>
+	<script type="text/javascript">var allowComments=true,cb_blogId=107835,cb_entryId=8245526,cb_blogApp=currentBlogApp,cb_blogUserGuid='c56b4809-fe4e-e111-aa3f-842b2b196315',cb_entryCreatedDate='2018/1/8 23:22:00';loadViewCount(cb_entryId);var cb_postType=1;</script>
+	
+</div><!--end: topics 文章、评论容器-->
+</div><a name="!comments"></a><div id="blog-comments-placeholder"><div id="comments_pager_top"></div>
+<br>
+<div class="feedback_area_title">评论列表</div>
+<div class="feedbackNoItems"></div>	
+
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="https://www.cnblogs.com/yaohonv/p/swipecaptcha.html#3885121" class="layer">#1楼</a><a name="3885121" id="comment_anchor_3885121"></a><span id="comment-maxId" style="display:none;">3885121</span><span id="comment-maxDate" style="display:none;">2018/1/9 13:16:12</span>  <span class="comment_date">2018-01-09 13:16</span> <a id="a_comment_author_3885121" href="http://www.cnblogs.com/lvcao2099/" target="_blank">webaspx</a> <a href="http://msg.cnblogs.com/send/webaspx" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3885121" class="blog_comment_body">不错，mark下</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3885121,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3885121,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3885121_avatar" style="display:none;">http://pic.cnblogs.com/face/u46907.jpg</span>
+			</div>
+		</div>
+	<div id="comments_pager_bottom"></div></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="https://www.cnblogs.com/yaohonv/p/swipecaptcha.html#" onclick="return RefreshPage();">刷新页面</a><a href="https://www.cnblogs.com/yaohonv/p/swipecaptcha.html#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login(&#39;commentform&#39;);">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="ad_t2"><a href="http://www.ucancode.com/index.htm" target="_blank">【推荐】超50万VC++源码: 大型工控、组态\仿真、建模CAD源码2018！</a><br><a href="https://cloud.tencent.com/developer/support-plan?fromSource=gwzcw.710852.710852.710852" target="_blank">【推荐】加入腾讯云自媒体扶持计划，免费领取域名&amp;服务器</a><br></div>
+<div id="opt_under_post"></div>
+<div id="cnblogs_c1" class="c_ad_block"><a href="https://ke.qq.com/next/index.html?from=176158" target="_blank"><img width="300" height="250" src="./一步步实现滑动验证码（拼图验证码），Java图片处理关键代码 - echov - 博客园_files/24442-20180108123632644-2119592979.png" alt="ke0108"></a></div>
+<div id="under_post_news"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="https://news.cnblogs.com/n/586795/" target="_blank">NASA朱诺号发回的木星照片看起来像一幅令人惊艳的画作</a><br> ·  <a href="https://news.cnblogs.com/n/586803/" target="_blank">专访李楠：魅蓝为什么要用一块蓝色砖头辞旧迎新？</a><br> ·  <a href="https://news.cnblogs.com/n/586809/" target="_blank">腾讯旗下微保、蚂蚁金服被指违规经营保险业务</a><br> ·  <a href="https://news.cnblogs.com/n/586808/" target="_blank">又快又贱又失控？机器人教父预测AI未来32年历史进程</a><br> ·  <a href="https://news.cnblogs.com/n/586807/" target="_blank">万顺叫车平台疑点重重 运营模式或涉另类传销</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div></div>
+<div id="cnblogs_c2" class="c_ad_block"><a href="http://click.aliyun.com/m/34770/" target="_blank"><img width="468" height="60" src="./一步步实现滑动验证码（拼图验证码），Java图片处理关键代码 - echov - 博客园_files/24442-20171208101900738-116140477.jpg" alt="阿里云C2-1208"></a></div>
+<div id="under_post_kb"><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="http://kb.cnblogs.com/page/585502/" target="_blank">步入云计算</a><br> ·  <a href="http://kb.cnblogs.com/page/531409/" target="_blank">以操作系统的角度述说线程与进程</a><br> ·  <a href="http://kb.cnblogs.com/page/141729/" target="_blank">软件测试转型之路</a><br> ·  <a href="http://kb.cnblogs.com/page/177402/" target="_blank">门内门外看招聘</a><br> ·  <a href="http://kb.cnblogs.com/page/112506/" target="_blank">大道至简，职场上做人做事做管理</a><br></div>» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+    fixPostBody();
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverAdT2();
+    deliverAdC1();
+    deliverAdC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate, cb_postType);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);   
+</script>
+</div>
+
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<!--done-->
+<div class="newsItem">
+<h3 class="catListTitle">公告</h3>
+	<div id="blog-news"><div id="profile_block">昵称：<a href="https://home.cnblogs.com/u/yaohonv/">echov</a><br>园龄：<a href="https://home.cnblogs.com/u/yaohonv/" title="入园时间：2012-02-04">5年11个月</a><br>粉丝：<a href="https://home.cnblogs.com/u/yaohonv/followers/">4</a><br>关注：<a href="https://home.cnblogs.com/u/yaohonv/followees/">1</a><div id="p_b_follow"><a href="javascript:void(0);" onclick="follow(&#39;c56b4809-fe4e-e111-aa3f-842b2b196315&#39;)">+加关注</a></div><script>getFollowStatus('c56b4809-fe4e-e111-aa3f-842b2b196315')</script></div></div><script type="text/javascript">loadBlogNews();</script>
+</div>
+
+			<div id="blog-calendar" style=""><table id="blogCalendar" class="Cal" cellspacing="0" cellpadding="0" title="Calendar">
+	<tbody><tr><td colspan="7"><table class="CalTitle" cellspacing="0">
+		<tbody><tr><td class="CalNextPrev"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2017/12/01&#39;);return false;">&lt;</a></td><td align="center">2018年1月</td><td class="CalNextPrev" align="right"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2018/02/01&#39;);return false;">&gt;</a></td></tr>
+	</tbody></table></td></tr><tr><th class="CalDayHeader" align="center" abbr="日" scope="col">日</th><th class="CalDayHeader" align="center" abbr="一" scope="col">一</th><th class="CalDayHeader" align="center" abbr="二" scope="col">二</th><th class="CalDayHeader" align="center" abbr="三" scope="col">三</th><th class="CalDayHeader" align="center" abbr="四" scope="col">四</th><th class="CalDayHeader" align="center" abbr="五" scope="col">五</th><th class="CalDayHeader" align="center" abbr="六" scope="col">六</th></tr><tr><td class="CalOtherMonthDay" align="center">31</td><td align="center">1</td><td align="center">2</td><td align="center">3</td><td align="center">4</td><td align="center">5</td><td class="CalWeekendDay" align="center">6</td></tr><tr><td class="CalWeekendDay" align="center">7</td><td align="center"><a href="http://www.cnblogs.com/yaohonv/archive/2018/01/08.html"><u>8</u></a></td><td class="CalTodayDay" align="center"><a href="http://www.cnblogs.com/yaohonv/archive/2018/01/09.html"><u>9</u></a></td><td align="center">10</td><td align="center">11</td><td align="center">12</td><td class="CalWeekendDay" align="center">13</td></tr><tr><td class="CalWeekendDay" align="center">14</td><td align="center">15</td><td align="center">16</td><td align="center">17</td><td align="center">18</td><td align="center">19</td><td class="CalWeekendDay" align="center">20</td></tr><tr><td class="CalWeekendDay" align="center">21</td><td align="center">22</td><td align="center">23</td><td align="center">24</td><td align="center">25</td><td align="center">26</td><td class="CalWeekendDay" align="center">27</td></tr><tr><td class="CalWeekendDay" align="center">28</td><td align="center">29</td><td align="center">30</td><td align="center">31</td><td class="CalOtherMonthDay" align="center">1</td><td class="CalOtherMonthDay" align="center">2</td><td class="CalOtherMonthDay" align="center">3</td></tr><tr><td class="CalOtherMonthDay" align="center">4</td><td class="CalOtherMonthDay" align="center">5</td><td class="CalOtherMonthDay" align="center">6</td><td class="CalOtherMonthDay" align="center">7</td><td class="CalOtherMonthDay" align="center">8</td><td class="CalOtherMonthDay" align="center">9</td><td class="CalOtherMonthDay" align="center">10</td></tr>
+</tbody></table></div><script type="text/javascript">loadBlogDefaultCalendar();</script>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"><div id="sidebar_search" class="sidebar-block">
+<div id="sidebar_search" class="mySearch">
+<h3 class="catListTitle">搜索</h3>
+<div id="sidebar_search_box">
+<div id="widget_my_zzk" class="div_my_zzk"><input type="text" id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk">&nbsp;<input onclick="zzk_go()" type="button" value="找找看" id="btnZzk" class="btn_my_zzk"></div>
+<div id="widget_my_google" class="div_my_zzk"><input type="text" name="google_q" id="google_q" onkeydown="return google_go_enter(event)" class="input_my_zzk">&nbsp;<input onclick="google_go()" type="button" value="谷歌搜索" class="btn_my_zzk"></div>
+</div>
+</div>
+
+</div><div id="sidebar_shortcut" class="sidebar-block">
+<div class="catListLink">
+<h3 class="catListTitle">常用链接</h3>
+<ul>
+<li><a href="http://www.cnblogs.com/yaohonv/p/" title="我的博客的随笔列表">我的随笔</a></li><li><a href="http://www.cnblogs.com/yaohonv/MyComments.html" title="我发表过的评论列表">我的评论</a></li><li><a href="http://www.cnblogs.com/yaohonv/OtherPosts.html" title="我评论过的随笔列表">我的参与</a></li><li><a href="http://www.cnblogs.com/yaohonv/RecentComments.html" title="我的博客的评论列表">最新评论</a></li><li><a href="http://www.cnblogs.com/yaohonv/tag/" title="我的博客的标签列表">我的标签</a></li>
+</ul>
+<div id="itemListLin_con" style="display:none;">
+<ul>
+
+</ul>
+</div>
+</div></div><div id="sidebar_recentposts" class="sidebar-block">
+<div class="catListEssay">
+<h3 class="catListTitle">最新随笔</h3>
+<ul>
+<li><a href="http://www.cnblogs.com/yaohonv/p/java_exception.html">1. Java异常的正确使用姿势</a></li><li><a href="http://www.cnblogs.com/yaohonv/p/swipecaptcha.html">2. 一步步实现滑动验证码（拼图验证码），Java图片处理关键代码</a></li><li><a href="http://www.cnblogs.com/yaohonv/p/7483732.html">3. dubbo filter链构建过程</a></li><li><a href="http://www.cnblogs.com/yaohonv/p/5551989.html">4. bash: ./t.sh：/bin/bash^M：损坏的解释器: 没有那个文件或目录</a></li><li><a href="http://www.cnblogs.com/yaohonv/p/5549876.html">5. Ubuntu TIP</a></li><li><a href="http://www.cnblogs.com/yaohonv/p/5494945.html">6. 检测客户端系统-PHP</a></li><li><a href="http://www.cnblogs.com/yaohonv/p/5289688.html">7. TCP报文大小</a></li><li><a href="http://www.cnblogs.com/yaohonv/p/5286470.html">8. linux grep打印匹配的上下几行</a></li><li><a href="http://www.cnblogs.com/yaohonv/p/5275519.html">9. Mac上excel单元格内换行</a></li><li><a href="http://www.cnblogs.com/yaohonv/p/5271967.html">10. CountDownLatch、CyclicBarrier和Semaphore</a></li>
+</ul>
+</div>
+</div><div id="sidebar_toptags" class="sidebar-block">
+<div class="catListTag">
+<h3 class="catListTitle">我的标签</h3>
+<ul>
+<li><a href="http://www.cnblogs.com/yaohonv/tag/ant/">ant</a>(1)</li><li><a href="http://www.cnblogs.com/yaohonv/tag/Java%20Exception%20%E5%BC%82%E5%B8%B8%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/">Java Exception 异常 最佳实践</a>(1)</li><li><a href="http://www.cnblogs.com/yaohonv/tag/jmx/">jmx</a>(1)</li><li><a href="http://www.cnblogs.com/yaohonv/tag/JNDI/">JNDI</a>(1)</li><li><a href="http://www.cnblogs.com/yaohonv/tag/JTA%20JBoss/">JTA JBoss</a>(1)</li><li><a href="http://www.cnblogs.com/yaohonv/tag/JTA%20JBoss%20Ehcache/">JTA JBoss Ehcache</a>(1)</li><li><a href="http://www.cnblogs.com/yaohonv/tag/JTA%20JBoss%20infinispan/">JTA JBoss infinispan</a>(1)</li><li><a href="http://www.cnblogs.com/yaohonv/tag/linux/">linux</a>(1)</li><li><a href="http://www.cnblogs.com/yaohonv/tag/mysql%20tips/">mysql tips</a>(1)</li><li><a href="http://www.cnblogs.com/yaohonv/tag/nio%20file%20java/">nio file java</a>(1)</li><li><a href="http://www.cnblogs.com/yaohonv/tag/">更多</a></li>
+</ul>
+</div></div><div id="sidebar_categories">
+<div id="sidebar_postcategory" class="catListPostCategory sidebar-block">
+<h3 class="catListTitle">随笔分类<span style="font-size:11px;font-weight:normal">(20)</span></h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_0_Link_0" href="http://www.cnblogs.com/yaohonv/category/352101.html">J2SE(5)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_1" href="http://www.cnblogs.com/yaohonv/category/361524.html">linux(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_2" href="http://www.cnblogs.com/yaohonv/category/799477.html">mac</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_3" href="http://www.cnblogs.com/yaohonv/category/801601.html">TCP(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_4" href="http://www.cnblogs.com/yaohonv/category/352104.html">Transaction(5)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_5" href="http://www.cnblogs.com/yaohonv/category/358299.html">开源(6)</a> </li>
+
+</ul>
+
+</div>
+
+<div id="sidebar_postarchive" class="catListPostArchive sidebar-block">
+<h3 class="catListTitle">随笔档案<span style="font-size:11px;font-weight:normal">(40)</span></h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_1_Link_0" href="http://www.cnblogs.com/yaohonv/archive/2018/01.html">2018年1月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_1" href="http://www.cnblogs.com/yaohonv/archive/2017/09.html">2017年9月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_2" href="http://www.cnblogs.com/yaohonv/archive/2016/06.html">2016年6月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_3" href="http://www.cnblogs.com/yaohonv/archive/2016/05.html">2016年5月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_4" href="http://www.cnblogs.com/yaohonv/archive/2016/03.html">2016年3月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_5" href="http://www.cnblogs.com/yaohonv/archive/2013/12.html">2013年12月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_6" href="http://www.cnblogs.com/yaohonv/archive/2013/11.html">2013年11月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_7" href="http://www.cnblogs.com/yaohonv/archive/2013/04.html">2013年4月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_8" href="http://www.cnblogs.com/yaohonv/archive/2013/03.html">2013年3月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_9" href="http://www.cnblogs.com/yaohonv/archive/2013/01.html">2013年1月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_10" href="http://www.cnblogs.com/yaohonv/archive/2012/12.html">2012年12月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_11" href="http://www.cnblogs.com/yaohonv/archive/2012/11.html">2012年11月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_12" href="http://www.cnblogs.com/yaohonv/archive/2012/09.html">2012年9月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_13" href="http://www.cnblogs.com/yaohonv/archive/2012/08.html">2012年8月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_14" href="http://www.cnblogs.com/yaohonv/archive/2012/06.html">2012年6月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_15" href="http://www.cnblogs.com/yaohonv/archive/2012/04.html">2012年4月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_16" href="http://www.cnblogs.com/yaohonv/archive/2012/03.html">2012年3月 (5)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_17" href="http://www.cnblogs.com/yaohonv/archive/2012/02.html">2012年2月 (7)</a> </li>
+
+</ul>
+
+</div>
+
+</div><div id="sidebar_recentcomments" class="sidebar-block"><div id="recent_comments_wrap">
+<div class="catListComment">
+<h3 class="catListTitle">最新评论</h3>
+
+	<div id="RecentCommentsBlock"><ul>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/yaohonv/p/swipecaptcha.html#3885121">1. Re:一步步实现滑动验证码（拼图验证码），Java图片处理关键代码</a></li>
+        <li class="recent_comment_body">不错，mark下</li>
+        <li class="recent_comment_author">--webaspx</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/yaohonv/p/5549876.html#3615002">2. Re:Ubuntu TIP</a></li>
+        <li class="recent_comment_body">cat /etc/passwd |awk  -F ':'  '{print $1}' | sort | uniq  -c</li>
+        <li class="recent_comment_author">--Echonv</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/yaohonv/p/5549876.html#3578873">3. Re:Ubuntu TIP</a></li>
+        <li class="recent_comment_body">iostat -x 1 10  //IO等待所占用的CPU时间的百分比,高过30%时IO压力高</li>
+        <li class="recent_comment_author">--Echonv</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/yaohonv/archive/2012/02/04/JNDI.html#2617746">4. Re:JNDI理解与演示</a></li>
+        <li class="recent_comment_body">@曾经以为-当时写这个事例的时候没注意需要这两个包...</li>
+        <li class="recent_comment_author">--Echonv</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/yaohonv/archive/2012/02/04/JNDI.html#2569154">5. Re:JNDI理解与演示</a></li>
+        <li class="recent_comment_body">测试了一下，还需要下载fscontext.jar和providerutil.jar两个包。楼主怎么没有说明？</li>
+        <li class="recent_comment_author">--曾经以为-</li>
+</ul>
+</div>
+</div>
+</div></div><div id="sidebar_topviewedposts" class="sidebar-block"><div id="topview_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">阅读排行榜</h3>
+	<div id="TopViewPostsBlock"><ul><li><a href="http://www.cnblogs.com/yaohonv/archive/2012/02/08/jmx.html">1. JMX理解与实例(2431)</a></li><li><a href="http://www.cnblogs.com/yaohonv/archive/2012/02/04/JTA.html">2. JBoss下的JTA使用理解(2365)</a></li><li><a href="http://www.cnblogs.com/yaohonv/archive/2012/02/10/JTA-Ehcache.html">3. Ehcache 事务管理源码探析(2007)</a></li><li><a href="http://www.cnblogs.com/yaohonv/archive/2012/02/10/JTA-Infinispan.html">4. 瞅瞅Infinispan事务管理源码是啥样的(611)</a></li><li><a href="http://www.cnblogs.com/yaohonv/archive/2012/02/04/JNDI.html">5. JNDI理解与演示(534)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topcommentedposts" class="sidebar-block"><div id="topfeedback_posts_wrap">
+<div class="catListFeedback">
+<h3 class="catListTitle">评论排行榜</h3>
+	<div id="TopFeedbackPostsBlock"><ul><li><a href="http://www.cnblogs.com/yaohonv/archive/2012/02/08/jmx.html">1. JMX理解与实例(3)</a></li><li><a href="http://www.cnblogs.com/yaohonv/archive/2012/02/04/JNDI.html">2. JNDI理解与演示(2)</a></li><li><a href="http://www.cnblogs.com/yaohonv/p/5549876.html">3. Ubuntu TIP(2)</a></li><li><a href="http://www.cnblogs.com/yaohonv/p/swipecaptcha.html">4. 一步步实现滑动验证码（拼图验证码），Java图片处理关键代码(1)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topdiggedposts" class="sidebar-block"><div id="topdigg_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">推荐排行榜</h3>
+<div id="TopDiggPostsBlock"><ul><li><a href="http://www.cnblogs.com/yaohonv/archive/2012/02/08/jmx.html">1. JMX理解与实例(2)</a></li><li><a href="http://www.cnblogs.com/yaohonv/p/swipecaptcha.html">2. 一步步实现滑动验证码（拼图验证码），Java图片处理关键代码(2)</a></li><li><a href="http://www.cnblogs.com/yaohonv/archive/2012/02/04/JTA.html">3. JBoss下的JTA使用理解(1)</a></li><li><a href="http://www.cnblogs.com/yaohonv/archive/2012/02/10/JTA-Ehcache.html">4. Ehcache 事务管理源码探析(1)</a></li></ul></div>
+</div></div></div></div><script type="text/javascript">loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		
+<!--done-->
+Copyright ©2018 echov
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+
+</body></html>

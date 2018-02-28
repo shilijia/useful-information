@@ -1,0 +1,78 @@
+#blogTitle {
+    padding: 0;
+    text-align: center;
+}
+#home {
+    width: 1200px;
+    margin: 0 auto;
+}
+#main {
+    border: 1px solid #ccc;
+    border-top-width: 0;
+    border-bottom-width: 0;
+}
+
+.postTitle, .entrylistPosttitle, .feedback_area_title {
+    border-bottom: 1px solid #ddd;
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0;
+    text-align: center;
+}
+#sideBar h3, #MyIng .ing_title {
+    margin: 0;
+    font-size: 14px;
+    text-align: left;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    height: 30px;
+    line-height: 30px;
+    color: #999;
+    background: #f6f6f6;
+    padding-left: 16px;
+}
+#blog-sidecolumn a {
+    color: forestgreen;
+    padding-left: 15px;
+}
+.forFlow {
+    margin: 0;
+    margin-left: 202px;
+}
+#sideBar {
+    width: 200px;
+    float: left;
+    border: none;
+    border-right: 1px solid #ccc;
+    overflow: hidden;
+    padding: 0;
+}
+#cnblogs_post_body img {
+    max-width: 995px;
+}
+#footer {
+    height: 30px;
+    line-height: 30px;
+    color: #999;
+    border: 1px solid #ccc;
+    background: #f6f6f6;
+}
+#under_post_news ,#under_post_kb, #ad_t2, .c_ad_block{
+    display: none;
+}
+.postDesc, .entrylistItemPostDesc {
+    padding-bottom: 1px; 
+}
+
+div.commentform textarea {
+    width: 995px;
+    height: 200px;
+}
+
+.input_my_zzk {
+    width: 145px;
+    border: 1px solid #ccc;
+}
+input.btn_my_zzk {
+    border: 1px solid #ccc;
+}

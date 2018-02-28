@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<!-- saved from url=(0056)http://www.open-open.com/lib/view/open1432381488005.html -->
+<html><head lang="cn"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>CAS实现SSO单点登录原理 - OPEN 开发经验库</title>
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="keywords" content="SSO,OpenID/单点登录SSO">
+	<meta name="description" content="CAS （ Central Authentication Service ） 是 Yale 大学发起的一个企业级的、开源的项目，旨在为 Web 应用系统提供一种可靠的单点登录解决方法（属于 Web SSO ）。 
+
+CAS 开始于 2001 年， 并在 2004 年 12 月正式成为 JA-SIG 的一个项目。 
+
+">
+	<link rel="shortcut icon" href="http://www.open-open.com/lib/favicon.ico">
+	<link rel="copyright" href="http://www.open-open.com/">
+
+	<link href="./CAS实现SSO单点登录原理 - OPEN 开发经验库_files/idea.min.css" rel="stylesheet">
+	<link href="./CAS实现SSO单点登录原理 - OPEN 开发经验库_files/jquery-ui.min.css" rel="stylesheet">
+	
+	<link href="./CAS实现SSO单点登录原理 - OPEN 开发经验库_files/bootstrap.min.css" rel="stylesheet">
+	<link href="./CAS实现SSO单点登录原理 - OPEN 开发经验库_files/font-awesome.min.css" rel="stylesheet">
+	<link href="./CAS实现SSO单点登录原理 - OPEN 开发经验库_files/jquery-confirm.css" rel="stylesheet">
+	<link href="./CAS实现SSO单点登录原理 - OPEN 开发经验库_files/styles.css" rel="stylesheet">
+
+	<style type="text/css" media="screen, projection">
+		/*<![CDATA[*/
+		@import "/lib/css/common.css";
+		@import "/lib/css/main.css";
+		@import "/lib/css/jGrowl.css";
+		/*]]>*/
+		.articleIndex li.active a {
+			color: #0099ff;
+		}
+	</style>
+	<style type="text/css">
+		.topheader h1{font-size: 24px;margin: 0;}
+		.crumbs{padding-bottom: 5px;font-size: 11px;}.crumbs,.crumbs a,.meta{color: #bbb;}
+		#tag-list{margin-top: 10px;}
+		#tag-list a{background: #fff;padding: 2px 10px;text-decoration: none;}
+		#tag-list a:hover{background: #c5e2ff;color: #0099ff;}
+		.crumbs a:hover{color: #0099ff;}
+		#readercontainer{background: #fff;padding: 40px 89px;}
+
+		.post-nav ul{
+			margin: 0;
+		}
+		.post-nav>ul>li a{
+			padding-left: 10px;
+		}
+		.post-nav>ul>li>ul>li a{
+			padding-left: 30px;
+		}
+		.post-nav>ul>li>ul>li>ul>li a{
+			padding-left: 50px;
+		}
+		.post-nav ul li.active a{
+			border-left: 2px solid #0099ff;
+		}
+
+		.aside-fixed {
+			left: 50%;
+			margin-left: 310px;
+			position: fixed;
+			top: 65px;
+			width: 260px;
+		}
+		.bdsharebuttonbox {
+			background: #eee none repeat scroll 0 0;
+			margin-top: 10px;
+			padding: 10px;
+			width: 100%;
+		}
+
+	</style>
+
+	<script src="./CAS实现SSO单点登录原理 - OPEN 开发经验库_files/hm.js.下载"></script><script src="./CAS实现SSO单点登录原理 - OPEN 开发经验库_files/push.js.下载"></script><script type="text/javascript">
+		if(window.location.toString().indexOf('pref=padindex') != -1){
+		}else{
+			if(/AppleWebKit.*Mobile/i.test(navigator.userAgent) || (/MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/.test(navigator.userAgent))){
+				if(window.location.href.indexOf("?mobile")<0){
+					try{
+						if(/Android|Windows Phone|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)){
+							window.location.href="http://m.open-open.com/m/lib/view/1432381488005.html";
+						}else if(/iPad/i.test(navigator.userAgent)){
+							window.location.href="http://m.open-open.com/m/lib/view/1432381488005.html"
+						}else{
+							window.location.href="http://m.open-open.com/m/lib/view/1432381488005.html"
+						}
+					}catch(e){}
+				}
+			}
+		}
+	</script>
+
+
+	<script type="text/javascript">
+		var rooturl="/lib";
+		var wgDocKey='1432381488005';
+		var wgDocTitle='CAS实现SSO单点登录原理';
+		var wgDocStatusFlag='';
+		var wgUserFolders=null;
+		var wgDownFrame=null;
+		var wgCostByUser=null;
+		var wgDocFavoriteByUser=false;
+		var wgDocScoreByUser=null;
+		var wgUserLogined=0;
+		var tb_pathToImage = "/lib/images/loadingAnimation.gif";
+
+
+	</script>
+
+
+
+
+<script src="./CAS实现SSO单点登录原理 - OPEN 开发经验库_files/share.js.下载"></script><link rel="stylesheet" href="./CAS实现SSO单点登录原理 - OPEN 开发经验库_files/share_style0_16.css"></head>
+<body id="view">
+
+
+<style>
+	.global-tags{background: #333;color: #ababab;height: 30px;line-height: 30px;width: 100%;}
+	.global-tags .container{position: relative;}
+	.global-tags ul{ height: 30px; margin: 0; overflow: hidden;}
+	.global-tags a{color:#ababab;padding: 5px; }
+	.global-tags a:hover{color:#e0e0e0; }
+	.global-tags li { display: inline-block; padding: 0; }
+	.global-tags  .more { background-color: #333; height: 30px; position: absolute; right: 0; top: 0; width: 30px; }
+	.global-tags  .more:before { background-image: linear-gradient(90deg, rgba(0, 95, 60, 0), #333); background-size: 100% auto; content: ""; height: 100%; left: -20px; position: absolute; top: 0; width: 20px; }
+
+	/* menu */
+	.all-sort{z-index: 100;position: absolute;left: 15px;top: 30px;display: none;}
+	.all-sort-head{background: #ff3c00; color: #fff; margin-right: 20px; text-align: center; width: 160px;float: left;}
+	.all-sort-head a{color: #fff;}
+	.item-list .subitem{float:left;padding:20px;}
+	.all-sort-list{position:relative;width:160px;border:2px solid #393939;border-top:none;background:#393939;float: left;z-index: 100;}
+	.all-sort-list .item .parent{font-weight: 700;border: none;width: 120px;text-align: right;margin-right: 2px;}
+	.all-sort-list .item .parent i{font: 400 9px/14px consolas; height: 14px; margin-left: 10px; width: 4px;}
+	.all-sort-list .item.bo{border-top:none;}
+	.all-sort-list .item h3{height:40px;line-height:40px;font-size:14px;font-weight:normal;width:158px;overflow:hidden; color:#ffffff;margin: 0;}
+	.all-sort-list .item h3 a{color: #ffffff;}
+	.all-sort-list .item:hover h3,.all-sort-list .item:hover span,.all-sort-list .item:hover h3 a,.all-sort-list .item .active ,.all-sort-list .item .active a,.all-sort-list .item .active span{color:#E4393C;}
+	.all-sort-list .item span{padding:0px 5px;color:#ffffff;font-family:"\5B8B\4F53";}
+	.all-sort-list .item a{text-decoration:none;}
+	.all-sort-list .subitem a{ float: left;  margin:5px 20px 5px 0;border-left:1px solid #eee;line-height: 14px;height: 20px;}
+	.all-sort-list .item a:hover{color:#E4393C;}
+	.all-sort-list .item:hover h3,.all-sort-list .item .active{position:relative;z-index:13;background:#FFF;border-color:#DDD;border-width:1px 0px;border-style:solid;}
+	.all-sort-list .item-list{ display:none; position:absolute; width:705px; min-height:360px; _height:360px; background:#FFF; left:157px;  border:1px solid #DDD; top:0; z-index:10; }
+
+</style>
+
+
+<header class="site-header">
+	<div class="header-top ">
+		<div class="header-top-inner">
+			<div class="" style="margin: 0 30px;">
+				<div class="row">
+					
+						<div class="header-talet pull-left">
+							<a href="http://www.open-open.com/">首页</a> &nbsp;
+							<a class="" href="http://www.open-open.com/code/">代码</a> &nbsp;
+							<a class="" href="http://www.open-open.com/doc/">文档</a> &nbsp;
+							<a title="OPEN论坛频道" href="http://www.open-open.com/solution/">问答</a> &nbsp;
+							<a title="OPEN资讯" class="" href="http://www.open-open.com/news/">资讯</a> &nbsp;
+							<a title="OPEN经验库" class="active" href="http://www.open-open.com/lib/">经验</a> &nbsp;
+							<a title="GitHub日报" class="" href="http://www.open-open.com/github/">GitHub日报</a>
+							&nbsp;|&nbsp;
+							<a class="active" title=" 安卓开发专栏" target="_blank" href="http://www.open-open.com/lib/list/177">安卓开发专栏</a>
+							&nbsp;|&nbsp;
+							<a class="active" href="http://www.open-open.com/lib/tag/%E5%BC%80%E5%8F%91%E8%80%85%E5%91%A8%E5%88%8A" target="_blank" rel="tag">开发者周刊</a>&nbsp;|&nbsp;
+							<a class="active" href="http://www.open-open.com/lib/view/open1475497562965.html" target="_blank" rel="tag">Android Studio 使用推荐</a>&nbsp;|&nbsp;
+							<a class="active" href="http://www.open-open.com/lib/view/open1475497355674.html" target="_blank" rel="tag">Android开发推荐</a>
+							
+						</div>
+					
+						<div class="user-info pull-right" id="Personal">
+							
+								<a href="http://www.open-open.com/lib/view/open1432381488005.html#" title="登录OPEN经验库" class="login">登录</a>&nbsp;&nbsp;
+								<a href="http://www.open-open.com/lib/view/open1432381488005.html#" title="注册新的账号" class="register">注册</a>
+							
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	
+	<nav class="navbar ">
+		<div class="container">
+			<div class="navbar-header" style="margin-right: 30px;">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span aria-hidden="true" class="glyphicon glyphicon-menu-hamburger"></span>
+					<span aria-hidden="true" class="glyphicon glyphicon-menu-up"></span>
+				</button>
+				<a class="top-logo" href="http://www.open-open.com/lib"><span>www.open-open.com/lib</span></a>
+				<span style="font-size: 26px;color: #db6d4c">OPEN经验</span>
+				<span style="font-size: 12px;color: #b5b5b5"></span>
+			</div>
+
+			<div class="pull-right" style="padding: 20px;">
+				<button class="btn btn-info br40" id="upload" type="button">投稿</button>
+			</div>
+			<div id="search">
+				<form onsubmit="document.charset=&#39;utf-8&#39;;" accept-charset="utf-8" method="post" action="http://www.open-open.com/lib/query" name="sf">
+					<input type="hidden" value="all" name="site">
+					<div class="input-group">
+						<input type="text" x-webkit-speech="" placeholder="经验搜索" class="form-control" name="q" id="kw">
+                      <span class="input-group-btn">
+                        <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                      </span>
+
+					</div>
+				</form>
+
+				<!-- /input-group -->
+
+			</div>
+
+		</div>
+	</nav>
+	<div class="global-tags">
+		<div class="container">
+			<div class="all-sort-head"><a href="http://www.open-open.com/lib/list/all">全部经验分类</a>&nbsp;<i aria-hidden="true" class="fa fa-toggle-down"></i></div><div class="all-sort"><div class="all-sort-list"><div data-submenu-id="submenu1" class="item bo"><h3><span>·</span><a href="http://www.open-open.com/lib/list/1">软件开发</a></h3><div id="submenu1" class="item-list clearfix"><div class=" subitem"><a href="http://www.open-open.com/lib/list/405">VR</a><a href="http://www.open-open.com/lib/list/2">Web框架</a><a href="http://www.open-open.com/lib/list/3">GUI开发框架</a><a href="http://www.open-open.com/lib/list/4">图表/报表制作</a><a href="http://www.open-open.com/lib/list/5">搜索引擎</a><a href="http://www.open-open.com/lib/list/6">模板引擎</a><a href="http://www.open-open.com/lib/list/7">缓存组件</a><a href="http://www.open-open.com/lib/list/8">Ajax框架</a><a href="http://www.open-open.com/lib/list/9">XML操作类库</a><a href="http://www.open-open.com/lib/list/10">HTML操作类库</a><a href="http://www.open-open.com/lib/list/12">文件上传</a><a href="http://www.open-open.com/lib/list/347">3D图形处理库</a><a href="http://www.open-open.com/lib/list/14">图形/图像处理</a><a href="http://www.open-open.com/lib/list/15">常用工具包</a><a href="http://www.open-open.com/lib/list/16">JSON开发包</a><a href="http://www.open-open.com/lib/list/353">OAuth开发包</a><a href="http://www.open-open.com/lib/list/17">PDF工具包</a><a href="http://www.open-open.com/lib/list/18">Flex开发</a><a href="http://www.open-open.com/lib/list/19">Office文档处理</a><a href="http://www.open-open.com/lib/list/20">日志处理</a><a href="http://www.open-open.com/lib/list/21">网络工具包</a><a href="http://www.open-open.com/lib/list/22">多媒体处理</a><a href="http://www.open-open.com/lib/list/23">WEB服务/RPC/SOA</a><a href="http://www.open-open.com/lib/list/24">RSS/ATOM相关</a><a href="http://www.open-open.com/lib/list/25">持久层框架</a><a href="http://www.open-open.com/lib/list/26">作业调度框架</a><a href="http://www.open-open.com/lib/list/27">工作流引擎</a><a href="http://www.open-open.com/lib/list/28">业务规则引擎</a><a href="http://www.open-open.com/lib/list/29">面向方面AOP/IoC</a><a href="http://www.open-open.com/lib/list/30">JEE框架</a><a href="http://www.open-open.com/lib/list/31">安全相关</a><a href="http://www.open-open.com/lib/list/32">OpenID/单点登录SSO</a><a href="http://www.open-open.com/lib/list/34">条形码/二维码开发包</a><a href="http://www.open-open.com/lib/list/35">验证码(Captcha)</a><a href="http://www.open-open.com/lib/list/96">网络爬虫</a><a href="http://www.open-open.com/lib/list/214">OSGi</a><a href="http://www.open-open.com/lib/list/237">网络技术</a><a href="http://www.open-open.com/lib/list/324">Google相关API</a><a href="http://www.open-open.com/lib/list/328">Swing开发包</a><a href="http://www.open-open.com/lib/list/332">HTML编辑器</a><a href="http://www.open-open.com/lib/list/337" style="color:#FF3C00">JavaScript开发工具包</a><a href="http://www.open-open.com/lib/list/352">TTS/语音合成和处理</a><a href="http://www.open-open.com/lib/list/367">游戏开发</a><a href="http://www.open-open.com/lib/list/370">加密/解密软件包</a><a href="http://www.open-open.com/lib/list/374">源代码语法着色</a><a href="http://www.open-open.com/lib/list/376">WebSocket 开发</a><a href="http://www.open-open.com/lib/list/381">MathML显示与编辑</a><a href="http://www.open-open.com/lib/list/383">计算机视觉库/人脸识别</a><a href="http://www.open-open.com/lib/list/385">XML-RPC 开发</a><a href="http://www.open-open.com/lib/list/386">Markdown处理库</a><a href="http://www.open-open.com/lib/list/387">神经网络</a><a href="http://www.open-open.com/lib/list/389">多媒体播放器</a><a href="http://www.open-open.com/lib/list/391">推荐引擎</a><a href="http://www.open-open.com/lib/list/394">机器学习</a><a href="http://www.open-open.com/lib/list/401">算法</a></div><div class="cat-right"></div></div></div><div data-submenu-id="submenu2" class="item "><h3><span>·</span><a href="http://www.open-open.com/lib/list/36">开发语言与工具</a></h3><div id="submenu2" class="item-list clearfix"><div class=" subitem"><a href="http://www.open-open.com/lib/list/406">R语言</a><a href="http://www.open-open.com/lib/list/37" style="color:#FF3C00">Java开发</a><a href="http://www.open-open.com/lib/list/38">.NET开发</a><a href="http://www.open-open.com/lib/list/39">PHP开发</a><a href="http://www.open-open.com/lib/list/40">C/C++开发</a><a href="http://www.open-open.com/lib/list/42">Ruby开发</a><a href="http://www.open-open.com/lib/list/43">Python开发</a><a href="http://www.open-open.com/lib/list/148">ActionScript开发</a><a href="http://www.open-open.com/lib/list/145" style="color:#FF3C00">JavaScript开发</a><a href="http://www.open-open.com/lib/list/44">Perl开发</a><a href="http://www.open-open.com/lib/list/263">Delphi开发</a><a href="http://www.open-open.com/lib/list/243">Erlang开发</a><a href="http://www.open-open.com/lib/list/211">Google Go/Golang开发</a><a href="http://www.open-open.com/lib/list/201">Scala开发</a><a href="http://www.open-open.com/lib/list/240">Lua开发</a><a href="http://www.open-open.com/lib/list/392">Apple Swift开发</a><a href="http://www.open-open.com/lib/list/301">Objective-C开发</a><a href="http://www.open-open.com/lib/list/45">BUG跟踪管理</a><a href="http://www.open-open.com/lib/list/294">Lisp开发</a><a href="http://www.open-open.com/lib/list/46">项目构建</a><a href="http://www.open-open.com/lib/list/41">移动开发</a><a href="http://www.open-open.com/lib/list/47">单元测试</a><a href="http://www.open-open.com/lib/list/48">测试工具</a><a href="http://www.open-open.com/lib/list/49">性能测试和优化</a><a href="http://www.open-open.com/lib/list/50">程序调试</a><a href="http://www.open-open.com/lib/list/51">代码混淆和加密</a><a href="http://www.open-open.com/lib/list/52">UML/模型工具</a><a href="http://www.open-open.com/lib/list/53">安装制作</a><a href="http://www.open-open.com/lib/list/54">代码分析/审查/优化</a><a href="http://www.open-open.com/lib/list/55">前端技术</a><a href="http://www.open-open.com/lib/list/179">Eclipse开发工具</a><a href="http://www.open-open.com/lib/list/205">IntelliJ IDEA</a><a href="http://www.open-open.com/lib/list/281">NetBeans</a><a href="http://www.open-open.com/lib/list/349">程序文档工具</a><a href="http://www.open-open.com/lib/list/361">语法/词法分析器</a><a href="http://www.open-open.com/lib/list/362">脚本/动态语言</a><a href="http://www.open-open.com/lib/list/364">持续集成系统</a><a href="http://www.open-open.com/lib/list/375">Web开发工具</a><a href="http://www.open-open.com/lib/list/388">Node.js 开发</a><a href="http://www.open-open.com/lib/list/395">中文分词</a><a href="http://www.open-open.com/lib/list/399" style="color:#FF3C00">Android Studio开发工具</a></div><div class="cat-right"></div></div></div><div data-submenu-id="submenu3" class="item "><h3><span>·</span><a href="http://www.open-open.com/lib/list/57">网站系统</a></h3><div id="submenu3" class="item-list clearfix"><div class=" subitem"><a href="http://www.open-open.com/lib/list/58">论坛系统BBS</a><a href="http://www.open-open.com/lib/list/59">建站系统CMS</a><a href="http://www.open-open.com/lib/list/60">电子商务/商城</a><a href="http://www.open-open.com/lib/list/61">SNS社交网络/交友平台</a><a href="http://www.open-open.com/lib/list/62">百科系统Wiki</a><a href="http://www.open-open.com/lib/list/63">门户平台Portal</a><a href="http://www.open-open.com/lib/list/64">网络会议/视频会议</a><a href="http://www.open-open.com/lib/list/65">相册/照片/多媒体系统</a><a href="http://www.open-open.com/lib/list/66">微博工具/系统</a><a href="http://www.open-open.com/lib/list/363">博客系统</a><a href="http://www.open-open.com/lib/list/379">开源问答系统</a></div><div class="cat-right"></div></div></div><div data-submenu-id="submenu4" class="item "><h3><span>·</span><a href="http://www.open-open.com/lib/list/67">企业应用</a></h3><div id="submenu4" class="item-list clearfix"><div class=" subitem"><a href="http://www.open-open.com/lib/list/68">ERP/CRM</a><a href="http://www.open-open.com/lib/list/69">OA办公/协作平台</a><a href="http://www.open-open.com/lib/list/70">WebMail系统</a><a href="http://www.open-open.com/lib/list/71">地理信息系统GIS</a><a href="http://www.open-open.com/lib/list/72">数据挖掘</a><a href="http://www.open-open.com/lib/list/73">文档管理</a><a href="http://www.open-open.com/lib/list/74">项目/任务管理</a><a href="http://www.open-open.com/lib/list/333">教学科研相关</a><a href="http://www.open-open.com/lib/list/357">开源SIP项目</a><a href="http://www.open-open.com/lib/list/368">计算机辅助设计CAD/CAM</a></div><div class="cat-right"></div></div></div><div data-submenu-id="submenu5" class="item "><h3><span>·</span><a href="http://www.open-open.com/lib/list/75">服务器软件</a></h3><div id="submenu5" class="item-list clearfix"><div class=" subitem"><a href="http://www.open-open.com/lib/list/76">应用服务器</a><a href="http://www.open-open.com/lib/list/77">Web服务器</a><a href="http://www.open-open.com/lib/list/78">FTP服务器</a><a href="http://www.open-open.com/lib/list/79">邮件服务器</a><a href="http://www.open-open.com/lib/list/80">缓存服务器</a><a href="http://www.open-open.com/lib/list/81">版本控制系统</a><a href="http://www.open-open.com/lib/list/82">路由器/防火墙</a><a href="http://www.open-open.com/lib/list/83">电话/通讯/IM聊天</a><a href="http://www.open-open.com/lib/list/84">集群/负载均衡</a><a href="http://www.open-open.com/lib/list/85">流媒体服务器</a><a href="http://www.open-open.com/lib/list/86">消息系统</a><a href="http://www.open-open.com/lib/list/220">分布式/云计算/大数据</a><a href="http://www.open-open.com/lib/list/298">企业服务总线ESB</a><a href="http://www.open-open.com/lib/list/321">建站服务器套件</a><a href="http://www.open-open.com/lib/list/348">虚拟化</a><a href="http://www.open-open.com/lib/list/355">目录服务LDAP</a><a href="http://www.open-open.com/lib/list/393">容器系统</a></div><div class="cat-right"></div></div></div><div data-submenu-id="submenu6" class="item "><h3><span>·</span><a href="http://www.open-open.com/lib/list/87">插件和扩展</a></h3><div id="submenu6" class="item-list clearfix"><div class=" subitem"><a href="http://www.open-open.com/lib/list/88">Eclipse插件</a><a href="http://www.open-open.com/lib/list/89">jQuery插件</a><a href="http://www.open-open.com/lib/list/331">Node.js扩展</a><a href="http://www.open-open.com/lib/list/338">jQuery分页插件</a><a href="http://www.open-open.com/lib/list/346">Prototype扩展</a><a href="http://www.open-open.com/lib/list/356">Chrome插件/扩展</a></div><div class="cat-right"></div></div></div><div data-submenu-id="submenu7" class="item "><h3><span>·</span><a href="http://www.open-open.com/lib/list/90">数据库相关</a></h3><div id="submenu7" class="item-list clearfix"><div class=" subitem"><a href="http://www.open-open.com/lib/list/91">数据库服务器</a><a href="http://www.open-open.com/lib/list/92">数据库管理工具</a><a href="http://www.open-open.com/lib/list/93">数据库驱动程序</a><a href="http://www.open-open.com/lib/list/94">数据库建模</a><a href="http://www.open-open.com/lib/list/122">数据库连接池</a><a href="http://www.open-open.com/lib/list/154">SQL</a><a href="http://www.open-open.com/lib/list/307">NoSQL数据库</a></div><div class="cat-right"></div></div></div><div data-submenu-id="submenu8" class="item "><h3><span>·</span><a href="http://www.open-open.com/lib/list/155">操作系统</a></h3><div id="submenu8" class="item-list clearfix"><div class=" subitem"><a href="http://www.open-open.com/lib/list/156">Linux</a><a href="http://www.open-open.com/lib/list/182">CentOS</a><a href="http://www.open-open.com/lib/list/183">Ubuntu</a><a href="http://www.open-open.com/lib/list/224">UNIX</a><a href="http://www.open-open.com/lib/list/251">Fedora</a><a href="http://www.open-open.com/lib/list/274">FreeBSD</a><a href="http://www.open-open.com/lib/list/310">Solaris</a><a href="http://www.open-open.com/lib/list/311">openSUSE</a><a href="http://www.open-open.com/lib/list/312">Debian</a><a href="http://www.open-open.com/lib/list/313">OpenBSD</a></div><div class="cat-right"></div></div></div><div data-submenu-id="submenu9" class="item "><h3><span>·</span>其他分类</h3><div id="submenu9" class="item-list clearfix"><div class=" subitem"><p class="clearfix"><a href="http://www.open-open.com/lib/list/159" class="parent">软件开发管理<i>&gt;</i></a><a href="http://www.open-open.com/lib/list/174">敏捷开发</a><a href="http://www.open-open.com/lib/list/178">项目管理</a><a href="http://www.open-open.com/lib/list/196">软件架构</a><a href="http://www.open-open.com/lib/list/296">软件测试</a></p><p class="clearfix"><a href="http://www.open-open.com/lib/list/319" class="parent">管理和监控<i>&gt;</i></a><a href="http://www.open-open.com/lib/list/320">系统监控</a><a href="http://www.open-open.com/lib/list/360">日志分析和统计</a><a href="http://www.open-open.com/lib/list/366">备份工具</a></p><p class="clearfix"><a href="http://www.open-open.com/lib/list/322" class="parent">应用工具<i>&gt;</i></a><a href="http://www.open-open.com/lib/list/323">磁盘/光驱工具</a><a href="http://www.open-open.com/lib/list/359">文档/文本编辑</a><a href="http://www.open-open.com/lib/list/384">终端/远程登录</a></p><p class="clearfix"><a href="http://www.open-open.com/lib/list/329" class="parent">游戏相关<i>&gt;</i></a><a href="http://www.open-open.com/lib/list/330">网页游戏</a></p></div><div class="cat-right"></div></div></div></div></div>
+			<ul class="nav__list">
+				<li class="nav__item ">
+
+				</li>
+				<li class="nav__item"><i class="fa fa-tags"></i></li>
+
+				<li class="nav__item"><a href="http://www.open-open.com/lib/tag/Android" rel="tag">Android</a></li>
+				<li class="nav__item"><a href="http://www.open-open.com/lib/tag/IOS" rel="tag">IOS</a></li>
+				<li class="nav__item"><a href="http://www.open-open.com/lib/tag/JavaScript" rel="tag">JavaScript</a></li>
+				<li class="nav__item"><a href="http://www.open-open.com/lib/tag/HTML5" rel="tag">HTML5</a></li>
+				<li class="nav__item"><a href="http://www.open-open.com/lib/tag/CSS" rel="tag">CSS</a></li>
+				<li class="nav__item"><a href="http://www.open-open.com/lib/tag/jQuery" rel="tag">jQuery</a></li>
+				<li class="nav__item"><a href="http://www.open-open.com/lib/tag/Python" rel="tag">Python</a></li>
+				<li class="nav__item"><a href="http://www.open-open.com/lib/tag/PHP" rel="tag">PHP</a></li>
+				<li class="nav__item"><a href="http://www.open-open.com/lib/tag/NodeJS" rel="tag">NodeJS</a></li>
+				<li class="nav__item"><a href="http://www.open-open.com/lib/tag/Java" rel="tag">Java</a></li>
+				<li class="nav__item"><a href="http://www.open-open.com/lib/tag/Spring" rel="tag">Spring</a></li>
+				<li class="nav__item"><a href="http://www.open-open.com/lib/tag/MySQL" rel="tag">MySQL</a></li>
+				<li class="nav__item"><a href="http://www.open-open.com/lib/tag/MongoDB" rel="tag">MongoDB</a></li>
+				<li class="nav__item"><a href="http://www.open-open.com/lib/tag/Redis" rel="tag">Redis</a></li>
+				<li class="nav__item"><a href="http://www.open-open.com/lib/tag/NOSQL" rel="tag">NOSQL</a></li>
+				<li class="nav__item"><a href="http://www.open-open.com/lib/tag/Vim" rel="tag">Vim</a></li>
+				<li class="nav__item"><a href="http://www.open-open.com/lib/tag/C++" rel="tag">C++</a></li>
+				<li class="nav__item"><a href="http://www.open-open.com/lib/tag/C#" rel="tag">C#</a></li>
+				<li class="nav__item"><a href="http://www.open-open.com/lib/tag/JSON" rel="tag">JSON</a></li>
+				<li class="nav__item"><a href="http://www.open-open.com/lib/tag/Ruby" rel="tag">Ruby</a></li>
+				<li class="nav__item"><a href="http://www.open-open.com/lib/tag/Linux" rel="tag">Linux</a></li>
+				<li class="nav__item"><a href="http://www.open-open.com/lib/tag/Nginx" rel="tag">Nginx</a></li>
+				<li class="nav__item"><a href="http://www.open-open.com/lib/tag/Docker" rel="tag">Docker</a></li>
+				<li class="more"></li>
+
+			</ul>
+
+		</div>
+	</div>
+</header>
+
+
+
+<div class="topheader" style="background: #eee;padding: 10px 0 30px;">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-9">
+				<div class="crumbs">
+					<a href="http://www.open-open.com/lib/list/all">所有分类</a>
+					
+						&nbsp;&gt;&nbsp;
+						<a href="http://www.open-open.com/lib/list/1">软件开发</a>
+					
+						&nbsp;&gt;&nbsp;
+						<a href="http://www.open-open.com/lib/list/32">OpenID/单点登录SSO</a>
+					
+				</div>
+				<h1 id="articleTitle">CAS实现SSO单点登录原理</h1>
+				<div class="meta" style="margin-top: 10px;">
+					<span id="tag-list">
+					
+						<a href="http://www.open-open.com/lib/tag/SSO">SSO</a>
+					
+					</span>&nbsp;
+
+					<span class="item">2015-05-24 11:00:57 发布</span>
+				</div>
+
+
+			</div>
+			<div class="col-md-3">
+				<table>
+					<tbody>
+					<tr>
+						<td><strong>您的评价</strong>:</td>
+						<td>
+							<div id="rate" class="rate-container"><span id="star1" class="star-big-off" title="很差">&nbsp;</span><span id="star2" class="star-big-off" title="较差">&nbsp;</span><span id="star3" class="star-big-off" title="还行">&nbsp;</span><span id="star4" class="star-big-off" title="不错">&nbsp;</span><span id="star5" class="star-big-off" title="力荐">&nbsp;</span></div>
+						</td>
+						<td width="30">
+							<span id="score-num">4.3</span>
+						</td>
+						<td width="30">
+							<div id="rate-tip"></div>
+						</td>
+
+					</tr>
+					</tbody>
+				</table>
+				<div id="favorite-container"><a id="favorite" href="javascript:void(0)" class="btn btn-default">收藏</a>&nbsp;&nbsp;&nbsp;&nbsp;
+					<span class="item">15收藏</span>
+					
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+<div class="container">
+<div class="row">
+
+		<div id="readercontainer" class="col-md-9">
+				<article>
+					<h1 id="articleHeader0">1.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CAS&nbsp;简介 </h1>
+ <h2 id="articleHeader1"><a name="t1"></a><a name="_Toc350341202"></a>1.1.&nbsp;&nbsp;What is CAS&nbsp;？ </h2>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">CAS&nbsp;（&nbsp;Central Authentication Service&nbsp;） 是&nbsp;Yale&nbsp;大学发起的一个企业级的、开源的项目，旨在为&nbsp;Web&nbsp;应用系统提供一种可靠的单点登录解决方法（属于&nbsp;Web SSO&nbsp;）。 </p>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">CAS&nbsp;开始于&nbsp;2001&nbsp;年， 并在&nbsp;2004&nbsp;年&nbsp;12&nbsp;月正式成为&nbsp;JA-SIG&nbsp;的一个项目。 </p>
+ <h2 id="articleHeader2"><a name="t2"></a><a name="_Toc350341203"></a>1.2.&nbsp;&nbsp;主要特性 </h2>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">1、&nbsp;&nbsp;&nbsp;开源的、多协议的&nbsp;SSO&nbsp;解决方案；&nbsp;Protocols&nbsp;：&nbsp;Custom Protocol&nbsp;、&nbsp;CAS&nbsp;、&nbsp;OAuth&nbsp;、&nbsp;OpenID&nbsp;、&nbsp;RESTful API&nbsp;、&nbsp;SAML1.1&nbsp;、&nbsp;SAML2.0&nbsp;等。 </p>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">2、&nbsp;&nbsp;&nbsp;支持多种认证机制：&nbsp;Active Directory&nbsp;、&nbsp;JAAS&nbsp;、&nbsp;JDBC&nbsp;、&nbsp;LDAP&nbsp;、&nbsp;X.509 Certificates&nbsp;等； </p>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">3、&nbsp;&nbsp;&nbsp;安全策略：使用票据（&nbsp;Ticket&nbsp;）来实现支持的认证协议； </p>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">4、&nbsp;&nbsp;&nbsp;支持授权：可以决定哪些服务可以请求和验证服务票据（&nbsp;Service Ticket&nbsp;）； </p>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">5、&nbsp;&nbsp;&nbsp;提 供高可用性：通过把认证过的状态数据存储在&nbsp;TicketRegistry&nbsp;组件中，这些组件有很多支持分布式环境的实现， 如：&nbsp;BerkleyDB&nbsp;、&nbsp;Default&nbsp;、&nbsp;EhcacheTicketRegistry&nbsp;、&nbsp;JDBCTicketRegistry&nbsp;、&nbsp;JBOSS TreeCache&nbsp;、&nbsp;JpaTicketRegistry&nbsp;、&nbsp;MemcacheTicketRegistry&nbsp;等； </p>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">6、&nbsp;&nbsp;&nbsp;支持多种客户端：&nbsp;Java&nbsp;、&nbsp;.Net&nbsp;、&nbsp;PHP&nbsp;、&nbsp;Perl&nbsp;、&nbsp;Apache, uPortal&nbsp;等。 </p>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">&nbsp; </p>
+ <h1 id="articleHeader3"><a name="t3"></a><a name="_Toc350341204"></a>2.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SSO&nbsp;单点登录原理 </h1>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">本文内容主要针对&nbsp;Web SSO&nbsp;。 </p>
+ <h2 id="articleHeader4"><a name="t4"></a><a name="_Toc350341205"></a>2.1.&nbsp;&nbsp;什么是SSO </h2>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">单点登录（&nbsp;Single Sign-On ,&nbsp;简称&nbsp;SSO&nbsp;）是目前比较流行的服务于企业业务整合的解决方案之一，&nbsp;SSO&nbsp;使得在多个应用系统中，用户只需要&nbsp;<strong>登录一次&nbsp;</strong>就可以访问所有相互信任的应用系统。 </p>
+ <h2 id="articleHeader5"><a name="t5"></a><a name="_Toc350341206"></a>2.2.&nbsp;&nbsp;SSO&nbsp;原理 </h2>
+ <h3 id="articleHeader6"><a name="t6"></a><a name="_Toc350341207"></a>2.2.1.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SSO&nbsp;体系中的角色 </h3>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">一般&nbsp;SSO&nbsp;体系主要角色有三种： </p>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">1、&nbsp;User&nbsp;（多个） </p>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">2、&nbsp;Web&nbsp;应用（多个） </p>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">3、&nbsp;SSO&nbsp;认证中心（&nbsp;<strong>1&nbsp;个&nbsp;</strong>） </p>
+ <h3 id="articleHeader7"><a name="t7"></a><a name="_Toc350341208"></a>2.2.2.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SSO&nbsp;实现模式的原则 </h3>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">SSO&nbsp;实现模式一般包括以下三个原则： </p>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">1、&nbsp;&nbsp;&nbsp;所有的认证登录都在&nbsp;SSO&nbsp;认证中心进行； </p>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">2、&nbsp;&nbsp;&nbsp;SSO&nbsp;认证中心通过一些方法来告诉&nbsp;Web&nbsp;应用当前访问用户究竟是不是已通过认证的用户； </p>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">3、&nbsp;&nbsp;&nbsp;SSO&nbsp;认证中心和所有的&nbsp;Web&nbsp;应用建立一种信任关系，也就是说&nbsp;web&nbsp;应用必须信任认证中心。（单点信任） </p>
+ <h3 id="articleHeader8"><a name="t8"></a><a name="_Toc350341209"></a>2.2.3.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SSO&nbsp;主要实现方式 </h3>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">SSO&nbsp;的主要实现方式有： </p>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">1、&nbsp;&nbsp;&nbsp;共享&nbsp;cookies </p>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">基 于共享同域的&nbsp;cookie&nbsp;是&nbsp;Web&nbsp;刚开始阶段时使用的一种方式，它利用浏览同域名之间自动传递&nbsp;cookies&nbsp;机制，实现两个域名之间系统令牌 传递问题；另外，关于跨域问题，虽然&nbsp;cookies本身不跨域，但可以利用它实现跨域的&nbsp;SSO&nbsp;。如：代理、暴露&nbsp;SSO&nbsp;令牌值等。 </p>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">缺点：不灵活而且有不少安全隐患，已经被抛弃。 </p>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">2、&nbsp;&nbsp;&nbsp;Broker-based(&nbsp;基于经纪人&nbsp;) </p>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">这 种技术的特点就是，有一个集中的认证和用户帐号管理的服务器。经纪人给被用于进一步请求的电子身份存取。中央数据库的使用减少了管理的代价，并为认证提供 一个公共和独立的&nbsp;"第三方&nbsp;"&nbsp;。例如&nbsp;Kerberos&nbsp;、&nbsp;Sesame&nbsp;、&nbsp;IBM KryptoKnight&nbsp;（凭证库思想&nbsp;)&nbsp;等。&nbsp;Kerberos是由麻省理工大学发明的安全认证服务，已经被&nbsp;UNIX&nbsp;和&nbsp;Windows&nbsp;作为 默认的安全认证服务集成进操作系统。 </p>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">3、&nbsp;&nbsp;&nbsp;Agent-based&nbsp;（基于代理人） </p>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">在 这种解决方案中，有一个自动地为不同的应用程序认证用户身份的代理程序。这个代理程序需要设计有不同的功能。比如，它可以使用口令表或加密密钥来自动地将 认证的负担从用户移开。代理人被放在服务器上面，在服务器的认证系统和客户端认证方法之间充当一个&nbsp;"&nbsp;翻译&nbsp;"。例如&nbsp;SSH&nbsp;等。 </p>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">4、&nbsp;&nbsp;&nbsp;Token-based </p>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">例如&nbsp;SecureID,WebID&nbsp;，现在被广泛使用的口令认证，比如&nbsp;FTP&nbsp;、邮件服务器的登录认证，这是一种简单易用的方式，实现一个口令在多种应用当中使用。 </p>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">5、&nbsp;&nbsp;&nbsp;基于网关 </p>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">6、&nbsp;&nbsp;&nbsp;基于&nbsp;SAML </p>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">SAML(Security Assertion Markup Language&nbsp;，安全断言标记语言）的出现大大简化了&nbsp;SSO&nbsp;，并被&nbsp;OASIS&nbsp;批准为&nbsp;<strong>SSO&nbsp;的执行标准&nbsp;</strong>。开源组织&nbsp;OpenSAML&nbsp;实现了&nbsp;SAML&nbsp;规范。 </p>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">&nbsp; </p>
+ <h1 id="articleHeader9"><a name="t9"></a><a name="_Toc350341210"></a>3.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CAS&nbsp;的基本原理 </h1>
+ <h2 id="articleHeader10"><a name="t10"></a><a name="_Toc350341211"></a>3.1.&nbsp;&nbsp;结构体系 </h2>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">从结构体系看，&nbsp;CAS&nbsp;包括两部分：&nbsp;CAS Server&nbsp;和&nbsp;CAS Client&nbsp;。 </p>
+ <h3 id="articleHeader11"><a name="t11"></a><a name="_Toc350341212"></a>3.1.1.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CAS Server </h3>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">CAS Server&nbsp;负责完成对用户的认证工作&nbsp;,&nbsp;需要独立部署&nbsp;,&nbsp;CAS Server&nbsp;会处理用户名&nbsp;/&nbsp;密码等凭证(Credentials)&nbsp;。 </p>
+ <h3 id="articleHeader12"><a name="t12"></a><a name="_Toc350341213"></a>3.1.2.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CAS Client </h3>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">负责处理对客户端受保护资源的访问请求，需要对请求方进行身份认证时，重定向到&nbsp;CAS Server&nbsp;进行认证。（原则上，客户端应用不再接受任何的用户名密码等&nbsp;Credentials&nbsp;）。 </p>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">CAS Client&nbsp;与受保护的客户端应用部署在一起，以&nbsp;Filter&nbsp;方式保护受保护的资源。 </p>
+ <h2 id="articleHeader13"><a name="t13"></a><a name="_Toc350341214"></a>3.2.&nbsp;&nbsp;CAS&nbsp;原理和协议 </h2>
+ <h3 id="articleHeader14"><a name="t14"></a><a name="_Toc350341215"></a>3.2.1.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;基础模式 </h3>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">基础模式&nbsp;SSO&nbsp;访问流程主要有以下步骤： </p>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">1.&nbsp;访问服务：&nbsp;SSO&nbsp;客户端发送请求访问应用系统提供的服务资源。 </p>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">2.&nbsp;定向认证：&nbsp;SSO&nbsp;客户端会重定向用户请求到&nbsp;SSO&nbsp;服务器。 </p>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">3.&nbsp;用户认证：用户身份认证。 </p>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">4.&nbsp;发放票据：&nbsp;SSO&nbsp;服务器会产生一个随机的&nbsp;Service Ticket&nbsp;。 </p>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">5.&nbsp;验证票据：&nbsp;SSO&nbsp;服务器验证票据&nbsp;Service Ticket&nbsp;的合法性，验证通过后，允许客户端访问服务。 </p>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">6.&nbsp;传输用户信息：&nbsp;SSO&nbsp;服务器验证票据通过后，传输用户认证结果信息给客户端。 </p>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">下面是&nbsp;CAS&nbsp;最基本的协议过程： </p>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">&nbsp; </p>
+<p style="text-align:center;background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;"><img alt="CAS实现SSO单点登录原理" src="./CAS实现SSO单点登录原理 - OPEN 开发经验库_files/20150523193942_202.jpg" width="467" height="341"> </p>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">基础协议图 </p>
+<p style="text-align:center;background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">&nbsp; </p>
+<p style="text-align:left;background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">如 上图：&nbsp;CAS Client&nbsp;与受保护的客户端应用部署在一起，以&nbsp;Filter&nbsp;方式保护&nbsp;Web&nbsp;应用的受保护资源，过滤从客户端过来的每一个&nbsp;Web&nbsp;请求，同 时，&nbsp;CAS Client&nbsp;会分析&nbsp;HTTP&nbsp;请求中是否包含请求&nbsp;Service Ticket( ST&nbsp;上图中的&nbsp;Ticket)&nbsp;，如果没有，则说明该用户是没有经过认证的；于是&nbsp;CAS Client&nbsp;会重定向用户请求到&nbsp;CAS Server&nbsp;（&nbsp;Step 2&nbsp;），并传递&nbsp;Service&nbsp;（要访问的目的资源地址）。&nbsp;Step 3&nbsp;是用户认证过程，如果用户提供了正确的&nbsp;Credentials&nbsp;，&nbsp;CAS Server&nbsp;随机产生一个相当长度、唯一、不可伪造的&nbsp;Service Ticket&nbsp;，并缓存以待将来验证，并且重定向用户到&nbsp;Service&nbsp;所在地址（附带刚才产生的&nbsp;Service Ticket&nbsp;）&nbsp;,&nbsp;<strong>并为客户端浏览器设置一个&nbsp;Ticket Granted Cookie&nbsp;（&nbsp;TGC&nbsp;）&nbsp;</strong>；&nbsp;CAS Client&nbsp;在拿到&nbsp;Service&nbsp;和新产生的&nbsp;Ticket&nbsp;过后，在&nbsp;Step 5&nbsp;和&nbsp;Step6&nbsp;中与&nbsp;CAS Server&nbsp;进行身份核实，以确保&nbsp;Service Ticket&nbsp;的合法性。 </p>
+<p style="text-align:left;background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">在该协议中，所有与&nbsp;CAS Server&nbsp;的交互均采用&nbsp;SSL&nbsp;协议，以确保&nbsp;ST&nbsp;和&nbsp;TGC&nbsp;的安全性。协议工作过程中会有&nbsp;<strong>2&nbsp;次重定向&nbsp;</strong>的过程。但是&nbsp;CAS Client&nbsp;与&nbsp;CAS Server&nbsp;之间进行&nbsp;Ticket&nbsp;验证的过程对于用户是透明的（使用&nbsp;HttpsURLConnection&nbsp;）。 </p>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">&nbsp;&nbsp;&nbsp;&nbsp;CAS&nbsp;请求认证时序图如下： </p>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">&nbsp; </p>
+<p style="text-align:center;background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;"><img alt="CAS实现SSO单点登录原理" src="./CAS实现SSO单点登录原理 - OPEN 开发经验库_files/20150523193942_534.gif" width="554" height="466">&nbsp;&nbsp; </p>
+ <h3 id="articleHeader15"><a name="t15"></a><a name="_Toc350341216"></a>3.2.1.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CAS&nbsp;如何实现&nbsp;SSO </h3>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">当用户访问另一个应用的服务再次被重定向到&nbsp;CAS Server&nbsp;的时候，&nbsp;CAS Server&nbsp;会主动获到这个&nbsp;TGC cookie&nbsp;，然后做下面的事情： </p>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">1)&nbsp;如果&nbsp;User&nbsp;持有&nbsp;TGC&nbsp;且其还没失效，那么就走基础协议图的&nbsp;Step4&nbsp;，达到了&nbsp;SSO&nbsp;的效果； </p>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">2)&nbsp;如果&nbsp;TGC&nbsp;失效，那么用户还是要重新认证&nbsp;(&nbsp;走基础协议图的&nbsp;Step3)&nbsp;。 </p>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">&nbsp; </p>
+ <h3 id="articleHeader16"><a name="t16"></a><a name="_Toc350341217"></a>3.2.2.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CAS&nbsp;代理模式 </h3>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">该模式形式为用户访问&nbsp;App1&nbsp;，&nbsp;App1&nbsp;又依赖于&nbsp;App2&nbsp;来获取一些信息，如：&nbsp;User --&gt;App1 --&gt;App2。 </p>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">这 种情况下，假设&nbsp;App2&nbsp;也是需要对&nbsp;User&nbsp;进行身份验证才能访问，那么，为了不影响用户体验（过多的重定向导致&nbsp;User&nbsp;的&nbsp;IE&nbsp;窗口不停地 闪动&nbsp;)&nbsp;，&nbsp;CAS&nbsp;引入了一种&nbsp;Proxy&nbsp;认证机制，即&nbsp;CAS Client&nbsp;可以代理用户去访问其它&nbsp;Web&nbsp;应用。 </p>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">代 理的前提是需要&nbsp;CAS Client&nbsp;拥有用户的身份信息&nbsp;(&nbsp;类似凭据&nbsp;)&nbsp;。之前我们提到的&nbsp;TGC&nbsp;是用户持有对自己身份信息的一种凭据，这里的&nbsp;PGT&nbsp;就是&nbsp;CAS Client&nbsp;端持有的对用户身份信息的一种凭据。凭借TGC&nbsp;，&nbsp;User&nbsp;可以免去输入密码以获取访问其它服务的&nbsp;Service Ticket&nbsp;，所以，这里凭借&nbsp;PGT&nbsp;，&nbsp;Web应用可以代理用户去实现后端的认证，而&nbsp;<strong>无需前端用户的参与&nbsp;</strong>。 </p>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">下面为代理应用（&nbsp;helloService&nbsp;）获取&nbsp;PGT&nbsp;的过程：&nbsp;（注：&nbsp;PGTURL&nbsp;用于表示一个&nbsp;Proxy&nbsp;服务，是一个回调链接；&nbsp;PGT&nbsp;相当于代理证；&nbsp;PGTIOU&nbsp;为取代理证的钥匙，用来与&nbsp;PGT&nbsp;做关联关系；） </p>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">&nbsp; </p>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;"><img alt="CAS实现SSO单点登录原理" src="./CAS实现SSO单点登录原理 - OPEN 开发经验库_files/20150523193942_459.jpg" width="528" height="402">&nbsp;&nbsp; </p>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">如上面的&nbsp;CAS Proxy&nbsp;图所示，&nbsp;<strong>CAS Client&nbsp;</strong>在基础协议之上，在验证&nbsp;ST&nbsp;时提供了一个额外的PGT URL(&nbsp;而且是&nbsp;SSL&nbsp;的入口&nbsp;)&nbsp;给&nbsp;CAS Server&nbsp;，使得&nbsp;CAS Server&nbsp;可以通过&nbsp;PGT URL&nbsp;提供一个&nbsp;PGT&nbsp;给&nbsp;CAS Client&nbsp;。 </p>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">CAS Client&nbsp;拿到了&nbsp;PGT(PGTIOU-85&nbsp;…&nbsp;..ti2td)&nbsp;，就可以通过&nbsp;PGT&nbsp;向后端&nbsp;Web&nbsp;应用进行认证。 </p>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">下面是代理认证和提供服务的过程： </p>
+<p style="text-align:center;background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;"><img alt="CAS实现SSO单点登录原理" src="./CAS实现SSO单点登录原理 - OPEN 开发经验库_files/20150523193942_930.jpg" width="543" height="378"> </p>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">&nbsp; </p>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">如 上图所示，&nbsp;Proxy&nbsp;认证与普通的认证其实差别不大，&nbsp;Step1&nbsp;，&nbsp;2&nbsp;与基础模式的&nbsp;Step1,2&nbsp;几乎一样，唯一不同的 是，&nbsp;Proxy&nbsp;模式用的是&nbsp;PGT&nbsp;而不是&nbsp;TGC&nbsp;，是&nbsp;Proxy Ticket&nbsp;（&nbsp;PT&nbsp;）而不是&nbsp;Service Ticket&nbsp;。 </p>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">&nbsp; </p>
+ <h3 id="articleHeader17"><a name="t17"></a><a name="_Toc350341218"></a>3.2.3.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;辅助说明 </h3>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">CAS&nbsp;的&nbsp;SSO&nbsp;实现方式可简化理解为：&nbsp;1&nbsp;个&nbsp;Cookie&nbsp;和&nbsp;N&nbsp;个&nbsp;Session&nbsp;。&nbsp;CAS Server&nbsp;创建&nbsp;cookie，在所有应用认证时使用，各应用通过创建各自的&nbsp;Session&nbsp;来标识用户是否已登录。 </p>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">用 户在一个应用验证通过后，以后用户在同一浏览器里访问此应用时，客户端应用中的过滤器会在&nbsp;session&nbsp;里读取到用户信息，所以就不会去&nbsp;CAS Server&nbsp;认证。如果在此浏览器里访问别的&nbsp;web&nbsp;应用时，客户端应用中的过滤器在&nbsp;session&nbsp;里读取不到用户信息，就会去&nbsp;CAS Server&nbsp;的&nbsp;login&nbsp;接口认证，但这时CAS Server&nbsp;会读取到浏览器传来的&nbsp;cookie&nbsp;（&nbsp;TGC&nbsp;），所以&nbsp;CAS Server&nbsp;不会要求用户去登录页面登录，只是会根据&nbsp;service&nbsp;参数生成一个&nbsp;Ticket&nbsp;，然后再和&nbsp;web&nbsp;应用做一个验 证&nbsp;ticket&nbsp;的交互而已。 </p>
+ <h2 id="articleHeader18"><a name="t18"></a><a name="_Toc350341219"></a>3.3.&nbsp;&nbsp;术语解释 </h2>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">CAS&nbsp;系统中设计了&nbsp;5&nbsp;中票据：&nbsp;TGC&nbsp;、&nbsp;ST&nbsp;、&nbsp;PGT&nbsp;、&nbsp;PGTIOU&nbsp;、&nbsp;PT&nbsp;。 </p>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">Ø&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ticket-granting cookie(TGC)&nbsp;：存放用户身份认证凭证的&nbsp;cookie&nbsp;，在浏览器和&nbsp;CAS Server&nbsp;间通讯时使用，并且只能基于安全通道传输（&nbsp;Https&nbsp;），是&nbsp;CAS Server&nbsp;用来明确用户身份的凭证； </p>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">Ø&nbsp;&nbsp;&nbsp;Service ticket(ST)&nbsp;：服务票据，服务的惟一标识码&nbsp;,&nbsp;由&nbsp;CAS Server&nbsp;发出（&nbsp;Http&nbsp;传送），通过客户端浏览器到达业务服务器端；一个特定的服务只能有一个惟一的&nbsp;ST&nbsp;； </p>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">Ø&nbsp;&nbsp;&nbsp;Proxy-Granting ticket&nbsp;（&nbsp;PGT&nbsp;）：由&nbsp;CAS Server&nbsp;颁发给拥有&nbsp;ST&nbsp;凭证的服务，&nbsp;PGT&nbsp;绑定一个用户的特定服务，使其拥有向&nbsp;CAS Server&nbsp;申请，获得&nbsp;PT&nbsp;的能力； </p>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">Ø&nbsp;&nbsp;&nbsp;Proxy-Granting Ticket I Owe You&nbsp;（&nbsp;PGTIOU&nbsp;）&nbsp;:&nbsp;作用是将通过凭证校验时的应答信息由&nbsp;CAS Server&nbsp;返回给&nbsp;CAS Client&nbsp;，同时，与该&nbsp;PGTIOU&nbsp;对应的&nbsp;PGT&nbsp;将通过回调链接传给&nbsp;Web&nbsp;应用。&nbsp;Web&nbsp;应用负责维护&nbsp;PGTIOU&nbsp;与&nbsp;PGT&nbsp;之 间映射关系的内容表； </p>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">Ø&nbsp;&nbsp;&nbsp;Proxy Ticket (PT)&nbsp;：是应用程序代理用户身份对目标程序进行访问的凭证； </p>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">&nbsp; </p>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">其它说明如下： </p>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">Ø&nbsp;&nbsp;&nbsp;Ticket Granting ticket(TGT)&nbsp;：票据授权票据，由&nbsp;KDC&nbsp;的&nbsp;AS&nbsp;发放。即获取这样一张票据后，以后申请各种其他服务票据&nbsp;(ST)&nbsp;便不必再向&nbsp;KDC&nbsp;提交身份认证信息&nbsp;(Credentials)&nbsp;； </p>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">Ø&nbsp;&nbsp;&nbsp;Authentication service(AS) ---------&nbsp;认证用服务，索取&nbsp;Credentials&nbsp;，发放&nbsp;TGT&nbsp;； </p>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">Ø&nbsp;&nbsp;&nbsp;Ticket-granting service (TGS) ---------&nbsp;票据授权服务，索取&nbsp;TGT&nbsp;，发放&nbsp;ST&nbsp;； </p>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">Ø&nbsp;&nbsp;&nbsp;KDC( Key Distribution Center ) ----------&nbsp;密钥发放中心； </p>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">&nbsp; </p>
+ <h1 id="articleHeader19"><a name="t19"></a><a name="_Toc350341220"></a>4.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CAS&nbsp;安全性 </h1>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">CAS&nbsp;的安全性仅仅依赖于&nbsp;SSL&nbsp;。使用的是&nbsp;secure cookie&nbsp;。 </p>
+ <h2 id="articleHeader20"><a name="t20"></a><a name="_Toc350341221"></a>4.1.&nbsp;&nbsp;TGC/PGT&nbsp;安全性 </h2>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">对于一个&nbsp;CAS&nbsp;用户来说，最重要是要保护它的&nbsp;TGC&nbsp;，如果&nbsp;TGC&nbsp;不慎被&nbsp;CAS Server&nbsp;以外的实体获得，&nbsp;Hacker&nbsp;能够找到该&nbsp;TGC&nbsp;，然后冒充&nbsp;CAS&nbsp;用户访问&nbsp;<strong>所有&nbsp;</strong>授权资源。&nbsp;PGT&nbsp;的角色跟&nbsp;TGC&nbsp;是一样的。 </p>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">从基础模式可以看出，&nbsp;TGC&nbsp;是&nbsp;CAS Server&nbsp;通过&nbsp;SSL&nbsp;方式发送给终端用户，因此，要截取&nbsp;TGC&nbsp;难度非常大，从而确保&nbsp;CAS&nbsp;的安全性。 </p>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">TGT&nbsp;的存活周期默认为&nbsp;120&nbsp;分钟。 </p>
+ <h2 id="articleHeader21"><a name="t21"></a><a name="_Toc350341222"></a>4.2.&nbsp;&nbsp;ST/PT&nbsp;安全性 </h2>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">ST&nbsp;（&nbsp;Service Ticket&nbsp;）是通过&nbsp;Http&nbsp;传送的，因此网络中的其他人可以&nbsp;Sniffer&nbsp;到其他人的&nbsp;Ticket&nbsp;。&nbsp;CAS&nbsp;通过以下几方面来使&nbsp;ST&nbsp;变得更加安全（事实上都是可以配置的）： </p>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">1、&nbsp;&nbsp;&nbsp;ST&nbsp;只能使用一次 </p>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">CAS&nbsp;协议规定，无论&nbsp;Service Ticket&nbsp;验证是否成功，&nbsp;CAS Server&nbsp;都会清除服务端缓存中的该Ticket&nbsp;，从而可以确保一个&nbsp;Service Ticket&nbsp;不被使用两次。 </p>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">2、&nbsp;&nbsp;&nbsp;ST&nbsp;在一段时间内失效 </p>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">CAS&nbsp;规定&nbsp;ST&nbsp;只能存活一定的时间，然后&nbsp;CAS Server&nbsp;会让它失效。默认有效时间为&nbsp;5&nbsp;分钟。 </p>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">3、&nbsp;&nbsp;&nbsp;ST&nbsp;是基于随机数生成的 </p>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">ST&nbsp;必须足够随机，如果&nbsp;ST&nbsp;生成规则被猜出，&nbsp;Hacker&nbsp;就等于绕过&nbsp;CAS&nbsp;认证，直接访问&nbsp;<strong>对应的</strong>服务。 </p>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;">&nbsp; </p>
+ <h1 id="articleHeader22"><a name="t22"></a><a name="_Toc350341223"></a>5.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;参考资料 </h1>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;"><strong>1、&nbsp;https://wiki.jasig.org/display/CASUM/Introduction</strong> </p>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;"><strong>2、&nbsp;http://www.jasig.org/cas/protocol/</strong> </p>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;"><strong>3、&nbsp;http://www.ibm.com/developerworks/cn/opensource/os-cn-cas/index.html</strong> </p>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;"><strong>4、&nbsp;http://www.blogjava.net/security/archive/2006/10/02/sso_in_action.html</strong> </p>
+<p style="background-color:#ffffff;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#4b4b4b;margin-left:auto;"><strong>5、&nbsp;http://baike.baidu.com/view/190743.htm</strong> </p>
+<div>原文地址： <a href="http://www.cnblogs.com/gxbk629/p/4473569.html" target="_blank">http://www.cnblogs.com/gxbk629/p/4473569.html</a> </div><h2 id="articleHeader23"><strong>扩展阅读</strong></h2><a title="CAS实现SSO单点登录原理" href="http://www.open-open.com/lib/view/open1432381488005.html"><span class="title">CAS实现SSO单点登录原理</span></a><br><a title="CAS实现SSO（单点登录）" href="http://www.open-open.com/lib/view/open1423663190904.html"><span class="title"> CAS实现SSO（单点登录）</span></a><br><a title="采用CAS原理构建单点登录" href="http://www.open-open.com/lib/view/open1387934586296.html"><span class="title">采用CAS原理构建单点登录</span></a><br><a title="基于Redis的CAS集群" href="http://www.open-open.com/lib/view/open1363592675187.html"><span class="title">基于Redis的CAS集群 </span></a><br><a title="Web应用跨域访问解决方案汇总" href="http://www.open-open.com/lib/view/open1463878456977.html"><span class="title">Web应用跨域访问解决方案汇总</span></a><br><h2 id="articleHeader24"><strong>为您推荐</strong></h2><a title="非常实用的CSS使用技巧" href="http://www.open-open.com/lib/view/open1397187053747.html"><span class="title">非常实用的CSS使用技巧 </span></a><br><a title="jQuery" validate="" 表单验证="" href="http://www.open-open.com/lib/view/open1372923690066.html"><span class="title">jQuery Validate 表单验证</span></a><br><a title="基于jQuery的一个简单的图片查看器" href="http://www.open-open.com/lib/view/open1456573682031.html"><span class="title">基于jQuery的一个简单的图片查看器</span></a><br><a title="CSS学习总结" href="http://www.open-open.com/lib/view/open1337223900025.html"><span class="title">CSS学习总结 </span></a><br><a title="10个你未必知道的CSS技巧与14种css&amp;div中基本滤镜介绍" href="http://www.open-open.com/lib/view/open1386053272642.html"><span class="title">10个你未必知道的CSS技巧与14种css&amp;div中基本滤镜介绍</span></a><br><h2 id="articleHeader25"><strong>更多</strong></h2><a title="SSO" href="https://www.baidu.com/s?wd=site:open-open.com%20SSO"><span class="title">SSO</span></a><br><a title="OpenID/单点登录SSO" href="https://www.baidu.com/s?wd=site:open-open.com%20OpenID/%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95SSO"><span class="title">OpenID/单点登录SSO</span></a><br>
+				</article>
+
+
+
+
+		
+
+
+
+		</div>
+
+
+
+	<div class="col-md-3">
+		<div class="bdsharebuttonbox bdshare-button-style0-16" data-bd-bind="1508813611349">
+			<a href="http://www.open-open.com/lib/view/open1432381488005.html#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+			<a href="http://www.open-open.com/lib/view/open1432381488005.html#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+			<a href="http://www.open-open.com/lib/view/open1432381488005.html#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a>
+			<a href="http://www.open-open.com/lib/view/open1432381488005.html#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a>
+			<a href="http://www.open-open.com/lib/view/open1432381488005.html#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+
+		</div>
+
+		<div class=" side-box" style="margin-top: 20px;">
+				<div class="title"><h3>同类热门新闻</h3></div>
+				<ol class="hot">
+					
+						<li>
+							<a href="http://www.open-open.com/news/view/165e914" target="_blank" title="单点登录系统，baigo SSO v1.1.3 发布">单点登录系统，baigo SSO v1.1.3 发布</a>
+						</li>
+					
+						<li>
+							<a href="http://www.open-open.com/news/view/903f49" target="_blank" title="SSO 中间件，Kisso 3.0 发布">SSO 中间件，Kisso 3.0 发布</a>
+						</li>
+					
+						<li>
+							<a href="http://www.open-open.com/news/view/1c87975" target="_blank" title="kisso 3.5.5 发布，J2EE  SSO 中间件">kisso 3.5.5 发布，J2EE  SSO 中间件</a>
+						</li>
+					
+						<li>
+							<a href="http://www.open-open.com/news/view/b1929b7" target="_blank" title="Keycloak [XXX] 发布,SSO和IDM集成解决方案">Keycloak [XXX] 发布,SSO和IDM集成解决方案</a>
+						</li>
+					
+						<li>
+							<a href="http://www.open-open.com/news/view/50b78bf3" target="_blank" title="keycloak v1.9.6 发布,SSO和IDM集成解决方案">keycloak v1.9.6 发布,SSO和IDM集成解决方案</a>
+						</li>
+					
+						<li>
+							<a href="http://www.open-open.com/news/view/d1cf7c2" target="_blank" title="keycloak v1.9.7 发布,SSO和IDM集成解决方案">keycloak v1.9.7 发布,SSO和IDM集成解决方案</a>
+						</li>
+					
+
+				</ol>
+		
+				<div class="title"><h3>同类热门经验</h3></div>
+				<ol class="hot">
+					
+						<li>
+							<a title="Java单点登录框架" josso="" href="http://www.open-open.com/lib/view/open1324911185202.html"><span class="title">Java单点登录框架 JOSSO</span></a>
+						</li>
+					
+						<li>
+							<a title="基于" oauth="" 安全协议的="" java="" 应用编程="" href="http://www.open-open.com/lib/view/open1331522292187.html"><span class="title">基于 OAuth 安全协议的 Java 应用编程 </span></a>
+						</li>
+					
+						<li>
+							<a title="QQ登录的Java接口" open-qq="" href="http://www.open-open.com/lib/view/open1324907204905.html"><span class="title">QQ登录的Java接口 open-qq</span></a>
+						</li>
+					
+						<li>
+							<a title="Java单点登录系统" ja-sig="" cas="" href="http://www.open-open.com/lib/view/open1324911279796.html"><span class="title">Java单点登录系统 JA-SIG CAS</span></a>
+						</li>
+					
+						<li>
+							<a title="SSO" (单点登录)实现方式="" href="http://www.open-open.com/lib/view/open1394852821353.html"><span class="title">SSO (单点登录)实现方式</span></a>
+						</li>
+					
+						<li>
+							<a title="基于Redis的CAS集群" href="http://www.open-open.com/lib/view/open1363592675187.html"><span class="title">基于Redis的CAS集群 </span></a>
+						</li>
+					
+
+				</ol>
+			</div>
+			
+		<p class="aiBar"></p>
+		<div class="side-box post-nav aside-fixed" style="margin-top: 20px;">
+			<div class="title"><h3>阅读目录</h3></div>
+			<ul class="articleIndex"><li class=""><a href="http://www.open-open.com/lib/view/open1432381488005.html#articleHeader0">1.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CAS&nbsp;简介</a></li><li style="list-style:none;"><ul><li class=""><a href="http://www.open-open.com/lib/view/open1432381488005.html#articleHeader1">1.1.&nbsp;&nbsp;What is CAS&nbsp;？</a></li><li class=""><a href="http://www.open-open.com/lib/view/open1432381488005.html#articleHeader2">1.2.&nbsp;&nbsp;主要特性</a></li></ul></li><li class=""><a href="http://www.open-open.com/lib/view/open1432381488005.html#articleHeader3">2.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SSO&nbsp;单点登录原理</a></li><li style="list-style:none;"><ul><li class=""><a href="http://www.open-open.com/lib/view/open1432381488005.html#articleHeader4">2.1.&nbsp;&nbsp;什么是SSO</a></li><li class=""><a href="http://www.open-open.com/lib/view/open1432381488005.html#articleHeader5">2.2.&nbsp;&nbsp;SSO&nbsp;原理</a></li><li style="list-style:none;"><ul><li class=""><a href="http://www.open-open.com/lib/view/open1432381488005.html#articleHeader6">2.2.1.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SSO&nbsp;体系中的角色</a></li><li class=""><a href="http://www.open-open.com/lib/view/open1432381488005.html#articleHeader7">2.2.2.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SSO&nbsp;实现模式的原则</a></li><li class=""><a href="http://www.open-open.com/lib/view/open1432381488005.html#articleHeader8">2.2.3.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SSO&nbsp;主要实现方式</a></li></ul></li></ul></li><li class=""><a href="http://www.open-open.com/lib/view/open1432381488005.html#articleHeader9">3.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CAS&nbsp;的基本原理</a></li><li style="list-style:none;"><ul><li class=""><a href="http://www.open-open.com/lib/view/open1432381488005.html#articleHeader10">3.1.&nbsp;&nbsp;结构体系</a></li><li style="list-style:none;"><ul><li class="active"><a href="http://www.open-open.com/lib/view/open1432381488005.html#articleHeader11">3.1.1.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CAS Server</a></li><li><a href="http://www.open-open.com/lib/view/open1432381488005.html#articleHeader12">3.1.2.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CAS Client</a></li></ul></li></ul></li><li style="list-style:none;"><ul><li><a href="http://www.open-open.com/lib/view/open1432381488005.html#articleHeader13">3.2.&nbsp;&nbsp;CAS&nbsp;原理和协议</a></li><li style="list-style:none;"><ul><li><a href="http://www.open-open.com/lib/view/open1432381488005.html#articleHeader14">3.2.1.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;基础模式</a></li><li><a href="http://www.open-open.com/lib/view/open1432381488005.html#articleHeader15">3.2.1.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CAS&nbsp;如何实现&nbsp;SSO</a></li><li><a href="http://www.open-open.com/lib/view/open1432381488005.html#articleHeader16">3.2.2.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CAS&nbsp;代理模式</a></li><li><a href="http://www.open-open.com/lib/view/open1432381488005.html#articleHeader17">3.2.3.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;辅助说明</a></li></ul></li></ul></li><li style="list-style:none;"><ul><li><a href="http://www.open-open.com/lib/view/open1432381488005.html#articleHeader18">3.3.&nbsp;&nbsp;术语解释</a></li></ul></li><li><a href="http://www.open-open.com/lib/view/open1432381488005.html#articleHeader19">4.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CAS&nbsp;安全性</a></li><li style="list-style:none;"><ul><li><a href="http://www.open-open.com/lib/view/open1432381488005.html#articleHeader20">4.1.&nbsp;&nbsp;TGC/PGT&nbsp;安全性</a></li><li><a href="http://www.open-open.com/lib/view/open1432381488005.html#articleHeader21">4.2.&nbsp;&nbsp;ST/PT&nbsp;安全性</a></li></ul></li><li><a href="http://www.open-open.com/lib/view/open1432381488005.html#articleHeader22">5.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;参考资料</a></li><li style="list-style:none;"><ul><li><a href="http://www.open-open.com/lib/view/open1432381488005.html#articleHeader23">扩展阅读</a></li><li><a href="http://www.open-open.com/lib/view/open1432381488005.html#articleHeader24">为您推荐</a></li><li class=""><a href="http://www.open-open.com/lib/view/open1432381488005.html#articleHeader25">更多</a></li></ul></li></ul>
+		</div>
+	</div>
+
+
+
+</div>
+	</div>
+
+<div class="container">
+
+	<div class="row">
+		<div class="col-md-9">
+			<table width="100%"><tbody><tr>
+				<td valign="top" width="33%" class="Relatedb">
+					<div style="border-bottom: 1px #ccc solid;margin-top: 5px"><strong>相关文档</strong> 　—　<a href="http://www.open-open.com/doc" rel="nofollow" target="_blank">更多</a></div>
+					<ul>
+						
+							<li><a href="http://www.open-open.com/doc/view/3abc10447556405e8b2e6219ab8e6e1a" rel="nofollow" target="_blank" title="CAS SSO 实例.doc">CAS SSO 实例.doc</a></li>
+						
+							<li><a href="http://www.open-open.com/doc/view/e5becefcfd89487b8d4593a1a2b73f36" rel="nofollow" target="_blank" title="使用CAS实现SSO.doc">使用CAS实现SSO.doc</a></li>
+						
+							<li><a href="http://www.open-open.com/doc/view/1a2ab4fe0c834f6c8fa8311e8fe33859" rel="nofollow" target="_blank" title="CAS配置.doc">CAS配置.doc</a></li>
+						
+							<li><a href="http://www.open-open.com/doc/view/98d9c38e39c044bdbeb29d43be8d18f7" rel="nofollow" target="_blank" title="Weblogic使用Yale(耶鲁)CAS实现SSO单点登录+的方法.doc">Weblogic使用Yale(耶鲁)CAS实现SSO单点登录+的方法.doc</a></li>
+						
+							<li><a href="http://www.open-open.com/doc/view/194f5752afc74308a87a26d7068fb2c5" rel="nofollow" target="_blank" title="cas实现单点登录(sso)经典完整教程.docx">cas实现单点登录(sso)经典完整教程.docx</a></li>
+						
+							<li><a href="http://www.open-open.com/doc/view/89ff7d071957467faa633c831050ef95" rel="nofollow" target="_blank" title="单点登录(SSO)和中心认证服务(CAS).doc">单点登录(SSO)和中心认证服务(CAS).doc</a></li>
+						
+							<li><a href="http://www.open-open.com/doc/view/85557581e2ca4526ba365e7a2643210a" rel="nofollow" target="_blank" title="CAS单点登录(SSO)完整教程.docx">CAS单点登录(SSO)完整教程.docx</a></li>
+						
+							<li><a href="http://www.open-open.com/doc/view/c966abeaa0dd4a1c82a3314b1cdb0a8a" rel="nofollow" target="_blank" title="SSO 单点登录 Spring-Security &amp; CAS 使用手册.doc">SSO 单点登录 Spring-Security &amp; CAS 使用手册.doc</a></li>
+						
+							<li><a href="http://www.open-open.com/doc/view/202c6439a10c4254b3f5529d057387dc" rel="nofollow" target="_blank" title="SSO单点登录Spring-Security &amp; CAS 使用手册.doc">SSO单点登录Spring-Security &amp; CAS 使用手册.doc</a></li>
+						
+							<li><a href="http://www.open-open.com/doc/view/e643fcf8163145d28a4821265f01c27f" rel="nofollow" target="_blank" title="SSO CAS 单点登录.docx">SSO CAS 单点登录.docx</a></li>
+						
+							<li><a href="http://www.open-open.com/doc/view/867c417f65e54098a435d8defd4f25ea" rel="nofollow" target="_blank" title="单点登录（SSO）调研报告.ppt">单点登录（SSO）调研报告.ppt</a></li>
+						
+							<li><a href="http://www.open-open.com/doc/view/1493de9055d14b799e4cfd595a1490b1" rel="nofollow" target="_blank" title="单点登录SSO和中心认证服务CAS.doc">单点登录SSO和中心认证服务CAS.doc</a></li>
+						
+							<li><a href="http://www.open-open.com/doc/view/796c4bf4fc3140df8dda53f7599614c0" rel="nofollow" target="_blank" title="金融超市SSO介绍.ppt">金融超市SSO介绍.ppt</a></li>
+						
+							<li><a href="http://www.open-open.com/doc/view/d2f8a4e13df84bec903823cabd537427" rel="nofollow" target="_blank" title="新浪微博如何实现SSO(单点登录)的分析.doc">新浪微博如何实现SSO(单点登录)的分析.doc</a></li>
+						
+							<li><a href="http://www.open-open.com/doc/view/74b36c3bdef844c1b9bbecb3839a3180" rel="nofollow" target="_blank" title="基于cas的用户管理单点登录门户系统ppt.ppt">基于cas的用户管理单点登录门户系统ppt.ppt</a></li>
+						
+							<li><a href="http://www.open-open.com/doc/view/d3d09766f78e4493b20c27c6f18f3629" rel="nofollow" target="_blank" title="单点登录CAS分享.pptx">单点登录CAS分享.pptx</a></li>
+						
+							<li><a href="http://www.open-open.com/doc/view/f1ff9af6244a4becaadd36f6b4350b0a" rel="nofollow" target="_blank" title="CAS整合LDAP实现单点登录学习笔记.pdf">CAS整合LDAP实现单点登录学习笔记.pdf</a></li>
+						
+							<li><a href="http://www.open-open.com/doc/view/b42815adacff49dcaa51db95049192c8" rel="nofollow" target="_blank" title="CAS Server单点登录.doc">CAS Server单点登录.doc</a></li>
+						
+							<li><a href="http://www.open-open.com/doc/view/d36c10f684a5401984348427b3e4d5da" rel="nofollow" target="_blank" title="JA-SIG（CAS）的整体功能和身份认证业务架构.doc">JA-SIG（CAS）的整体功能和身份认证业务架构.doc</a></li>
+						
+							<li><a href="http://www.open-open.com/doc/view/24a4c1851f4b47d0b5d7aacdefc19f93" rel="nofollow" target="_blank" title="CAS SSO单点登录实例详细步骤.doc">CAS SSO单点登录实例详细步骤.doc</a></li>
+						
+					</ul>
+				</td>
+				<td valign="top" width="33%" class="Relatedb">
+					<div style="border-bottom: 1px #ccc solid;margin-top: 5px"><strong>相关经验</strong> 　—　<a href="http://www.open-open.com/lib" rel="nofollow" target="_blank">更多</a></div>
+					<ul>
+						
+							<li>
+								<a title="CAS实现SSO单点登录原理" href="http://www.open-open.com/lib/view/open1432381488005.html" target="_blank"><span class="title">CAS实现SSO单点登录原理</span></a>
+
+							</li>
+						
+							<li>
+								<a title="CAS实现SSO（单点登录）" href="http://www.open-open.com/lib/view/open1423663190904.html" target="_blank"><span class="title"> CAS实现SSO（单点登录）</span></a>
+
+							</li>
+						
+							<li>
+								<a title="采用CAS原理构建单点登录" href="http://www.open-open.com/lib/view/open1387934586296.html" target="_blank"><span class="title">采用CAS原理构建单点登录</span></a>
+
+							</li>
+						
+							<li>
+								<a title="基于Redis的CAS集群" href="http://www.open-open.com/lib/view/open1363592675187.html" target="_blank"><span class="title">基于Redis的CAS集群 </span></a>
+
+							</li>
+						
+							<li>
+								<a title="Web应用跨域访问解决方案汇总" href="http://www.open-open.com/lib/view/open1463878456977.html" target="_blank"><span class="title">Web应用跨域访问解决方案汇总</span></a>
+
+							</li>
+						
+							<li>
+								<a title="单点登录SSO的实现原理" href="http://www.open-open.com/lib/view/open1437657953178.html" target="_blank"><span class="title">单点登录SSO的实现原理</span></a>
+
+							</li>
+						
+							<li>
+								<a title="单点登录SSO的实现原理" href="http://www.open-open.com/lib/view/open1454502780792.html" target="_blank"><span class="title">单点登录SSO的实现原理</span></a>
+
+							</li>
+						
+							<li>
+								<a title="单点登录SSO的实现原理" href="http://www.open-open.com/lib/view/open1454503884933.html" target="_blank"><span class="title">单点登录SSO的实现原理</span></a>
+
+							</li>
+						
+							<li>
+								<a title="CAS实现单点登录" href="http://www.open-open.com/lib/view/open1386294091048.html" target="_blank"><span class="title">CAS实现单点登录</span></a>
+
+							</li>
+						
+							<li>
+								<a title="SSO" (单点登录)实现方式="" href="http://www.open-open.com/lib/view/open1394852821353.html" target="_blank"><span class="title">SSO (单点登录)实现方式</span></a>
+
+							</li>
+						
+							<li>
+								<a title="单点登录Cas项目实践" href="http://www.open-open.com/lib/view/open1389341349945.html" target="_blank"><span class="title">单点登录Cas项目实践 </span></a>
+
+							</li>
+						
+							<li>
+								<a title="单点登录系统：ki4so" href="http://www.open-open.com/lib/view/open1380116560742.html" target="_blank"><span class="title">单点登录系统：ki4so</span></a>
+
+							</li>
+						
+							<li>
+								<a title="Flask:" sso原理及实现="" href="http://www.open-open.com/lib/view/open1392622296350.html" target="_blank"><span class="title">Flask: SSO原理及实现</span></a>
+
+							</li>
+						
+							<li>
+								<a title="CAS服务下单点登录" href="http://www.open-open.com/lib/view/open1359286846414.html" target="_blank"><span class="title">CAS服务下单点登录</span></a>
+
+							</li>
+						
+					</ul>
+				</td>
+				<td valign="top" width="33%" class="Relatedb">
+					<div style="border-bottom: 1px #ccc solid;margin-top: 5px"><strong>相关讨论</strong> 　—　<a href="http://www.open-open.com/solution" rel="nofollow" target="_blank">更多</a></div>
+					<ul>
+						
+							<li>
+								<a title="一个cas客户端能配置多个cas服务器地址吗？" href="http://www.open-open.com/solution/view/1373612006956" rel="nofollow" target="_blank"><span class="title">一个cas客户端能配置多个cas服务器地址吗？</span></a>
+							</li>
+						
+							<li>
+								<a title="部署iMatrix平台cas、imatrix、imatrix-static项目遇到的问题" href="http://www.open-open.com/solution/view/1379832132711" rel="nofollow" target="_blank"><span class="title">部署iMatrix平台cas、imatrix、imatrix-static项目遇到的问题</span></a>
+							</li>
+						
+							<li>
+								<a title="项目部署iMatirx平台如何搭建？" href="http://www.open-open.com/solution/view/1377743146604" rel="nofollow" target="_blank"><span class="title">项目部署iMatirx平台如何搭建？</span></a>
+							</li>
+						
+							<li>
+								<a title="Java中多线程原理详解" href="http://www.open-open.com/solution/view/1318332540655" rel="nofollow" target="_blank"><span class="title">Java中多线程原理详解</span></a>
+							</li>
+						
+							<li>
+								<a title="CDN（内容分发网络）技术原理" href="http://www.open-open.com/solution/view/1321344924859" rel="nofollow" target="_blank"><span class="title">CDN（内容分发网络）技术原理</span></a>
+							</li>
+						
+							<li>
+								<a title="OrientDB" 的分布式架构原理="" href="http://www.open-open.com/solution/view/1320969839999" rel="nofollow" target="_blank"><span class="title">OrientDB 的分布式架构原理</span></a>
+							</li>
+						
+							<li>
+								<a title="虚拟现实和增强现实原理剖析和开发培训" href="http://www.open-open.com/solution/view/1456990711343" rel="nofollow" target="_blank"><span class="title">虚拟现实和增强现实原理剖析和开发培训</span></a>
+							</li>
+						
+					</ul>
+				</td>
+			</tr></tbody></table>
+		</div>
+
+	</div>
+
+</div>
+
+
+
+
+
+<style>
+	footer{background-color: #fff;
+		border-top: 1px solid rgba(230, 230, 230, 0.75);
+		margin-top: 20px;
+		padding: 20px 0;}
+</style>
+<footer>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-4 col-xs-4" style="line-height: 60px;">
+				<span>©2006-2016 深度开源 </span>
+			</div>
+			<div class="col-md-4 col-xs-4 text-center"><span>
+				<a rel="nofollow" href="http://www.open-open.com/" class="brightbox-logo"><img src="./CAS实现SSO单点登录原理 - OPEN 开发经验库_files/logo-icon.png"></a>
+			</span></div>
+			<div class="col-md-4 col-xs-4" style="line-height: 60px;">
+				 <a target="_blank" href="http://www.miibeian.gov.cn/">浙ICP备09019653号-31</a>
+				<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1257892335'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s95.cnzz.com/z_stat.php%3Fid%3D1257892335' type='text/javascript'%3E%3C/script%3E"));</script><span id="cnzz_stat_icon_1257892335"><a href="http://www.cnzz.com/stat/website.php?web_id=1257892335" target="_blank" title="站长统计">站长统计</a></span><script src="./CAS实现SSO单点登录原理 - OPEN 开发经验库_files/z_stat.php" type="text/javascript"></script><script src="./CAS实现SSO单点登录原理 - OPEN 开发经验库_files/core.php" charset="utf-8" type="text/javascript"></script>
+			</div>
+		</div>
+	</div>
+</footer>
+
+<script src="./CAS实现SSO单点登录原理 - OPEN 开发经验库_files/jquery.min.js.下载"></script>
+<script type="text/javascript" src="./CAS实现SSO单点登录原理 - OPEN 开发经验库_files/jquery-confirm.js.下载"></script>
+<script type="text/javascript" src="./CAS实现SSO单点登录原理 - OPEN 开发经验库_files/app.js.下载"></script>
+<script type="text/javascript" src="./CAS实现SSO单点登录原理 - OPEN 开发经验库_files/scrolltopcontrol.js.下载"></script>
+<!-- the jScrollPane script -->
+<script type="text/javascript" src="./CAS实现SSO单点登录原理 - OPEN 开发经验库_files/jquery.contentcarousel.js.下载"></script>
+
+<script type="text/javascript">
+	var rooturl="/lib";
+	var tb_pathToImage = "/lib/images/loadingAnimation.gif";
+	var jc = {};
+	$(function (){
+		$('#ca-container').contentcarousel();
+		$('.login').on('click', function () {
+			jc = $.dialog({
+				title: '&nbsp;',
+				content: '<iframe id="dialog" scrolling="no" style="width:100%;border:none;height:300px;" src="/lib/members/login?keepThis=true&TB_iframe=true&height=177&width=280"></iframe>',
+				animation: 'top',
+				columnClass: 'col-md-5 col-md-offset-3',
+				closeAnimation: 'top',
+				backgroundDismiss: true
+			});
+		});
+		$('.register').on('click', function () {
+			jc = $.dialog({
+				title: '&nbsp;',
+				content: '<iframe id="dialog" scrolling="no" style="width:100%;border:none;height:460px;" src="/lib/members/register?keepThis=true&TB_iframe=true&height=460&width=460"></iframe>',
+				animation: 'top',
+				columnClass: 'col-md-6 col-md-offset-3',
+				closeAnimation: 'top',
+				backgroundDismiss: true
+			});
+		});
+
+
+	});
+
+
+</script>
+
+<script src="./CAS实现SSO单点登录原理 - OPEN 开发经验库_files/jquery-ui.min.js.下载"></script>
+<script type="text/javascript" src="./CAS实现SSO单点登录原理 - OPEN 开发经验库_files/scrolltopcontrol.js.下载"></script>
+<script type="text/javascript" src="./CAS实现SSO单点登录原理 - OPEN 开发经验库_files/view.js.下载"></script>
+
+<script type="text/javascript" src="./CAS实现SSO单点登录原理 - OPEN 开发经验库_files/jquery.jgrowl_minimized.js.下载"></script>
+
+<script type="text/javascript">
+	scrolltotop.offset(95,165);
+	scrolltotop.init();
+</script>
+<script src="./CAS实现SSO单点登录原理 - OPEN 开发经验库_files/highlight.min.js.下载"></script>
+<script>hljs.initHighlightingOnLoad();
+
+	(function(){
+		var c = new contentIndex();
+		c("article", ".articleIndex");
+		setAIActive();
+
+
+		$(window).scroll(function () {
+			if ($(window).scrollTop() > $(".aiBar").offset().top) {
+				$(".post-nav").addClass("aside-fixed");
+//          console.log($(window).scrollTop());
+			} else {
+//           console.log($(window).scrollTop());
+				$(".post-nav").removeClass("aside-fixed");
+			}
+		});
+		$("#readercontainer img").each(function(index, element) {
+			var $width=$("#readercontainer article").width();
+			if ( this.width>$width) {
+
+				this.height = this.height*$width/this.width;
+				this.width=$width;
+			}
+		});
+
+	})();
+</script>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+<script>
+	(function(){
+		var bp = document.createElement('script');
+		bp.src = '//push.zhanzhang.baidu.com/push.js';
+		var s = document.getElementsByTagName("script")[0];
+		s.parentNode.insertBefore(bp, s);
+	})();
+</script>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?29cd250dff3fdb25c10482a503d49507";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<div class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-front ui-dialog-buttons ui-draggable" tabindex="-1" role="dialog" aria-describedby="favorite-box" aria-labelledby="ui-id-1" style="display: none;"><div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix ui-draggable-handle"><span id="ui-id-1" class="ui-dialog-title">收藏提示</span><button type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only ui-dialog-titlebar-close" role="button" title="Close"><span class="ui-button-icon-primary ui-icon ui-icon-closethick"></span><span class="ui-button-text">Close</span></button></div><div id="favorite-box" class="ui-dialog-content ui-widget-content" style="display: block;">
+						<table>
+							<tbody>
+							<tr>
+								<td width="70" align="right">文件夹</td>
+								<td><select id="fav_folderlist" name="folder">
+									<option selected="" value="0">请选择...</option>
+									<option id="newfolder-sp" disabled="" value="">-------------</option>
+									<option value="-1">新增文件夹...</option>
+								</select></td>
+							</tr>
+							<tr style="display: none" id="newfolder-input">
+								<td align="right">新增文件夹</td>
+								<td><input id="fav_newfolder" maxlength="50" type="text" name="newfolder"></td>
+							</tr>
+							<tr>
+								<td align="right">标签</td>
+								<td><input id="fav_tags" maxlength="135" size="20" type="text" name="tags"></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td colspan="2">(多个标签用逗号分隔)</td>
+							</tr>
+							</tbody>
+						</table>
+					</div><div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix"><div class="ui-dialog-buttonset"><button type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button"><span class="ui-button-text">取消</span></button><button type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button"><span class="ui-button-text">确认</span></button></div></div></div><div id="topcontrol" title="回到顶部" style="position: fixed; bottom: 165px; right: 95px; cursor: pointer;"><img src="./CAS实现SSO单点登录原理 - OPEN 开发经验库_files/gotop.gif" style="width:35px; height:35px;"></div></body></html>

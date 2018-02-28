@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<!-- saved from url=(0050)http://www.cnblogs.com/jikexianfeng/p/5857651.html -->
+<html lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>树莓派进阶之路 (001) - 常用镜像高速下载 - 极客先锋 - 博客园</title>
+<link type="text/css" rel="stylesheet" href="./树莓派进阶之路 (001) - 常用镜像高速下载 - 极客先锋 - 博客园_files/blog-common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="./树莓派进阶之路 (001) - 常用镜像高速下载 - 极客先锋 - 博客园_files/style2.css">
+<link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="./树莓派进阶之路 (001) - 常用镜像高速下载 - 极客先锋 - 博客园_files/bundle-BOOK-mobile.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/jikexianfeng/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/jikexianfeng/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/jikexianfeng/wlwmanifest.xml">
+<script async="" src="./树莓派进阶之路 (001) - 常用镜像高速下载 - 极客先锋 - 博客园_files/analytics.js.下载"></script><script src="./树莓派进阶之路 (001) - 常用镜像高速下载 - 极客先锋 - 博客园_files/jquery-2.2.0.min.js.下载"></script>
+<script type="text/javascript">var currentBlogApp = 'jikexianfeng', cb_enable_mathjax=true;var isLogined=false;</script>
+<script type="text/x-mathjax-config;executed=true">
+    MathJax.Hub.Config({
+        tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']], processClass: 'blogpost-body', processEscapes: true },
+        TeX: { 
+            equationNumbers: { autoNumber: ['AMS'], useLabelIds: true }, extensions: ['extpfeil.js'] },
+            'HTML-CSS': { linebreaks: { automatic: true } },
+            SVG: { linebreaks: { automatic: true } }
+        });
+    </script><script src="./树莓派进阶之路 (001) - 常用镜像高速下载 - 极客先锋 - 博客园_files/MathJax.js.下载"></script>
+<script src="./树莓派进阶之路 (001) - 常用镜像高速下载 - 极客先锋 - 博客园_files/blog-common.js.下载" type="text/javascript"></script>
+<style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head>
+<body><div id="MathJax_Message" style="display: none;"></div>
+<a name="top"></a>
+
+<script type="text/javascript">
+	try {
+		if (screen.availWidth > 1200) {
+			document.getElementById("MainCss").href = '/Skins/BOOK/style2.css';
+		}
+	} catch (e) { }
+</script>
+
+<div id="header">
+<div id="HeaderTitle">
+<div id="Title">
+<a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/jikexianfeng/">极客先锋</a>
+</div>
+<div id="subTitle"></div>
+</div>
+</div>
+
+<div id="main">
+	
+<div id="post_detail">
+	<div class="post">
+		<h2>
+			<a id="cb_post_title_url" href="http://www.cnblogs.com/jikexianfeng/p/5857651.html">树莓派进阶之路 (001) - 常用镜像高速下载</a>
+		</h2>
+		<div id="cnblogs_post_body" class="blogpost-body"><p><img class="single-featured wp-post-image" src="./树莓派进阶之路 (001) - 常用镜像高速下载 - 极客先锋 - 博客园_files/raspi-login-750x410.jpeg" alt="raspi-login" width="750" height="410"></p>
+<div class="post-inner-content">
+<h1 class="entry-title">树莓派（raspberrypi）常用镜像高速下载</h1>
+<div class="entry-content">
+<p>树莓派官网在国内打开速度比较慢，想要下载镜像可能需要等待较长的时间，为节约下载镜像的时间，我这里整理了树莓派常用的镜像，在本页面列出了下载地址以及磁力链接，可以更快速的下载镜像，为大家节约时间，同时，镜像也会不断的更新，如果大家有什么好的建议或者疑问，都可以在下面提出来。</p>
+<p>&nbsp;</p>
+<h3>1. Raspbian</h3>
+<p><a href="http://blog.lxx1.com/raspberrypi-jingxiang/raspian-desktop-100409826-orig" rel="attachment wp-att-1108"><img class="aligncenter size-full wp-image-1108" src="./树莓派进阶之路 (001) - 常用镜像高速下载 - 极客先锋 - 博客园_files/raspian-desktop-100409826-orig.png" alt="raspian-desktop-100409826-orig" width="1920" height="1200"></a></p>
+<p>Raspbian是默认的最常用于Raspberry Pi的免费操作系统。Raspbian是基于Debian的一个版本（针对Raspberry Pi硬件Debian进行了专门的优化，并构建了超过35000个Raspbian包）。</p>
+<p>Raspbian仍处于积极开发状态，并把重点放在提升尽可能多Debian包的稳定性和性能。对于初学编程的人来说这是一个很好的起点，Raspbian自带的x windows，因此可以使用它类似WIN风格的GUI界面，Raspbian还包括一个“Pi商店”，你可以免费或付费下载一些应用，比如Libre Office、Free Civ（游戏）等等。</p>
+<p>下载地址：</p>
+<p>最新版本：May 2016</p>
+<p>直接下载镜像：<a class="btn dl-zip" href="https://downloads.raspberrypi.org/raspbian_latest">Download ZIP</a></p>
+<div class="image-download-links">
+<div class="image-info">
+<div class="image-download-links">下载BT种子：<a class="btn dl-torrent" href="https://downloads.raspberrypi.org/raspbian_latest.torrent">Download Torrent</a>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;<a href="http://blog.lxx1.com/wp-content/uploads/2015/10/2016-05-10-raspbian-jessie.zip">2016-05-10-raspbian-jessie</a></div>
+<div class="image-download-links">SHA-1:66a50545358e80229d77ebba89ab01f1c0fb4a02</div>
+<div class="image-download-links">&nbsp;</div>
+</div>
+</div>
+<p>旧版本：</p>
+<p>February 2016</p>
+<p>镜像BT种子：<a href="http://blog.lxx1.com/raspberrypi-jingxiang/2016-02-26-raspbian-jessie" rel="attachment wp-att-1345">2016-02-26-raspbian-jessie</a></p>
+<p>SHA-1:4a841dffd02197548bf2329b90a0a44eeeebb4ab</p>
+<p>September &nbsp;2015</p>
+<div class="image-info">
+<p>镜像BT种子：<a href="http://blog.lxx1.com/raspberrypi-jingxiang/2015-09-24-raspbian-jessie-zip" rel="attachment wp-att-1093">2015-09-24-raspbian-jessie.zip</a></p>
+</div>
+<div class="image-details sha1">SHA-1:d8d4880cd0e4f155f343984725d5bd</div>
+<div class="image-download-links">&nbsp;</div>
+<div class="image-download-links">&nbsp;</div>
+<p>&nbsp;</p>
+<h3 class="p-name entry-title">2、<a class="u-url" href="https://ubuntu-mate.org/raspberry-pi/">Ubuntu MATE for the Raspberry Pi 2</a></h3>
+<p><a href="http://blog.lxx1.com/raspberrypi-jingxiang/ubuntu-mate-1504-raspberry-pi-2-screenshot" rel="attachment wp-att-1105"><img class="aligncenter size-full wp-image-1105" src="./树莓派进阶之路 (001) - 常用镜像高速下载 - 极客先锋 - 博客园_files/ubuntu-mate-1504-raspberry-pi-2-screenshot.png" alt="ubuntu-mate-1504-raspberry-pi-2-screenshot" width="1280" height="720"></a></p>
+<p>&nbsp;</p>
+<p>Ubuntu MATE是桌面Linux发行，其宗旨是通过MATE这个经典、传统的桌面环境来提供Ubuntu操作系统的简介和典雅。MATE是GNOME 2桌面环境的继续，曾经作为Ubuntu的缺省桌面，直到10.10版中被Unity所取代。</p>
+<p>Ubuntu MATE适合树莓派新手使用，界面是最好看的，但是在CPU优化方面不如官方的系统做得好。</p>
+<p>下载地址：</p>
+<div class="image-download-links">下载BT种子：<a class="btn dl-torrent" href="https://ubuntu-mate.org/raspberry-pi/ubuntu-mate-15.04-desktop-armhf-raspberry-pi-2.img.bz2.torrent">Ubuntu MATE 15.04 via BitTorrent</a><a class="btn dl-zip" href="https://downloads.raspberrypi.org/raspbian_latest">Download ZIP</a></div>
+<p>或本地下载BT种子：<a href="http://blog.lxx1.com/raspberrypi-jingxiang/ubuntu-mate-15-04-desktop-armhf-raspberry-pi-2-img-bz2" rel="attachment wp-att-1094">ubuntu-mate-15.04-desktop-armhf-raspberry-pi-2.img.bz2</a></p>
+<p>MD5 hash matches:&nbsp;<code>ea74db696bb50907a12ffbc2f2eeb4b5</code></p>
+<p>&nbsp;</p>
+<h3>3、Snappy Ubuntu Core</h3>
+<p>The Raspberry Pi 2 is not officially supported by Snappy yet. However, for convenience, one of our developers has made these instructions available.</p>
+<p>下载地址：<a href="http://people.canonical.com/~platform/snappy/raspberrypi2/ubuntu-15.04-snappy-armhf-rpi2.img.xz" target="_blank">ubuntu-15.04-snappy-armhf-rpi2.img.xz</a></p>
+<p>&nbsp;</p>
+<h3 class="divider">4、Windows 10</h3>
+<p><a href="http://blog.lxx1.com/raspberrypi-jingxiang/eea774dd6e59a6dfa288179580e92dd8" rel="attachment wp-att-1095"><img class="aligncenter size-full wp-image-1095" src="./树莓派进阶之路 (001) - 常用镜像高速下载 - 极客先锋 - 博客园_files/eea774dd6e59a6dfa288179580e92dd8.png" alt="eea774dd6e59a6dfa288179580e92dd8" width="600" height="453"></a></p>
+<p>微软在Build 2015大会上宣布推出一个独立的Windows 10开发者预览版， 这个版本名称是Windows 10 IoT Core Insider Preview（Windows 10物联网核心内幕预览版），现在可供开发人员下载和研究，它支持树莓派2和英特尔Minnowboard MAX设备，使设备制造商能够充分利用这些产品有限的硬件资源。</p>
+<p>据微软表示，Windows 10 IoT Core Insider Preview为设备制造商提供了世界一流的开发工具，通用Windows平台的力量，直接访问硬件的能力，并能在树莓派2等硬件设备上进行远程调试，更新和管理软件。</p>
+<p>下载地址：</p>
+<p>RTM版下载：<a class="button-blue button-flat" href="http://go.microsoft.com/fwlink/?LinkId=619755">Download RTM Release for Raspberry Pi 2</a></p>
+<p>预览版下载：<a class="button-blue button-flat" href="http://go.microsoft.com/fwlink/?LinkID=625104">Download Insider Preview for Raspberry Pi 2</a></p>
+<p>&nbsp;</p>
+<h3>5、OSMC</h3>
+<p>osmc 适合将树莓派打造成一个媒体播放器，使用这个系统，将使得树莓派更适合做个xbmc播放器。</p>
+<p><a href="http://blog.lxx1.com/raspberrypi-jingxiang/66c3ddb45d1eeb3e1d1f21e111d24db2" rel="attachment wp-att-1096"><img class="aligncenter size-full wp-image-1096" src="./树莓派进阶之路 (001) - 常用镜像高速下载 - 极客先锋 - 博客园_files/66c3ddb45d1eeb3e1d1f21e111d24db2.jpg" alt="osmc" width="1000" height="563"></a></p>
+<p>下载地址：</p>
+<p><a href="http://download.osmc.tv/installers/diskimages/OSMC_TGT_rbp2_20150929.img.gz" target="_blank">Raspberry Pi 2</a></p>
+<p>Checksum (MD5)：8cc0812f7ecffdc74af28ef71c287e5b</p>
+<p><a href="http://download.osmc.tv/installers/diskimages/OSMC_TGT_rbp1_20150929.img.gz" target="_blank">Raspberry Pi 1</a></p>
+<p>Checksum (MD5)：93a32b396285cfeb68d9517d14d158c0</p>
+<p>&nbsp;</p>
+<h3>6、openelec</h3>
+<p><a href="http://blog.lxx1.com/raspberrypi-jingxiang/8cac8654a9f9a9111a04e7f39abc6096" rel="attachment wp-att-1098"><img class="aligncenter size-full wp-image-1098" src="./树莓派进阶之路 (001) - 常用镜像高速下载 - 极客先锋 - 博客园_files/8cac8654a9f9a9111a04e7f39abc6096.jpg" alt="8cac8654a9f9a9111a04e7f39abc6096" width="620" height="348"></a></p>
+<p>OpenELEC是Open Embedded Linux Entertainment Center的缩写,从字面上理解为”开源嵌入式Linux 娱乐中心”,功能没有Raspbmc那么强大,但是对于普通的高清播放来说,这个完全足够用了。</p>
+<p>下载地址：</p>
+<h4><a href="http://releases.openelec.tv/OpenELEC-RPi.arm-4.2.1.img.gz" target="_blank">RPi First-Generation single-core models (Model A/B/B+ 256/512MB)</a></h4>
+<h4><a href="http://releases.openelec.tv/OpenELEC-RPi2.arm-5.0.8.img.gz" target="_blank">RPi2 Second-Generation quad core models (Model B 1024MB)</a></h4>
+<p>&nbsp;</p>
+<h3 id="what_is_pinet">7、PiNet</h3>
+<p><a href="http://blog.lxx1.com/raspberrypi-jingxiang/raspi-login" rel="attachment wp-att-1099"><img class="aligncenter size-full wp-image-1099" src="./树莓派进阶之路 (001) - 常用镜像高速下载 - 极客先锋 - 博客园_files/raspi-login.jpeg" alt="raspi-login" width="1820" height="954"></a></p>
+<p>Pinet是什么？<br>它是一个自由和开放源码的项目，为帮助学校建立和管理一个Raspberry Pi的课堂。<br>其主要特点包括<br>•基于网络的用户帐户<br>-基于网络的操作系统-所有树莓PIS启动一个主Raspbian操作系统。<br>•共享文件夹-易于使用共享文件夹系统的教师和学生。<br>工作收集系统简单的工作收集和提交系统，让学生在工作。<br>•自动备份-自动备份所有学生的工作，定期向外部驱动器。<br>•多个小的功能，如批量用户导入，课堂管理软件集成等<br>服务器软件安装在运行Ubuntu Linux 14.04计算机（这也完全是免费的）。你必须再连接服务器和覆盆子PIS通过有线网络。</p>
+<p id="installing">Installing</p>
+<p>Once you have the needed equipment, you will need to install Ubuntu 14.04 onto your server computer and then install PiNet. Overall this takes roughly 2-3 hours. Of that 2-3 hours, you are required at the computer for 20-30 minutes.<br>Finally when the installation is complete you must copy the generated SD card boot files to a blank SD card.</p>
+<ol>
+<li><a href="http://pinet.org.uk/articles/installation/installing-ubuntu.html">Installing Ubuntu server</a></li>
+<li><a href="http://pinet.org.uk/articles/installation/installing-PiNet.html">Installing PiNet</a></li>
+<li><a href="http://pinet.org.uk/articles/installation/sd-card-copy.html">Copying files to SD card</a></li>
+
+
+
+
+</ol>
+<p>&nbsp;</p>
+<h3>8、<span class="caps">RISC&nbsp;OS</span></h3>
+<p>第一款ARM计算机的操作系统.</p>
+<p>下载地址：<a name="rc14_sd_image" href="https://www.riscosopen.org/zipfiles/platform/raspberry-pi/riscos-2015-02-17.14.zip?1424727184">RC14 SD image</a></p>
+<h3>9、Kali Linux</h3>
+<p><a href="http://blog.lxx1.com/raspberrypi-jingxiang/f0f8e746d606561ad243a00147b074b5" rel="attachment wp-att-1385"><img class="aligncenter size-full wp-image-1385" src="./树莓派进阶之路 (001) - 常用镜像高速下载 - 极客先锋 - 博客园_files/f0f8e746d606561ad243a00147b074b5.png" alt="f0f8e746d606561ad243a00147b074b5" width="1043" height="728"></a></p>
+<p>Kali Linux是一个高级渗透测试和安全审计Linux发行版，目前Kali Linux 已经更新了2.1.2镜像，以支持最新发布的树莓派3.</p>
+<p>下载链接：</p>
+<table class="footable footable-loaded" style="width: 100%;">
+<tbody>
+<tr>
+<td><a href="https://images.offensive-security.com/arm-images/kali-2.1.2-rpi2.img.xz">RaspberryPi 2 / 3</a></td>
+<td>1166M</td>
+<td><center>2.1.2</center></td>
+<td><center>db36fcd53c630fd32f2f8943dddd9f57b3673c5a</center></td>
+
+
+
+
+</tr>
+<tr>
+<td><a href="https://images.offensive-security.com/arm-images/kali-2.1.2-rpi.img.xz">RaspberryPi</a></td>
+<td>1506M</td>
+<td><center>2.1.2</center></td>
+<td><center>9db8ade0fbc9265a9b913e5d00ecedacb68ae3a7</center></td>
+
+
+
+
+</tr>
+<tr>
+<td><a href="https://images.offensive-security.com/arm-images/kali-2.1.2-rpitft.img.xz">RaspberryPi w/TFT</a></td>
+<td>880M</td>
+<td><center>2.1.2</center></td>
+<td><center>fac66a2a8f4f9738f3f742c2a71870824fb5c105</center></td>
+
+
+
+
+</tr>
+
+
+
+
+</tbody>
+
+
+
+
+</table>
+<h3>10、NOOBS</h3>
+<p><a href="http://blog.lxx1.com/wp-content/uploads/2015/10/img_524d91f199b4f.png" rel="attachment wp-att-1461"><img class="aligncenter size-full wp-image-1461" src="./树莓派进阶之路 (001) - 常用镜像高速下载 - 极客先锋 - 博客园_files/img_524d91f199b4f.png" alt="img_524d91f199b4f" width="650" height="308"></a></p>
+<p>NOOBS系统不仅可以非常方便的让一张空白的SD卡变为安装了Rasbian系统的启动盘，而且还可以预包装其他可选的树莓派操作系统，比如Pidora（基于Fedora的系统）、RISC OS 、Arch（Arch Linux的树莓派版） ，甚至像RaspBMC和OpenELEC这样的XMBC系统也不在话下。</p>
+<p>并且NOOBS支持多系统启动，即你可以在SD卡上安装多个操作系统，然后再树莓派启动的时候可以从安装的多个树莓派系统中选择你要启动的系统。</p>
+<p><a href="http://blog.lxx1.com/wp-content/uploads/2015/10/NOOBS.png" rel="attachment wp-att-1462"><img class="aligncenter size-full wp-image-1462" src="./树莓派进阶之路 (001) - 常用镜像高速下载 - 极客先锋 - 博客园_files/NOOBS.png" alt="NOOBS" width="604" height="465"></a></p>
+<p>在NOOBS安装向导中，共有7种可选的操作系统供我们安装。分别是</p>
+<ul>
+<li>Rasbian（标准的Debian移植版）</li>
+<li>Rasbian（轻量级的，面向初学者的编程平台，在树莓派中很流行）</li>
+<li>Arch Linux（自定义程度高的Linux系统）</li>
+<li>Pidora（Fedora的分支，对树莓派做了优化）</li>
+<li>OpenELEC（一种XBMC系统的分支）</li>
+<li>RaspBMC（一种XBMC系统的分支，专门针对树莓派做了调整）</li>
+<li>RISC OS（一个轻量级的基于Acorn的操作系统，在80-90年代非常活跃，专门针对树莓派做了优化）</li>
+
+
+
+
+</ul>
+<p>下载地址：</p>
+<p><em>NOOBS 离线版：</em></p>
+<p><a href="https://downloads.raspberrypi.org/NOOBS_latest.torrent" target="_blank">种子下载</a>：<a href="http://blog.lxx1.com/wp-content/uploads/2015/10/NOOBS_v1_9_0.zip.zip" rel="">NOOBS_v1_9_0.zip</a></p>
+<p>ZIP下载：https://downloads.raspberrypi.org/NOOBS_latest</p>
+<p>SHA-1:94f7ee8a067ac57c6d35523d99d1f0097f8dc5cc</p>
+<p><em>NOOBS 在线版（仅连接网络才可安装树莓派系统）：</em></p>
+<p><a href="https://downloads.raspberrypi.org/NOOBS_lite_latest.torrent" target="_blank">种子下载</a>：<a href="http://blog.lxx1.com/wp-content/uploads/2015/10/NOOBS_lite_v1_9.zip.zip" rel="">NOOBS_lite_v1_9.zip</a></p>
+<p>ZIP下载：https://downloads.raspberrypi.org/NOOBS_lite_latest</p>
+<p>SHA-1:e97f7f1cdfe0d274134fdf58e0308e21c27d0b2d</p>
+<h3>11、sabayon</h3>
+<p><a href="http://www.sabayon.org/" target="_blank">sabayon&nbsp;</a>&nbsp;是一份自启动运行DVD，它被设计为能在5分钟以内使一台电脑进入强大的Gentoo Linux系统。Gentoo Linux是一份Linux发行，它由软件安装管理引擎Portage来驱动。</p>
+<p>5月29日，<a href="http://www.sabayon.org/" target="_blank">sabayon&nbsp;</a>&nbsp;发布ARM版镜像，可以支持运行在树莓派上2或者3上，最新的版本为Sabayon 16.06 RaspberryPi，镜像基于linux4.4内核，并且包括了可以更新树莓派内核和固件的&nbsp;<a href="https://github.com/Hexxeh/rpi-update#rpi-update">rpi-update</a>&nbsp;工具。</p>
+<p><a href="http://blog.lxx1.com/raspberrypi-jingxiang/sabayon-pi" rel="attachment wp-att-1627"><img class="aligncenter size-full wp-image-1627" src="./树莓派进阶之路 (001) - 常用镜像高速下载 - 极客先锋 - 博客园_files/sabayon-pi.jpg" alt="sabayon pi" width="480" height="320"></a></p>
+<p>下载地址：</p>
+<p>saybayon 树莓派媒体中心版本：</p>
+<ul>
+<li dir="ltr">
+<div dir="ltr"><a href="http://dl.sabayon.org/iso/monthly/Sabayon_Linux_16.06_armv7l_RPi_MediaCenter_8GB.img.xz">Sabayon_Linux_16.06_armv7l_RPi_MediaCenter_8GB.img.xz</a></div>
+
+
+
+
+</li>
+
+
+
+
+</ul>
+<p>saybayon 树莓派基础版本：</p>
+<ul>
+<li dir="ltr">
+<div dir="ltr"><a href="http://dl.sabayon.org/iso/monthly/Sabayon_Linux_16.06_armv7l_RPi_Base_8GB.img.xz">Sabayon_Linux_16.06_armv7l_RPi_Base_8GB.img.xz</a></div>
+
+
+
+
+</li>
+
+
+
+
+</ul>
+<h2>12、recalbox</h2>
+<p><a href="http://www.recalbox.com/" target="_blank">recalbox</a>是一个复古模拟平台，你可以快速安装这个系统到树莓派上，然后就可以运行超过30000种游戏了！最大支持4人模式，可以运行Atari 2600, NES, Game Boy, Game Boy color, Game Boy Advance, Super Nintendo, Master System, Megadrive (Genesis), FBA, iMame4all, PCEngine, MSX1/2, PSX, Sega SG1000, Sega CD, Sega 32x, Famicom Disk System, Scummvm等30多种模拟器，是一款非常好玩的系统。</p>
+<p><a href="http://blog.lxx1.com/raspberrypi-jingxiang/recalbox" rel="attachment wp-att-1633"><img class="aligncenter size-full wp-image-1633" src="./树莓派进阶之路 (001) - 常用镜像高速下载 - 极客先锋 - 博客园_files/recalbox.jpg" alt="recalbox" width="892" height="440"></a></p>
+<p>下载地址：</p>
+<p>最新版本：https://github.com/recalbox/recalbox-os/releases</p>
+<p>如果无法下载，请下载已经这个版本：</p>
+<p>recalboxOS-4.0.0-beta3</p>
+<p>链接：<a href="http://pan.baidu.com/s/1mhX8nFi">http://pan.baidu.com/s/1mhX8nFi&nbsp;</a>密码：h3vq</p>
+<h2>13、CentOS 7 ARM</h2>
+<p class="OSCTitle">CentOS 7 ARM 于2015年12月18日发布，该版本支持运行在ARM处理器上，可以在树莓派2、树莓派3、香蕉派、以及CubitTruck单片机上运行，现在可以在科技爱好者树莓派镜像下载页面下载树莓派 Centos 7镜像。</p>
+<p class="OSCTitle"><a href="http://blog.lxx1.com/raspberrypi-jingxiang/arm-centos-7" rel="attachment wp-att-1894"><img class="aligncenter size-full wp-image-1894" src="./树莓派进阶之路 (001) - 常用镜像高速下载 - 极客先锋 - 博客园_files/ARM-centos-7.jpeg" alt="ARM centos-7" width="1280" height="1024"></a></p>
+<p class="OSCTitle">下载地址：</p>
+<p class="OSCTitle"><a href="http://mirror.centos.org/altarch/7/isos/armhfp/CentOS-Userland-7-armv7hl-Minimal-1511-RaspberryPi2.img.xz" target="_blank">树莓派2</a></p>
+<p class="OSCTitle">大小：275 Mb &nbsp; SHA-1:05e8c58cd837b90c0ab423b3730ee20ad185e19f346f531d3717c51358ea72cf</p>
+<p class="OSCTitle"><a href="http://mirror.centos.org/altarch/7/isos/armhfp/CentOS-Userland-7-armv7hl-Minimal-1603-RaspberryPi3.img.xz">树莓派3</a></p>
+<p>大小：272 Mb &nbsp; SHA-1:140f3b3d1349e12f25cbf555a8f275ec0a873b824be78a1cb5d9c1f4696d7d91</p>
+<p>（默认账号：root，密码为：centos）</p>
+
+
+
+
+</div>
+
+
+
+
+</div></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory">分类: <a href="http://www.cnblogs.com/jikexianfeng/category/1006750.html" target="_blank">树莓派进阶之路</a></div>
+<div id="EntryTag"></div>
+<div id="blog_post_info"><div id="green_channel">
+        <a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(5857651,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+            <a id="green_channel_follow" onclick="follow(&#39;28247de1-5c37-e611-9fc1-ac853d9f53cc&#39;);" href="javascript:void(0);">关注我</a>
+    <a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a>
+    <a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./树莓派进阶之路 (001) - 常用镜像高速下载 - 极客先锋 - 博客园_files/icon_weibo_24.png" alt=""></a>
+    <a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="./树莓派进阶之路 (001) - 常用镜像高速下载 - 极客先锋 - 博客园_files/wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+    <div id="author_profile_info" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/jikexianfeng/" target="_blank"><img src="./树莓派进阶之路 (001) - 常用镜像高速下载 - 极客先锋 - 博客园_files/20160704020857.png" class="author_avatar" alt=""></a>
+        <div id="author_profile_detail" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/jikexianfeng/">极客先锋</a><br>
+            <a href="http://home.cnblogs.com/u/jikexianfeng/followees">关注 - 20</a><br>
+            <a href="http://home.cnblogs.com/u/jikexianfeng/followers">粉丝 - 19</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div id="author_profile_honor"></div>
+    <div id="author_profile_follow">
+                <a href="javascript:void(0);" onclick="follow(&#39;28247de1-5c37-e611-9fc1-ac853d9f53cc&#39;);return false;">+加关注</a>
+    </div>
+</div>
+<div id="div_digg">
+    <div class="diggit" onclick="votePost(5857651,&#39;Digg&#39;)">
+        <span class="diggnum" id="digg_count">1</span>
+    </div>
+    <div class="buryit" onclick="votePost(5857651,&#39;Bury&#39;)">
+        <span class="burynum" id="bury_count">0</span>
+    </div>
+    <div class="clear"></div>
+    <div class="diggword" id="digg_tips">
+    </div>
+</div>
+<script type="text/javascript">
+    currentDiggType = 0;
+</script></div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/jikexianfeng/p/5848340.html" class="p_n_p_prefix">« </a> 上一篇：<a href="http://www.cnblogs.com/jikexianfeng/p/5848340.html" title="发布于2016-09-07 10:03">安装samba脚本</a><br><a href="http://www.cnblogs.com/jikexianfeng/p/5858432.html" class="p_n_p_prefix">» </a> 下一篇：<a href="http://www.cnblogs.com/jikexianfeng/p/5858432.html" title="发布于2016-09-09 23:37">树莓派 添加国内源</a><br></div>
+</div>
+
+
+		<p class="postfoot">
+			posted on <span id="post-date">2016-09-09 18:11</span> <a href="http://www.cnblogs.com/jikexianfeng/">极客先锋</a> 阅读(<span id="post_view_count">5440</span>) 评论(<span id="post_comment_count">0</span>)  <a href="https://i.cnblogs.com/EditPosts.aspx?postid=5857651" rel="nofollow">编辑</a> <a href="http://www.cnblogs.com/jikexianfeng/p/5857651.html#" onclick="AddToWz(5857651);return false;">收藏</a>
+		</p>
+	</div>
+	<script type="text/javascript">var allowComments=true,cb_blogId=292801,cb_entryId=5857651,cb_blogApp=currentBlogApp,cb_blogUserGuid='28247de1-5c37-e611-9fc1-ac853d9f53cc',cb_entryCreatedDate='2016/9/9 18:11:00';loadViewCount(cb_entryId);var cb_postType=1;</script>
+	
+	</div><a name="!comments"></a><div id="blog-comments-placeholder"></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="http://www.cnblogs.com/jikexianfeng/p/5857651.html#" onclick="return RefreshPage();">刷新页面</a><a href="http://www.cnblogs.com/jikexianfeng/p/5857651.html#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login(&#39;commentform&#39;);">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="ad_t2"><a href="http://www.ucancode.com/index.htm" target="_blank">【推荐】超50万VC++源码: 大型工控、组态\仿真、建模CAD源码2018！</a><br><a href="https://www.cnblogs.com/cmt/p/8462669.html" target="_blank">【活动】杭州云栖·2050大会-追逐早上七八点钟的太阳-源点</a><br><a href="https://cloud.tencent.com/solution/la?fromSource=gwzcw.766790.766790.766790" target="_blank">【推荐】微信小程序一站式部署 多场景模板定制</a><br></div>
+<div id="opt_under_post"></div>
+<div id="cnblogs_c1" class="c_ad_block"><a href="http://www.gcpowertools.com.cn/products/spreadjs/?utm_source=cnblogs&amp;utm_medium=blogpage&amp;utm_term=bottom&amp;utm_content=SpreadJS2&amp;utm_campaign=community" target="_blank"><img width="300" height="250" src="./树莓派进阶之路 (001) - 常用镜像高速下载 - 极客先锋 - 博客园_files/24442-20171206093644566-325426505.png" alt="SpreadJS2_1206"></a></div>
+<div id="under_post_news"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="https://news.cnblogs.com/n/590414/" target="_blank">中兴Blade系列全面屏手机V9首秀 该系列销量超8000万</a><br> ·  <a href="https://news.cnblogs.com/n/590413/" target="_blank">时隔一年格力电器又加薪了 又是人均每月加1000元</a><br> ·  <a href="https://news.cnblogs.com/n/590411/" target="_blank">不惜持续弹窗：为什么百度非要你用它的App？</a><br> ·  <a href="https://news.cnblogs.com/n/590410/" target="_blank">早晨记忆力最好？原来我们被骗了这么多年</a><br> ·  <a href="https://news.cnblogs.com/n/590409/" target="_blank">科技公司的logo怎么都越长越像了？</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div></div>
+<div id="cnblogs_c2" class="c_ad_block"><a href="http://click.aliyun.com/m/34770/" target="_blank"><img width="468" height="60" src="./树莓派进阶之路 (001) - 常用镜像高速下载 - 极客先锋 - 博客园_files/24442-20171208101900738-116140477.jpg" alt="阿里云C2-1208"></a></div>
+<div id="under_post_kb"><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="http://kb.cnblogs.com/page/585734/" target="_blank">学会学习</a><br> ·  <a href="http://kb.cnblogs.com/page/588938/" target="_blank">优秀技术人的管理陷阱</a><br> ·  <a href="http://kb.cnblogs.com/page/590141/" target="_blank">作为一个程序员，数学对你到底有多重要</a><br> ·  <a href="http://kb.cnblogs.com/page/586236/" target="_blank">领域驱动设计在互联网业务开发中的实践</a><br> ·  <a href="http://kb.cnblogs.com/page/585502/" target="_blank">步入云计算</a><br></div>» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+    fixPostBody();
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverAdT2();
+    deliverAdC1();
+    deliverAdC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate, cb_postType);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);   
+</script>
+</div>
+
+
+	
+<p id="footer">
+	Powered by: 
+	<br>
+	
+	<a id="Footer1_Hyperlink3" name="Hyperlink1" href="http://www.cnblogs.com/" style="font-family:Verdana;font-size:12px;">博客园</a>
+	<br>
+	Copyright © 极客先锋
+</p>
+</div>
+<div id="rightmenu">
+	
+		<div id="blog-calendar" style=""><table id="blogCalendar" class="Cal" cellspacing="0" cellpadding="0" title="Calendar">
+	<tbody><tr><td colspan="7"><table class="CalTitle" cellspacing="0">
+		<tbody><tr><td class="CalNextPrev"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2018/01/01&#39;);return false;">&lt;</a></td><td align="center">2018年2月</td><td class="CalNextPrev" align="right"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2018/03/01&#39;);return false;">&gt;</a></td></tr>
+	</tbody></table></td></tr><tr><th class="CalDayHeader" align="center" abbr="日" scope="col">日</th><th class="CalDayHeader" align="center" abbr="一" scope="col">一</th><th class="CalDayHeader" align="center" abbr="二" scope="col">二</th><th class="CalDayHeader" align="center" abbr="三" scope="col">三</th><th class="CalDayHeader" align="center" abbr="四" scope="col">四</th><th class="CalDayHeader" align="center" abbr="五" scope="col">五</th><th class="CalDayHeader" align="center" abbr="六" scope="col">六</th></tr><tr><td class="CalOtherMonthDay" align="center">28</td><td class="CalOtherMonthDay" align="center">29</td><td class="CalOtherMonthDay" align="center">30</td><td class="CalOtherMonthDay" align="center">31</td><td align="center">1</td><td align="center">2</td><td class="CalWeekendDay" align="center"><a href="http://www.cnblogs.com/jikexianfeng/archive/2018/02/03.html"><u>3</u></a></td></tr><tr><td class="CalWeekendDay" align="center"><a href="http://www.cnblogs.com/jikexianfeng/archive/2018/02/04.html"><u>4</u></a></td><td align="center"><a href="http://www.cnblogs.com/jikexianfeng/archive/2018/02/05.html"><u>5</u></a></td><td align="center"><a href="http://www.cnblogs.com/jikexianfeng/archive/2018/02/06.html"><u>6</u></a></td><td align="center"><a href="http://www.cnblogs.com/jikexianfeng/archive/2018/02/07.html"><u>7</u></a></td><td align="center">8</td><td align="center"><a href="http://www.cnblogs.com/jikexianfeng/archive/2018/02/09.html"><u>9</u></a></td><td class="CalWeekendDay" align="center"><a href="http://www.cnblogs.com/jikexianfeng/archive/2018/02/10.html"><u>10</u></a></td></tr><tr><td class="CalWeekendDay" align="center">11</td><td align="center">12</td><td align="center"><a href="http://www.cnblogs.com/jikexianfeng/archive/2018/02/13.html"><u>13</u></a></td><td align="center">14</td><td align="center">15</td><td align="center">16</td><td class="CalWeekendDay" align="center"><a href="http://www.cnblogs.com/jikexianfeng/archive/2018/02/17.html"><u>17</u></a></td></tr><tr><td class="CalWeekendDay" align="center">18</td><td align="center"><a href="http://www.cnblogs.com/jikexianfeng/archive/2018/02/19.html"><u>19</u></a></td><td align="center">20</td><td align="center">21</td><td align="center">22</td><td align="center">23</td><td class="CalWeekendDay" align="center">24</td></tr><tr><td class="CalWeekendDay" align="center">25</td><td class="CalTodayDay" align="center">26</td><td align="center">27</td><td align="center">28</td><td class="CalOtherMonthDay" align="center">1</td><td class="CalOtherMonthDay" align="center">2</td><td class="CalOtherMonthDay" align="center">3</td></tr><tr><td class="CalOtherMonthDay" align="center">4</td><td class="CalOtherMonthDay" align="center">5</td><td class="CalOtherMonthDay" align="center">6</td><td class="CalOtherMonthDay" align="center">7</td><td class="CalOtherMonthDay" align="center">8</td><td class="CalOtherMonthDay" align="center">9</td><td class="CalOtherMonthDay" align="center">10</td></tr>
+</tbody></table></div><script type="text/javascript">loadBlogDefaultCalendar();</script>
+		
+<h3>导航</h3>
+<ul>
+			<li><a id="blog_nav_sitehome" href="http://www.cnblogs.com/">博客园</a></li>
+			<li><a id="blog_nav_myhome" href="http://www.cnblogs.com/jikexianfeng/">首页</a></li>
+			<li><a id="blog_nav_newpost" rel="nofollow" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a></li>
+			<li><a id="blog_nav_contact" accesskey="9" rel="nofollow" href="https://msg.cnblogs.com/send/%E6%9E%81%E5%AE%A2%E5%85%88%E9%94%8B">联系</a></li>
+			<li><a id="blog_nav_rss" href="http://www.cnblogs.com/jikexianfeng/rss">订阅</a><a id="blog_nav_rss_image" href="http://www.cnblogs.com/jikexianfeng/rss"><img src="./树莓派进阶之路 (001) - 常用镜像高速下载 - 极客先锋 - 博客园_files/xml.gif" alt="订阅"></a>
+			</li><li><a id="blog_nav_admin" rel="nofollow" href="https://i.cnblogs.com/">管理</a></li>
+</ul>
+		<div id="blog_stats">
+<h3>统计</h3>
+	<ul>
+		<li>随笔 - 295
+		</li><li>文章 - 36
+		</li><li>评论 - 2
+		</li><li>引用 - 0
+	</li>
+</ul></div>
+		
+<h3>公告</h3>
+	<div id="blog-news"><div id="profile_block">昵称：<a href="https://home.cnblogs.com/u/jikexianfeng/">极客先锋</a><br>园龄：<a href="https://home.cnblogs.com/u/jikexianfeng/" title="入园时间：2016-06-21">1年8个月</a><br>粉丝：<a href="https://home.cnblogs.com/u/jikexianfeng/followers/">19</a><br>关注：<a href="https://home.cnblogs.com/u/jikexianfeng/followees/">20</a><div id="p_b_follow"><a href="javascript:void(0);" onclick="follow(&#39;28247de1-5c37-e611-9fc1-ac853d9f53cc&#39;)">+加关注</a></div><script>getFollowStatus('28247de1-5c37-e611-9fc1-ac853d9f53cc')</script></div></div><script type="text/javascript">loadBlogNews();</script>
+
+		<div id="blog-sidecolumn"><div id="sidebar_search" class="sidebar-block">
+<div id="sidebar_search" class="mySearch">
+<h3 class="catListTitle">搜索</h3>
+<div id="sidebar_search_box">
+<div id="widget_my_zzk" class="div_my_zzk"><input type="text" id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk">&nbsp;<input onclick="zzk_go()" type="button" value="找找看" id="btnZzk" class="btn_my_zzk"></div>
+<div id="widget_my_google" class="div_my_zzk"><input type="text" name="google_q" id="google_q" onkeydown="return google_go_enter(event)" class="input_my_zzk">&nbsp;<input onclick="google_go()" type="button" value="谷歌搜索" class="btn_my_zzk"></div>
+</div>
+</div>
+
+</div><div id="sidebar_shortcut" class="sidebar-block">
+<h3 class="catListTitle">常用链接</h3>
+<ul>
+<li><a href="http://www.cnblogs.com/jikexianfeng/p/" title="我的博客的随笔列表">我的随笔</a></li><li><a href="http://www.cnblogs.com/jikexianfeng/MyComments.html" title="我发表过的评论列表">我的评论</a></li><li><a href="http://www.cnblogs.com/jikexianfeng/OtherPosts.html" title="我评论过的随笔列表">我的参与</a></li><li><a href="http://www.cnblogs.com/jikexianfeng/RecentComments.html" title="我的博客的评论列表">最新评论</a></li><li><a href="http://www.cnblogs.com/jikexianfeng/tag/" title="我的博客的标签列表">我的标签</a></li>
+</ul>
+<div id="itemListLin_con" style="display:none;">
+
+</div></div><div id="sidebar_toptags" class="sidebar-block">
+<h3 class="catListTitle">我的标签</h3>
+<div id="MyTag">
+<ul>
+<li><a href="http://www.cnblogs.com/jikexianfeng/tag/arduino/">arduino</a>(11)</li><li><a href="http://www.cnblogs.com/jikexianfeng/tag/linux/">linux</a>(11)</li><li><a href="http://www.cnblogs.com/jikexianfeng/tag/curl/">curl</a>(10)</li><li><a href="http://www.cnblogs.com/jikexianfeng/tag/libcurl/">libcurl</a>(5)</li><li><a href="http://www.cnblogs.com/jikexianfeng/tag/curl_global_init/">curl_global_init</a>(3)</li><li><a href="http://www.cnblogs.com/jikexianfeng/tag/%E4%B8%B2%E5%8F%A3/">串口</a>(3)</li><li><a href="http://www.cnblogs.com/jikexianfeng/tag/malloc/">malloc</a>(2)</li><li><a href="http://www.cnblogs.com/jikexianfeng/tag/DNS/">DNS</a>(2)</li><li><a href="http://www.cnblogs.com/jikexianfeng/tag/DHT11/">DHT11</a>(2)</li><li><a href="http://www.cnblogs.com/jikexianfeng/tag/git/">git</a>(2)</li><li><a href="http://www.cnblogs.com/jikexianfeng/tag/">更多</a></li>
+</ul>
+</div></div><div id="sidebar_categories">
+		<h3>随笔分类<span style="font-size:11px;font-weight:normal">(281)</span></h3>
+		
+				<ul>
+			
+				<li><a id="CatList_LinkList_0_Link_0" href="http://www.cnblogs.com/jikexianfeng/category/998070.html">Arduino 进阶之路(23)</a> </li>
+			
+				<li><a id="CatList_LinkList_0_Link_1" href="http://www.cnblogs.com/jikexianfeng/category/891004.html">Arduino 知识点(9)</a> </li>
+			
+				<li><a id="CatList_LinkList_0_Link_2" href="http://www.cnblogs.com/jikexianfeng/category/863672.html">curl(16)</a> </li>
+			
+				<li><a id="CatList_LinkList_0_Link_3" href="http://www.cnblogs.com/jikexianfeng/category/1039293.html">C语言学习笔记(10)</a> </li>
+			
+				<li><a id="CatList_LinkList_0_Link_4" href="http://www.cnblogs.com/jikexianfeng/category/863620.html">fedora(12)</a> </li>
+			
+				<li><a id="CatList_LinkList_0_Link_5" href="http://www.cnblogs.com/jikexianfeng/category/864051.html">Git(4)</a> </li>
+			
+				<li><a id="CatList_LinkList_0_Link_6" href="http://www.cnblogs.com/jikexianfeng/category/849743.html">linux(18)</a> </li>
+			
+				<li><a id="CatList_LinkList_0_Link_7" href="http://www.cnblogs.com/jikexianfeng/category/867329.html">Linux 下C编程(3)</a> </li>
+			
+				<li><a id="CatList_LinkList_0_Link_8" href="http://www.cnblogs.com/jikexianfeng/category/862674.html">linux 线程(8)</a> </li>
+			
+				<li><a id="CatList_LinkList_0_Link_9" href="http://www.cnblogs.com/jikexianfeng/category/1005516.html">Redis 学习之路(11)</a> </li>
+			
+				<li><a id="CatList_LinkList_0_Link_10" href="http://www.cnblogs.com/jikexianfeng/category/861722.html">shell脚本(9)</a> </li>
+			
+				<li><a id="CatList_LinkList_0_Link_11" href="http://www.cnblogs.com/jikexianfeng/category/861797.html">Socket编程(3)</a> </li>
+			
+				<li><a id="CatList_LinkList_0_Link_12" href="http://www.cnblogs.com/jikexianfeng/category/880621.html">ubuntu(15)</a> </li>
+			
+				<li><a id="CatList_LinkList_0_Link_13" href="http://www.cnblogs.com/jikexianfeng/category/860903.html">unix(4)</a> </li>
+			
+				<li><a id="CatList_LinkList_0_Link_14" href="http://www.cnblogs.com/jikexianfeng/category/872275.html">传感器(6)</a> </li>
+			
+				<li><a id="CatList_LinkList_0_Link_15" href="http://www.cnblogs.com/jikexianfeng/category/887095.html">传感器知识(4)</a> </li>
+			
+				<li><a id="CatList_LinkList_0_Link_16" href="http://www.cnblogs.com/jikexianfeng/category/1146364.html">服务器(21)</a> </li>
+			
+				<li><a id="CatList_LinkList_0_Link_17" href="http://www.cnblogs.com/jikexianfeng/category/1087662.html">搞机(4)</a> </li>
+			
+				<li><a id="CatList_LinkList_0_Link_18" href="http://www.cnblogs.com/jikexianfeng/category/862152.html">工具(30)</a> </li>
+			
+				<li><a id="CatList_LinkList_0_Link_19" href="http://www.cnblogs.com/jikexianfeng/category/1046589.html">蓝牙进阶之路(4)</a> </li>
+			
+				<li><a id="CatList_LinkList_0_Link_20" href="http://www.cnblogs.com/jikexianfeng/category/882087.html">嵌入式的基础知识(19)</a> </li>
+			
+				<li><a id="CatList_LinkList_0_Link_21" href="http://www.cnblogs.com/jikexianfeng/category/853162.html">树莓派(11)</a> </li>
+			
+				<li><a id="CatList_LinkList_0_Link_22" href="http://www.cnblogs.com/jikexianfeng/category/1006750.html">树莓派进阶之路(37)</a> </li>
+			
+				</ul>
+			
+	
+		<h3>随笔档案<span style="font-size:11px;font-weight:normal">(295)</span></h3>
+		
+				<ul>
+			
+				<li><a id="CatList_LinkList_1_Link_0" href="http://www.cnblogs.com/jikexianfeng/archive/2018/02.html">2018年2月 (19)</a> </li>
+			
+				<li><a id="CatList_LinkList_1_Link_1" href="http://www.cnblogs.com/jikexianfeng/archive/2018/01.html">2018年1月 (6)</a> </li>
+			
+				<li><a id="CatList_LinkList_1_Link_2" href="http://www.cnblogs.com/jikexianfeng/archive/2017/11.html">2017年11月 (2)</a> </li>
+			
+				<li><a id="CatList_LinkList_1_Link_3" href="http://www.cnblogs.com/jikexianfeng/archive/2017/10.html">2017年10月 (5)</a> </li>
+			
+				<li><a id="CatList_LinkList_1_Link_4" href="http://www.cnblogs.com/jikexianfeng/archive/2017/09.html">2017年9月 (15)</a> </li>
+			
+				<li><a id="CatList_LinkList_1_Link_5" href="http://www.cnblogs.com/jikexianfeng/archive/2017/08.html">2017年8月 (10)</a> </li>
+			
+				<li><a id="CatList_LinkList_1_Link_6" href="http://www.cnblogs.com/jikexianfeng/archive/2017/07.html">2017年7月 (17)</a> </li>
+			
+				<li><a id="CatList_LinkList_1_Link_7" href="http://www.cnblogs.com/jikexianfeng/archive/2017/06.html">2017年6月 (12)</a> </li>
+			
+				<li><a id="CatList_LinkList_1_Link_8" href="http://www.cnblogs.com/jikexianfeng/archive/2017/05.html">2017年5月 (38)</a> </li>
+			
+				<li><a id="CatList_LinkList_1_Link_9" href="http://www.cnblogs.com/jikexianfeng/archive/2017/03.html">2017年3月 (6)</a> </li>
+			
+				<li><a id="CatList_LinkList_1_Link_10" href="http://www.cnblogs.com/jikexianfeng/archive/2017/02.html">2017年2月 (14)</a> </li>
+			
+				<li><a id="CatList_LinkList_1_Link_11" href="http://www.cnblogs.com/jikexianfeng/archive/2017/01.html">2017年1月 (23)</a> </li>
+			
+				<li><a id="CatList_LinkList_1_Link_12" href="http://www.cnblogs.com/jikexianfeng/archive/2016/12.html">2016年12月 (14)</a> </li>
+			
+				<li><a id="CatList_LinkList_1_Link_13" href="http://www.cnblogs.com/jikexianfeng/archive/2016/11.html">2016年11月 (37)</a> </li>
+			
+				<li><a id="CatList_LinkList_1_Link_14" href="http://www.cnblogs.com/jikexianfeng/archive/2016/10.html">2016年10月 (3)</a> </li>
+			
+				<li><a id="CatList_LinkList_1_Link_15" href="http://www.cnblogs.com/jikexianfeng/archive/2016/09.html">2016年9月 (30)</a> </li>
+			
+				<li><a id="CatList_LinkList_1_Link_16" href="http://www.cnblogs.com/jikexianfeng/archive/2016/08.html">2016年8月 (33)</a> </li>
+			
+				<li><a id="CatList_LinkList_1_Link_17" href="http://www.cnblogs.com/jikexianfeng/archive/2016/07.html">2016年7月 (11)</a> </li>
+			
+				</ul>
+			
+	
+		<h3>文章分类<span style="font-size:11px;font-weight:normal">(36)</span></h3>
+		
+				<ul>
+			
+				<li><a id="CatList_LinkList_2_Link_0" href="http://www.cnblogs.com/jikexianfeng/category/857020.html">Arduino(1)</a> </li>
+			
+				<li><a id="CatList_LinkList_2_Link_1" href="http://www.cnblogs.com/jikexianfeng/category/907253.html">C51(1)</a> </li>
+			
+				<li><a id="CatList_LinkList_2_Link_2" href="http://www.cnblogs.com/jikexianfeng/category/857777.html">C语言(2)</a> </li>
+			
+				<li><a id="CatList_LinkList_2_Link_3" href="http://www.cnblogs.com/jikexianfeng/category/857861.html">linux 命令(1)</a> </li>
+			
+				<li><a id="CatList_LinkList_2_Link_4" href="http://www.cnblogs.com/jikexianfeng/category/860013.html">linux 线程</a> </li>
+			
+				<li><a id="CatList_LinkList_2_Link_5" href="http://www.cnblogs.com/jikexianfeng/category/857936.html">Makefile(2)</a> </li>
+			
+				<li><a id="CatList_LinkList_2_Link_6" href="http://www.cnblogs.com/jikexianfeng/category/858233.html">opencv(4)</a> </li>
+			
+				<li><a id="CatList_LinkList_2_Link_7" href="http://www.cnblogs.com/jikexianfeng/category/858859.html">socket(1)</a> </li>
+			
+				<li><a id="CatList_LinkList_2_Link_8" href="http://www.cnblogs.com/jikexianfeng/category/860092.html">ubuntu(1)</a> </li>
+			
+				<li><a id="CatList_LinkList_2_Link_9" href="http://www.cnblogs.com/jikexianfeng/category/857830.html">V4L2(1)</a> </li>
+			
+				<li><a id="CatList_LinkList_2_Link_10" href="http://www.cnblogs.com/jikexianfeng/category/859342.html">工具</a> </li>
+			
+				<li><a id="CatList_LinkList_2_Link_11" href="http://www.cnblogs.com/jikexianfeng/category/849744.html">嵌入式(16)</a> </li>
+			
+				<li><a id="CatList_LinkList_2_Link_12" href="http://www.cnblogs.com/jikexianfeng/category/850610.html">树莓派(4)</a> </li>
+			
+				<li><a id="CatList_LinkList_2_Link_13" href="http://www.cnblogs.com/jikexianfeng/category/859221.html">系统编程(2)</a> </li>
+			
+				</ul>
+			
+	</div><div id="sidebar_recentcomments" class="sidebar-block"><div id="recent_comments_wrap">
+<h3 class="catListTitle">最新评论</h3>
+<div class="RecentComment" id="RecentComments">
+	<div id="RecentCommentsBlock"><ul>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/jikexianfeng/p/5729168.html#3817368">1. Re:网络编程学习笔记一：Socket编程</a></li>
+        <li class="recent_comment_body">感谢作者写了这么长的文章，自己socket编程确实难度挺高，没有三至五年的碰壁生涯根本搞不定，要么开发出来的软件不稳定，要么各条TCP连接之间相互影响，种种情况，导致项目最后失败的很多。本人亲眼见过成......</li>
+        <li class="recent_comment_author">--tom2017</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/jikexianfeng/p/6279260.html#3678967">2. Re:Using 1-Wire device with Intel Galileo</a></li>
+        <li class="recent_comment_body">您好，有事情请教关于1 wire 编程的事情，如果愿意请联系我，13953253766，徐鹏</li>
+        <li class="recent_comment_author">--黑莓教主</li>
+</ul>
+</div>
+</div>
+</div></div><div id="sidebar_topviewedposts" class="sidebar-block"><div id="topview_posts_wrap">
+<h3 class="catListTitle">阅读排行榜</h3>
+<div class="RecentComment" id="TopViewPosts"> 
+	<div id="TopViewPostsBlock"><ul><li><a href="http://www.cnblogs.com/jikexianfeng/p/5728756.html">1. shell脚本中解决SCP命令需要输入密码的问题(13827)</a></li><li><a href="http://www.cnblogs.com/jikexianfeng/p/6103500.html">2. Linux 下的dd命令使用详解(摘录)(8771)</a></li><li><a href="http://www.cnblogs.com/jikexianfeng/p/5857651.html">3. 树莓派进阶之路 (001) - 常用镜像高速下载(5440)</a></li><li><a href="http://www.cnblogs.com/jikexianfeng/p/5734855.html">4. linux c学习笔记----线程创建与终止(4915)</a></li><li><a href="http://www.cnblogs.com/jikexianfeng/p/5901897.html">5. 极客DIY：使用树莓派制作一套“NAS+私有云盘+下载机”(4642)</a></li><li><a href="http://www.cnblogs.com/jikexianfeng/p/5729168.html">6. 网络编程学习笔记一：Socket编程(4452)</a></li><li><a href="http://www.cnblogs.com/jikexianfeng/p/6103504.html">7. 使用dd命令克隆整个系统(转)(4338)</a></li><li><a href="http://www.cnblogs.com/jikexianfeng/p/5870357.html">8. 51单片机的idata,xdata,pdata,data的详解(4236)</a></li><li><a href="http://www.cnblogs.com/jikexianfeng/p/5862167.html">9. Ubuntu中安装配置和卸载FTP(转)(4143)</a></li><li><a href="http://www.cnblogs.com/jikexianfeng/p/6120461.html">10. linux终端terminal个性化配置(转)(2789)</a></li><li><a href="http://www.cnblogs.com/jikexianfeng/p/6413262.html">11. DMA直接内存存取原理(2579)</a></li><li><a href="http://www.cnblogs.com/jikexianfeng/p/5742887.html">12. C语言stat()函数：获取文件状态(2516)</a></li><li><a href="http://www.cnblogs.com/jikexianfeng/p/5875166.html">13. c语言之函数参数传递之数组篇(转)(2480)</a></li><li><a href="http://www.cnblogs.com/jikexianfeng/p/6055024.html">14. linux c libcurl的简单使用(转)(2388)</a></li><li><a href="http://www.cnblogs.com/jikexianfeng/p/5782203.html">15. SPI、I2C、UART三种串行总线协议的区别和SPI接口介绍（转）(2107)</a></li><li><a href="http://www.cnblogs.com/jikexianfeng/p/6269629.html">16. 360度舵机和180度舵机控制方法小结（转）(1769)</a></li><li><a href="http://www.cnblogs.com/jikexianfeng/p/5902040.html">17. 树莓派上的浏览器安装(1471)</a></li><li><a href="http://www.cnblogs.com/jikexianfeng/p/5862130.html">18. 树莓派进阶之路 (008) - 树莓派安装ftp服务器(转)(1177)</a></li><li><a href="http://www.cnblogs.com/jikexianfeng/p/5873698.html">19. 一台电脑存放多个git账户的多个rsa秘钥(转)(1170)</a></li><li><a href="http://www.cnblogs.com/jikexianfeng/p/5769430.html">20. winetricks 用WineTricks令你的Wine更完整(1138)</a></li><li><a href="http://www.cnblogs.com/jikexianfeng/p/6938119.html">21. 树莓派进阶之路 (013) - 树莓派2/3 C语言使用PWM(1089)</a></li><li><a href="http://www.cnblogs.com/jikexianfeng/p/7349275.html">22. Ubuntu中恢复rm命令误删文件（转）(1040)</a></li><li><a href="http://www.cnblogs.com/jikexianfeng/p/6491027.html">23. 简单解决XP共享连接数10限制（转）(971)</a></li><li><a href="http://www.cnblogs.com/jikexianfeng/p/7130843.html">24. 树莓派进阶之路 (018) - raspberryPi摄像头命令行软件raspistill帮助文档(893)</a></li><li><a href="http://www.cnblogs.com/jikexianfeng/p/6824481.html">25. 进阶之路（基础篇） - 011 arduino api基础手册(879)</a></li><li><a href="http://www.cnblogs.com/jikexianfeng/p/6378204.html">26. 蓝牙进阶之路 (003) -  AT指令（转）(821)</a></li><li><a href="http://www.cnblogs.com/jikexianfeng/p/5867858.html">27. 树莓派(raspberry pi)学习11: 将树莓派变成一个Web服务器(转)(634)</a></li><li><a href="http://www.cnblogs.com/jikexianfeng/p/5659034.html">28. ubuntu修改键盘映射(616)</a></li><li><a href="http://www.cnblogs.com/jikexianfeng/p/6060469.html">29. 树莓派声音设置(603)</a></li><li><a href="http://www.cnblogs.com/jikexianfeng/p/7256921.html">30. 树莓派进阶之路 (022) - 串口篇 - 通过串口连接控制树莓派(586)</a></li><li><a href="http://www.cnblogs.com/jikexianfeng/p/5879782.html">31. 树莓派进阶之路 (003) - Raspberry Pi(树莓派)国内软件源(582)</a></li><li><a href="http://www.cnblogs.com/jikexianfeng/p/6068006.html">32. 树莓派进阶之路 (011) - 树梅派相关网络配置（默认配置文件）(549)</a></li><li><a href="http://www.cnblogs.com/jikexianfeng/p/7241202.html">33. 树莓派进阶之路 (020) - 基于24位AD转换模块HX711的重量称量实验(530)</a></li><li><a href="http://www.cnblogs.com/jikexianfeng/p/5792057.html">34. Linux基本数据类型大小——int,char,long int,long long int(511)</a></li><li><a href="http://www.cnblogs.com/jikexianfeng/p/5867672.html">35. linux下常用文件传输命令(转)(500)</a></li><li><a href="http://www.cnblogs.com/jikexianfeng/p/6613295.html">36. C语言连接MySQL数据库（转）(497)</a></li><li><a href="http://www.cnblogs.com/jikexianfeng/p/5844124.html">37. 超高频RFID模块(491)</a></li><li><a href="http://www.cnblogs.com/jikexianfeng/p/6041233.html">38. 树莓派(raspberry pi)学习4: 更改键盘布局（转）(473)</a></li><li><a href="http://www.cnblogs.com/jikexianfeng/p/5859584.html">39. Ubuntu14.04安装CMake3.5.1(转)(469)</a></li><li><a href="http://www.cnblogs.com/jikexianfeng/p/6373027.html">40. 蓝牙进阶之路 (002) -  HC-05与HC-06的AT指令的区别（转）(455)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topcommentedposts" class="sidebar-block"><div id="topfeedback_posts_wrap">
+<h3 class="catListTitle">评论排行榜</h3>
+<div class="RecentComment" id="TopCommentsPosts">
+	<div id="TopFeedbackPostsBlock"><ul><li><a href="http://www.cnblogs.com/jikexianfeng/p/5729168.html">1. 网络编程学习笔记一：Socket编程(1)</a></li><li><a href="http://www.cnblogs.com/jikexianfeng/p/6279260.html">2. Using 1-Wire device with Intel Galileo(1)</a></li></ul></div>
+</div></div></div><div id="sidebar_topdiggedposts" class="sidebar-block"><div id="topdigg_posts_wrap">
+<h3 class="catListTitle">推荐排行榜</h3>
+<div class="RecentComment">
+	<div id="TopDiggPostsBlock"><ul><li><a href="http://www.cnblogs.com/jikexianfeng/p/5729168.html">1. 网络编程学习笔记一：Socket编程(1)</a></li><li><a href="http://www.cnblogs.com/jikexianfeng/p/5857651.html">2. 树莓派进阶之路 (001) - 常用镜像高速下载(1)</a></li><li><a href="http://www.cnblogs.com/jikexianfeng/p/5782203.html">3. SPI、I2C、UART三种串行总线协议的区别和SPI接口介绍（转）(1)</a></li><li><a href="http://www.cnblogs.com/jikexianfeng/p/6120461.html">4. linux终端terminal个性化配置(转)(1)</a></li><li><a href="http://www.cnblogs.com/jikexianfeng/p/5873698.html">5. 一台电脑存放多个git账户的多个rsa秘钥(转)(1)</a></li><li><a href="http://www.cnblogs.com/jikexianfeng/p/5870357.html">6. 51单片机的idata,xdata,pdata,data的详解(1)</a></li><li><a href="http://www.cnblogs.com/jikexianfeng/p/7250565.html">7. 树莓派进阶之路 (021) - 3.2inch RPi LCD (B)(1)</a></li></ul></div>
+</div></div></div></div><script type="text/javascript">loadBlogSideColumn();</script>
+	
+</div>
+			
+			
+			
+			
+			 
+
+	
+
+
+
+</body></html>

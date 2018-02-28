@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<!-- saved from url=(0046)http://www.cnblogs.com/zuoxiaolong/p/jvm6.html -->
+<html lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JVM内存管理------GC算法精解（五分钟教你终极算法---分代搜集算法） - 左潇龙 - 博客园</title>
+<link type="text/css" rel="stylesheet" href="./JVM内存管理------GC算法精解（五分钟教你终极算法---分代搜集算法） - 左潇龙 - 博客园_files/blog-common.css">
+<link type="text/css" rel="stylesheet" href="./JVM内存管理------GC算法精解（五分钟教你终极算法---分代搜集算法） - 左潇龙 - 博客园_files/160491.css">
+<link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="./JVM内存管理------GC算法精解（五分钟教你终极算法---分代搜集算法） - 左潇龙 - 博客园_files/bundle-SimpleBlue-mobile.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/zuoxiaolong/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/zuoxiaolong/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/zuoxiaolong/wlwmanifest.xml">
+<script async="" src="./JVM内存管理------GC算法精解（五分钟教你终极算法---分代搜集算法） - 左潇龙 - 博客园_files/analytics.js.下载"></script><script src="./JVM内存管理------GC算法精解（五分钟教你终极算法---分代搜集算法） - 左潇龙 - 博客园_files/jquery-2.2.0.min.js.下载"></script>
+<script type="text/javascript">var currentBlogApp = 'zuoxiaolong', cb_enable_mathjax=false;var isLogined=false;</script>
+<script src="./JVM内存管理------GC算法精解（五分钟教你终极算法---分代搜集算法） - 左潇龙 - 博客园_files/blog-common.js.下载" type="text/javascript"></script>
+</head>
+<body>
+<a name="top"></a>
+
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+		
+<!--done-->
+<div class="title"><a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/zuoxiaolong/">Java paradise</a></div>
+<div class="subtitle">Always on the way of programming.</div>
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li id="nav_sitehome"><a id="blog_nav_sitehome" class="menu" href="http://www.cnblogs.com/">博客园</a></li>
+<li id="nav_myhome"><a id="blog_nav_myhome" class="menu" href="http://www.cnblogs.com/zuoxiaolong/">首页</a></li>
+<li id="nav_newpost"></li>
+<li id="nav_contact"><a id="blog_nav_contact" class="menu" rel="nofollow" href="https://msg.cnblogs.com/send/%E5%B7%A6%E6%BD%87%E9%BE%99">联系</a></li>
+<li id="nav_rss"><a id="blog_nav_rss" class="menu" href="http://www.cnblogs.com/zuoxiaolong/rss">订阅</a>
+<!--<a id="blog_nav_rss_image" class="aHeaderXML" href="http://www.cnblogs.com/zuoxiaolong/rss"><img src="//www.cnblogs.com/images/xml.gif" alt="订阅" /></a>--></li>
+<li id="nav_admin"><a id="blog_nav_admin" class="menu" rel="nofollow" href="https://i.cnblogs.com/">管理</a></li>
+</ul>
+
+		<div class="blogStats">
+			
+			<div id="blog_stats">
+<!--done-->
+随笔-245&nbsp;
+文章-0&nbsp;
+评论-3428&nbsp;
+</div>
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		
+<div id="post_detail">
+<!--done-->
+<div id="topics">
+	<div class="post">
+		<h1 class="postTitle">
+			<a id="cb_post_title_url" class="postTitle2" href="http://www.cnblogs.com/zuoxiaolong/p/jvm6.html">JVM内存管理------GC算法精解（五分钟教你终极算法---分代搜集算法）</a>
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			<div id="cnblogs_post_body" class="blogpost-body"><h2><span style="font-size: 14px;">引言</span></h2>
+<p><span style="font-size: 14px;">&nbsp;</span></p>
+<p><span style="font-size: 14px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;何为终极算法？</span></p>
+<p><span style="font-size: 14px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;其实就是现在的JVM采用的算法，并非真正的终极。说不定若干年以后，还会有新的终极算法，而且几乎是一定会有，因为LZ相信高人们的能力。</span></p>
+<p><span style="font-size: 14px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;那么分代搜集算法是怎么处理GC的呢？</span></p>
+<p><span style="font-size: 14px;">&nbsp;</span></p>
+<h2><span style="font-size: 14px;">对象分类</span></h2>
+<p><span style="font-size: 14px;">&nbsp;</span></p>
+<p><span style="font-size: 14px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;上一章已经说过，分代搜集算法是针对对象的不同特性，而使用适合的算法，这里面并没有实际上的新算法产生。<strong>与其说分代搜集算法是第四个算法，不如说它是对前三个算法的实际应用</strong>。</span></p>
+<p><span style="font-size: 14px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;首先我们来探讨一下对象的不同特性，接下来LZ和各位来一起给这些对象选择GC算法。</span></p>
+<p><span style="font-size: 14px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;内存中的对象按照生命周期的长短大致可以分为三种，以下命名均为LZ个人的命名。</span></p>
+<p><span style="font-size: 14px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;1、<strong>夭折对象</strong>：朝生夕灭的对象，通俗点讲就是活不了多久就得死的对象。</span></p>
+<p><span style="font-size: 14px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<strong>例子</strong>：某一个方法的局域变量、循环内的临时变量等等。</span></p>
+<p><span style="font-size: 14px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;2、<strong>老不死对象</strong>：这类对象一般活的比较久，岁数很大还不死，但归根结底，老不死对象也几乎早晚要死的，但也只是几乎而已。</span></p>
+<p><span style="font-size: 14px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<strong>例子</strong>：缓存对象、数据库连接对象、单例对象（单例模式）等等。</span></p>
+<p><span style="font-size: 14px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;3、<strong>不灭对象</strong>：此类对象一般一旦出生就几乎不死了，它们几乎会一直永生不灭，记得，只是几乎不灭而已。</span></p>
+<p><span style="font-size: 14px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<strong>例子</strong>：String池中的对象（享元模式）、加载过的类信息等等。</span></p>
+<p><span style="font-size: 14px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span></p>
+<h2><span style="font-size: 14px;">对象对应的内存区域</span></h2>
+<p><span style="font-size: 14px;">&nbsp;</span></p>
+<p><span style="font-size: 14px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;还记得前面介绍内存管理时，JVM对内存的划分吗？</span></p>
+<p><span style="font-size: 14px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;我们将上面三种对象对应到内存区域当中，就是<strong>夭折对象和老不死对象都在JAVA堆，而不灭对象在方法区</strong>。</span></p>
+<p><span style="font-size: 14px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;之前的一章中我们就已经说过，对于JAVA堆，JVM规范要求必须实现GC，因而对于夭折对象和老不死对象来说，死几乎是必然的结局，但也只是几乎，还是难免会有一些对象会一直存活到应用结束。然而JVM规范对方法区的GC并不做要求，所以假设一个JVM实现没有对方法区实现GC，那么不灭对象就是真的不灭对象了。</span></p>
+<p><span style="font-size: 14px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;由于不灭对象的生命周期过长，因此<strong>分代搜集算法就是针对的JAVA堆而设计的，也就是针对夭折对象和老不死对象</strong>。</span></p>
+<p><span style="font-size: 14px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span></p>
+<h2><span style="font-size: 14px;">JAVA堆的对象回收（夭折对象和老不死对象）</span></h2>
+<p><span style="font-size: 14px;">&nbsp;</span></p>
+<p><span style="font-size: 14px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 有了以上分析，我们来看看分代搜集算法如何处理JAVA堆的内存回收的，也就是夭折对象与老不死对象的回收。</span></p>
+<p><span style="font-size: 14px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <strong>夭折对象</strong>：这类对象朝生夕灭，存活时间短，还记得复制算法的使用要求吗？那就是对象存活率不能太高，因此<strong>夭折对象是最适合使用复制算法的</strong>。</span></p>
+<p><span style="font-size: 14px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 小疑问：50%内存的浪费怎么办？</span></p>
+<p><span style="font-size: 14px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 答疑：因为夭折对象一般存活率较低，因此可以不使用50%的内存作为空闲，一般的，使用两块10%的内存作为空闲和活动区间，而另外80%的内存，则是用来给新建对象分配内存的。一旦发生GC，将10%的活动区间与另外80%中存活的对象转移到10%的空闲区间，接下来，将之前90%的内存全部释放，以此类推。</span></p>
+<p><span style="font-size: 14px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 为了让各位更加清楚的看出来这个GC流程，LZ给出下面图示。</span></p>
+<p><span style="font-size: 14px;"><img src="./JVM内存管理------GC算法精解（五分钟教你终极算法---分代搜集算法） - 左潇龙 - 博客园_files/21214855-adf7d81fef524b06b0cf16d85e3c347a.jpg" alt=""></span></p>
+<p><span style="font-size: 14px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;图中标注了三个区域中在各个阶段，各自内存的情况。相信看着图，它的GC流程已经不难理解了。</span></p>
+<p><span style="font-size: 14px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;不过有两点LZ需要提一下，<strong>第一点是使用这样的方式，我们只浪费了10%的内存，这个是可以接受的，因为我们换来了内存的整齐排列与GC速度。第二点是，这个策略的前提是，每次存活的对象占用的内存不能超过这10%的大小，一旦超过，多出的对象将无法复制</strong>。</span></p>
+<p><span style="font-size: 14px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;为了解决上面的意外情况，也就是存活对象占用的内存太大时的情况，高手们将JAVA堆分成两部分来处理，上述三个区域则是第一部分，<strong>称为新生代或者年轻代</strong>。而余下的一部分，专门存放老不死对象的则称为<strong>年老代</strong>。</span></p>
+<p><span style="font-size: 14px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;是不是很贴切的名字呢？下面我们看看老不死对象的处理方式。</span></p>
+<p><span style="font-size: 14px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<strong>老不死对象</strong>：这一类对象存活率非常高，因为它们大多是从新生代转过来的。就像人一样，活的年月久了，就变成老不死了。</span></p>
+<p><span style="font-size: 14px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;通常情况下，以下两种情况发生的时候，对象会从新生代区域转到年老带区域。</span></p>
+<p><span style="font-size: 14px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<strong>1、</strong>在新生代里的每一个对象，都会有一个<strong>年龄</strong><span style="line-height: 1.5;">，当这些对象的年龄到达一定程度时（年龄就是熬过的GC次数，每次GC如果对象存活下来，则年龄加1），则会被转到年老代，而这个转入年老代的年龄值，一般在JVM中是可以设置的。</span></span></p>
+<p><span style="font-size: 14px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<strong>2、</strong>在新生代存活对象占用的内存超过10%时，则多余的对象会放入年老代。这种时候，年老代就是新生代的“备用仓库”。</span></p>
+<p><span style="font-size: 14px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;针对老不死对象的特性，显然不再适合使用复制算法，因为它的存活率太高，而且不要忘了，如果年老代再使用复制算法，它可是没有备用仓库的。因此一般针对<strong>老不死对象只能采用标记/整理或者标记/清除算法</strong>。</span></p>
+<p><span style="font-size: 14px;">&nbsp;</span></p>
+<h2><span style="font-size: 14px;">方法区的对象回收（不灭对象）</span></h2>
+<p><span style="font-size: 14px;">&nbsp;</span></p>
+<p><span style="font-size: 14px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;以上两种情况已经解决了GC的大部分问题，因为JAVA堆是GC的主要关注对象，而以上也已经包含了分代搜集算法的全部内容，接下来对于不灭对象的回收，已经不属于分代搜集算法的内容。</span></p>
+<p><span style="font-size: 14px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;不灭对象存在于方法区，在我们常用的hotspot虚拟机（JDK默认的JVM）中，方法区也被亲切的称为<strong>永久代，</strong>又是一个很贴切的名字不是吗？</span></p>
+<p><span style="font-size: 14px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;其实在很久很久以前，是不存在永久代的。当时永久代与年老代都存放在一起，里面包含了JAVA类的实例信息以及类信息。但是后来发现，对于类信息的卸载几乎很少发生，因此便将二者分离开来。幸运的是，这样做确实提高了不少性能。于是永久代便被拆分出来了。</span></p>
+<p><span style="font-size: 14px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;这一部分区域的GC与年老代采用相似的方法，由于都没有“备用仓库”，二者都是只能使用标记/清除和标记/整理算法。</span></p>
+<p><span style="font-size: 14px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span></p>
+<h2><span style="font-size: 14px;">回收的时机</span></h2>
+<p>&nbsp;</p>
+<p><span style="font-size: 14px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;JVM在进行GC时，并非每次都对上面三个内存区域一起回收的，大部分时候回收的都是指新生代。因此GC按照回收的区域又分了两种类型，一种是普通GC（minor GC），一种是全局GC（major GC&nbsp;or Full GC），它们所针对的区域如下。</span></p>
+<p><span style="font-size: 14px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<strong>普通GC（minor GC）</strong>：只针对新生代区域的GC。</span></p>
+<p><span style="font-size: 14px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<strong>全局GC（major GC or Full GC）</strong>：针对年老代的GC，偶尔伴随对新生代的GC以及对永久代的GC。</span></p>
+<p><span style="font-size: 14px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;由于年老代与永久代相对来说GC效果不好，而且二者的内存使用增长速度也慢，因此一般情况下，需要经过好几次普通GC，才会触发一次全局GC。</span></p>
+<p><span style="font-size: 14px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span></p>
+<h2><span style="font-size: 14px;">结束语</span></h2>
+<p>&nbsp;</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp;<span style="font-size: 14px;"> &nbsp;GC的相关内容基本上就这些了，下一章我们一起探讨一下具体的GC实现都有哪些。</span></p>
+<p><span style="font-size: 14px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span></p>
+<p><span style="font-size: 14px;">&nbsp;</span></p>
+<p><span style="font-size: 14px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span></p>
+<p><span style="font-size: 14px;">&nbsp;</span></p>
+<p><span style="font-size: 14px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</span></p></div><div id="MySignature" style="display: block;"><br>
+<fieldset style="padding:10px;margin:10px;bolder:#06C dashed 1px;background-color: #708090;width:850px;">
+<p><span style="color: #fff;">版权声明</span></p><p>
+</p><hr style="color: #fff;">
+<p><span style="color: #fff;">作者：</span><span style="color: #fff;">zuoxiaolong（左潇龙）</span></p>
+<p><span style="color: #fff;">出处：</span><a href="http://www.cnblogs.com/zuoxiaolong" target="_blank" style="color: #fff;">博客园左潇龙的技术博客--http://www.cnblogs.com/zuoxiaolong</a> </p>
+<p><span style="color: #fff;">您的支持是对博主最大的鼓励，感谢您的认真阅读。</span></p>
+<p><span style="color: #fff;">本文版权归作者所有，欢迎转载，但未经作者同意必须保留此段声明，且在文章页面明显位置给出原文连接，否则保留追究法律责任的权利。</span></p>
+</fieldset></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory">分类: <a href="http://www.cnblogs.com/zuoxiaolong/category/508918.html" target="_blank">JVM内存管理</a></div>
+<div id="EntryTag">标签: <a href="http://www.cnblogs.com/zuoxiaolong/tag/JVM%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/">JVM内存管理</a>, <a href="http://www.cnblogs.com/zuoxiaolong/tag/JAVA%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/">JAVA内存管理</a></div>
+<div id="blog_post_info"><div id="green_channel">
+        <a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(3273640,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+            <a id="green_channel_follow" onclick="follow(&#39;8834a931-b305-e311-8d02-90b11c0b17d6&#39;);" href="javascript:void(0);">关注我</a>
+    <a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a>
+    <a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./JVM内存管理------GC算法精解（五分钟教你终极算法---分代搜集算法） - 左潇龙 - 博客园_files/icon_weibo_24.png" alt=""></a>
+    <a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="./JVM内存管理------GC算法精解（五分钟教你终极算法---分代搜集算法） - 左潇龙 - 博客园_files/wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+    <div id="author_profile_info" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/zuoxiaolong/" target="_blank"><img src="./JVM内存管理------GC算法精解（五分钟教你终极算法---分代搜集算法） - 左潇龙 - 博客园_files/20130820130011.png" class="author_avatar" alt=""></a>
+        <div id="author_profile_detail" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/zuoxiaolong/">左潇龙</a><br>
+            <a href="http://home.cnblogs.com/u/zuoxiaolong/followees">关注 - 0</a><br>
+            <a href="http://home.cnblogs.com/u/zuoxiaolong/followers">粉丝 - 2455</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div id="author_profile_honor">荣誉：<a href="http://www.cnblogs.com/expert/" target="_blank">推荐博客</a></div>
+    <div id="author_profile_follow">
+                <a href="javascript:void(0);" onclick="follow(&#39;8834a931-b305-e311-8d02-90b11c0b17d6&#39;);return false;">+加关注</a>
+    </div>
+</div>
+<div id="div_digg">
+    <div class="diggit" onclick="votePost(3273640,&#39;Digg&#39;)">
+        <span class="diggnum" id="digg_count">3</span>
+    </div>
+    <div class="buryit" onclick="votePost(3273640,&#39;Bury&#39;)">
+        <span class="burynum" id="bury_count">1</span>
+    </div>
+    <div class="clear"></div>
+    <div class="diggword" id="digg_tips">
+    </div>
+</div>
+<script type="text/javascript">
+    currentDiggType = 0;
+</script></div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/zuoxiaolong/p/jvm5.html" class="p_n_p_prefix">« </a> 上一篇：<a href="http://www.cnblogs.com/zuoxiaolong/p/jvm5.html" title="发布于2013-08-20 22:23">JVM内存管理------GC算法精解（复制算法与标记/整理算法）</a><br><a href="http://www.cnblogs.com/zuoxiaolong/p/life2.html" class="p_n_p_prefix">» </a> 下一篇：<a href="http://www.cnblogs.com/zuoxiaolong/p/life2.html" title="发布于2013-08-23 18:24">杂谈---这些大忌，你在面试的时候发生过吗？（NO.1）</a><br></div>
+</div>
+
+
+		</div>
+		<div class="postDesc">posted @ <span id="post-date">2013-08-23 11:58</span> <a href="http://www.cnblogs.com/zuoxiaolong/">左潇龙</a> 阅读(<span id="post_view_count">6084</span>) 评论(<span id="post_comment_count">0</span>)  <a href="https://i.cnblogs.com/EditPosts.aspx?postid=3273640" rel="nofollow">编辑</a> <a href="http://www.cnblogs.com/zuoxiaolong/p/jvm6.html#" onclick="AddToWz(3273640);return false;">收藏</a></div>
+	</div>
+	<script type="text/javascript">var allowComments=true,cb_blogId=160491,cb_entryId=3273640,cb_blogApp=currentBlogApp,cb_blogUserGuid='8834a931-b305-e311-8d02-90b11c0b17d6',cb_entryCreatedDate='2013/8/23 11:58:00';loadViewCount(cb_entryId);var cb_postType=1;</script>
+	
+</div><!--end: topics 文章、评论容器-->
+</div><a name="!comments"></a><div id="blog-comments-placeholder"></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="http://www.cnblogs.com/zuoxiaolong/p/jvm6.html#" onclick="return RefreshPage();">刷新页面</a><a href="http://www.cnblogs.com/zuoxiaolong/p/jvm6.html#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login(&#39;commentform&#39;);">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="ad_t2"><a href="http://www.ucancode.com/index.htm" target="_blank">【推荐】超50万VC++源码: 大型工控、组态\仿真、建模CAD源码2018！</a><br><a href="https://dnspod.cloud.tencent.com/act/weapp?fromSource=gwzcw.741360.741360.741360" target="_blank">【腾讯云】小程序普惠节精美模板1元起</a><br></div>
+<div id="opt_under_post"></div>
+<div id="cnblogs_c1" class="c_ad_block"><a href="https://cloud.tencent.com/act/first_purchase?fromSource=gwzcw.741358.741358.741358" target="_blank"><img width="300" height="250" src="./JVM内存管理------GC算法精解（五分钟教你终极算法---分代搜集算法） - 左潇龙 - 博客园_files/24442-20180122123322209-1359966176.jpg" alt="tencent0122"></a></div>
+<div id="under_post_news"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="https://news.cnblogs.com/n/588002/" target="_blank">豆瓣阅读从豆瓣集团分拆，并完成6000万人民币A轮融资</a><br> ·  <a href="https://news.cnblogs.com/n/588001/" target="_blank">Uber CEO：预计美国将在10年内拥有飞行汽车</a><br> ·  <a href="https://news.cnblogs.com/n/588000/" target="_blank">在美国遭遇政治困难：华为和中兴大幅减少游说开支</a><br> ·  <a href="https://news.cnblogs.com/n/587999/" target="_blank">阿里联合权利人起诉售假者：多方联动破局打假难题</a><br> ·  <a href="https://news.cnblogs.com/n/587998/" target="_blank">爱奇艺前员工入职优酷被起诉 称其违反竞业限制协议</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div></div>
+<div id="cnblogs_c2" class="c_ad_block"><a href="http://click.aliyun.com/m/34770/" target="_blank"><img width="468" height="60" src="./JVM内存管理------GC算法精解（五分钟教你终极算法---分代搜集算法） - 左潇龙 - 博客园_files/24442-20171208101900738-116140477.jpg" alt="阿里云C2-1208"></a></div>
+<div id="under_post_kb"><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="http://kb.cnblogs.com/page/586236/" target="_blank">领域驱动设计在互联网业务开发中的实践</a><br> ·  <a href="http://kb.cnblogs.com/page/585502/" target="_blank">步入云计算</a><br> ·  <a href="http://kb.cnblogs.com/page/531409/" target="_blank">以操作系统的角度述说线程与进程</a><br> ·  <a href="http://kb.cnblogs.com/page/141729/" target="_blank">软件测试转型之路</a><br> ·  <a href="http://kb.cnblogs.com/page/177402/" target="_blank">门内门外看招聘</a><br></div>» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+    fixPostBody();
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverAdT2();
+    deliverAdC1();
+    deliverAdC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate, cb_postType);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);   
+</script>
+</div>
+
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<!--done-->
+<div class="newsItem">
+<h3 class="catListTitle">公告</h3>
+	<div id="blog-news"><p><a style="color: #333399" href="http://www.douyu.com/zuoxiaolong" target="_blank">LZ的斗鱼直播</a></p>
+<hr>
+<p><a style="color: #333399" href="http://www.zuoxiaolong.com/" target="_blank">LZ的个人网站</a></p>
+<hr>
+<p><a style="color: #333399" href="http://t.qq.com/zuoxiaolong1988" target="_blank">LZ的腾讯微博</a><br></p>
+<hr>
+<p><a style="color: #333399" href="https://github.com/xiaolongzuo" target="_blank">LZ的Github</a></p>
+<hr>
+<p><a style="color: #333399" href="https://www.aliyun.com/product/edas" target="_blank">LZ的公司产品</a></p>
+<hr>
+<p>LZ的王者娱乐微信群，程序员也需要放松，偶尔周末开直播5V5内战</p>
+<p><img src="./JVM内存管理------GC算法精解（五分钟教你终极算法---分代搜集算法） - 左潇龙 - 博客园_files/o_IMG_0157.JPG" width="100%"></p>
+<hr>
+<p>
+<b style="color: #FF3030">欢迎关注LZ的微信公众号，LZ所有的文章，包括小说《一个屌丝程序猿的人生》都将在那里第一时间推送，搜索”左潇龙“即可关注。</b><br>
+<b style="color: #FF3030">也可移步到LZ的个人网站【地址在上方】查看所有文章。</b><br>
+<img src="./JVM内存管理------GC算法精解（五分钟教你终极算法---分代搜集算法） - 左潇龙 - 博客园_files/o_2016060978249857.jpg"></p><hr>
+交流一群：300638185【已满】<br>
+交流二群：475044650【已满】<br>
+交流三群：367659782【已满】<br>
+交流四群：575993105【已满】<br>
+交流五群：547743770【已满】<br>
+交流六群：629598531【新开】<br>
+交流七群：620968684【新开】<br>
+交流八群：542470923【新开】<br>
+交流九群：629602305【新开】<br>
+交流群用于技术探讨和交流，请不要重复加入多个交流群。<br>
+进群请注明：“来自左潇龙博客园博客”。<br>
+加群需知：群名片统一格式为：<br>
+【城市-姓名或昵称-语言】<br>
+示例：<br>
+【北京-左潇龙-Java】<br>
+进交流群请务必立即改名，否则可能会被误踢哦。<br>
+<p></p><hr>
+<p>LZ的Github项目介绍<br><br>名称：xxoo<br>简介：致力于简单的、功能完善的xml与object转换<br><br>名称：deerlet-redis-client<br>简介：一款简单易用的redis for java客户端，支持集群<br><br>名称：niubi-job<br>简介：一款开源的，高可靠的分布式任务调度框架。<br><br></p>
+<hr>
+<p><span>博主简介：<br>09年毕业于某二流二本院校非计算机专业，经历一番波折，后于11年4月进入某培训机构学习J2EE开发，从此走上程序猿之路。<br>11年10月份入职一家小型互联网公司，任职Java工程师。<br>12年9月份进入一家大型金融公司从事公司IT建设，任职Java工程师。14年正式成为项目组项目经理兼研发经理，管理一个将近20人的团队。15年1月转部门带领一个6人的小团队，负责公司的权限管理系统。<br>15年4月份进入到一家极具激情的互联网金融公司，暂时放弃管理之路，继续自己的技术沉淀，任职Java工程师。<br>16年3月份进入到一家大型互联网公司，从事Java中间件的开发工作。<br>本人较为擅长的领域涉及Java语言、设计模式、Java虚拟机、SSH、SSI等开源框架。作为一名开源的爱好者，本人也曾为spring-framework提供过源码，并被spring采纳。</span></p><hr>
+<div align="left" valign="middle"><span style="font-size: 18px" valign="middle">您是第</span><a href="https://www.amazingcounters.com/"><img border="0" src="./JVM内存管理------GC算法精解（五分钟教你终极算法---分代搜集算法） - 左潇龙 - 博客园_files/counter.php" alt="webpage visitor statistics" height="19px" valign="top"></a><span style="font-size: 18px" valign="middle">位访客，欢迎您！</span></div><hr><div id="profile_block">昵称：<a href="https://home.cnblogs.com/u/zuoxiaolong/">左潇龙</a><br>园龄：<a href="https://home.cnblogs.com/u/zuoxiaolong/" title="入园时间：2013-08-15">4年5个月</a><br>荣誉：<a href="https://www.cnblogs.com/expert/">推荐博客</a><br>粉丝：<a href="https://home.cnblogs.com/u/zuoxiaolong/followers/">2455</a><br>关注：<a href="https://home.cnblogs.com/u/zuoxiaolong/followees/">0</a><div id="p_b_follow"><a href="javascript:void(0);" onclick="follow(&#39;8834a931-b305-e311-8d02-90b11c0b17d6&#39;)">+加关注</a></div><script>getFollowStatus('8834a931-b305-e311-8d02-90b11c0b17d6')</script></div></div><script type="text/javascript">loadBlogNews();</script>
+</div>
+
+			<div id="calendar"><div id="blog-calendar" style="display:none"></div><script type="text/javascript">loadBlogDefaultCalendar();</script></div>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"><div id="sidebar_search" class="sidebar-block"></div><div id="sidebar_categories">
+<div class="catListPostCategory">
+<h3 class="catListTitle">随笔分类<span style="font-size:11px;font-weight:normal">(173)</span></h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_0_Link_0" href="http://www.cnblogs.com/zuoxiaolong/category/531926.html">github（开源）(10)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_1" href="http://www.cnblogs.com/zuoxiaolong/category/536148.html">JAVA并发编程(4)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_2" href="http://www.cnblogs.com/zuoxiaolong/category/805257.html">Java教程</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_3" href="http://www.cnblogs.com/zuoxiaolong/category/509254.html">JNI探秘(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_4" href="http://www.cnblogs.com/zuoxiaolong/category/509142.html">Jquery相关(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_5" href="http://www.cnblogs.com/zuoxiaolong/category/508918.html">JVM内存管理(9)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_6" href="http://www.cnblogs.com/zuoxiaolong/category/515406.html">JVM源码(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_7" href="http://www.cnblogs.com/zuoxiaolong/category/813988.html">niubi-job(5)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_8" href="http://www.cnblogs.com/zuoxiaolong/category/509143.html">spring相关(8)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_9" href="http://www.cnblogs.com/zuoxiaolong/category/521541.html">编程语言(4)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_10" href="http://www.cnblogs.com/zuoxiaolong/category/509707.html">编程之路(66)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_11" href="http://www.cnblogs.com/zuoxiaolong/category/509253.html">编译原理(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_12" href="http://www.cnblogs.com/zuoxiaolong/category/518480.html">计算机系统原理(24)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_13" href="http://www.cnblogs.com/zuoxiaolong/category/527951.html">浅谈系列(6)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_14" href="http://www.cnblogs.com/zuoxiaolong/category/509144.html">设计模式(27)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_15" href="http://www.cnblogs.com/zuoxiaolong/category/518299.html">数据结构与算法(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_16" href="http://www.cnblogs.com/zuoxiaolong/category/701274.html">数据库</a> </li>
+
+</ul>
+
+</div>
+
+<div class="catListPostArchive">
+<h3 class="catListTitle">随笔档案<span style="font-size:11px;font-weight:normal">(245)</span></h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_1_Link_0" href="http://www.cnblogs.com/zuoxiaolong/archive/2018/01.html">2018年1月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_1" href="http://www.cnblogs.com/zuoxiaolong/archive/2017/12.html">2017年12月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_2" href="http://www.cnblogs.com/zuoxiaolong/archive/2017/11.html">2017年11月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_3" href="http://www.cnblogs.com/zuoxiaolong/archive/2017/10.html">2017年10月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_4" href="http://www.cnblogs.com/zuoxiaolong/archive/2017/09.html">2017年9月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_5" href="http://www.cnblogs.com/zuoxiaolong/archive/2017/07.html">2017年7月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_6" href="http://www.cnblogs.com/zuoxiaolong/archive/2017/06.html">2017年6月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_7" href="http://www.cnblogs.com/zuoxiaolong/archive/2017/05.html">2017年5月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_8" href="http://www.cnblogs.com/zuoxiaolong/archive/2017/04.html">2017年4月 (7)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_9" href="http://www.cnblogs.com/zuoxiaolong/archive/2017/03.html">2017年3月 (10)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_10" href="http://www.cnblogs.com/zuoxiaolong/archive/2017/02.html">2017年2月 (5)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_11" href="http://www.cnblogs.com/zuoxiaolong/archive/2017/01.html">2017年1月 (5)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_12" href="http://www.cnblogs.com/zuoxiaolong/archive/2016/12.html">2016年12月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_13" href="http://www.cnblogs.com/zuoxiaolong/archive/2016/11.html">2016年11月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_14" href="http://www.cnblogs.com/zuoxiaolong/archive/2016/10.html">2016年10月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_15" href="http://www.cnblogs.com/zuoxiaolong/archive/2016/09.html">2016年9月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_16" href="http://www.cnblogs.com/zuoxiaolong/archive/2016/08.html">2016年8月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_17" href="http://www.cnblogs.com/zuoxiaolong/archive/2016/07.html">2016年7月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_18" href="http://www.cnblogs.com/zuoxiaolong/archive/2016/06.html">2016年6月 (10)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_19" href="http://www.cnblogs.com/zuoxiaolong/archive/2016/05.html">2016年5月 (22)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_20" href="http://www.cnblogs.com/zuoxiaolong/archive/2016/04.html">2016年4月 (6)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_21" href="http://www.cnblogs.com/zuoxiaolong/archive/2016/03.html">2016年3月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_22" href="http://www.cnblogs.com/zuoxiaolong/archive/2016/02.html">2016年2月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_23" href="http://www.cnblogs.com/zuoxiaolong/archive/2016/01.html">2016年1月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_24" href="http://www.cnblogs.com/zuoxiaolong/archive/2015/07.html">2015年7月 (5)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_25" href="http://www.cnblogs.com/zuoxiaolong/archive/2015/05.html">2015年5月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_26" href="http://www.cnblogs.com/zuoxiaolong/archive/2015/04.html">2015年4月 (5)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_27" href="http://www.cnblogs.com/zuoxiaolong/archive/2015/03.html">2015年3月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_28" href="http://www.cnblogs.com/zuoxiaolong/archive/2014/12.html">2014年12月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_29" href="http://www.cnblogs.com/zuoxiaolong/archive/2014/11.html">2014年11月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_30" href="http://www.cnblogs.com/zuoxiaolong/archive/2014/09.html">2014年9月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_31" href="http://www.cnblogs.com/zuoxiaolong/archive/2014/08.html">2014年8月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_32" href="http://www.cnblogs.com/zuoxiaolong/archive/2014/07.html">2014年7月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_33" href="http://www.cnblogs.com/zuoxiaolong/archive/2014/06.html">2014年6月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_34" href="http://www.cnblogs.com/zuoxiaolong/archive/2014/05.html">2014年5月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_35" href="http://www.cnblogs.com/zuoxiaolong/archive/2014/04.html">2014年4月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_36" href="http://www.cnblogs.com/zuoxiaolong/archive/2014/03.html">2014年3月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_37" href="http://www.cnblogs.com/zuoxiaolong/archive/2014/02.html">2014年2月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_38" href="http://www.cnblogs.com/zuoxiaolong/archive/2013/12.html">2013年12月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_39" href="http://www.cnblogs.com/zuoxiaolong/archive/2013/11.html">2013年11月 (8)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_40" href="http://www.cnblogs.com/zuoxiaolong/archive/2013/10.html">2013年10月 (15)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_41" href="http://www.cnblogs.com/zuoxiaolong/archive/2013/09.html">2013年9月 (23)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_42" href="http://www.cnblogs.com/zuoxiaolong/archive/2013/08.html">2013年8月 (50)</a> </li>
+
+</ul>
+
+</div>
+
+</div><div id="sidebar_recentcomments" class="sidebar-block"><div id="recent_comments_wrap">
+<div class="catListComment">
+<h3 class="catListTitle">最新评论</h3>
+	<div id="RecentCommentsBlock"><ul>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/zuoxiaolong/p/life24.html#3893736">1. Re:我们一起来聊聊并发吧，one。</a></li>
+        <li class="recent_comment_body">一个诱人的东西永远都伴随着危险，就像高贵的玫瑰往往都是有刺的。    看技术文的时候还能看到文采，不错不错。。。。。</li>
+        <li class="recent_comment_author">--激流勇进、</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/zuoxiaolong/p/lang1.html#3889324">2. Re:新手容易混乱的String+和StringBuffer，以及Java的方法参数传递方式。</a></li>
+        <li class="recent_comment_body">第二个应该是错了吧，应该是StringBuffer快吧<br>字符串是来自另外的 String 对象的话又是重新每次创建一个对象吧</li>
+        <li class="recent_comment_author">--小旭、Tom</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/zuoxiaolong/p/life57.html#3888264">3. Re:程序员们，再不行动就来不及了！</a></li>
+        <li class="recent_comment_body">但是买房了，你就没有别的出路了。比如你现在买房，你就只能上班、还房贷，就不会再有别的机会去做别的事，比如自己创业。</li>
+        <li class="recent_comment_author">--warmpan</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/zuoxiaolong/p/diaosi79.html#3885242">4. Re:一个屌丝程序猿的人生（七十九）</a></li>
+        <li class="recent_comment_body">龙哥，可以发表到起点了</li>
+        <li class="recent_comment_author">--七夜园</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/zuoxiaolong/p/pattern2.html#3883265">5. Re:（一）单例模式详解</a></li>
+        <li class="recent_comment_body">@stephansun加了一条打印语句后，就出现文章说的结果了。可以了解一下java 的happens before的概念...</li>
+        <li class="recent_comment_author">--三尺冰</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/zuoxiaolong/p/life47.html#3880217">6. Re:送给即将毕业的同学，谈谈毕业后第一份工作和追女生的问题。</a></li>
+        <li class="recent_comment_body">lz我想说,我追女生的方式一直和你一样好么 O(∩_∩)O哈哈~</li>
+        <li class="recent_comment_author">--Jofun</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/zuoxiaolong/p/life56.html#3876166">7. Re:这些年，我身边的那些人和事</a></li>
+        <li class="recent_comment_body">今年12月初，准备找工作过程中，无意间看到了龙哥写的《回答阿里面试准备》，并从中找到《记录2015年年初跳槽的经历！》，看完不禁感叹，为何没有早一点跟随龙哥学习，要不然也不会让自己找工作的时候，内心那......</li>
+        <li class="recent_comment_author">--敢梦敢寻</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/zuoxiaolong/p/jvm10.html#3866388">8. Re:JVM源码---教你傻瓜式编译openjdk7（JAVA虚拟机爱好者必看）</a></li>
+        <li class="recent_comment_body">想问一下,编译完成后的jdk怎么在windows下用...</li>
+        <li class="recent_comment_author">--'null.'</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/zuoxiaolong/p/life77.html#3859391">9. Re:一个屌丝程序猿的人生（七十七）</a></li>
+        <li class="recent_comment_body">催更。。。。</li>
+        <li class="recent_comment_author">--熊熊熊摸了一下你的头</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/zuoxiaolong/p/life73.html#3853036">10. Re:SpringCloud接入EDAS——服务发现篇</a></li>
+        <li class="recent_comment_body">还不知道是EDSA是撒，结果点进去一看，又是阿里云的东东，果然是广告啊！</li>
+        <li class="recent_comment_author">--kyo1211</li>
+</ul>
+</div>
+</div>
+</div></div><div id="sidebar_topviewedposts" class="sidebar-block"><div id="topview_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">阅读排行榜</h3>
+	<div id="TopViewPostsBlock"><ul><li><a href="http://www.cnblogs.com/zuoxiaolong/p/life51.html">1. 回答阿里社招面试如何准备，顺便谈谈对于Java程序猿学习当中各个阶段的建议(32556)</a></li><li><a href="http://www.cnblogs.com/zuoxiaolong/p/pattern26.html">2. 设计模式大杂烩（24种设计模式的总结以及学习设计模式的几点建议）(30988)</a></li><li><a href="http://www.cnblogs.com/zuoxiaolong/p/life48.html">3. 程序员面经：面试前到底该不该刷题以及面试前该如何准备(20093)</a></li><li><a href="http://www.cnblogs.com/zuoxiaolong/p/life41.html">4. 记录2015年年初跳槽的经历！(19925)</a></li><li><a href="http://www.cnblogs.com/zuoxiaolong/p/java1.html">5. 六种流行的语言大餐---C、C++、python、Java、php、C#你更喜欢哪一个呢？(15853)</a></li><li><a href="http://www.cnblogs.com/zuoxiaolong/p/life22.html">6. 杂谈---第一次真正的高并发编程体验(14778)</a></li><li><a href="http://www.cnblogs.com/zuoxiaolong/p/life54.html">7. 万能的林萧说：我来告诉你，一个草根程序员如何进入BAT。(14347)</a></li><li><a href="http://www.cnblogs.com/zuoxiaolong/p/5173393.html">8. 如果你已经这样了，那你必须要跳槽了。(13078)</a></li><li><a href="http://www.cnblogs.com/zuoxiaolong/p/life46.html">9. 一个最新发现，原来程序员的最终归宿在这里。(12976)</a></li><li><a href="http://www.cnblogs.com/zuoxiaolong/p/life6.html">10. 勤快的程序猿都没啥前途的，赶紧改掉你的坏毛病吧！(12130)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topcommentedposts" class="sidebar-block"><div id="topfeedback_posts_wrap">
+<div class="catListFeedback">
+<h3 class="catListTitle">评论排行榜</h3>
+	<div id="TopFeedbackPostsBlock"><ul><li><a href="http://www.cnblogs.com/zuoxiaolong/p/life46.html">1. 一个最新发现，原来程序员的最终归宿在这里。(186)</a></li><li><a href="http://www.cnblogs.com/zuoxiaolong/p/4629035.html">2. ［异能程序员］第一章 酒后事发（第一更）(139)</a></li><li><a href="http://www.cnblogs.com/zuoxiaolong/p/life41.html">3. 记录2015年年初跳槽的经历！(131)</a></li><li><a href="http://www.cnblogs.com/zuoxiaolong/p/life6.html">4. 勤快的程序猿都没啥前途的，赶紧改掉你的坏毛病吧！(119)</a></li><li><a href="http://www.cnblogs.com/zuoxiaolong/p/life50.html">5. 程序猿的骄傲，以及骄傲背后真实的原因。(95)</a></li><li><a href="http://www.cnblogs.com/zuoxiaolong/p/life47.html">6. 送给即将毕业的同学，谈谈毕业后第一份工作和追女生的问题。(85)</a></li><li><a href="http://www.cnblogs.com/zuoxiaolong/p/life57.html">7. 程序员们，再不行动就来不及了！(83)</a></li><li><a href="http://www.cnblogs.com/zuoxiaolong/p/life22.html">8. 杂谈---第一次真正的高并发编程体验(81)</a></li><li><a href="http://www.cnblogs.com/zuoxiaolong/p/java1.html">9. 六种流行的语言大餐---C、C++、python、Java、php、C#你更喜欢哪一个呢？(79)</a></li><li><a href="http://www.cnblogs.com/zuoxiaolong/p/5173393.html">10. 如果你已经这样了，那你必须要跳槽了。(77)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topdiggedposts" class="sidebar-block"><div id="topdigg_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">推荐排行榜</h3>
+<div id="TopDiggPostsBlock"><ul><li><a href="http://www.cnblogs.com/zuoxiaolong/p/life51.html">1. 回答阿里社招面试如何准备，顺便谈谈对于Java程序猿学习当中各个阶段的建议(133)</a></li><li><a href="http://www.cnblogs.com/zuoxiaolong/p/life54.html">2. 万能的林萧说：我来告诉你，一个草根程序员如何进入BAT。(80)</a></li><li><a href="http://www.cnblogs.com/zuoxiaolong/p/4629035.html">3. ［异能程序员］第一章 酒后事发（第一更）(68)</a></li><li><a href="http://www.cnblogs.com/zuoxiaolong/p/life53.html">4. 万能的林萧说：一篇文章教会你，如何做到招聘要求中的“要有扎实的Java基础”。(66)</a></li><li><a href="http://www.cnblogs.com/zuoxiaolong/p/life58.html">5. 你首先是一个人，然后你才是程序员。(65)</a></li><li><a href="http://www.cnblogs.com/zuoxiaolong/p/life41.html">6. 记录2015年年初跳槽的经历！(65)</a></li><li><a href="http://www.cnblogs.com/zuoxiaolong/p/life45.html">7. 五年北京，这个改变我命运的城市，终于要离开了(64)</a></li><li><a href="http://www.cnblogs.com/zuoxiaolong/p/life49.html">8. 误人子弟的网络，谈谈HTTP协议中的短轮询、长轮询、长连接和短连接(63)</a></li><li><a href="http://www.cnblogs.com/zuoxiaolong/p/life47.html">9. 送给即将毕业的同学，谈谈毕业后第一份工作和追女生的问题。(61)</a></li><li><a href="http://www.cnblogs.com/zuoxiaolong/p/life55.html">10. 2016——注定不平凡的一年(61)</a></li></ul></div>
+</div></div></div></div><script type="text/javascript">loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		
+<!--done-->
+Copyright ©2018 左潇龙
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+
+</body></html>

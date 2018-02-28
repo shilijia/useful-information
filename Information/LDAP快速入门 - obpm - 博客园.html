@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<!-- saved from url=(0059)http://www.cnblogs.com/obpm/archive/2010/08/28/1811065.html -->
+<html lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LDAP快速入门 - obpm - 博客园</title>
+<link type="text/css" rel="stylesheet" href="./LDAP快速入门 - obpm - 博客园_files/blog-common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="./LDAP快速入门 - obpm - 博客园_files/bundle-sea.css">
+<link id="mobile-style" media="only screen and (max-width: 768px)" type="text/css" rel="stylesheet" href="./LDAP快速入门 - obpm - 博客园_files/bundle-sea-mobile.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/obpm/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/obpm/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/obpm/wlwmanifest.xml">
+<script async="" src="./LDAP快速入门 - obpm - 博客园_files/analytics.js.下载"></script><script type="text/javascript" src="./LDAP快速入门 - obpm - 博客园_files/encoder.js.下载"></script><script src="./LDAP快速入门 - obpm - 博客园_files/jquery.js.下载" type="text/javascript"></script>  
+<script type="text/javascript">var currentBlogApp = 'obpm', cb_enable_mathjax=false;var isLogined=false;</script>
+<script src="./LDAP快速入门 - obpm - 博客园_files/blog-common.js.下载" type="text/javascript"></script>
+</head>
+<body>
+<a name="top"></a>
+
+<!--done-->
+<div id="header">
+	
+<!--done-->
+<div class="header">
+	<div class="headerText">
+		<a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/obpm/">obpm</a><br>
+		仿冒+改良=创新
+	</div>
+</div>
+
+</div>
+
+<div id="mytopmenu">
+	
+		<div id="mylinks"><a id="blog_nav_sitehome" class="menu" href="http://www.cnblogs.com/">博客园</a> &nbsp;
+<a id="blog_nav_myhome" class="menu" href="http://www.cnblogs.com/obpm/">首页</a> &nbsp;
+<a id="blog_nav_newpost" class="menu" rel="nofollow" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a> &nbsp;
+<a id="blog_nav_contact" class="menu" rel="nofollow" href="https://msg.cnblogs.com/send/obpm">联系</a> &nbsp;
+<a id="blog_nav_rss" class="menu" href="http://www.cnblogs.com/obpm/rss">订阅</a><a id="blog_nav_rss_image" href="http://www.cnblogs.com/obpm/rss"><img src="./LDAP快速入门 - obpm - 博客园_files/xml.gif" alt="订阅"></a>&nbsp;
+<a id="blog_nav_admin" class="menu" rel="nofollow" href="https://i.cnblogs.com/">管理</a>
+</div>
+		<div id="mystats"><div id="blog_stats">
+随笔-6&nbsp;
+评论-13&nbsp;
+文章-0&nbsp;
+<!--trackbacks-0-->
+</div></div>
+	
+</div>
+<div id="centercontent">
+	
+<div id="post_detail">
+<div class="post">
+	<h1 class="postTitle"><a id="cb_post_title_url" class="postTitle2" href="http://www.cnblogs.com/obpm/archive/2010/08/28/1811065.html">LDAP快速入门</a></h1>
+	<div id="cnblogs_post_body"><p align="center"><span style="font-size: 36pt;"><b>LDAP</b><b>快速入门</b></span></p>
+<h1>1. LDAP简介</h1>
+<p>　　LDAP（轻量级目录访问协议，Lightweight Directory Access Protocol)是实现提供被称为目录服务的信息服务。目录服务是一种特殊的数据库系统，其专门针对读取，浏览和搜索操作进行了特定的优化。目录一般用来包含描述性的，基于属性的信息并支持精细复杂的过滤能力。目录一般不支持通用数据库针对大量更新操作操作需要的复杂的事务管理或回卷策略。而目录服务的更新则一般都非常简单。这种目录可以存储包括个人信息、web链结、jpeg图像等各种信息。为了访问存储在目录中的信息，就需要使用运行在TCP/IP 之上的访问协议—LDAP。</p>
+<p>&nbsp;</p>
+<p>　　LDAP目录中的信息是是按照树型结构组织，具体信息存储在条目(entry)的数据结构中。条目相当于关系数据库中表的记录；条目是具有区别名DN （Distinguished Name）的属性（Attribute），DN是用来引用条目的，DN相当于关系数据库表中的关键字（Primary Key）。属性由类型（Type）和一个或多个值（Values）组成，相当于关系数据库中的字段（Field）由字段名和数据类型组成，只是为了方便检索的需要，LDAP中的Type可以有多个Value，而不是关系数据库中为降低数据的冗余性要求实现的各个域必须是不相关的。LDAP中条目的组织一般按照地理位置和组织关系进行组织，非常的直观。LDAP把数据存放在文件中，为提高效率可以使用基于索引的文件数据库，而不是关系数据库。类型的一个例子就是mail，其值将是一个电子邮件地址。</p>
+<p>&nbsp;</p>
+<p>LDAP的信息是以树型结构存储的，在树根一般定义国家(c=CN)或域名(dc=com)，在其下则往往定义一个或多个组织 (organization)(o=Acme)或组织单元(organizational units) (ou=People)。一个组织单元可能包含诸如所有雇员、大楼内的所有打印机等信息。此外，LDAP支持对条目能够和必须支持哪些属性进行控制，这是有一个特殊的称为对象类别(objectClass)的属性来实现的。该属性的值决定了该条目必须遵循的一些规则，其规定了该条目能够及至少应该包含哪些属性。例如：inetorgPerson对象类需要支持sn(surname)和cn(common name)属性，但也可以包含可选的如邮件，电话号码等属性。</p>
+<p>&nbsp;</p>
+<h1>2. LDAP简称对应</h1>
+<ol>
+<li>o– organization（组织-公司）</li>
+<li>ou – organization unit（组织单元-部门）</li>
+<li>c - countryName（国家）</li>
+<li>dc - domainComponent（域名）</li>
+<li>sn – suer name（真实名称）</li>
+<li>cn - common name（常用名称）</li>
+</ol>
+<p>&nbsp;</p>
+<h1>3. 目录设计</h1>
+<p>设计目录结构是LDAP最重要的方面之一。下面我们将通过一个简单的例子来说明如何设计合理的目录结构。该例子将通过Netscape地址薄来访文。假设有一个位于美国US(c=US)而且跨越多个州的名为Acme(o=Acme)的公司。Acme希望为所有的雇员实现一个小型的地址薄服务器。 </p>
+<p>&nbsp;</p>
+<p>　　我们从一个简单的组织DN开始：　</p>
+<p>　　　　dn: o=Acme, c=US</p>
+<p>&nbsp;</p>
+<p>　　Acme所有的组织分类和属性将存储在该DN之下，这个DN在该存储在该服务器的目录是唯一的。Acme希望将其雇员的信息分为两类：管理者(ou= Managers)和普通雇员(ou=Employees),这种分类产生的相对区别名(RDN,relative distinguished names。表示相对于顶点DN)就shi ： </p>
+<p>&nbsp;</p>
+<p>　　　　dn: ou=Managers, o=Acme, c=US</p>
+<p>　　　　dn: ou=Employees, o=Acme, c=US</p>
+<p>&nbsp;</p>
+<p>　　在下面我们将会看到分层结构的组成：顶点是US的Acme，下面是管理者组织单元和雇员组织单元。因此包括Managers和Employees的DN组成为： </p>
+<p>　　　　dn: cn=Jason H. Smith, ou=Managers, o=Acme, c=US</p>
+<p>　　　　dn: cn=Ray D. Jones, ou=Employees, o=Acme, c=US</p>
+<p>　　　　dn: cn=Eric S. Woods, ou=Employees, o=Acme, c=US</p>
+<p>&nbsp;</p>
+<p>　　为了引用Jason H. Smith的通用名(common name )条目，LDAP将采用cn=Jason H. Smith的RDN。然后将前面的父条目结合在一起就形成如下的树型结构： </p>
+<p>&nbsp;</p>
+<p>　　　　cn=Jason H. Smith</p>
+<p>　　　　　　　　+ ou=Managers</p>
+<p>　　　　　　　　　　　　+ o=Acme</p>
+<p>　　　　　　　　　　　　　　　　+ c=US</p>
+<p>　&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -&gt; dn: cn=Jason H. Smith,ou=Managers,o=Acme,c=US</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>　　现在已经定义好了目录结构，下一步就需要导入目录信息数据。目录信息数据将被存放在LDIF文件中，其是导入目录信息数据的默认存放文件。用户可以方便的编写Perl脚本来从例如/etc/passwd、NIS等系统文件中自动创建LDIF文件。</p>
+<p>&nbsp;</p>
+<p>　　下面的实例保存目录信息数据为testdate.ldif文件，该文件的格式说明将可以在man ldif中得到。</p>
+<p>　　在添加任何组织单元以前，必须首先定义Acme DN：　 </p>
+<p>　　　　dn: o=Acme, c=US</p>
+<p>　　　　objectClass: organization</p>
+<p>&nbsp;</p>
+<p>　　这里o属性是必须的 </p>
+<p>　　　　o: Acme</p>
+<p>&nbsp;</p>
+<p>　　下面是管理组单元的DN，在添加任何管理者信息以前，必须先定义该条目。 </p>
+<p>　　　　dn: ou=Managers, o=Acme, c=US</p>
+<p>　　　　objectClass: organizationalUnit</p>
+<p>这里ou属性是必须的。 </p>
+<p>&nbsp;</p>
+<p>ou: Managers</p>
+<p>　　第一个管理者DN： </p>
+<p>　　　　dn: cn=Jason H. Smith, ou=Managers, o=Acme, c=US</p>
+<p>　　　　objectClass: inetOrgPerson</p>
+<p>　　cn和sn都是必须的属性： </p>
+<p>　　　　cn: Jason H. Smith</p>
+<p>　　　　sn: Smith</p>
+<p>　　但是还可以定义一些可选的属性：</p>
+<p>　　　　telephoneNumber: 111-222-9999</p>
+<p>　　　　mail: headhauncho@acme.com</p>
+<p>　　　　localityName: <st1:place><st1:city>Houston</st1:city></st1:place></p>
+<p>&nbsp;</p>
+<p>　　可以定义另外一个组织单元： </p>
+<p>　　　　dn: ou=Employees, o=Acme, c=US</p>
+<p>　　　　objectClass: organizationalUnit</p>
+<p>　　　　ou: Employees</p>
+<p>&nbsp;</p>
+<p>　　并添加雇员信息如下： </p>
+<p>　　　　dn: cn=Ray D. Jones, ou=Employees, o=Acme, c=US</p>
+<p>　　　　objectClass: inetOrgPerson</p>
+<p>　　　　cn: Ray D. Jones</p>
+<p>　　　　sn: Jones</p>
+<p>　　　　telephoneNumber: 444-555-6767</p>
+<p>　　　　mail: jonesrd@acme.com</p>
+<p>　　　　localityName: <st1:place><st1:city>Houston</st1:city></st1:place></p>
+<p>　　　　dn: cn=Eric S. Woods, ou=Employees, o=Acme, c=US</p>
+<p>　　　　objectClass: inetOrgPerson</p>
+<p>　　　　cn: Eric S. Woods</p>
+<p>　　　　sn: Woods</p>
+<p>　　　　telephoneNumber: 444-555-6768</p>
+<p>　　　　mail: woodses@acme.com</p>
+<p>　　　　localityName: <st1:place><st1:city>Houston</st1:city></st1:place></p>
+<p><st1:place><st1:city></st1:city></st1:place>&nbsp;</p>
+<p>&nbsp;</p>
+<h1>4. 配置OpenLDAP</h1>
+<p>本文实践了在 Windows 下安装配 openldap，并添加一个条目，LdapBrowser 浏览，及 Java 程序连接 openldap 的全过程。</p>
+<p>&nbsp;</p>
+<p>1. 下载安装 <b>openldap</b> for windows，当前版本<st1:chsdate isrocdate="False" islunardate="False" day="30" month="12" year="1899">2.2.29</st1:chsdate>下载地址：http://download.bergmans.us/openldap/openldap-<st1:chsdate isrocdate="False" islunardate="False" day="30" month="12" year="1899">2.2.29</st1:chsdate>/openldap-2.2.29-db-4.3.29-openssl-0.<st1:chmetcnv tcsc="0" numbertype="1" negative="False" hasspace="False" sourcevalue="9.8" unitname="a">9.8a</st1:chmetcnv>-win32_Setup.exe</p>
+<p>&nbsp;&nbsp;&nbsp; 相关链接：http://lucas.bergmans.us/hacks/openldap/</p>
+<p>&nbsp;&nbsp; 安装很简单，一路 next 即可，假设我们安装在 c:\openldap</p>
+<p>&nbsp;</p>
+<p>2. 配置 openldap，编辑 sldap.conf 文件</p>
+<p>&nbsp;&nbsp; 1) 打开 c:\openldap\sldap.conf，找到</p>
+<p>&nbsp;&nbsp;&nbsp; include&nbsp; C:/openldap/etc/schema/core.schema，在它后面添加</p>
+<p>&nbsp;&nbsp;&nbsp; include&nbsp; C:/openldap/etc/schema/cosine.schema</p>
+<p>&nbsp;&nbsp;&nbsp; include&nbsp; C:/openldap/etc/schema/inetorgperson.schema</p>
+<p>&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp; 接下来的例子只需要用到以上三个 schema，当然，如果你觉得需要的话，你可以把其他的 schema 全部添加进来</p>
+<p>&nbsp;&nbsp;&nbsp; include&nbsp; C:/openldap/etc/schema/corba.schema</p>
+<p>&nbsp;&nbsp;&nbsp; include&nbsp; C:/openldap/etc/schema/dyngroup.schema</p>
+<p>&nbsp;&nbsp;&nbsp; include&nbsp; C:/openldap/etc/schema/java.schema</p>
+<p>&nbsp;&nbsp;&nbsp; include&nbsp; C:/openldap/etc/schema/misc.schema</p>
+<p>&nbsp;&nbsp;&nbsp; include&nbsp; C:/openldap/etc/schema/nis.schema</p>
+<p>&nbsp;&nbsp;&nbsp; include&nbsp; C:/openldap/etc/schema/openldap.schema</p>
+<p>&nbsp;</p>
+<p>&nbsp;&nbsp; 2) 还是在 sldap.conf 文件中，找到</p>
+<p>&nbsp;&nbsp;&nbsp; suffix&nbsp; "dc=my-domain,dc=com"</p>
+<p>&nbsp;&nbsp;&nbsp; rootdn&nbsp; "cn=Manager,dc=my-domain,dc=com"</p>
+<p>&nbsp;&nbsp;&nbsp; 把这两行改为</p>
+<p>&nbsp;&nbsp;&nbsp; suffix "o=teemlink,c=cn"&nbsp; </p>
+<p>&nbsp;&nbsp;&nbsp; rootdn "cn=Manager,o=teemlink,dc=cn" </p>
+<p>&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp; suffix 就是看自己如何定义了，后面步骤的 ldif 文件就必须与它定义了。还要注意到这个配置文件中有一个 rootpw&nbsp; secret，这个 secret 是 cn=Manager 的密码，以后会用到，不过这里是明文密码，你可以用命令： slappasswd -h {MD5} -s secret 算出加密的密码 {MD5}Xr4ilOzQ4PCOq3aQ0qbuaQ== 取代配置中的 secret。</p>
+<p>&nbsp;</p>
+<p>3. 启动 openldap</p>
+<p>&nbsp;&nbsp;&nbsp; CMD 进入到 c:\openldap 下，运行命令 sldapd -d 1</p>
+<p>&nbsp;&nbsp;&nbsp; 用可以看到控制台下打印一片信息，openldap 默认是用的 Berkeley DB 数据库存储目录数据的。</p>
+<p>&nbsp;</p>
+<p>4. 建立条目,编辑导入 ldif 文件</p>
+<p>&nbsp;&nbsp; 1) 新建一个 ldif(LDAP Data Interchanged Format) 文件(纯文本格式)，例如 test.ldif，文件内容如下：</p>
+<p>&nbsp;&nbsp;&nbsp; </p>
+<p>dn: o=teemlink</p>
+<p>objectclass: top</p>
+<p>objectclass: organization</p>
+<p>o: develop</p>
+<p>&nbsp;</p>
+<p>&nbsp;&nbsp; 2) 执行命令：ldapadd -l test.ldif</p>
+<p>&nbsp;</p>
+<p>5. 使用LDAP Browser进行访问</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5.1安装LDAP Browser2.6软件，进行如下操作：</p>
+<p>&nbsp;&nbsp;&nbsp; <img src="./LDAP快速入门 - obpm - 博客园_files/2010082814190153.jpg"></p>
+<p>&nbsp;　<img src="./LDAP快速入门 - obpm - 博客园_files/2010082814200667.jpg"></p>
+<p>&nbsp;</p>
+<p>5.2显示效果</p>
+<p>　 <img src="./LDAP快速入门 - obpm - 博客园_files/2010082814363213.jpg"></p>
+<p>&nbsp;</p>
+<h1>5. Java操作LDAP</h1>
+<p>&nbsp;</p>
+<h2>5.1 用JNDI进访问</h2>
+<div style="width: 718px; height: 885px;" class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./LDAP快速入门 - obpm - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><div><!--<br /><br />Code highlighting produced by Actipro CodeHighlighter (freeware)<br />http://www.CodeHighlighter.com/<br /><br />--><span style="color: #0000ff;">package</span><span style="color: #000000;"> cn.myapps.test;<br><br></span><span style="color: #0000ff;">import</span><span style="color: #000000;"> java.util.Hashtable;<br></span><span style="color: #0000ff;">import</span><span style="color: #000000;"> javax.naming.Context;<br></span><span style="color: #0000ff;">import</span><span style="color: #000000;"> javax.naming.NamingException;<br></span><span style="color: #0000ff;">import</span><span style="color: #000000;"> javax.naming.directory.Attributes;<br></span><span style="color: #0000ff;">import</span><span style="color: #000000;"> javax.naming.directory.DirContext;<br></span><span style="color: #0000ff;">import</span><span style="color: #000000;"> javax.naming.directory.InitialDirContext;<br><br></span><span style="color: #0000ff;">public</span><span style="color: #000000;"> </span><span style="color: #0000ff;">class</span><span style="color: #000000;"> LdapTest {<br>    </span><span style="color: #0000ff;">public</span><span style="color: #000000;"> </span><span style="color: #0000ff;">void</span><span style="color: #000000;"> JNDILookup() {<br>        String root </span><span style="color: #000000;">=</span><span style="color: #000000;"> </span><span style="color: #000000;">"</span><span style="color: #000000;">o=teemlink,c=cn</span><span style="color: #000000;">"</span><span style="color: #000000;">;<br>        Hashtable env </span><span style="color: #000000;">=</span><span style="color: #000000;"> </span><span style="color: #0000ff;">new</span><span style="color: #000000;"> Hashtable();<br>        env.put(Context.INITIAL_CONTEXT_FACTORY, </span><span style="color: #000000;">"</span><span style="color: #000000;">com.sun.jndi.ldap.LdapCtxFactory</span><span style="color: #000000;">"</span><span style="color: #000000;">);<br>        env.put(Context.PROVIDER_URL, </span><span style="color: #000000;">"</span><span style="color: #000000;">ldap://192.168.0.30/</span><span style="color: #000000;">"</span><span style="color: #000000;"> </span><span style="color: #000000;">+</span><span style="color: #000000;"> root);<br>        env.put(Context.SECURITY_AUTHENTICATION, </span><span style="color: #000000;">"</span><span style="color: #000000;">simple</span><span style="color: #000000;">"</span><span style="color: #000000;">);<br>        env.put(Context.SECURITY_PRINCIPAL, </span><span style="color: #000000;">"</span><span style="color: #000000;">cn=Nicholas,ou=产品,o=teemlink,c=cn</span><span style="color: #000000;">"</span><span style="color: #000000;">);<br>        env.put(Context.SECURITY_CREDENTIALS, </span><span style="color: #000000;">"</span><span style="color: #000000;">123456</span><span style="color: #000000;">"</span><span style="color: #000000;">);<br>        DirContext ctx </span><span style="color: #000000;">=</span><span style="color: #000000;"> </span><span style="color: #0000ff;">null</span><span style="color: #000000;">;<br><br>        </span><span style="color: #0000ff;">try</span><span style="color: #000000;"> {<br>            ctx </span><span style="color: #000000;">=</span><span style="color: #000000;"> </span><span style="color: #0000ff;">new</span><span style="color: #000000;"> InitialDirContext(env);<br>            Attributes attrs </span><span style="color: #000000;">=</span><span style="color: #000000;"> ctx.getAttributes(</span><span style="color: #000000;">"</span><span style="color: #000000;">cn=Nicholas,ou=产品</span><span style="color: #000000;">"</span><span style="color: #000000;">);<br>            System.out.println(</span><span style="color: #000000;">"</span><span style="color: #000000;">Last Name: </span><span style="color: #000000;">"</span><span style="color: #000000;"> </span><span style="color: #000000;">+</span><span style="color: #000000;"> attrs.get(</span><span style="color: #000000;">"</span><span style="color: #000000;">sn</span><span style="color: #000000;">"</span><span style="color: #000000;">).get());<br>            System.out.println(</span><span style="color: #000000;">"</span><span style="color: #000000;">认证成功</span><span style="color: #000000;">"</span><span style="color: #000000;">);<br>        } </span><span style="color: #0000ff;">catch</span><span style="color: #000000;"> (javax.naming.AuthenticationException e) {<br>            e.printStackTrace();<br>            System.out.println(</span><span style="color: #000000;">"</span><span style="color: #000000;">认证失败</span><span style="color: #000000;">"</span><span style="color: #000000;">);<br>        } </span><span style="color: #0000ff;">catch</span><span style="color: #000000;"> (Exception e) {<br>            System.out.println(</span><span style="color: #000000;">"</span><span style="color: #000000;">认证出错：</span><span style="color: #000000;">"</span><span style="color: #000000;">);<br>            e.printStackTrace();<br>        }<br>        </span><span style="color: #0000ff;">if</span><span style="color: #000000;"> (ctx </span><span style="color: #000000;">!=</span><span style="color: #000000;"> </span><span style="color: #0000ff;">null</span><span style="color: #000000;">) {<br>            </span><span style="color: #0000ff;">try</span><span style="color: #000000;"> {<br>                ctx.close();<br>            } </span><span style="color: #0000ff;">catch</span><span style="color: #000000;"> (NamingException e) {<br>                </span><span style="color: #008000;">//</span><span style="color: #008000;"> ignore</span><span style="color: #008000;"><br></span><span style="color: #000000;">            }<br>        }<br>    }<br><br>    </span><span style="color: #0000ff;">public</span><span style="color: #000000;"> </span><span style="color: #0000ff;">static</span><span style="color: #000000;"> </span><span style="color: #0000ff;">void</span><span style="color: #000000;"> main(String[] args) {<br>        LdapTest LDAPTest </span><span style="color: #000000;">=</span><span style="color: #000000;"> </span><span style="color: #0000ff;">new</span><span style="color: #000000;"> LdapTest();<br>        LDAPTest.JNDILookup();<br>    }<br>}</span></div></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./LDAP快速入门 - obpm - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>&nbsp;</p>
+<h2>5.2 用JLDAP进访问</h2>
+<p>访问地址：<a href="http://www.openldap.org/jldap/">http://www.openldap.org/jldap/</a> 并下载相关lib</p>
+<p>&nbsp;</p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./LDAP快速入门 - obpm - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><div><!--<br /><br />Code highlighting produced by Actipro CodeHighlighter (freeware)<br />http://www.CodeHighlighter.com/<br /><br />--><span style="color: #0000ff;">import</span><span style="color: #000000;"> com.novell.ldap.</span><span style="color: #000000;">*</span><span style="color: #000000;">;<br><br></span><span style="color: #0000ff;">import</span><span style="color: #000000;"> java.io.UnsupportedEncodingException;<br><br></span><span style="color: #0000ff;">public</span><span style="color: #000000;"> </span><span style="color: #0000ff;">class</span><span style="color: #000000;"> List<br><br>{<br><br>    </span><span style="color: #0000ff;">public</span><span style="color: #000000;"> </span><span style="color: #0000ff;">static</span><span style="color: #000000;"> </span><span style="color: #0000ff;">void</span><span style="color: #000000;"> main(String[] args)<br><br>    {<br>        </span><span style="color: #0000ff;">int</span><span style="color: #000000;"> ldapPort </span><span style="color: #000000;">=</span><span style="color: #000000;"> LDAPConnection.DEFAULT_PORT;<br>        </span><span style="color: #0000ff;">int</span><span style="color: #000000;"> searchScope </span><span style="color: #000000;">=</span><span style="color: #000000;"> LDAPConnection.SCOPE_ONE;<br>        </span><span style="color: #0000ff;">int</span><span style="color: #000000;"> ldapVersion </span><span style="color: #000000;">=</span><span style="color: #000000;"> LDAPConnection.LDAP_V3;<br>        </span><span style="color: #0000ff;">boolean</span><span style="color: #000000;"> attributeOnly </span><span style="color: #000000;">=</span><span style="color: #000000;"> </span><span style="color: #0000ff;">false</span><span style="color: #000000;">;<br>        String attrs[] </span><span style="color: #000000;">=</span><span style="color: #000000;"> </span><span style="color: #0000ff;">null</span><span style="color: #000000;">;<br>        String ldapHost </span><span style="color: #000000;">=</span><span style="color: #000000;"> </span><span style="color: #000000;">"</span><span style="color: #000000;">192.168.0.30</span><span style="color: #000000;">"</span><span style="color: #000000;">;<br>        String loginDN </span><span style="color: #000000;">=</span><span style="color: #000000;"> </span><span style="color: #000000;">"</span><span style="color: #000000;">cn=Manager,o=teemlink,c=cn</span><span style="color: #000000;">"</span><span style="color: #000000;">;<br>        String password </span><span style="color: #000000;">=</span><span style="color: #000000;"> </span><span style="color: #000000;">"</span><span style="color: #000000;">secret</span><span style="color: #000000;">"</span><span style="color: #000000;">;<br>        String searchBase </span><span style="color: #000000;">=</span><span style="color: #000000;"> </span><span style="color: #000000;">"</span><span style="color: #000000;">ou=develop,o=teemlink,c=cn</span><span style="color: #000000;">"</span><span style="color: #000000;">;<br>        String searchFilter </span><span style="color: #000000;">=</span><span style="color: #000000;"> </span><span style="color: #000000;">"</span><span style="color: #000000;">objectClass=*</span><span style="color: #000000;">"</span><span style="color: #000000;">;<br><br>        LDAPConnection lc </span><span style="color: #000000;">=</span><span style="color: #000000;"> </span><span style="color: #0000ff;">new</span><span style="color: #000000;"> LDAPConnection();<br>        </span><span style="color: #0000ff;">try</span><span style="color: #000000;"> {<br>            </span><span style="color: #008000;">//</span><span style="color: #008000;"> connect to the server</span><span style="color: #008000;"><br></span><span style="color: #000000;">            lc.connect(ldapHost, ldapPort);<br><br>            </span><span style="color: #008000;">//</span><span style="color: #008000;"> bind to the server</span><span style="color: #008000;"><br></span><span style="color: #000000;">            lc.bind(ldapVersion, loginDN, password.getBytes(</span><span style="color: #000000;">"</span><span style="color: #000000;">UTF8</span><span style="color: #000000;">"</span><span style="color: #000000;">));<br><br>            LDAPSearchResults searchResults </span><span style="color: #000000;">=</span><span style="color: #000000;"><br><br>            lc.search(searchBase, </span><span style="color: #008000;">//</span><span style="color: #008000;"> container to search</span><span style="color: #008000;"><br></span><span style="color: #000000;">                    searchScope, </span><span style="color: #008000;">//</span><span style="color: #008000;"> search scope</span><span style="color: #008000;"><br></span><span style="color: #000000;">                    searchFilter, </span><span style="color: #008000;">//</span><span style="color: #008000;"> search filter</span><span style="color: #008000;"><br></span><span style="color: #000000;">                    attrs, </span><span style="color: #008000;">//</span><span style="color: #008000;"> "1.1" returns entry name only</span><span style="color: #008000;"><br></span><span style="color: #000000;">                    attributeOnly); </span><span style="color: #008000;">//</span><span style="color: #008000;"> no attributes are returned<br><br>            </span><span style="color: #008000;">//</span><span style="color: #008000;"> print out all the objects</span><span style="color: #008000;"><br></span><span style="color: #000000;">            </span><span style="color: #0000ff;">while</span><span style="color: #000000;"> (searchResults.hasMore()) {<br>                LDAPEntry nextEntry </span><span style="color: #000000;">=</span><span style="color: #000000;"> </span><span style="color: #0000ff;">null</span><span style="color: #000000;">;<br>                </span><span style="color: #0000ff;">try</span><span style="color: #000000;"> {<br>                    nextEntry </span><span style="color: #000000;">=</span><span style="color: #000000;"> searchResults.next();<br>                    System.out.println(</span><span style="color: #000000;">"</span><span style="color: #000000;">\n</span><span style="color: #000000;">"</span><span style="color: #000000;"> </span><span style="color: #000000;">+</span><span style="color: #000000;"> nextEntry.getDN());<br>                    System.out.println(nextEntry.getAttributeSet());<br>                } </span><span style="color: #0000ff;">catch</span><span style="color: #000000;"> (LDAPException e) {<br>                    System.out.println(</span><span style="color: #000000;">"</span><span style="color: #000000;">Error: </span><span style="color: #000000;">"</span><span style="color: #000000;"> </span><span style="color: #000000;">+</span><span style="color: #000000;"> e.toString());<br>                    </span><span style="color: #008000;">//</span><span style="color: #008000;"> Exception is thrown, go for next entry</span><span style="color: #008000;"><br></span><span style="color: #000000;">                    </span><span style="color: #0000ff;">continue</span><span style="color: #000000;">;<br>                }<br>            }<br><br>            </span><span style="color: #008000;">//</span><span style="color: #008000;"> disconnect with the server</span><span style="color: #008000;"><br></span><span style="color: #000000;">            lc.disconnect();<br><br>        } </span><span style="color: #0000ff;">catch</span><span style="color: #000000;"> (LDAPException e) {<br>            System.out.println(</span><span style="color: #000000;">"</span><span style="color: #000000;">Error: </span><span style="color: #000000;">"</span><span style="color: #000000;"> </span><span style="color: #000000;">+</span><span style="color: #000000;"> e.toString());<br>        } </span><span style="color: #0000ff;">catch</span><span style="color: #000000;"> (UnsupportedEncodingException e) {<br>            System.out.println(</span><span style="color: #000000;">"</span><span style="color: #000000;">Error: </span><span style="color: #000000;">"</span><span style="color: #000000;"> </span><span style="color: #000000;">+</span><span style="color: #000000;"> e.toString());<br>        }<br>        System.exit(</span><span style="color: #000000;">0</span><span style="color: #000000;">);<br>    }<br>}</span></div></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./LDAP快速入门 - obpm - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>&nbsp;</p>
+<h2>5.3 用JDBC-LDAP进访问</h2>
+<p>访问地址：<a href="http://www.openldap.org/jdbcldap/">http://www.openldap.org/jdbcldap/</a> 并下载相关lib</p>
+<p>&nbsp;</p>
+<div style="width: 929px; height: 561px;" class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./LDAP快速入门 - obpm - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><div><!--<br /><br />Code highlighting produced by Actipro CodeHighlighter (freeware)<br />http://www.CodeHighlighter.com/<br /><br />--><span style="color: #0000ff;">package</span><span style="color: #000000;"> jdbcldap;<br><br></span><span style="color: #0000ff;">import</span><span style="color: #000000;"> java.sql.Connection;<br></span><span style="color: #0000ff;">import</span><span style="color: #000000;"> java.sql.DriverManager;<br></span><span style="color: #0000ff;">import</span><span style="color: #000000;"> java.sql.ResultSet;<br></span><span style="color: #0000ff;">import</span><span style="color: #000000;"> java.sql.Statement;<br><br></span><span style="color: #0000ff;">public</span><span style="color: #000000;"> </span><span style="color: #0000ff;">class</span><span style="color: #000000;"> JdbcLdap {<br><br>    </span><span style="color: #008000;">/**</span><span style="color: #008000;"><br>     * </span><span style="color: #808080;">@param</span><span style="color: #008000;"> args<br>     * </span><span style="color: #808080;">@throws</span><span style="color: #008000;"> Exception <br>     </span><span style="color: #008000;">*/</span><span style="color: #000000;"><br>    </span><span style="color: #0000ff;">public</span><span style="color: #000000;"> </span><span style="color: #0000ff;">static</span><span style="color: #000000;"> </span><span style="color: #0000ff;">void</span><span style="color: #000000;"> main(String[] args) </span><span style="color: #0000ff;">throws</span><span style="color: #000000;"> Exception {<br>        Class.forName(</span><span style="color: #000000;">"</span><span style="color: #000000;">com.octetstring.jdbcLdap.sql.JdbcLdapDriver</span><span style="color: #000000;">"</span><span style="color: #000000;">);<br>        String ldapConnectString </span><span style="color: #000000;">=</span><span style="color: #000000;"> </span><span style="color: #000000;">"</span><span style="color: #000000;">jdbc:ldap://192.168.0.30/o=teemlink,c=cn?SEARCH_SCOPE:=subTreeScope</span><span style="color: #000000;">"</span><span style="color: #000000;">;<br>        Connection con </span><span style="color: #000000;">=</span><span style="color: #000000;"> DriverManager.getConnection(ldapConnectString, </span><span style="color: #000000;">"</span><span style="color: #000000;">cn=Manager,o=teemlink,c=cn</span><span style="color: #000000;">"</span><span style="color: #000000;">, </span><span style="color: #000000;">"</span><span style="color: #000000;">secret</span><span style="color: #000000;">"</span><span style="color: #000000;">);<br><br>        String sql </span><span style="color: #000000;">=</span><span style="color: #000000;"> </span><span style="color: #000000;">"</span><span style="color: #000000;">SELECT * FROM ou=develop,o=teemlink,c=cn</span><span style="color: #000000;">"</span><span style="color: #000000;">;<br><br>        Statement sat </span><span style="color: #000000;">=</span><span style="color: #000000;"> con.createStatement();<br>        ResultSet rs </span><span style="color: #000000;">=</span><span style="color: #000000;"> sta.executeQuery(sql);<br>        </span><span style="color: #0000ff;">while</span><span style="color: #000000;"> (rs.next()) {<br>            System.out.println(rs.getString(</span><span style="color: #000000;">1</span><span style="color: #000000;">));<br>        }<br><br>        </span><span style="color: #0000ff;">if</span><span style="color: #000000;"> (con </span><span style="color: #000000;">!=</span><span style="color: #000000;"> </span><span style="color: #0000ff;">null</span><span style="color: #000000;">)<br>            con.close();<br>    }<br>}</span></div></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./LDAP快速入门 - obpm - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>&nbsp;</p>
+<p>原创人员：Nicholas</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory">分类: <a href="http://www.cnblogs.com/obpm/category/253194.html" target="_blank">架构设计</a></div>
+<div id="EntryTag">标签: <a href="http://www.cnblogs.com/obpm/tag/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/">架构设计</a>, <a href="http://www.cnblogs.com/obpm/tag/LDAP/">LDAP</a>, <a href="http://www.cnblogs.com/obpm/tag/%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/">快速入门</a></div>
+<div id="blog_post_info"><div id="green_channel">
+        <a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(1811065,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+            <a id="green_channel_follow" onclick="follow(&#39;22b73eb8-8e83-df11-ba8f-001cf0cd104b&#39;);" href="javascript:void(0);">关注我</a>
+    <a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a>
+    <a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./LDAP快速入门 - obpm - 博客园_files/icon_weibo_24.png" alt=""></a>
+    <a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="./LDAP快速入门 - obpm - 博客园_files/wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+    <div id="author_profile_info" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/obpm/" target="_blank"><img src="./LDAP快速入门 - obpm - 博客园_files/sample_face.gif" class="author_avatar" alt=""></a>
+        <div id="author_profile_detail" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/obpm/">obpm</a><br>
+            <a href="http://home.cnblogs.com/u/obpm/followees">关注 - 0</a><br>
+            <a href="http://home.cnblogs.com/u/obpm/followers">粉丝 - 8</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div id="author_profile_honor"></div>
+    <div id="author_profile_follow">
+                <a href="javascript:void(0);" onclick="follow(&#39;22b73eb8-8e83-df11-ba8f-001cf0cd104b&#39;);return false;">+加关注</a>
+    </div>
+</div>
+<div id="div_digg">
+    <div class="diggit" onclick="votePost(1811065,&#39;Digg&#39;)">
+        <span class="diggnum" id="digg_count">18</span>
+    </div>
+    <div class="buryit" onclick="votePost(1811065,&#39;Bury&#39;)">
+        <span class="burynum" id="bury_count">0</span>
+    </div>
+    <div class="clear"></div>
+    <div class="diggword" id="digg_tips">
+    </div>
+</div>
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/obpm/archive/2010/07/13/1776856.html" class="p_n_p_prefix">« </a> 上一篇：<a href="http://www.cnblogs.com/obpm/archive/2010/07/13/1776856.html" title="发布于2010-07-13 23:22">重构实战案例一，以子类取代类型编码(原创)</a><br></div>
+</div>
+
+
+	<div class="postDesc">posted on <span id="post-date">2010-08-28 14:38</span> <a href="http://www.cnblogs.com/obpm/">obpm</a> 阅读(<span id="post_view_count">87669</span>) 评论(<span id="post_comment_count">12</span>)  <a href="https://i.cnblogs.com/EditPosts.aspx?postid=1811065" rel="nofollow">编辑</a> <a href="http://www.cnblogs.com/obpm/archive/2010/08/28/1811065.html#" onclick="AddToWz(1811065);return false;">收藏</a></div>
+</div>
+<script type="text/javascript">var allowComments=true,cb_blogId=72561,cb_entryId=1811065,cb_blogApp=currentBlogApp,cb_blogUserGuid='22b73eb8-8e83-df11-ba8f-001cf0cd104b',cb_entryCreatedDate='2010/8/28 14:38:00';loadViewCount(cb_entryId);</script>
+
+</div><a name="!comments"></a><div id="blog-comments-placeholder"><div id="comments_pager_top"></div>
+<!--done-->
+<br>
+<b>评论:</b>
+<div class="feedbackNoItems"></div>
+	
+
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+			<a href="http://www.cnblogs.com/obpm/archive/2010/08/28/1811065.html#2207395" class="layer">#1楼</a><a name="2207395" id="comment_anchor_2207395"></a>
+				 <span class="comment_date">2011-09-25 18:18</span> | <a id="a_comment_author_2207395" href="http://www.cnblogs.com/JuLinPeng/" target="_blank">lonelyivy</a> <a href="http://msg.cnblogs.com/send/lonelyivy" title="发送站内短消息" class="sendMsg2This">&nbsp;</a><br>
+				<div align="left"><div id="comment_body_2207395" class="blog_comment_body">Thanks very much.<br>我想问题一下，有一个group名称为：<br>cn=claims-assessors,ou=Group,o=aia,c=au<br>怎么建立这个目录？<br>其中 cn=claims-assessors 表示一个组名称，组里面有很多user，能否帮忙给个sample，谢谢</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2207395,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2207395,&#39;Bury&#39;,this)">反对(0)</a></div>&nbsp;&nbsp;<span class="comment_actions"></span></div>
+			</div>
+			
+			
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+			<a href="http://www.cnblogs.com/obpm/archive/2010/08/28/1811065.html#2480067" class="layer">#2楼</a><a name="2480067" id="comment_anchor_2480067"></a>
+				 <span class="comment_date">2012-09-24 14:33</span> | <a id="a_comment_author_2480067" href="http://www.cnblogs.com/Acmen/" target="_blank">Acmen</a> <a href="http://msg.cnblogs.com/send/Acmen" title="发送站内短消息" class="sendMsg2This">&nbsp;</a><br>
+				<div align="left"><div id="comment_body_2480067" class="blog_comment_body">学习了 ！</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2480067,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2480067,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_2480067_avatar" style="display:none;">http://pic.cnblogs.com/face/154618/20151216185437.png</span>&nbsp;&nbsp;<span class="comment_actions"></span></div>
+			</div>
+			
+			
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+			<a href="http://www.cnblogs.com/obpm/archive/2010/08/28/1811065.html#2631870" class="layer">#3楼</a><a name="2631870" id="comment_anchor_2631870"></a>
+				 <span class="comment_date">2013-03-11 02:12</span> | <a id="a_comment_author_2631870" href="http://www.cnblogs.com/Kevinyarm/" target="_blank">Kevin杨</a> <a href="http://msg.cnblogs.com/send/Kevin%E6%9D%A8" title="发送站内短消息" class="sendMsg2This">&nbsp;</a><br>
+				<div align="left"><div id="comment_body_2631870" class="blog_comment_body">谢谢 最近正在用</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2631870,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2631870,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_2631870_avatar" style="display:none;">http://pic.cnblogs.com/face/493969/20130130030917.png</span>&nbsp;&nbsp;<span class="comment_actions"></span></div>
+			</div>
+			
+			
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+			<a href="http://www.cnblogs.com/obpm/archive/2010/08/28/1811065.html#2681877" class="layer">#4楼</a><a name="2681877" id="comment_anchor_2681877"></a>
+				 <span class="comment_date">2013-05-16 09:31</span> | <a id="a_comment_author_2681877" href="http://home.cnblogs.com/u/516575/" target="_blank">songlingjie</a> <a href="http://msg.cnblogs.com/send/songlingjie" title="发送站内短消息" class="sendMsg2This">&nbsp;</a><br>
+				<div align="left"><div id="comment_body_2681877" class="blog_comment_body">不错哦，支持一下</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2681877,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2681877,&#39;Bury&#39;,this)">反对(0)</a></div>&nbsp;&nbsp;<span class="comment_actions"></span></div>
+			</div>
+			
+			
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+			<a href="http://www.cnblogs.com/obpm/archive/2010/08/28/1811065.html#2771775" class="layer">#5楼</a><a name="2771775" id="comment_anchor_2771775"></a>
+				 <span class="comment_date">2013-09-09 18:23</span> | <a id="a_comment_author_2771775" href="http://home.cnblogs.com/u/472477/" target="_blank">月岩雪狼</a> <a href="http://msg.cnblogs.com/send/%E6%9C%88%E5%B2%A9%E9%9B%AA%E7%8B%BC" title="发送站内短消息" class="sendMsg2This">&nbsp;</a><br>
+				<div align="left"><div id="comment_body_2771775" class="blog_comment_body">很好！有帮助！</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2771775,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2771775,&#39;Bury&#39;,this)">反对(0)</a></div>&nbsp;&nbsp;<span class="comment_actions"></span></div>
+			</div>
+			
+			
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+			<a href="http://www.cnblogs.com/obpm/archive/2010/08/28/1811065.html#2806133" class="layer">#6楼</a><a name="2806133" id="comment_anchor_2806133"></a>
+				 <span class="comment_date">2013-10-31 10:38</span> | <a id="a_comment_author_2806133" href="http://www.cnblogs.com/iamnewsea/" target="_blank">iamnewsea</a> <a href="http://msg.cnblogs.com/send/iamnewsea" title="发送站内短消息" class="sendMsg2This">&nbsp;</a><br>
+				<div align="left"><div id="comment_body_2806133" class="blog_comment_body">学习</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2806133,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2806133,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_2806133_avatar" style="display:none;">http://pic.cnblogs.com/face/u30775.jpg</span>&nbsp;&nbsp;<span class="comment_actions"></span></div>
+			</div>
+			
+			
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+			<a href="http://www.cnblogs.com/obpm/archive/2010/08/28/1811065.html#3018612" class="layer">#7楼</a><a name="3018612" id="comment_anchor_3018612"></a>
+				 <span class="comment_date">2014-08-28 16:37</span> | <a id="a_comment_author_3018612" href="http://home.cnblogs.com/u/546588/" target="_blank">你的名字我的姓氏</a> <a href="http://msg.cnblogs.com/send/%E4%BD%A0%E7%9A%84%E5%90%8D%E5%AD%97%E6%88%91%E7%9A%84%E5%A7%93%E6%B0%8F" title="发送站内短消息" class="sendMsg2This">&nbsp;</a><br>
+				<div align="left"><div id="comment_body_3018612" class="blog_comment_body">怎么获取到用户密码的过期时间啊</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3018612,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3018612,&#39;Bury&#39;,this)">反对(0)</a></div>&nbsp;&nbsp;<span class="comment_actions"></span></div>
+			</div>
+			
+			
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+			<a href="http://www.cnblogs.com/obpm/archive/2010/08/28/1811065.html#3097214" class="layer">#8楼</a><a name="3097214" id="comment_anchor_3097214"></a>
+				 <span class="comment_date">2014-12-31 09:54</span> | <a id="a_comment_author_3097214" href="http://www.cnblogs.com/123-/" target="_blank">打伞的鱼</a> <a href="http://msg.cnblogs.com/send/%E6%89%93%E4%BC%9E%E7%9A%84%E9%B1%BC" title="发送站内短消息" class="sendMsg2This">&nbsp;</a><br>
+				<div align="left"><div id="comment_body_3097214" class="blog_comment_body">感谢楼主，解惑了。</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3097214,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3097214,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3097214_avatar" style="display:none;">http://pic.cnblogs.com/face/u412924.jpg?id=26145527</span>&nbsp;&nbsp;<span class="comment_actions"></span></div>
+			</div>
+			
+			
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+			<a href="http://www.cnblogs.com/obpm/archive/2010/08/28/1811065.html#3130695" class="layer">#9楼</a><a name="3130695" id="comment_anchor_3130695"></a>
+				 <span class="comment_date">2015-02-21 14:16</span> | <a id="a_comment_author_3130695" href="http://www.cnblogs.com/Kali-BT/" target="_blank">December2014</a> <a href="http://msg.cnblogs.com/send/December2014" title="发送站内短消息" class="sendMsg2This">&nbsp;</a><br>
+				<div align="left"><div id="comment_body_3130695" class="blog_comment_body">好</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3130695,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3130695,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3130695_avatar" style="display:none;">http://pic.cnblogs.com/face/706671/20141223190627.png</span>&nbsp;&nbsp;<span class="comment_actions"></span></div>
+			</div>
+			
+			
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+			<a href="http://www.cnblogs.com/obpm/archive/2010/08/28/1811065.html#3160311" class="layer">#10楼</a><a name="3160311" id="comment_anchor_3160311"></a>
+				 <span class="comment_date">2015-04-10 22:12</span> | <a id="a_comment_author_3160311" href="http://home.cnblogs.com/u/285847/" target="_blank">Alex.Yang</a> <a href="http://msg.cnblogs.com/send/Alex.Yang" title="发送站内短消息" class="sendMsg2This">&nbsp;</a><br>
+				<div align="left"><div id="comment_body_3160311" class="blog_comment_body">说赞啊，顶啊的有真的看过文章吗？文章中错误太多了，直接照着做一堆的坑<br> #1<br>suffix "o=teemlink,c=cn" <br>rootdn "cn=Manager,o=teemlink,dc=cn"<br>这个地方这么改压根就启动不起来因为rootdn跟suffix对不上应该是<br>suffix "o=teemlink,c=cn" <br>rootdn "cn=Manager,o=teemlink,c=cn"<br><br>#2<br>CMD 进入到 c:\openldap 下，运行命令 sldapd -d 1<br>压根就没有sldapd 而是 slapd ，应该是 slapd -d 1<br><br>#3<br>执行命令：ldapadd -l test.ldif<br>你如果这样执行一定报错<br>C:\Program Files\OpenLDAP&gt;slapadd -l test.ldif<br>slapadd: line 4: database (o=teemlink,c=cn) not configured to hold "o=teemlink"<br>slapadd: line 4: database (o=teemlink,c=cn) not configured to hold "o=teemlink"<br><br>反正到现在我也没搞出来，写教程固然是累，我自己也写教程，但是写教程的人一定要帮人帮到底，负责到底，要不然也帮不到别人。<br>说了这么多，还是感谢教程作者，毕竟让我有了一点基础知识，虽然无法完成该教程。<br>其他跟我一样情况的朋友建议粗略的看下这个教程后直接看openldap官方教程，虽然是英文，但是写的很好<br><a href="https://sites.google.com/site/openldaptutorial/Home/openldap---beginners" target="_blank">https://sites.google.com/site/openldaptutorial/Home/openldap---beginners</a><br>我准备自己翻译一份</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3160311,&#39;Digg&#39;,this)">支持(3)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3160311,&#39;Bury&#39;,this)">反对(0)</a></div>&nbsp;&nbsp;<span class="comment_actions"></span></div>
+			</div>
+			
+			
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+			<a href="http://www.cnblogs.com/obpm/archive/2010/08/28/1811065.html#3263950" class="layer">#11楼</a><a name="3263950" id="comment_anchor_3263950"></a>
+				 <span class="comment_date">2015-09-10 11:15</span> | <a id="a_comment_author_3263950" href="http://www.cnblogs.com/qinkun/" target="_blank">093</a> <a href="http://msg.cnblogs.com/send/093" title="发送站内短消息" class="sendMsg2This">&nbsp;</a><br>
+				<div align="left"><div id="comment_body_3263950" class="blog_comment_body">写的不错</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3263950,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3263950,&#39;Bury&#39;,this)">反对(0)</a></div>&nbsp;&nbsp;<span class="comment_actions"></span></div>
+			</div>
+			
+			
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+			<a href="http://www.cnblogs.com/obpm/archive/2010/08/28/1811065.html#3699870" class="layer">#12楼</a><a name="3699870" id="comment_anchor_3699870"></a><span id="comment-maxId" style="display:none;">3699870</span><span id="comment-maxDate" style="display:none;">2017/5/24 16:07:44</span>
+				 <span class="comment_date">2017-05-24 16:07</span> | <a id="a_comment_author_3699870" href="http://home.cnblogs.com/u/1171580/" target="_blank">风云卖菜</a> <a href="http://msg.cnblogs.com/send/%E9%A3%8E%E4%BA%91%E5%8D%96%E8%8F%9C" title="发送站内短消息" class="sendMsg2This">&nbsp;</a><br>
+				<div align="left"><div id="comment_body_3699870" class="blog_comment_body">写了很多，但是介绍得不够详细，建议参考教程：OpenLDAP学习笔记 - 坚强的石头 - ITeye技术网站<br>虽然安装的是linux版本OpenLDAP，但是跟windows配置都一样，看完就懂了</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3699870,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3699870,&#39;Bury&#39;,this)">反对(0)</a></div>&nbsp;&nbsp;<span class="comment_actions"></span></div>
+			</div>
+			
+			
+		</div>
+	
+
+
+
+<div id="comments_pager_bottom"></div></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="http://www.cnblogs.com/obpm/archive/2010/08/28/1811065.html#" onclick="return RefreshPage();">刷新页面</a><a href="http://www.cnblogs.com/obpm/archive/2010/08/28/1811065.html#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login(&#39;commentform&#39;);">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="ad_t2"><a href="http://www.ucancode.com/index.htm" target="_blank">【推荐】50万行VC++源码: 大型组态工控、电力仿真CAD与GIS源码库</a><br><a href="https://cloud.tencent.com/act/campus?fromSource=gwzcw.537249.537249.537249" target="_blank">【活动】腾讯云 【云+校园】套餐全新升级</a><br><a href="http://www.gcpowertools.com.cn/products/activereports_overview.htm?utm_source=cnblogs&amp;utm_medium=blogpage&amp;utm_term=bottom&amp;utm_content=AR&amp;utm_campaign=community" target="_blank">【推荐】报表开发有捷径：快速设计轻松集成，数据可视化和交互</a><br></div>
+<div id="opt_under_post"></div>
+<div id="cnblogs_c1" class="c_ad_block"><a href="http://activity.huaweicloud.com/devcloud1024/?utm_source=cnblogs&amp;utm_medium=MediaB&amp;utm_campaign=%E5%8D%8E%E4%B8%BA%E4%BA%91-10%E6%9C%88%E5%B9%BF%E5%91%8A%E6%8A%95%E6%94%BE&amp;utm_content=%E5%8D%9A%E5%AE%A2%E5%9B%AD%E5%86%85%E9%A1%B5C1%E7%9F%A9%E5%BD%A2&amp;utm_term=%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91%E4%BA%91-1024%E8%AE%BA%E5%9D%9B%E6%B4%BB%E5%8A%A8" target="_blank"><img width="300" height="250" src="./LDAP快速入门 - obpm - 博客园_files/24442-20171015214114324-1153647777.jpg" alt="华为云1016C2"></a></div>
+<div id="under_post_news"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="http://news.cnblogs.com/n/580804/" target="_blank">海信夏普诉讼案最新消息：美联邦法院驳回夏普诉求</a><br> ·  <a href="http://news.cnblogs.com/n/580803/" target="_blank">Windows 10秋季更新引入UUP机制后下载容量骤减25％</a><br> ·  <a href="http://news.cnblogs.com/n/580802/" target="_blank">和苹果不同 三星下一代产品继续使用指纹传感器</a><br> ·  <a href="http://news.cnblogs.com/n/580801/" target="_blank">今日头条因侵权再遭怒批 有用户爆料新增两大质疑</a><br> ·  <a href="http://news.cnblogs.com/n/580800/" target="_blank">微软披露Windows 10秋季创意者更新“分阶段推送”细节</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div></div>
+<div id="cnblogs_c2" class="c_ad_block"><a href="http://click.aliyun.com/m/22446/" target="_blank"><img width="468" height="60" src="./LDAP快速入门 - obpm - 博客园_files/24442-20171001085719794-417760373.jpg" alt="阿里云1001"></a></div>
+<div id="under_post_kb"><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="http://kb.cnblogs.com/page/579480/" target="_blank">实用VPC虚拟私有云设计原则</a><br> ·  <a href="http://kb.cnblogs.com/page/576251/" target="_blank">如何阅读计算机科学类的书</a><br> ·  <a href="http://kb.cnblogs.com/page/578103/" target="_blank">Google 及其云智慧</a><br> ·  <a href="http://kb.cnblogs.com/page/575829/" target="_blank">做到这一点，你也可以成为优秀的程序员</a><br> ·  <a href="http://kb.cnblogs.com/page/566880/" target="_blank">写给立志做码农的大学生</a><br></div>» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+    fixPostBody();
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverAdT2();
+    deliverAdC1();
+    deliverAdC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);   
+</script>
+</div>
+
+
+</div>
+<div id="leftcontent">
+	
+		<div id="leftcontentcontainer">
+			
+<!--done-->
+<div class="newsItem">
+	<div id="blog-news"><div id="profile_block">昵称：<a href="http://home.cnblogs.com/u/obpm/">obpm</a><br>园龄：<a href="http://home.cnblogs.com/u/obpm/" title="入园时间：2010-06-29">7年3个月</a><br>粉丝：<a href="http://home.cnblogs.com/u/obpm/followers/">8</a><br>关注：<a href="http://home.cnblogs.com/u/obpm/followees/">0</a><div id="p_b_follow"><a href="javascript:void(0);" onclick="follow(&#39;22b73eb8-8e83-df11-ba8f-001cf0cd104b&#39;)">+加关注</a></div></div></div><script type="text/javascript">loadBlogNews();</script>
+</div>
+
+			<div id="blog-calendar" style=""><table id="blogCalendar" class="Cal" cellspacing="0" cellpadding="0" title="Calendar">
+	<tbody><tr><td colspan="7"><table class="CalTitle" cellspacing="0">
+		<tbody><tr><td class="CalNextPrev"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2010/07/01&#39;);return false;">&lt;</a></td><td align="center">2010年8月</td><td class="CalNextPrev" align="right"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2010/09/01&#39;);return false;">&gt;</a></td></tr>
+	</tbody></table></td></tr><tr><th class="CalDayHeader" align="center" abbr="日" scope="col">日</th><th class="CalDayHeader" align="center" abbr="一" scope="col">一</th><th class="CalDayHeader" align="center" abbr="二" scope="col">二</th><th class="CalDayHeader" align="center" abbr="三" scope="col">三</th><th class="CalDayHeader" align="center" abbr="四" scope="col">四</th><th class="CalDayHeader" align="center" abbr="五" scope="col">五</th><th class="CalDayHeader" align="center" abbr="六" scope="col">六</th></tr><tr><td class="CalOtherMonthDay" align="center">25</td><td class="CalOtherMonthDay" align="center">26</td><td class="CalOtherMonthDay" align="center">27</td><td class="CalOtherMonthDay" align="center">28</td><td class="CalOtherMonthDay" align="center">29</td><td class="CalOtherMonthDay" align="center">30</td><td class="CalOtherMonthDay" align="center">31</td></tr><tr><td class="CalWeekendDay" align="center">1</td><td align="center">2</td><td align="center">3</td><td align="center">4</td><td align="center">5</td><td align="center">6</td><td class="CalWeekendDay" align="center">7</td></tr><tr><td class="CalWeekendDay" align="center">8</td><td align="center">9</td><td align="center">10</td><td align="center">11</td><td align="center">12</td><td align="center">13</td><td class="CalWeekendDay" align="center">14</td></tr><tr><td class="CalWeekendDay" align="center">15</td><td align="center">16</td><td align="center">17</td><td align="center">18</td><td align="center">19</td><td align="center">20</td><td class="CalWeekendDay" align="center">21</td></tr><tr><td class="CalWeekendDay" align="center">22</td><td align="center">23</td><td align="center">24</td><td align="center">25</td><td align="center">26</td><td align="center">27</td><td class="CalWeekendDay" align="center"><a href="http://www.cnblogs.com/obpm/archive/2010/08/28.html"><u>28</u></a></td></tr><tr><td class="CalWeekendDay" align="center">29</td><td align="center">30</td><td align="center">31</td><td class="CalOtherMonthDay" align="center">1</td><td class="CalOtherMonthDay" align="center">2</td><td class="CalOtherMonthDay" align="center">3</td><td class="CalOtherMonthDay" align="center">4</td></tr>
+</tbody></table></div><script type="text/javascript">loadBlogDefaultCalendar();</script><br>
+			<div id="blog-sidecolumn"><div id="sidebar_search" class="sidebar-block">
+<div id="sidebar_search" class="mySearch">
+<h3 class="catListTitle">搜索</h3>
+<div id="sidebar_search_box">
+<div id="widget_my_zzk" class="div_my_zzk"><input type="text" id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk">&nbsp;<input onclick="zzk_go()" type="button" value="找找看" id="btnZzk" class="btn_my_zzk"></div>
+<div id="widget_my_google" class="div_my_zzk"><input type="text" name="google_q" id="google_q" onkeydown="return google_go_enter(event)" class="input_my_zzk">&nbsp;<input onclick="google_go()" type="button" value="谷歌搜索" class="btn_my_zzk"></div>
+</div>
+</div>
+
+</div><div id="sidebar_shortcut" class="sidebar-block">
+<h3 class="catListTitle">常用链接</h3>
+<ul>
+<li><a href="http://www.cnblogs.com/obpm/p/" title="我的博客的随笔列表">我的随笔</a></li><li><a href="http://www.cnblogs.com/obpm/MyComments.html" title="我发表过的评论列表">我的评论</a></li><li><a href="http://www.cnblogs.com/obpm/OtherPosts.html" title="我评论过的随笔列表">我的参与</a></li><li><a href="http://www.cnblogs.com/obpm/RecentComments.html" title="我的博客的评论列表">最新评论</a></li><li><a href="http://www.cnblogs.com/obpm/tag/" title="我的博客的标签列表">我的标签</a></li>
+</ul>
+<div id="itemListLin_con" style="display:none;">
+
+</div></div><div id="sidebar_toptags" class="sidebar-block">
+<h3 class="catListTitle">我的标签</h3>
+<div id="MyTag">
+<ul>
+<li><a href="http://www.cnblogs.com/obpm/tag/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/">架构设计</a>(2)</li><li><a href="http://www.cnblogs.com/obpm/tag/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>(2)</li><li><a href="http://www.cnblogs.com/obpm/tag/%E8%A7%86%E5%9B%BE/">视图</a>(1)</li><li><a href="http://www.cnblogs.com/obpm/tag/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>(1)</li><li><a href="http://www.cnblogs.com/obpm/tag/%E6%95%B0%E6%8D%AE%E5%BA%93%E9%94%81/">数据库锁</a>(1)</li><li><a href="http://www.cnblogs.com/obpm/tag/%E9%87%8D%E6%9E%84/">重构</a>(1)</li><li><a href="http://www.cnblogs.com/obpm/tag/%E7%BB%8F%E5%85%B8/">经典</a>(1)</li><li><a href="http://www.cnblogs.com/obpm/tag/%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/">快速入门</a>(1)</li><li><a href="http://www.cnblogs.com/obpm/tag/%E4%B9%90%E8%A7%82%E9%94%81/">乐观锁</a>(1)</li><li><a href="http://www.cnblogs.com/obpm/tag/%E6%B5%81%E7%A8%8B/">流程</a>(1)</li><li><a href="http://www.cnblogs.com/obpm/tag/">更多</a></li>
+</ul>
+</div></div><div id="sidebar_categories">
+		<h3 class="catListTitle">随笔分类</h3>
+		
+				<ul class="catList">
+			
+				<li class="catListItem"> <a id="CatList_LinkList_0_Link_0" class="listitem" href="http://www.cnblogs.com/obpm/category/251875.html">报表</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_0_Link_1" class="listitem" href="http://www.cnblogs.com/obpm/category/251872.html">表单</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_0_Link_2" class="listitem" href="http://www.cnblogs.com/obpm/category/253194.html">架构设计(3)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_0_Link_3" class="listitem" href="http://www.cnblogs.com/obpm/category/253953.html">控件</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_0_Link_4" class="listitem" href="http://www.cnblogs.com/obpm/category/251874.html">流程(1)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_0_Link_5" class="listitem" href="http://www.cnblogs.com/obpm/category/251873.html">视图(1)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_0_Link_6" class="listitem" href="http://www.cnblogs.com/obpm/category/251876.html">手机客户端</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_0_Link_7" class="listitem" href="http://www.cnblogs.com/obpm/category/253009.html">数据库(1)</a></li>
+			
+				</ul>
+			
+	
+		<h3 class="catListTitle">随笔档案</h3>
+		
+				<ul class="catList">
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_0" class="listitem" href="http://www.cnblogs.com/obpm/archive/2010/08.html">2010年8月 (1)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_1" class="listitem" href="http://www.cnblogs.com/obpm/archive/2010/07.html">2010年7月 (5)</a></li>
+			
+				</ul>
+			
+	
+		<h3 class="catListTitle">相册</h3>
+		
+				<ul class="catList">
+			
+				<li class="catListItem"> <a id="CatList_LinkList_2_Link_0" class="listitem" href="http://www.cnblogs.com/obpm/gallery/258650.html" rel="nofollow">聚餐(4)</a></li>
+			
+				</ul>
+			
+	
+</div><div id="sidebar_recentcomments" class="sidebar-block"><div id="recent_comments_wrap">
+<h3 class="catListTitle">最新评论</h3>
+<div class="RecentComment" id="RecentComments">
+	<div id="RecentCommentsBlock"><ul>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/obpm/archive/2010/08/28/1811065.html#3699870">1. Re:LDAP快速入门</a></li>
+        <li class="recent_comment_body">写了很多，但是介绍得不够详细，建议参考教程：OpenLDAP学习笔记 - 坚强的石头 - ITeye技术网站虽然安装的是linux版本OpenLDAP，但是跟windows配置都一样，看完就懂了...</li>
+        <li class="recent_comment_author">--风云卖菜</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/obpm/archive/2010/08/28/1811065.html#3263950">2. Re:LDAP快速入门</a></li>
+        <li class="recent_comment_body">写的不错</li>
+        <li class="recent_comment_author">--093</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/obpm/archive/2010/08/28/1811065.html#3160311">3. Re:LDAP快速入门</a></li>
+        <li class="recent_comment_body">说赞啊，顶啊的有真的看过文章吗？文章中错误太多了，直接照着做一堆的坑 #1suffix "o=teemlink,c=cn" rootdn "cn=Manager,o=teemlink,dc=cn"这个......</li>
+        <li class="recent_comment_author">--Alex.Yang</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/obpm/archive/2010/08/28/1811065.html#3130695">4. Re:LDAP快速入门</a></li>
+        <li class="recent_comment_body">好</li>
+        <li class="recent_comment_author">--December2014</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/obpm/archive/2010/08/28/1811065.html#3097214">5. Re:LDAP快速入门</a></li>
+        <li class="recent_comment_body">感谢楼主，解惑了。</li>
+        <li class="recent_comment_author">--打伞的鱼</li>
+</ul>
+</div>
+</div>
+</div></div><div id="sidebar_topviewedposts" class="sidebar-block"><div id="topview_posts_wrap">
+<h3 class="catListTitle">阅读排行榜</h3>
+<div class="RecentComment" id="TopViewPosts"> 
+	<div id="TopViewPostsBlock"><ul><li><a href="http://www.cnblogs.com/obpm/archive/2010/08/28/1811065.html">1. LDAP快速入门(87669)</a></li><li><a href="http://www.cnblogs.com/obpm/archive/2010/07/12/1775453.html">2. obpm一键生成视图功能原理(原创)(780)</a></li><li><a href="http://www.cnblogs.com/obpm/archive/2010/07/12/1776058.html">3. 结婚流程图（经典转载）(751)</a></li><li><a href="http://www.cnblogs.com/obpm/archive/2010/07/13/1776856.html">4. 重构实战案例一，以子类取代类型编码(原创)(561)</a></li><li><a href="http://www.cnblogs.com/obpm/archive/2010/07/12/1776045.html">5. 追MM与设计模式的有趣见解 (经典转载)(531)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topcommentedposts" class="sidebar-block"><div id="topfeedback_posts_wrap">
+<h3 class="catListTitle">评论排行榜</h3>
+<div class="RecentComment" id="TopCommentsPosts">
+	<div id="TopFeedbackPostsBlock"><ul><li><a href="http://www.cnblogs.com/obpm/archive/2010/08/28/1811065.html">1. LDAP快速入门(12)</a></li><li><a href="http://www.cnblogs.com/obpm/archive/2010/07/12/1775453.html">2. obpm一键生成视图功能原理(原创)(1)</a></li></ul></div>
+</div></div></div><div id="sidebar_topdiggedposts" class="sidebar-block"><div id="topdigg_posts_wrap">
+<h3 class="catListTitle">推荐排行榜</h3>
+<div class="RecentComment">
+	<div id="TopDiggPostsBlock"><ul><li><a href="http://www.cnblogs.com/obpm/archive/2010/08/28/1811065.html">1. LDAP快速入门(18)</a></li><li><a href="http://www.cnblogs.com/obpm/archive/2010/07/11/1775120.html">2. Hibernate的乐观锁与悲观锁(转载)(1)</a></li><li><a href="http://www.cnblogs.com/obpm/archive/2010/07/12/1775453.html">3. obpm一键生成视图功能原理(原创)(1)</a></li></ul></div>
+</div></div></div></div><script type="text/javascript">loadBlogSideColumn();</script></div>
+	
+</div>
+
+<!--done-->
+<div class="footer">
+	Powered by: <a href="http://www.cnblogs.com/">博客园</a>	模板提供：<a href="http://blog.hjenglish.com/">沪江博客</a>
+	Copyright ©2017 obpm
+</div>
+
+
+
+
+
+</body></html>

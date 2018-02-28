@@ -1,0 +1,119 @@
+/*
+重新定制背景*/
+
+html body {
+    background:  url(http://www.cnblogs.com/skins/BlackLowKey/images/body_bg.jpg) top center no-repeat fixed;
+    background-color: #060606;
+
+}
+html #navigator{
+   background-color: #3280fc;
+}
+/*进度条*/
+/*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/  
+::-webkit-scrollbar  
+{  
+    width: 16px;  
+    height: 16px;  
+    background-color: #F5F5F5;  
+}  
+  
+/*定义滚动条轨道 内阴影+圆角*/  
+::-webkit-scrollbar-track  
+{  
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);  
+    border-radius: 10px;  
+    background-color: #F5F5F5;  
+}  
+  
+/*定义滑块 内阴影+圆角*/  
+::-webkit-scrollbar-thumb  
+{  
+    border-radius: 10px;  
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);  
+    background-color: #555;  
+}  
+/*定制上方几大模块的样式*/
+#navList li a:hover{
+    text-decoration: none;
+    color: #1fa6e6;
+    transform: scale(1.2);
+    -webkit-transition-timing-function: cubic-bezier(0.47, 2.02, 0.31, -0.36);
+    transition-timing-function: cubic-bezier(0.47, 2.02, 0.31, -0.36);
+   
+}
+
+
+/*定制文章内部样式*/
+.postTitle a:link, .postTitle a:visited, .postTitle a:active{
+transition: all 0.4s linear 0s;
+}
+.postTitle a:hover{
+padding-left: 10px;
+}
+
+
+.github-fork {
+    position: fixed;
+    top: 0;
+    right: 0;
+}
+.mygithub img {
+    width: 200px;
+}
+#sideBarMain h3 {
+    
+    text-shadow: 0 0 1px #999;
+    margin-bottom: 6px!important;
+    margin-top: 20px!important;
+    padding-bottom: 4px!important;
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 12px;
+    color: #333;
+    border-bottom-width: 1px;
+    border-bottom-style: dashed;
+    border-bottom-color: #D4D4D4;
+    padding-bottom: 10px;
+}
+/*
+定制文章内部的标题
+*/
+.postBody a:link,#cnblogs_post_body a:link {
+    text-decoration: none;
+}
+.frame-doc a,#cnblogs_post_body a {
+    color: #145ccd;
+}
+.frame-doc a:link, .frame-doc a:visited, .frame-doc a:active,
+#cnblogs_post_body a:link, #cnblogs_post_bodya:visited, #cnblogs_post_body a:active{
+transition: all 0.4s linear 0s;
+}
+.frame-doc a:hover,#cnblogs_post_body a:hover{
+padding-left: 10px;
+}
+.frame-doc  h2,
+#cnblogs_post_body h2{
+    background-color: #5595fa;
+    padding-left: 5px;
+    color: #fff;
+    text-shadow: 2px 2px 3px #222;
+    font-size: 20px;
+    font-weight: bold;
+}
+.frame-doc  h3,
+#cnblogs_post_body h3{
+border-left: 5px solid #1fa6e6;
+   font-weight: bold;
+    padding: 5px 10px;
+color: #333;
+border-bottom: 1px solid #D9D9D9;
+}
+.frame-doc  h4,
+#cnblogs_post_body h4  {
+   color: #1fa6e6;
+}
+.frame-doc  h4:hover,
+#cnblogs_post_body h4:hover{
+	color:#028b9d;
+}

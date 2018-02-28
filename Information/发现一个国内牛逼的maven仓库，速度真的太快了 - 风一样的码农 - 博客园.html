@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<!-- saved from url=(0044)http://www.cnblogs.com/chenpi/p/5986215.html -->
+<html lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>发现一个国内牛逼的maven仓库，速度真的太快了 - 风一样的码农 - 博客园</title>
+<link type="text/css" rel="stylesheet" href="./发现一个国内牛逼的maven仓库，速度真的太快了 - 风一样的码农 - 博客园_files/blog-common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="./发现一个国内牛逼的maven仓库，速度真的太快了 - 风一样的码农 - 博客园_files/bundle-darkgreentrip.css">
+<link type="text/css" rel="stylesheet" href="./发现一个国内牛逼的maven仓库，速度真的太快了 - 风一样的码农 - 博客园_files/263212.css">
+<link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="./发现一个国内牛逼的maven仓库，速度真的太快了 - 风一样的码农 - 博客园_files/bundle-darkgreentrip-mobile.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/chenpi/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/chenpi/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/chenpi/wlwmanifest.xml">
+<script src="./发现一个国内牛逼的maven仓库，速度真的太快了 - 风一样的码农 - 博客园_files/hm.js.下载"></script><script async="" src="./发现一个国内牛逼的maven仓库，速度真的太快了 - 风一样的码农 - 博客园_files/analytics.js.下载"></script><script type="text/javascript" src="./发现一个国内牛逼的maven仓库，速度真的太快了 - 风一样的码农 - 博客园_files/encoder.js.下载"></script><script src="./发现一个国内牛逼的maven仓库，速度真的太快了 - 风一样的码农 - 博客园_files/jquery-2.2.0.min.js.下载"></script>
+<script type="text/javascript">var currentBlogApp = 'chenpi', cb_enable_mathjax=false;var isLogined=true;</script>
+<script src="./发现一个国内牛逼的maven仓库，速度真的太快了 - 风一样的码农 - 博客园_files/blog-common.js.下载" type="text/javascript"></script>
+</head>
+<body>
+<a name="top"></a>
+<!--PageBeginHtml Block Begin-->
+<style>
+
+#back-top {
+
+     position: fixed;
+
+     bottom: 10px;
+
+     right: 5px;
+
+     z-index: 99;
+
+}
+
+#back-top span {
+
+     width: 50px;
+
+     height: 64px;
+
+     display: block;
+
+     background:url(http://images.cnblogs.com/cnblogs_com/chenpi/809071/o_o_rocket.png) no-repeat center center;
+
+}
+
+#back-top a{outline:none}
+
+</style>
+
+<script type="text/javascript">
+
+$(function() {
+
+	// hide #back-top first
+
+
+	$("#back-top").hide();
+
+	// fade in #back-top
+
+	$(window).scroll(function() {
+
+		if ($(this).scrollTop() > 500) {
+
+			$('#back-top').fadeIn();
+
+		} else {
+
+			$('#back-top').fadeOut();
+
+		}
+
+	});
+
+	// scroll body to 0px on click
+
+	$('#back-top a').click(function() {
+
+		$('body,html').animate({
+
+			scrollTop: 0
+
+		}, 800);
+
+		return false;
+
+	});
+
+});
+
+</script>
+
+<p id="back-top" style="display: none;"><a href="http://www.cnblogs.com/chenpi/p/5986215.html#top"><span></span></a></p>
+<!--PageBeginHtml Block End-->
+
+<!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+	<a id="lnkBlogLogo" href="http://www.cnblogs.com/chenpi/"><img id="blogLogo" src="./发现一个国内牛逼的maven仓库，速度真的太快了 - 风一样的码农 - 博客园_files/logo.gif" alt="返回主页"></a>			
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/chenpi/"></a></h1>
+<h2></h2>
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li><a id="blog_nav_sitehome" class="menu" href="http://www.cnblogs.com/">博客园</a></li>
+<li><a id="blog_nav_myhome" class="menu" href="http://www.cnblogs.com/chenpi/">首页</a></li>
+<li><a id="blog_nav_newpost" class="menu" rel="nofollow" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a></li>
+<li><a id="blog_nav_contact" class="menu" rel="nofollow" href="https://msg.cnblogs.com/send/%E9%A3%8E%E4%B8%80%E6%A0%B7%E7%9A%84%E7%A0%81%E5%86%9C">联系</a></li>
+<li><a id="blog_nav_rss" class="menu" href="http://www.cnblogs.com/chenpi/rss">订阅</a>
+<!--<a id="blog_nav_rss_image" class="aHeaderXML" href="http://www.cnblogs.com/chenpi/rss"><img src="//www.cnblogs.com/images/xml.gif" alt="订阅" /></a>--></li>
+<li><a id="blog_nav_admin" class="menu" rel="nofollow" href="https://i.cnblogs.com/">管理</a></li>
+</ul>
+		<div class="blogStats">
+			
+			<div id="blog_stats">
+<span id="stats_post_count">随笔 - 189&nbsp; </span>
+<span id="stats_article_count">文章 - 8&nbsp; </span>
+<span id="stats-comment_count">评论 - 206</span>
+</div>
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		
+<div id="post_detail">
+<!--done-->
+<div id="topics">
+	<div class="post">
+		<h1 class="postTitle">
+			<a id="cb_post_title_url" class="postTitle2" href="http://www.cnblogs.com/chenpi/p/5986215.html">发现一个国内牛逼的maven仓库，速度真的太快了</a>
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			<div id="cnblogs_post_body" class="blogpost-body"><p>前天网上下了一个项目，在公司还好，网络比较流畅，很快就把依赖下好了；回家的时候，想耍耍，结果下了一天也没把依赖下好，速度是几k每秒，甚至一k每秒，哎~心都碎了，网上一搜，结果发现了一个惊天的用nexus搭建的maven私服，阿里云的，那下载速度真是杠杠的；</p>
+<p>配置很简单，修改conf文件夹下的settings.xml文件，添加如下镜像配置：</p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./发现一个国内牛逼的maven仓库，速度真的太快了 - 风一样的码农 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre> <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">mirrors</span><span style="color: #0000ff;">&gt;</span>
+    <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">mirror</span><span style="color: #0000ff;">&gt;</span>
+      <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">id</span><span style="color: #0000ff;">&gt;</span>alimaven<span style="color: #0000ff;">&lt;/</span><span style="color: #800000;">id</span><span style="color: #0000ff;">&gt;</span>
+      <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">name</span><span style="color: #0000ff;">&gt;</span>aliyun maven<span style="color: #0000ff;">&lt;/</span><span style="color: #800000;">name</span><span style="color: #0000ff;">&gt;</span>
+      <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">url</span><span style="color: #0000ff;">&gt;</span>http://maven.aliyun.com/nexus/content/groups/public/<span style="color: #0000ff;">&lt;/</span><span style="color: #800000;">url</span><span style="color: #0000ff;">&gt;</span>
+      <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">mirrorOf</span><span style="color: #0000ff;">&gt;</span>central<span style="color: #0000ff;">&lt;/</span><span style="color: #800000;">mirrorOf</span><span style="color: #0000ff;">&gt;</span>        
+    <span style="color: #0000ff;">&lt;/</span><span style="color: #800000;">mirror</span><span style="color: #0000ff;">&gt;</span>
+  <span style="color: #0000ff;">&lt;/</span><span style="color: #800000;">mirrors</span><span style="color: #0000ff;">&gt;</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./发现一个国内牛逼的maven仓库，速度真的太快了 - 风一样的码农 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>其实我们公司的局域网也搭建了一个nexus私服~~~~</p>
+<p>真的是飞一般的感觉，五分钟不到下好全部依赖。。。。。</p></div><div id="MySignature" style="display: block;"><br>
+@Author &nbsp;&nbsp;&nbsp;&nbsp;         <a href="http://www.cnblogs.com/chenpi/">风一样的码农</a><br>
+@HomePageUrl     <a href="http://www.cnblogs.com/chenpi/">http://www.cnblogs.com/chenpi/</a>
+<br>
+@Copyright &nbsp;&nbsp;&nbsp;&nbsp;   <a href="http://www.cnblogs.com/chenpi/">转载请注明出处，谢谢~</a>
+<br></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory">分类: <a href="http://www.cnblogs.com/chenpi/category/778984.html" target="_blank">Java 持续集成</a></div>
+<div id="EntryTag">标签: <a href="http://www.cnblogs.com/chenpi/tag/maven/">maven</a>, <a href="http://www.cnblogs.com/chenpi/tag/nexus/">nexus</a></div>
+<div id="blog_post_info"><div id="green_channel">
+        <a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(5986215,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+            <a id="green_channel_follow" onclick="follow(&#39;ea044fe9-b8b9-e511-9fc1-ac853d9f53cc&#39;);" href="javascript:void(0);">关注我</a>
+    <a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a>
+    <a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./发现一个国内牛逼的maven仓库，速度真的太快了 - 风一样的码农 - 博客园_files/icon_weibo_24.png" alt=""></a>
+    <a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="./发现一个国内牛逼的maven仓库，速度真的太快了 - 风一样的码农 - 博客园_files/wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+    <div id="author_profile_info" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/chenpi/" target="_blank"><img src="./发现一个国内牛逼的maven仓库，速度真的太快了 - 风一样的码农 - 博客园_files/20170529215953.png" class="author_avatar" alt=""></a>
+        <div id="author_profile_detail" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/chenpi/">风一样的码农</a><br>
+            <a href="http://home.cnblogs.com/u/chenpi/followees">关注 - 3</a><br>
+            <a href="http://home.cnblogs.com/u/chenpi/followers">粉丝 - 440</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div id="author_profile_honor"></div>
+    <div id="author_profile_follow">
+                <a href="javascript:void(0);" onclick="follow(&#39;ea044fe9-b8b9-e511-9fc1-ac853d9f53cc&#39;);return false;">+加关注</a>
+    </div>
+</div>
+<div id="div_digg">
+    <div class="diggit" onclick="votePost(5986215,&#39;Digg&#39;)">
+        <span class="diggnum" id="digg_count">11</span>
+    </div>
+    <div class="buryit" onclick="votePost(5986215,&#39;Bury&#39;)">
+        <span class="burynum" id="bury_count">0</span>
+    </div>
+    <div class="clear"></div>
+    <div class="diggword" id="digg_tips">
+    </div>
+</div>
+<script type="text/javascript">
+    currentDiggType = 0;
+</script></div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/chenpi/p/5970172.html" class="p_n_p_prefix">« </a> 上一篇：<a href="http://www.cnblogs.com/chenpi/p/5970172.html" title="发布于2016-10-17 16:43">【转】JAVA 8 日期/时间（Date Time）API指南</a><br><a href="http://www.cnblogs.com/chenpi/p/5987332.html" class="p_n_p_prefix">» </a> 下一篇：<a href="http://www.cnblogs.com/chenpi/p/5987332.html" title="发布于2016-10-22 13:01">maven工程模块化</a><br></div>
+</div>
+
+
+		</div>
+		<div class="postDesc">posted @ <span id="post-date">2016-10-21 22:06</span> <a href="http://www.cnblogs.com/chenpi/">风一样的码农</a> 阅读(<span id="post_view_count">59098</span>) 评论(<span id="post_comment_count">14</span>)  <a href="https://i.cnblogs.com/EditPosts.aspx?postid=5986215" rel="nofollow">编辑</a> <a href="http://www.cnblogs.com/chenpi/p/5986215.html#" onclick="AddToWz(5986215);return false;">收藏</a></div>
+	</div>
+	<script type="text/javascript">var allowComments=true,cb_blogId=263212,cb_entryId=5986215,cb_blogApp=currentBlogApp,cb_blogUserGuid='ea044fe9-b8b9-e511-9fc1-ac853d9f53cc',cb_entryCreatedDate='2016/10/21 22:06:00';loadViewCount(cb_entryId);var cb_postType=1;</script>
+	
+</div><!--end: topics 文章、评论容器-->
+</div><a name="!comments"></a><div id="blog-comments-placeholder"><div id="comments_pager_top"></div>
+<br>
+<div class="feedback_area_title">评论列表</div>
+<div class="feedbackNoItems"></div>	
+
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"><a href="javascript:void(0);" onclick="return ReplyComment(3538694,&#39;kwx6HmttT7dvj0JNUD+GXFzVMIYyhm5IltXf2z3Tfw8Jc8G8GL1lRQ==&#39;)">回复</a><a href="javascript:void(0);" onclick="return QuoteComment(3538694,&#39;kwx6HmttT7dvj0JNUD+GXFzVMIYyhm5IltXf2z3Tfw8Jc8G8GL1lRQ==&#39;)">引用</a></span>
+				</div>
+				<a href="http://www.cnblogs.com/chenpi/p/5986215.html#3538694" class="layer">#1楼</a><a name="3538694" id="comment_anchor_3538694"></a>  <span class="comment_date">2016-10-22 23:18</span> <a id="a_comment_author_3538694" href="http://www.cnblogs.com/hudie/" target="_blank">蝴蝶夏天</a> <a href="http://msg.cnblogs.com/send/%E8%9D%B4%E8%9D%B6%E5%A4%8F%E5%A4%A9" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3538694" class="blog_comment_body">标题党...</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3538694,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3538694,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"><a href="javascript:void(0);" onclick="return ReplyComment(3538713,&#39;fZf6zMz50Lwewl8cR+Wz30p0uStERDZeQ5q0teUwiJhw+tpmYVq8dA==&#39;)">回复</a><a href="javascript:void(0);" onclick="return QuoteComment(3538713,&#39;fZf6zMz50Lwewl8cR+Wz30p0uStERDZeQ5q0teUwiJhw+tpmYVq8dA==&#39;)">引用</a></span>
+				</div>
+				<a href="http://www.cnblogs.com/chenpi/p/5986215.html#3538713" class="layer">#2楼</a><a name="3538713" id="comment_anchor_3538713"></a>[<span class="louzhu">楼主</span>]  <span class="comment_date">2016-10-23 00:01</span> <a id="a_comment_author_3538713" href="http://www.cnblogs.com/chenpi/" target="_blank">风一样的码农</a> <a href="http://msg.cnblogs.com/send/%E9%A3%8E%E4%B8%80%E6%A0%B7%E7%9A%84%E7%A0%81%E5%86%9C" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3538713" class="blog_comment_body"><a href="http://www.cnblogs.com/chenpi/p/5986215.html#3538694" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,3538694);">@</a>
+蝴蝶夏天<br>没骗人啊，速度真的很快</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3538713,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3538713,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3538713_avatar" style="display:none;">http://pic.cnblogs.com/face/879896/20170529215953.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"><a href="javascript:void(0);" onclick="return ReplyComment(3544336,&#39;+yJ0TkQQo4vTE8+HDNGK0E8jIzf9SXqI//QWtI15haO8WeZoek9W8A==&#39;)">回复</a><a href="javascript:void(0);" onclick="return QuoteComment(3544336,&#39;+yJ0TkQQo4vTE8+HDNGK0E8jIzf9SXqI//QWtI15haO8WeZoek9W8A==&#39;)">引用</a></span>
+				</div>
+				<a href="http://www.cnblogs.com/chenpi/p/5986215.html#3544336" class="layer">#3楼</a><a name="3544336" id="comment_anchor_3544336"></a>  <span class="comment_date">2016-10-30 22:28</span> <a id="a_comment_author_3544336" href="http://home.cnblogs.com/u/1053861/" target="_blank">Town.Tse</a> <a href="http://msg.cnblogs.com/send/Town.Tse" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3544336" class="blog_comment_body">可以用的，速度很快<br>今天突然发现开源中国的镜像用不了了，上网搜索发现了这个还不错。</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3544336,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3544336,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"><a href="javascript:void(0);" onclick="return ReplyComment(3546794,&#39;fZf6zMz50Lwewl8cR+Wz30p0uStERDZeQ5q0teUwiJhw+tpmYVq8dA==&#39;)">回复</a><a href="javascript:void(0);" onclick="return QuoteComment(3546794,&#39;fZf6zMz50Lwewl8cR+Wz30p0uStERDZeQ5q0teUwiJhw+tpmYVq8dA==&#39;)">引用</a></span>
+				</div>
+				<a href="http://www.cnblogs.com/chenpi/p/5986215.html#3546794" class="layer">#4楼</a><a name="3546794" id="comment_anchor_3546794"></a>[<span class="louzhu">楼主</span>]  <span class="comment_date">2016-11-03 09:10</span> <a id="a_comment_author_3546794" href="http://www.cnblogs.com/chenpi/" target="_blank">风一样的码农</a> <a href="http://msg.cnblogs.com/send/%E9%A3%8E%E4%B8%80%E6%A0%B7%E7%9A%84%E7%A0%81%E5%86%9C" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3546794" class="blog_comment_body"><a href="http://www.cnblogs.com/chenpi/p/5986215.html#3544336" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,3544336);">@</a>
+Town.Tse<br>是的</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3546794,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3546794,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3546794_avatar" style="display:none;">http://pic.cnblogs.com/face/879896/20170529215953.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"><a href="javascript:void(0);" onclick="return ReplyComment(3570846,&#39;/n/61UFOZOs5DraX33fbyFvXBdRhljmSfBHSoHYmrfKi0XTiAkvTfQ==&#39;)">回复</a><a href="javascript:void(0);" onclick="return QuoteComment(3570846,&#39;/n/61UFOZOs5DraX33fbyFvXBdRhljmSfBHSoHYmrfKi0XTiAkvTfQ==&#39;)">引用</a></span>
+				</div>
+				<a href="http://www.cnblogs.com/chenpi/p/5986215.html#3570846" class="layer">#5楼</a><a name="3570846" id="comment_anchor_3570846"></a>  <span class="comment_date">2016-12-02 13:56</span> <a id="a_comment_author_3570846" href="http://www.cnblogs.com/lemon-tree-sheng/" target="_blank">sheng_704</a> <a href="http://msg.cnblogs.com/send/sheng_704" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3570846" class="blog_comment_body">相当快啊，谢谢楼主</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3570846,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3570846,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3570846_avatar" style="display:none;">http://pic.cnblogs.com/face/818053/20151217141538.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"><a href="javascript:void(0);" onclick="return ReplyComment(3576691,&#39;P/g8jsbH+hrOEmLtHfPhzOAvBWHF1iHZO999Ped3hVMKJhvGX0fpHA==&#39;)">回复</a><a href="javascript:void(0);" onclick="return QuoteComment(3576691,&#39;P/g8jsbH+hrOEmLtHfPhzOAvBWHF1iHZO999Ped3hVMKJhvGX0fpHA==&#39;)">引用</a></span>
+				</div>
+				<a href="http://www.cnblogs.com/chenpi/p/5986215.html#3576691" class="layer">#6楼</a><a name="3576691" id="comment_anchor_3576691"></a>  <span class="comment_date">2016-12-09 15:17</span> <a id="a_comment_author_3576691" href="http://www.cnblogs.com/dingbaiyi/" target="_blank">丁白一</a> <a href="http://msg.cnblogs.com/send/%E4%B8%81%E7%99%BD%E4%B8%80" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3576691" class="blog_comment_body">佩服！</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3576691,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3576691,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3576691_avatar" style="display:none;">http://pic.cnblogs.com/face/922529/20160327143633.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"><a href="javascript:void(0);" onclick="return ReplyComment(3584512,&#39;8TPTZl6BZdovfadhT9f7u8OEhXB5erc11pSMpOpM3Z5WYNwccsE5ww==&#39;)">回复</a><a href="javascript:void(0);" onclick="return QuoteComment(3584512,&#39;8TPTZl6BZdovfadhT9f7u8OEhXB5erc11pSMpOpM3Z5WYNwccsE5ww==&#39;)">引用</a></span>
+				</div>
+				<a href="http://www.cnblogs.com/chenpi/p/5986215.html#3584512" class="layer">#7楼</a><a name="3584512" id="comment_anchor_3584512"></a>  <span class="comment_date">2016-12-19 15:26</span> <a id="a_comment_author_3584512" href="http://home.cnblogs.com/u/1082993/" target="_blank">houzhangbo</a> <a href="http://msg.cnblogs.com/send/houzhangbo" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3584512" class="blog_comment_body">我怎么访问不了了啊</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3584512,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3584512,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"><a href="javascript:void(0);" onclick="return ReplyComment(3585081,&#39;fZf6zMz50Lwewl8cR+Wz30p0uStERDZeQ5q0teUwiJhw+tpmYVq8dA==&#39;)">回复</a><a href="javascript:void(0);" onclick="return QuoteComment(3585081,&#39;fZf6zMz50Lwewl8cR+Wz30p0uStERDZeQ5q0teUwiJhw+tpmYVq8dA==&#39;)">引用</a></span>
+				</div>
+				<a href="http://www.cnblogs.com/chenpi/p/5986215.html#3585081" class="layer">#8楼</a><a name="3585081" id="comment_anchor_3585081"></a>[<span class="louzhu">楼主</span>]  <span class="comment_date">2016-12-20 09:00</span> <a id="a_comment_author_3585081" href="http://www.cnblogs.com/chenpi/" target="_blank">风一样的码农</a> <a href="http://msg.cnblogs.com/send/%E9%A3%8E%E4%B8%80%E6%A0%B7%E7%9A%84%E7%A0%81%E5%86%9C" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3585081" class="blog_comment_body"><a href="http://www.cnblogs.com/chenpi/p/5986215.html#3584512" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,3584512);">@</a>
+houzhangbo<br>应该可以的，你可能哪里没配置正确</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3585081,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3585081,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3585081_avatar" style="display:none;">http://pic.cnblogs.com/face/879896/20170529215953.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"><a href="javascript:void(0);" onclick="return ReplyComment(3585686,&#39;cH7DvRa9oZq/RffmwyBFT9flsRT+aULoVvEFlz+/eLbqzUNit+VRZw==&#39;)">回复</a><a href="javascript:void(0);" onclick="return QuoteComment(3585686,&#39;cH7DvRa9oZq/RffmwyBFT9flsRT+aULoVvEFlz+/eLbqzUNit+VRZw==&#39;)">引用</a></span>
+				</div>
+				<a href="http://www.cnblogs.com/chenpi/p/5986215.html#3585686" class="layer">#9楼</a><a name="3585686" id="comment_anchor_3585686"></a>  <span class="comment_date">2016-12-20 19:21</span> <a id="a_comment_author_3585686" href="http://www.cnblogs.com/kingatnuaa/" target="_blank">king@nuaa</a> <a href="http://msg.cnblogs.com/send/king%40nuaa" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3585686" class="blog_comment_body">谢谢楼主！</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3585686,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3585686,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"><a href="javascript:void(0);" onclick="return ReplyComment(3608122,&#39;H1lPGccE7rDf09HsMfjHH0csBuLuuL2408C6Qh68PTXlikVVgIpklw==&#39;)">回复</a><a href="javascript:void(0);" onclick="return QuoteComment(3608122,&#39;H1lPGccE7rDf09HsMfjHH0csBuLuuL2408C6Qh68PTXlikVVgIpklw==&#39;)">引用</a></span>
+				</div>
+				<a href="http://www.cnblogs.com/chenpi/p/5986215.html#3608122" class="layer">#10楼</a><a name="3608122" id="comment_anchor_3608122"></a>  <span class="comment_date">2017-01-21 18:57</span> <a id="a_comment_author_3608122" href="http://www.cnblogs.com/robinYangRP/" target="_blank">影子の设计师</a> <a href="http://msg.cnblogs.com/send/%E5%BD%B1%E5%AD%90%E3%81%AE%E8%AE%BE%E8%AE%A1%E5%B8%88" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3608122" class="blog_comment_body">太感谢了，sbt终于有速度了，谢谢楼主</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3608122,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3608122,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3608122_avatar" style="display:none;">http://pic.cnblogs.com/face/903373/20160309171118.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"><a href="javascript:void(0);" onclick="return ReplyComment(3656906,&#39;espaSkGp4vHh6VJFuYYOsvdU1OA6VHpqFDdNqlsAi+OLPNtGvEXYMA==&#39;)">回复</a><a href="javascript:void(0);" onclick="return QuoteComment(3656906,&#39;espaSkGp4vHh6VJFuYYOsvdU1OA6VHpqFDdNqlsAi+OLPNtGvEXYMA==&#39;)">引用</a></span>
+				</div>
+				<a href="http://www.cnblogs.com/chenpi/p/5986215.html#3656906" class="layer">#11楼</a><a name="3656906" id="comment_anchor_3656906"></a>  <span class="comment_date">2017-04-01 07:43</span> <a id="a_comment_author_3656906" href="http://home.cnblogs.com/u/1138516/" target="_blank">ZYJ0</a> <a href="http://msg.cnblogs.com/send/ZYJ0" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3656906" class="blog_comment_body">我的settings.xml打开和你们的不一样 ，打开为txt模式的话就只有一段代码 请问这种情况怎么解决</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3656906,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3656906,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"><a href="javascript:void(0);" onclick="return ReplyComment(3657422,&#39;fZf6zMz50Lwewl8cR+Wz30p0uStERDZeQ5q0teUwiJhw+tpmYVq8dA==&#39;)">回复</a><a href="javascript:void(0);" onclick="return QuoteComment(3657422,&#39;fZf6zMz50Lwewl8cR+Wz30p0uStERDZeQ5q0teUwiJhw+tpmYVq8dA==&#39;)">引用</a></span>
+				</div>
+				<a href="http://www.cnblogs.com/chenpi/p/5986215.html#3657422" class="layer">#12楼</a><a name="3657422" id="comment_anchor_3657422"></a>[<span class="louzhu">楼主</span>]  <span class="comment_date">2017-04-01 17:00</span> <a id="a_comment_author_3657422" href="http://www.cnblogs.com/chenpi/" target="_blank">风一样的码农</a> <a href="http://msg.cnblogs.com/send/%E9%A3%8E%E4%B8%80%E6%A0%B7%E7%9A%84%E7%A0%81%E5%86%9C" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3657422" class="blog_comment_body"><a href="http://www.cnblogs.com/chenpi/p/5986215.html#3656906" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,3656906);">@</a>
+ZYJ0<br>下个notepad++打开试试</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3657422,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3657422,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3657422_avatar" style="display:none;">http://pic.cnblogs.com/face/879896/20170529215953.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"><a href="javascript:void(0);" onclick="return ReplyComment(3660843,&#39;gYKjQgIIgvoZLeo71qJRPDNcjpog4A5eZgwBjYGECa1oCS/5/J4Ujw==&#39;)">回复</a><a href="javascript:void(0);" onclick="return QuoteComment(3660843,&#39;gYKjQgIIgvoZLeo71qJRPDNcjpog4A5eZgwBjYGECa1oCS/5/J4Ujw==&#39;)">引用</a></span>
+				</div>
+				<a href="http://www.cnblogs.com/chenpi/p/5986215.html#3660843" class="layer">#13楼</a><a name="3660843" id="comment_anchor_3660843"></a>  <span class="comment_date">2017-04-06 18:17</span> <a id="a_comment_author_3660843" href="http://www.cnblogs.com/opina/" target="_blank">opina</a> <a href="http://msg.cnblogs.com/send/opina" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3660843" class="blog_comment_body">&lt;servers&gt;<br>		&lt;server&gt;    <br>			&lt;id&gt;nexus-snapshots&lt;/id&gt;    <br>			&lt;username&gt;admin&lt;/username&gt;    <br>			&lt;password&gt;admin123&lt;/password&gt;    <br>		&lt;/server&gt;<br>	&lt;/servers&gt;<br>这个怎么配置</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3660843,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3660843,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3660843_avatar" style="display:none;">http://pic.cnblogs.com/face/486123/20131211165249.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"><a href="javascript:void(0);" onclick="return ReplyComment(3742804,&#39;Ixb4GnGvc3bvHw+wYAEEu03/nF0WlUqdsMOxr5Rj1iKO7eIZAGpB1w==&#39;)">回复</a><a href="javascript:void(0);" onclick="return QuoteComment(3742804,&#39;Ixb4GnGvc3bvHw+wYAEEu03/nF0WlUqdsMOxr5Rj1iKO7eIZAGpB1w==&#39;)">引用</a></span>
+				</div>
+				<a href="http://www.cnblogs.com/chenpi/p/5986215.html#3742804" class="layer">#14楼</a><a name="3742804" id="comment_anchor_3742804"></a><span id="comment-maxId" style="display:none;">3742804</span><span id="comment-maxDate" style="display:none;">2017/7/25 11:33:57</span>  <span class="comment_date">2017-07-25 11:33</span> <a id="a_comment_author_3742804" href="http://www.cnblogs.com/dsitn/" target="_blank">心碎whn</a> <a href="http://msg.cnblogs.com/send/%E5%BF%83%E7%A2%8Ewhn" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3742804" class="blog_comment_body">谢谢博主，留着备用！</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3742804,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3742804,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	<div id="comments_pager_bottom"></div></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="http://www.cnblogs.com/chenpi/p/5986215.html#" onclick="return RefreshPage();">刷新页面</a><a href="http://www.cnblogs.com/chenpi/p/5986215.html#top">返回顶部</a></div>
+<div id="comment_form_container"><script type="text/javascript" src="./发现一个国内牛逼的maven仓库，速度真的太快了 - 风一样的码农 - 博客园_files/mention.js.下载"></script>
+<div id="commentform_title">发表评论</div>
+<span id="tip_comment" style="color:Red"></span>
+<p>
+昵称：<input type="text" id="tbCommentAuthor" class="author" disabled="disabled" size="50" value="daoning">
+</p>
+<div class="commentbox_main">
+<div class="commentbox_title">
+<div class="commentbox_title_left">评论内容：</div>
+<div class="commentbox_title_right">
+<img id="ubb_quote" class="comment_icon" src="./发现一个国内牛逼的maven仓库，速度真的太快了 - 风一样的码农 - 博客园_files/quote.gif" alt="引用" title="添加引用" onclick="insertUBB(&#39;tbCommentBody&#39;,&#39;quote&#39;)">
+<img id="ubb_bold" class="comment_icon" src="./发现一个国内牛逼的maven仓库，速度真的太快了 - 风一样的码农 - 博客园_files/b.png" alt="粗体" title="添加粗体" onclick="insertUBB(&#39;tbCommentBody&#39;,&#39;b&#39;)">
+<img id="ubb_url" class="comment_icon" src="./发现一个国内牛逼的maven仓库，速度真的太快了 - 风一样的码农 - 博客园_files/lk.png" alt="链接" title="添加链接" onclick="insertUbbUrl(&#39;tbCommentBody&#39;)">
+<img id="ubb_indent" class="comment_icon" src="./发现一个国内牛逼的maven仓库，速度真的太快了 - 风一样的码农 - 博客园_files/indent.png" alt="缩进" title="添加首行缩进" onclick="insertIndent(&#39;tbCommentBody&#39;)">
+<img id="ubb_code" class="comment_icon" src="./发现一个国内牛逼的maven仓库，速度真的太快了 - 风一样的码农 - 博客园_files/InsertCode.gif" alt="代码" title="添加代码" onclick="insertUbbCode()">
+<img id="ubb_img" class="comment_icon" src="./发现一个国内牛逼的maven仓库，速度真的太快了 - 风一样的码农 - 博客园_files/img.gif" alt="图片" title="上传图片" onclick="OpenImageUploadWindow();">
+</div>
+</div>
+<div class="clear"></div>
+<textarea id="tbCommentBody" class="comment_textarea"></textarea>
+</div>
+<p id="commentbox_opt">
+<input id="btn_comment_submit" type="button" class="comment_btn" value="提交评论">
+<span id="span_comment_canceledit" style="display:none"><a href="javascript:void(0);" onclick="return CancelCommentEdit()">不改了</a></span>
+<a href="javascript:void(0);" onclick="return logout();">退出</a>
+        <a id="commentbox_opt_sub" href="javascript:void(0);" title="订阅后有新评论时会邮件通知您" onclick="commentManager.Subscribe()">订阅评论</a>
+</p>
+<div id="tip_comment2" style="color:Red"></div>
+<p>
+[Ctrl+Enter快捷键提交]
+</p>
+<div style="display:none">
+<span id="comment_edit_id"></span><span id="span_parentcomment_id"></span>
+<span id="span_parent_id"></span>
+<span id="span_comment_replyto"></span>
+<span id="span_comment_posted"></span>
+</div>
+</div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="ad_t2"><a href="http://www.ucancode.com/index.htm" target="_blank">【推荐】超50万VC++源码: 大型工控、组态\仿真、建模CAD源码2018！</a><br><a href="https://www.cnblogs.com/cmt/p/8462669.html" target="_blank">【活动】杭州云栖·2050大会-追逐早上七八点钟的太阳-源点</a><br><a href="https://cloud.tencent.com/solution/la?fromSource=gwzcw.766790.766790.766790" target="_blank">【推荐】微信小程序一站式部署 多场景模板定制</a><br></div>
+<div id="opt_under_post"></div>
+<div id="cnblogs_c1" class="c_ad_block"><a href="http://www.gcpowertools.com.cn/products/spreadjs/?utm_source=cnblogs&amp;utm_medium=blogpage&amp;utm_term=bottom&amp;utm_content=SpreadJS2&amp;utm_campaign=community" target="_blank"><img width="300" height="250" src="./发现一个国内牛逼的maven仓库，速度真的太快了 - 风一样的码农 - 博客园_files/24442-20171206093644566-325426505.png" alt="SpreadJS2_1206"></a></div>
+<div id="under_post_news"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="https://news.cnblogs.com/n/590254/" target="_blank">Snap首份年报显示股东毫无话语权 完全由两位创始人说了算</a><br> ·  <a href="https://news.cnblogs.com/n/590253/" target="_blank">惠普第一财季净利润19.38亿美元 同比增长217%</a><br> ·  <a href="https://news.cnblogs.com/n/590252/" target="_blank">重返大众视野一年的黑莓和诺基亚 现在混的怎么样了？</a><br> ·  <a href="https://news.cnblogs.com/n/590251/" target="_blank">去年全球网络犯罪成本6000亿美元 占全球GDP比例0.8%</a><br> ·  <a href="https://news.cnblogs.com/n/590250/" target="_blank">英特尔与戴尔惠普联想微软合作开发支持5G网络的PC电脑</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div></div>
+<div id="cnblogs_c2" class="c_ad_block"><a href="http://click.aliyun.com/m/34770/" target="_blank"><img width="468" height="60" src="./发现一个国内牛逼的maven仓库，速度真的太快了 - 风一样的码农 - 博客园_files/24442-20171208101900738-116140477.jpg" alt="阿里云C2-1208"></a></div>
+<div id="under_post_kb"><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="http://kb.cnblogs.com/page/590141/" target="_blank">作为一个程序员，数学对你到底有多重要</a><br> ·  <a href="http://kb.cnblogs.com/page/586236/" target="_blank">领域驱动设计在互联网业务开发中的实践</a><br> ·  <a href="http://kb.cnblogs.com/page/585502/" target="_blank">步入云计算</a><br> ·  <a href="http://kb.cnblogs.com/page/531409/" target="_blank">以操作系统的角度述说线程与进程</a><br> ·  <a href="http://kb.cnblogs.com/page/141729/" target="_blank">软件测试转型之路</a><br></div>» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+    fixPostBody();
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverAdT2();
+    deliverAdC1();
+    deliverAdC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate, cb_postType);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);   
+</script>
+</div>
+
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<!--done-->
+<div class="newsItem">
+<h3 class="catListTitle">公告</h3>
+	<div id="blog-news"><img src="./发现一个国内牛逼的maven仓库，速度真的太快了 - 风一样的码农 - 博客园_files/20170529215953(1).png" alt="头像" class="img_avatar" width="210px" style="border-radius:5%">
+
+<a class="header-logo-invertocat" target="_blank" href="https://github.com/peterchenhdu" data-hotkey="g d" aria-label="Homepage" data-ga-click="Header, go to dashboard, icon:logo">
+<svg aria-hidden="true" class="octicon octicon-mark-github" height="28" version="1.1" viewBox="0 0 16 16" width="28"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg></a>
+<a href="https://www.cnzz.com/stat/website.php?web_id=1263394805" target="_blank" title="站长统计"><img src="./发现一个国内牛逼的maven仓库，速度真的太快了 - 风一样的码农 - 博客园_files/pic1.gif" vspace="0" hspace="0" border="0"></a>
+<!--
+<a class="header-logo-invertocat" target="_blank" href="http://weibo.com/woshichenpi" data-hotkey="g d" aria-label="Homepage" data-ga-click="Header, go to dashboard, icon:logo">
+<img id="ViewPicture1_GalleryImage" src="http://weibo.com/favicon.ico" style="border-width:0px;height:28px;width:28px;"></a>-->
+<!--
+<a class="header-logo-invertocat" href="https://git.oschina.net/pi.chen" data-hotkey="g d" aria-label="Homepage" data-ga-click="Header, go to dashboard, icon:logo">-->
+<!--
+<img id="ViewPicture1_GalleryImage" src="https://git.oschina.net/assets/favicon-f6562a1bc6a110e32367f6e0cab4ba89.ico" style="border-width:0px;height:28px;width:28px;"></a>
+
+<a class="header-logo-invertocat" href="https://segmentfault.com/u/iamchenpi" data-hotkey="g d" aria-label="Homepage" data-ga-click="Header, go to dashboard, icon:logo">
+<img id="ViewPicture1_GalleryImage" src="https://sf-static.b0.upaiyun.com/v-587db303/global/img/favicon.ico" style="border-width:0px;height:28px;width:28px;"></a>
+<h1>Follow my heart.</h1>-->
+
+<script type="text/javascript">window['__document_write_ajax_callbacks__']['3']();</script><script>window['__document_write_ajax_callbacks__']['1']();</script><div id="profile_block">昵称：<a href="https://home.cnblogs.com/u/chenpi/">风一样的码农</a><br>园龄：<a href="https://home.cnblogs.com/u/chenpi/" title="入园时间：2016-01-13">2年1个月</a><br>粉丝：<a href="https://home.cnblogs.com/u/chenpi/followers/">440</a><br>关注：<a href="https://home.cnblogs.com/u/chenpi/followees/">3</a><div id="p_b_follow"><a href="javascript:void(0);" onclick="follow(&#39;ea044fe9-b8b9-e511-9fc1-ac853d9f53cc&#39;)">+加关注</a></div><script type="text/javascript">window['__document_write_ajax_callbacks__']['4']();</script><script>window['__document_write_ajax_callbacks__']['2']();</script></div></div><script type="text/javascript">loadBlogNews();</script>
+</div>
+
+			<div id="blog-calendar" style="display:none"></div><script type="text/javascript">loadBlogDefaultCalendar();</script>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"><div id="sidebar_search" class="sidebar-block">
+<div id="sidebar_search" class="mySearch">
+<h3 class="catListTitle">搜索</h3>
+<div id="sidebar_search_box">
+<div id="widget_my_zzk" class="div_my_zzk"><input type="text" id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk">&nbsp;<input onclick="zzk_go()" type="button" value="找找看" id="btnZzk" class="btn_my_zzk"></div>
+
+</div>
+</div>
+
+</div><div id="sidebar_categories">
+<div id="sidebar_postcategory" class="catListPostCategory sidebar-block">
+<h3 class="catListTitle">随笔分类<span style="font-size:11px;font-weight:normal">(204)</span></h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_0_Link_0" href="http://www.cnblogs.com/chenpi/category/1115459.html">ActiveMQ</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_1" href="http://www.cnblogs.com/chenpi/category/1010248.html">Apache Commons(6)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_2" href="http://www.cnblogs.com/chenpi/category/1039418.html">Apache Flume(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_3" href="http://www.cnblogs.com/chenpi/category/883829.html">JAVA 8(7)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_4" href="http://www.cnblogs.com/chenpi/category/946091.html">JAVA 9(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_5" href="http://www.cnblogs.com/chenpi/category/839310.html">JAVA IO&amp;NIO(8)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_6" href="http://www.cnblogs.com/chenpi/category/900332.html">JAVA SOA(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_7" href="http://www.cnblogs.com/chenpi/category/839300.html">JAVA Web(10)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_8" href="http://www.cnblogs.com/chenpi/category/839297.html">JAVA 并发(11)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_9" href="http://www.cnblogs.com/chenpi/category/778984.html">Java 持续集成(7)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_10" href="http://www.cnblogs.com/chenpi/category/839301.html">JAVA 底层(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_11" href="http://www.cnblogs.com/chenpi/category/839303.html">JAVA 工具(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_12" href="http://www.cnblogs.com/chenpi/category/783125.html">JAVA 基础(11)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_13" href="http://www.cnblogs.com/chenpi/category/839318.html">JAVA 集合(8)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_14" href="http://www.cnblogs.com/chenpi/category/839298.html">JAVA 应用(4)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_15" href="http://www.cnblogs.com/chenpi/category/907294.html">Lucene&amp;Solr(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_16" href="http://www.cnblogs.com/chenpi/category/859956.html">Redis&amp;Jms(7)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_17" href="http://www.cnblogs.com/chenpi/category/938450.html">Spring Boot(5)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_18" href="http://www.cnblogs.com/chenpi/category/939972.html">Spring Data(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_19" href="http://www.cnblogs.com/chenpi/category/915351.html">Spring Framework(16)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_20" href="http://www.cnblogs.com/chenpi/category/940266.html">Spring IO Platform(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_21" href="http://www.cnblogs.com/chenpi/category/904133.html">不断更新系列(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_22" href="http://www.cnblogs.com/chenpi/category/932448.html">常见问题(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_23" href="http://www.cnblogs.com/chenpi/category/900757.html">环境搭建(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_24" href="http://www.cnblogs.com/chenpi/category/778595.html">前端开发(5)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_25" href="http://www.cnblogs.com/chenpi/category/780173.html">设计模式(25)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_26" href="http://www.cnblogs.com/chenpi/category/893294.html">生活随笔(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_27" href="http://www.cnblogs.com/chenpi/category/778960.html">数据库(6)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_28" href="http://www.cnblogs.com/chenpi/category/778594.html">未分类(9)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_29" href="http://www.cnblogs.com/chenpi/category/829463.html">英文翻译(32)</a> </li>
+
+</ul>
+
+</div>
+
+<div id="sidebar_postarchive" class="catListPostArchive sidebar-block">
+<h3 class="catListTitle">随笔档案<span style="font-size:11px;font-weight:normal">(189)</span></h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_1_Link_0" href="http://www.cnblogs.com/chenpi/archive/2017/08.html">2017年8月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_1" href="http://www.cnblogs.com/chenpi/archive/2017/07.html">2017年7月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_2" href="http://www.cnblogs.com/chenpi/archive/2017/06.html">2017年6月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_3" href="http://www.cnblogs.com/chenpi/archive/2017/05.html">2017年5月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_4" href="http://www.cnblogs.com/chenpi/archive/2017/03.html">2017年3月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_5" href="http://www.cnblogs.com/chenpi/archive/2017/02.html">2017年2月 (5)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_6" href="http://www.cnblogs.com/chenpi/archive/2017/01.html">2017年1月 (8)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_7" href="http://www.cnblogs.com/chenpi/archive/2016/12.html">2016年12月 (12)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_8" href="http://www.cnblogs.com/chenpi/archive/2016/11.html">2016年11月 (11)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_9" href="http://www.cnblogs.com/chenpi/archive/2016/10.html">2016年10月 (9)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_10" href="http://www.cnblogs.com/chenpi/archive/2016/09.html">2016年9月 (7)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_11" href="http://www.cnblogs.com/chenpi/archive/2016/08.html">2016年8月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_12" href="http://www.cnblogs.com/chenpi/archive/2016/07.html">2016年7月 (6)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_13" href="http://www.cnblogs.com/chenpi/archive/2016/06.html">2016年6月 (13)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_14" href="http://www.cnblogs.com/chenpi/archive/2016/05.html">2016年5月 (34)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_15" href="http://www.cnblogs.com/chenpi/archive/2016/04.html">2016年4月 (13)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_16" href="http://www.cnblogs.com/chenpi/archive/2016/03.html">2016年3月 (14)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_17" href="http://www.cnblogs.com/chenpi/archive/2016/02.html">2016年2月 (21)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_18" href="http://www.cnblogs.com/chenpi/archive/2016/01.html">2016年1月 (15)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_19" href="http://www.cnblogs.com/chenpi/archive/2015/08.html">2015年8月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_20" href="http://www.cnblogs.com/chenpi/archive/2015/06.html">2015年6月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_21" href="http://www.cnblogs.com/chenpi/archive/2015/03.html">2015年3月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_22" href="http://www.cnblogs.com/chenpi/archive/2014/12.html">2014年12月 (5)</a> </li>
+
+</ul>
+
+</div>
+
+</div><div id="sidebar_scorerank" class="sidebar-block">
+<div class="catListBlogRank">
+<h3 class="catListTitle">积分与排名</h3>
+<ul>
+	<li class="liScore">
+		积分 -	282604
+	</li>
+	<li class="liRank">
+		排名 -	653
+	</li>
+</ul>
+</div>
+
+
+</div><div id="sidebar_recentcomments" class="sidebar-block"><div id="recent_comments_wrap">
+<div class="catListComment">
+<h3 class="catListTitle">最新评论</h3>
+
+	<div id="RecentCommentsBlock"><ul>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/chenpi/p/5196870.html#3909677">1. Re:【设计模式】组合模式</a></li>
+        <li class="recent_comment_body">我感觉组合模式更像是一种数据结构，把有树形关系的对象，组装成一个有枝节点和页节点的树。而里面的透明方式更加便于抽象操作，进行依赖倒转。安全方式就不能很好的进行依赖倒转了，枝节点类只能使用本身来创建对象......</li>
+        <li class="recent_comment_author">--CH随风而散</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/chenpi/p/5434537.html#3895147">2. Re:Tomcat中的Session小结</a></li>
+        <li class="recent_comment_body">@dracularking通过Redis等分布式缓存实现集中式管理...</li>
+        <li class="recent_comment_author">--wxyjuly</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/chenpi/p/5602171.html#3895026">3. Re:一个简单的Java web服务器实现</a></li>
+        <li class="recent_comment_body">output.write("HTTP/1.1 200 OK\n".getBytes()); output.write("Content-Type: text/html; charset=UTF-8\n......</li>
+        <li class="recent_comment_author">--秋风之后</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/chenpi/p/5139050.html#3890240">4. Re:【设计模式】简单工厂模式</a></li>
+        <li class="recent_comment_body">@Override public void printName() { System.out.println(this.getClass().getName() + ":" + t.........</li>
+        <li class="recent_comment_author">--房上的猫!</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/chenpi/p/5534595.html#3886438">5. Re:使用iText库创建PDF文件</a></li>
+        <li class="recent_comment_body">如何将一个动态的jsp页面转成PDF文件导出或者下载？</li>
+        <li class="recent_comment_author">--冲关一路为红颜</li>
+</ul>
+</div>
+</div>
+</div></div><div id="sidebar_topcommentedposts" class="sidebar-block"><div id="topfeedback_posts_wrap">
+<div class="catListFeedback">
+<h3 class="catListTitle">评论排行榜</h3>
+	<div id="TopFeedbackPostsBlock"><ul><li><a href="http://www.cnblogs.com/chenpi/p/5652555.html">1. spring + spring mvc + mybatis + react + reflux + webpack Web工程例子(27)</a></li><li><a href="http://www.cnblogs.com/chenpi/p/5280304.html">2. HashMap源码分析(14)</a></li><li><a href="http://www.cnblogs.com/chenpi/p/5986215.html">3. 发现一个国内牛逼的maven仓库，速度真的太快了(14)</a></li><li><a href="http://www.cnblogs.com/chenpi/p/5434537.html">4. Tomcat中的Session小结(13)</a></li><li><a href="http://www.cnblogs.com/chenpi/p/6110040.html">5. Spring 4 集成Apache CXF开发JAX-RS Web Service(11)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topdiggedposts" class="sidebar-block"><div id="topdigg_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">推荐排行榜</h3>
+<div id="TopDiggPostsBlock"><ul><li><a href="http://www.cnblogs.com/chenpi/p/5986215.html">1. 发现一个国内牛逼的maven仓库，速度真的太快了(11)</a></li><li><a href="http://www.cnblogs.com/chenpi/p/5136483.html">2. Mysql中的存储过程(10)</a></li><li><a href="http://www.cnblogs.com/chenpi/p/5559349.html">3. JMS(Java消息服务)入门教程(9)</a></li><li><a href="http://www.cnblogs.com/chenpi/p/5614290.html">4. JAVA并发编程J.U.C学习总结(9)</a></li><li><a href="http://www.cnblogs.com/chenpi/p/5434537.html">5. Tomcat中的Session小结(9)</a></li><li><a href="http://www.cnblogs.com/chenpi/p/5534595.html">6. 使用iText库创建PDF文件(7)</a></li><li><a href="http://www.cnblogs.com/chenpi/p/5133648.html">7. Mysql中的视图(5)</a></li><li><a href="http://www.cnblogs.com/chenpi/p/5652555.html">8. spring + spring mvc + mybatis + react + reflux + webpack Web工程例子(5)</a></li><li><a href="http://www.cnblogs.com/chenpi/p/5280304.html">9. HashMap源码分析(5)</a></li><li><a href="http://www.cnblogs.com/chenpi/p/5199226.html">10. 基于ARM处理器的反汇编器软件简单设计及实现(5)</a></li><li><a href="http://www.cnblogs.com/chenpi/p/5269737.html">11. LinkedList(4)</a></li><li><a href="http://www.cnblogs.com/chenpi/p/5247946.html">12. ArrayList(4)</a></li><li><a href="http://www.cnblogs.com/chenpi/p/5565618.html">13. 基于Tomcat + JNDI + ActiveMQ实现JMS的点对点消息传送(3)</a></li><li><a href="http://www.cnblogs.com/chenpi/p/6295855.html">14. Spring IO Platform简介及示例(3)</a></li><li><a href="http://www.cnblogs.com/chenpi/p/5490114.html">15. Java内存泄露简述(3)</a></li></ul></div>
+</div></div></div></div><script type="text/javascript">loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		
+<!--done-->
+Copyright ©2018 风一样的码农
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+<!--PageEndHtml Block Begin-->
+
+
+<script type="text/javascript">
+
+//生成目录索引列表
+
+function GenerateContentList()
+
+{
+
+    var jquery_h3_list = $('#cnblogs_post_body h1');//如果你的章节标题不是h3,只需要将这里的h3换掉即可
+
+    if(jquery_h3_list.length>0)
+
+    {
+
+        var content = '<a name="_labelTop"></a>';
+
+        content    += '<div id="navCategory">';     
+
+        content    += '<h1>阅读目录</h1>';
+
+        content    += '<ul>';
+
+        for(var i =0;i<jquery_h3_list.length;i++)
+
+        {
+
+            var go_to_top = '<div style="text-align: right;height:1px;"><a href="#_labelTop"></a><a name="_label' + i + '"></a></div>';
+
+            $(jquery_h3_list[i]).before(go_to_top);
+
+            var li_content = '<li><a href="#_label' + i + '">' + $(jquery_h3_list[i]).text() + '</a></li>';
+
+            content += li_content;
+
+        }
+
+        content    += '</ul>';
+
+        content    += '</div>';
+
+        if($('#cnblogs_post_body').length != 0 )
+
+        {
+
+            $($('#cnblogs_post_body')[0]).prepend(content);
+
+        }
+
+    }    
+
+}
+
+GenerateContentList();
+
+</script>
+<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1263394805'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s22.cnzz.com/z_stat.php%3Fid%3D1263394805%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));</script><span id="cnzz_stat_icon_1263394805"><a href="http://www.cnzz.com/stat/website.php?web_id=1263394805" target="_blank" title="站长统计"><img border="0" hspace="0" vspace="0" src="./发现一个国内牛逼的maven仓库，速度真的太快了 - 风一样的码农 - 博客园_files/pic1(1).gif"></a></span><script src="./发现一个国内牛逼的maven仓库，速度真的太快了 - 风一样的码农 - 博客园_files/z_stat.php" type="text/javascript"></script><script src="./发现一个国内牛逼的maven仓库，速度真的太快了 - 风一样的码农 - 博客园_files/core.php" charset="utf-8" type="text/javascript"></script>
+<!--PageEndHtml Block End-->
+
+
+<script type="text/javascript">
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?a0aa196d3d4ecc011cdafa70d2028ba4";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script type="text/javascript">getFollowStatus('ea044fe9-b8b9-e511-9fc1-ac853d9f53cc')</script></body></html>

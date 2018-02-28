@@ -1,0 +1,1272 @@
+<!DOCTYPE html>
+<!-- saved from url=(0041)https://www.ctolib.com/topics-112092.html -->
+<html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>在Java路上，我看过的一些书、源码和框架 - Java开发社区 | CTOLib码库</title>
+ 	<meta name="description" content="在Java路上，我看过的一些书、源码和框架,简书占小狼">
+    <meta name="keywords" content="java,路上,看过,一些,源码,框架,Java开发社区 ">
+    <link rel="miphtml" href="https://www.ctolib.com/mip/topics-112092.html">
+    <link rel="amphtml" href="https://www.ctolib.com/amp/topics-112092.html">
+     
+ 	
+
+ 
+ <meta name="robots" content="index,follow">
+ <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+ <link rel="bookmark" href="https://www.ctolib.com/static/favicon.ico">
+
+	
+
+ 	
+      <link rel="Shortcut icon" href="https://www.ctolib.com/static/favicon.ico">
+     
+      <link rel="stylesheet" href="./在Java路上，我看过的一些书、源码和框架 - Java开发社区 _ CTOLib码库_files/animate.css" type="text/css">
+      <link href="./在Java路上，我看过的一些书、源码和框架 - Java开发社区 _ CTOLib码库_files/bootstrap.min.css" rel="stylesheet">
+      <link href="./在Java路上，我看过的一些书、源码和框架 - Java开发社区 _ CTOLib码库_files/font-awesome.min.css" rel="stylesheet">
+ 
+      <link rel="stylesheet" href="./在Java路上，我看过的一些书、源码和框架 - Java开发社区 _ CTOLib码库_files/app.css" type="text/css">
+      <link rel="stylesheet" href="./在Java路上，我看过的一些书、源码和框架 - Java开发社区 _ CTOLib码库_files/github.css" type="text/css">
+      <link rel="stylesheet" href="./在Java路上，我看过的一些书、源码和框架 - Java开发社区 _ CTOLib码库_files/simple-line-icons.css">
+      <!--[if lte IE 7]><script src="icons-lte-ie7.js"></script><![endif]-->
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+<div class="alert alert-danger topframe" role="alert">你的浏览器非常<strong>旧旧旧旧旧旧旧旧了</strong>，升级完浏览器再来吧 <a target="_blank" class="alert-link" href="http://browsehappy.com">立即升级</a></div>
+    <![endif]-->
+
+  <script src="./在Java路上，我看过的一些书、源码和框架 - Java开发社区 _ CTOLib码库_files/push.js.下载"></script><script src="./在Java路上，我看过的一些书、源码和框架 - Java开发社区 _ CTOLib码库_files/hm.js.下载"></script><script src="./在Java路上，我看过的一些书、源码和框架 - Java开发社区 _ CTOLib码库_files/ca-pub-7963911354665843.js.下载"></script><script type="text/javascript">
+	 try{
+	　　top.location.hostname;
+	　　if (top.location.hostname != window.location.hostname) {
+	　　　　top.location.href =window.location.href;
+	　　}
+	}
+	catch(e){
+	　　top.location.href = window.location.href;
+	}
+</script>
+    <link rel="stylesheet" href="./在Java路上，我看过的一些书、源码和框架 - Java开发社区 _ CTOLib码库_files/style111.css" type="text/css">
+     <link rel="stylesheet" href="./在Java路上，我看过的一些书、源码和框架 - Java开发社区 _ CTOLib码库_files/main.css" type="text/css">
+  
+    <link rel="stylesheet" href="./在Java路上，我看过的一些书、源码和框架 - Java开发社区 _ CTOLib码库_files/editormd.css"> 
+    <link rel="stylesheet" href="./在Java路上，我看过的一些书、源码和框架 - Java开发社区 _ CTOLib码库_files/editormd.preview.min.css"> 
+   
+    <style>
+		body { 
+			padding-top: 0px; 
+		}
+		.articleIndex li.active a {
+			border: 1px solid #4285f4;
+		    background-color: #f0f0f0;
+		    color: #4285f4;
+		}
+		
+		@media screen and (max-width: 767px) 
+		{
+		    body { 
+			    padding-top: 0px; 
+			}
+		   .m-r-xxl{
+			   margin-right: 15px;
+			}
+		}
+	
+	</style>
+<script src="./在Java路上，我看过的一些书、源码和框架 - Java开发社区 _ CTOLib码库_files/share.js.下载"></script><link rel="preload" href="./在Java路上，我看过的一些书、源码和框架 - Java开发社区 _ CTOLib码库_files/integrator.js.下载" as="script"><script type="text/javascript" src="./在Java路上，我看过的一些书、源码和框架 - Java开发社区 _ CTOLib码库_files/integrator.js.下载"></script><link type="text/css" rel="stylesheet" href="./在Java路上，我看过的一些书、源码和框架 - Java开发社区 _ CTOLib码库_files/codemirror.min.css"><link type="text/css" rel="stylesheet" href="./在Java路上，我看过的一些书、源码和框架 - Java开发社区 _ CTOLib码库_files/dialog.css"><link type="text/css" rel="stylesheet" href="./在Java路上，我看过的一些书、源码和框架 - Java开发社区 _ CTOLib码库_files/matchesonscrollbar.css"><link type="text/css" rel="stylesheet" href="./在Java路上，我看过的一些书、源码和框架 - Java开发社区 _ CTOLib码库_files/foldgutter.css"><script id="-static-editormd-lib-codemirror-codemirror-min" type="text/javascript" src="./在Java路上，我看过的一些书、源码和框架 - Java开发社区 _ CTOLib码库_files/codemirror.min.js.下载"></script><script id="-static-editormd-lib-codemirror-modes-min" type="text/javascript" src="./在Java路上，我看过的一些书、源码和框架 - Java开发社区 _ CTOLib码库_files/modes.min.js.下载"></script><script id="-static-editormd-lib-codemirror-addons-min" type="text/javascript" src="./在Java路上，我看过的一些书、源码和框架 - Java开发社区 _ CTOLib码库_files/addons.min.js.下载"></script><link rel="stylesheet" href="./在Java路上，我看过的一些书、源码和框架 - Java开发社区 _ CTOLib码库_files/share_style0_32.css"><script id="-static-editormd-lib-marked-min" type="text/javascript" src="./在Java路上，我看过的一些书、源码和框架 - Java开发社区 _ CTOLib码库_files/marked.min.js.下载"></script><script id="-static-editormd-lib-prettify-min" type="text/javascript" src="./在Java路上，我看过的一些书、源码和框架 - Java开发社区 _ CTOLib码库_files/prettify.min.js.下载"></script></head>
+
+<body>
+
+    <div id="wrap">
+      	 
+	 
+      <!-- header -->
+      
+       	 <header id="header" class="navbar  box-shadow">
+       
+          <div class="bg-black ">
+            <div class="container">
+              <div class="navbar-header ">
+                <button class="btn btn-link visible-xs pull-right m-r" type="button" data-toggle="collapse" data-target=".navbar-collapse">
+                     <i class="fa fa-bars"></i>
+                </button>
+                <a href="https://www.ctolib.com/" class="navbar-brand m-r-n m-l-n-md">
+                  
+                 	 <img style="max-height:27px;margin-top: -3px;" title="java  | CTOLib码库 " src="./在Java路上，我看过的一些书、源码和框架 - Java开发社区 _ CTOLib码库_files/logo-dark.png">
+                  
+                   
+                </a>
+                 
+	      			<div class="m-t visible-xs pull-right">
+	
+		                     <a href="https://www.ctolib.com/usercare/categories" data-toggle="tooltip" data-placement="top" title="" data-original-title="可以设置需要关注的分类">
+		                      <i class="fa fa-fw fa-bookmark-o visible-xs-inline-block"></i>
+		                      <span>我关注的</span>
+		                    </a>
+		                 
+	
+	      			</div>
+                
+                
+              </div>
+              <div class="collapse navbar-collapse">
+				 
+	                <ul class=" nav navbar-nav m-l-n">
+	
+	                  <li>
+	                    <a href="https://www.ctolib.com/">
+	                      <i class="fa fa-fw fa-plus visible-xs-inline-block"></i>
+	                      <span>首页</span>
+	                    </a>
+	                  </li>
+	                  <li>
+	                    <a href="https://www.ctolib.com/java/" title="Java开发">
+	                      <i class="fa fa-fw fa-plus visible-xs-inline-block"></i>
+	                      <span>Java开发</span>
+	                    </a>
+	                  </li>	                  
+	                  <li>
+	                    <a href="https://www.ctolib.com/java/topics/" title="Java开发社区">
+	                      <i class="fa fa-fw fa-plus visible-xs-inline-block"></i>
+	                      <span>社区</span>
+	                    </a>
+	                  </li>
+	                  <li>
+	                    <a href="https://www.ctolib.com/java/docs/" title="Java开发教程">
+	                      <i class="fa fa-fw fa-plus visible-xs-inline-block"></i>
+	                      <span>教程</span>
+	                    </a>
+	                  </li>	
+	                 
+	                	<li class="dropdown">        
+						    <a class="dropdown-toggle" data-toggle="dropdown" href="https://www.ctolib.com/topics-112092.html#">
+						      	 <i class="fa fa-fw fa-plus visible-xs-inline-block"></i><span>速查表</span><span class="caret"></span>
+						    </a>
+						    <ul class="dropdown-menu" role="menu">
+						      	
+				                  <li>
+				                    <a href="https://www.ctolib.com/cheatsheets-java-ch.html">
+				                      <span>Java 基础速查表</span>
+				                    </a>
+				                  </li>
+				                
+						    </ul>
+					  </li>
+				  	                   	                  
+					  
+	
+	                </ul>
+	               
+	              <form class="navbar-form navbar-left visible-sm visible-md visible-lg visible-xl" action="https://www.ctolib.com/java/searchtopics" role="search" target="_blank">
+					<input type="text" name="term" class="form-control input-sm bg-light no-border  padder" style="border-top-left-radius:3px;border-top-right-radius:0px;border-bottom-right-radius:0px;border-bottom-left-radius:3px;" placeholder="搜索主题" value=""><button type="submit" class="btn btn-sm bg-light" style="border-top-left-radius:0px;border-top-right-radius:3px;border-bottom-right-radius:3px;border-bottom-left-radius:0px;"><i class="fa fa-search"></i></button>
+				 </form>
+	                
+				
+
+
+                <ul class="nav navbar-nav navbar-right m-r-xs">
+                 
+                  
+                 	 <li>
+	                  	 <div class="btn-group m-t-sm">
+							<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+								发表主题<span class="caret" style="border-top-color: #fff;border-bottom-color: #fff;"></span>
+							</button>
+							<ul class="dropdown-menu" role="menu">
+								<li><a href="https://www.ctolib.com/java/article/addbefore">分享项目</a></li>
+								<li class="divider"></li>
+								<li><a href="https://www.ctolib.com/java/topics/addTopics/">发表主题</a></li>
+								<li class="divider"></li>
+								<li><a href="https://www.ctolib.com/java/topics/addToutiao/">发表头条</a></li>								
+							</ul>
+						</div>
+					</li>                  
+                  	 <li><a href="https://www.ctolib.com/message/"><span class="badge  icon_2">0</span></a></li>
+		             <li class="dropdown">
+		            <a href="https://www.ctolib.com/topics-112092.html#" data-toggle="dropdown" class="dropdown-toggle clear">
+		              <span class="thumb-sm avatar pull-right m-t-n-sm m-b-n-sm ">
+		               	<img alt="shilijia" title="shilijia" src="./在Java路上，我看过的一些书、源码和框架 - Java开发社区 _ CTOLib码库_files/16234107">
+		               <b class="caret"></b>
+		              </span>
+		            </a>
+		            <!-- dropdown -->
+		            <ul class="dropdown-menu">
+		            
+		              
+		              <li>
+		                <a href="https://www.ctolib.com/user/edit/">	                
+		                  <span><i class="fa fa-cog  m-r-xs" aria-hidden="true"></i>个人信息设置</span>
+		                </a>
+		              </li>
+		              <li class="divider"></li>
+		              <li>
+		                <a href="https://www.ctolib.com/user/userArticles">	                
+		                  <span><i class="fa  fa-cloud-upload m-r-xs" aria-hidden="true"></i>分享的项目</span>
+		                </a>
+		              </li>
+		              <li>
+		                <a href="https://www.ctolib.com/user/favsList">	                
+		                  <span><i class="fa fa-heart m-r-xs" aria-hidden="true"></i>收藏的项目</span>
+		                </a>
+		              </li>
+		              <li>
+		                <a href="https://www.ctolib.com/user/userLikeArticles">	                
+		                  <span><i class="fa fa-thumbs-o-up m-r-xs" aria-hidden="true"></i>推荐过的项目</span>
+		                </a>
+		              </li>
+		              <li>
+		                <a href="https://www.ctolib.com/user/userComtArticles">	                
+		                  <span><i class="fa fa-comments m-r-xs" aria-hidden="true"></i>评论过的项目</span>
+		                </a>
+		              </li>	
+		              <li>
+		                <a href="https://www.ctolib.com/usercare/careIndex">	                
+		                  <span><i class="fa fa-bars m-r-xs" aria-hidden="true"></i>设置关注的分类</span>
+		                </a>
+		              </li>	
+		                <li class="divider"></li>
+		  		    <li>
+		                <a href="https://www.ctolib.com/user/userTopicsByCatalog">	                
+		                  <span><i class="fa  fa-cloud-upload m-r-xs" aria-hidden="true"></i>我发表的主题</span>
+		                </a>
+		              </li>
+		              <li>
+		                <a href="https://www.ctolib.com/user/favsTopicsList">	                
+		                  <span><i class="fa fa-heart m-r-xs" aria-hidden="true"></i>收藏的主题</span>
+		                </a>
+		              </li>
+		              <li>
+		                <a href="https://www.ctolib.com/user/userLikeTopics">	                
+		                  <span><i class="fa fa-thumbs-o-up m-r-xs" aria-hidden="true"></i>点赞过的主题</span>
+		                </a>
+		              </li>
+		              <li>
+		                <a href="https://www.ctolib.com/user/userComtTopics">	                
+		                  <span><i class="fa fa-comments m-r-xs" aria-hidden="true"></i>评论过的主题</span>
+		                </a>
+		              </li>		              		             
+		              <li class="divider"></li>
+		              <li>
+		                <a href="https://www.ctolib.com/user/logout">
+			                <span><i class="fa fa-sign-out m-r-xs" aria-hidden="true"></i>退出</span>
+		                </a>
+		              </li>
+		            </ul>
+		            <!-- / dropdown -->
+		          </li>         
+                    
+                    
+                </ul>
+
+              </div>
+            </div>
+          </div>
+
+
+        </header>
+        <!-- / header -->
+        <div id="content" class="main-content bg-light container">
+        <div class="row banner">
+		</div>
+					 <div class="row">
+						<div class="col-lg-9 col-md-8 col-sm-7">
+							<ol class="breadcrumb">
+								<li><a href="https://www.ctolib.com/">首页</a></li>
+								<li><a href="https://www.ctolib.com/java/topics">社区</a></li>
+								
+								<li>在Java路上，我看过的一些书、源码和框架</li>
+							</ol>
+							<div class="page box_white">
+								<div class="title text-center">
+									<h3 class="m-t-xs">
+										在Java路上，我看过的一些书、源码和框架
+									</h3>
+									
+								</div>
+								<div class="meta" style="margin: 0 10px;">
+									<div class="p-author">
+										 <i class="glyphicon glyphicon-user"></i> <a href="https://www.ctolib.com/user/pe-830.html" title="redrabbit">redrabbit</a>
+										 	发布于10月前 
+											
+										 <span class="view" title="阅读数">
+											
+											阅读12380次
+										</span>
+										
+									</div>
+									
+									
+									<div class="p-comment text-right visible-sm visible-md visible-lg">
+										<span class="like" title="点赞人数">
+											<i class="glyphicon glyphicon-heart"></i>
+											<span class="likenum">0</span> 人点赞&nbsp;
+										</span>
+										<a href="https://www.ctolib.com/topics-112092.html#commentForm" title="我要评论"><i class="glyphicon glyphicon-comment"></i> <span class="cmtnum">0</span> 条评论</a>
+									</div>
+									
+								</div>
+								<div class="tags">
+
+									
+								</div>
+								
+								<div class="item-description  text-md markdown-body" style="margin: 0 10px;">
+									<article>
+								<div style="border-bottom:1px solid #eee">
+                             		<script src="./在Java路上，我看过的一些书、源码和框架 - Java开发社区 _ CTOLib码库_files/juejin.js.下载" language="javascript"></script><b>社区推荐：</b><a href="https://juejin.im/welcome?utm_source=ctolib&amp;utm_medium=word&amp;utm_content=rumenjinjie&amp;utm_campaign=q4_website">掘金是一个面向开发者的技术社区，内容涵盖了前后端，Android 和 iOS 开发，每天更新深度文章，最新技术资讯，优质开源库推送。无论是入门还是进阶，掘金都可以帮助你成为更优秀的开发者。</a>
+                             	</div> 
+                             <br>
+									<p>简书占小狼</p>
+
+<p>转载请注明原创出处，谢谢！</p>
+
+<p>如果读完觉得有收获的话，欢迎点赞加关注</p>
+
+<h2 id="articleHeader0">物有本末，事有终始，知所先后，则近道矣</h2>
+
+<p><img alt="在Java路上，我看过的一些书、源码和框架" src="./在Java路上，我看过的一些书、源码和框架 - Java开发社区 _ CTOLib码库_files/20170317183649_190.png"></p>
+
+<h3 id="articleHeader1">面试经历</h3>
+
+<p><a href="http://www.jianshu.com/p/1b2f63a45476">关于Java面试，你应该准备这些知识点</a></p>
+
+<p><a href="http://www.jianshu.com/p/fa0085a0cdf9">关于Java面试，你应该准备这些知识点（续）</a></p>
+
+<p>前段时间抽空整理了上面两篇面试经历，收到不少的关注，很多同学私信我平时都是如何get到这些知识的，是否有一些相关的书单，Java的源码太多了，应该如何看，框架的代码应该如何阅读等等问题。</p>
+
+<p>现在想想，似乎以前也这样迷茫过，没有明确的方向，做过后端，做过前端，就因为啃完了一整本 <a href="https://item.jd.com/10951037.html">《JavaScript高级程序设计》</a> ，在面试的时候信誓旦旦说只做前端，不写后端代码。直到后来，碰巧有机会让我重新捡起Java，很感激有这次机会，也慢慢的明确了自己的方向。</p>
+
+<p>我喜欢在拿到书的那一刻就写下当天的日期，方便以后可以知道这本书是何时买的，不知不觉中已经买了很多Java相关的书，同时也收获了很多。</p>
+
+<h3 id="articleHeader2">书单</h3>
+
+<ul>
+	<li><a href="https://item.jd.com/12037418.html">《Java核心技术 卷I》</a></li>
+</ul>
+
+<p>一直以来，这本书都被认为是面向Java程序员的经典教程和参考书，内容翔实、客观准确，不拖泥带水，与《Java编程思想》齐名。</p>
+
+<p>推荐作为Java的入门书籍，记得这是当时入手的第一本书，爱护有加，毕竟贵啊。</p>
+
+<p><img alt="在Java路上，我看过的一些书、源码和框架" src="./在Java路上，我看过的一些书、源码和框架 - Java开发社区 _ CTOLib码库_files/20170317183649_129.png"></p>
+
+<ul>
+	<li><a href="https://item.jd.com/1026927882.html">《大话设计模式》</a></li>
+</ul>
+
+<p>感受设计演变过程中所蕴含的大智慧，体会乐与怒的程序人生中值得回味的一幕幕。</p>
+
+<p>推荐作为设计模式的入门书籍，里面的实现的代码都是基于Java的，通过很生动的方式讲解了23中设计模式，但是设计模式的思想和精髓，还是需要在平时项目中慢慢领会以及运用。</p>
+
+<p><img alt="在Java路上，我看过的一些书、源码和框架" src="./在Java路上，我看过的一些书、源码和框架 - Java开发社区 _ CTOLib码库_files/20170317183649_724.png"></p>
+
+<ul>
+	<li><a href="https://item.jd.com/10913619.html">《深入剖析Tomcat》</a></li>
+</ul>
+
+<p>深入剖析Tomcat4和Tomcat5中的每个组件，并揭示其内部工作原理，从最基本的HTTP请求开始，直至使用JMX技术管理Tomcat中的应用程序，逐一剖析Tomcat的基本功能模块，并配以示例代码，使读者可以逐步实现自己的Web服务器。</p>
+
+<p>当时也不知道为什么会买这本书，功力不足，啃了很多遍也没有啃完，似乎已经找不到这本书了...</p>
+
+<p><img alt="在Java路上，我看过的一些书、源码和框架" src="./在Java路上，我看过的一些书、源码和框架 - Java开发社区 _ CTOLib码库_files/20170317183650_371.png"></p>
+
+<ul>
+	<li><a href="https://item.jd.com/10697182.html">深入理解Java虚拟机：JVM高级特性与最佳实践》</a></li>
+</ul>
+
+<p>周志明老师的第一版书，JVM入门经典之作，围绕内存管理、执行子系统、程序编译与优化、高效并发等核心主题对JVM进行了全面而深入的分析，深刻揭示了JVM的工作原理。</p>
+
+<p>这是入手的第一本关于JVM的书籍，当时看了前面几章节，感觉自己在学习几年的Java白学了...前前后后啃了很多遍，因为看完会忘记</p>
+
+<p><img alt="在Java路上，我看过的一些书、源码和框架" src="./在Java路上，我看过的一些书、源码和框架 - Java开发社区 _ CTOLib码库_files/20170317183650_182.png"></p>
+
+<ul>
+	<li>
+	<p><a href="https://item.jd.com/11252778.html">《深入理解Java虚拟机：JVM高级特性与最佳实践（第2版）》</a></p>
+
+	<p>第二版，又入手了。</p>
+	</li>
+</ul>
+
+<p><img alt="在Java路上，我看过的一些书、源码和框架" src="./在Java路上，我看过的一些书、源码和框架 - Java开发社区 _ CTOLib码库_files/20170317183650_101.png"></p>
+
+<ul>
+	<li><a href="https://item.jd.com/10058902.html">《Effective Java中文版（第2版）》</a></li>
+</ul>
+
+<p>你是否正在寻找一本能够更加深入地了解Java编程语言的书，以便编写出更清晰、更正确、更健壮且更易于重用的代码。不用找了！本书为我们带来了共78条程序员必备的经验法则，针对你每天都会遇到的编程问题提出了有效、实用的解决方案。</p>
+
+<p>无脑推荐吧，因为看完之后真的挺好。</p>
+
+<p><img alt="在Java路上，我看过的一些书、源码和框架" src="./在Java路上，我看过的一些书、源码和框架 - Java开发社区 _ CTOLib码库_files/20170317183651_376.png"></p>
+
+<ul>
+	<li><a href="https://item.jd.com/11728740.html">《重构 改善既有代码的设计》</a></li>
+</ul>
+
+<p>凝聚了软件开发社区专家多年摸索而获得的宝贵经验，拥有不因时光流逝而磨灭的价值。今天，无论是重构本身，业界对重构的理解，还是开发工具对重构的支持力度，都与本书出版时不可同日而语，但书中所蕴涵的意味和精华，依然值得反复咀嚼，而且往往能够常读常新。</p>
+
+<p>虽然不是每一条都适合自己，但总有指导意义的，选择喜欢的方式，开始愉快的重构吧，因为重构可以让你轻松应对各种需求变更。</p>
+
+<p><img alt="在Java路上，我看过的一些书、源码和框架" src="./在Java路上，我看过的一些书、源码和框架 - Java开发社区 _ CTOLib码库_files/20170317183651_316.png"></p>
+
+<ul>
+	<li><a href="https://item.jd.com/11740734.html">《Java并发编程的艺术》</a></li>
+</ul>
+
+<p>从JDK源码、JVM、CPU等多角度全面剖析和讲解Java并发编程的框架、原理和核心技术，采用循序渐进的讲解方式，从并发编程的底层实现机制入手，逐步介绍了在设计Java并发程序时各种重要的技术、设计模式与应用，同时辅以丰富的示例代码，使得开发人员能够更快地领悟Java并发编程的要领，围绕着Java平台的基础并发功能快速地构建大规模的并发应用程序。</p>
+
+<p>说实在的，这本书当时看得我高潮迭起，原来了解并发的底层实现原理之后可以这么痛快，收获良多。</p>
+
+<p><img alt="在Java路上，我看过的一些书、源码和框架" src="./在Java路上，我看过的一些书、源码和框架 - Java开发社区 _ CTOLib码库_files/20170317183651_744.png"></p>
+
+<ul>
+	<li><a href="https://item.jd.com/10922250.html">《Java并发编程实战》</a></li>
+</ul>
+
+<p>深入浅出地介绍了Java线程和并发，从并发性和线程安全性的基本概念出发，介绍了如何使用类库提供的基本并发构建块，如何将小的线程安全类组合成更大的线程安全类，如何利用线程来提高并发应用程序的吞吐量，如何识别可并行执行的任务，如何提高单线程子系统的响应性，如何确保并发程序执行预期任务，如何提高并发代码的性能和可伸缩性等内容，最后介绍了一些高级主题，如显式锁、原子变量、非阻塞算法以及如何开发自定义的同步工具类。</p>
+
+<p>看完《Java并发编程的艺术》之后，立马又入手了此书，真的是相见恨晚。</p>
+
+<p><img alt="在Java路上，我看过的一些书、源码和框架" src="./在Java路上，我看过的一些书、源码和框架 - Java开发社区 _ CTOLib码库_files/20170317183651_845.png"></p>
+
+<ul>
+	<li><a href="https://item.jd.com/11449803.html">《大型网站系统与Java中间件实践》</a></li>
+</ul>
+
+<p>围绕大型网站和支撑大型网站架构的 Java 中间件的实践展开介绍，从分布式系统的知识切入，让读者对分布式系统有基本的了解；然后介绍大型网站随着数据量、访问量增长而发生的架构变迁；</p>
+
+<p>对于没有大型网站系统开发经验的同学来说，这确实是个福利，可以稍微的了解大型网站架构变迁过程中的较为通用的问题和解法，并了解构建支撑大型网站的 Java 中间件的实践经验。</p>
+
+<p><img alt="在Java路上，我看过的一些书、源码和框架" src="./在Java路上，我看过的一些书、源码和框架 - Java开发社区 _ CTOLib码库_files/20170317183652_36.png"></p>
+
+<ul>
+	<li><a href="https://item.jd.com/11529266.html">《大型分布式网站架构设计与实践》</a></li>
+</ul>
+
+<p>和《大型网站系统与Java中间件实践》类似吧，我觉得。</p>
+
+<p><img alt="在Java路上，我看过的一些书、源码和框架" src="./在Java路上，我看过的一些书、源码和框架 - Java开发社区 _ CTOLib码库_files/20170317183652_939.png"></p>
+
+<ul>
+	<li><a href="https://item.jd.com/11896988.html">《Java性能权威指南》</a></li>
+</ul>
+
+<p>市面上介绍Java的书有很多，但专注于Java性能的并不多，能游刃有余地展示Java性能优化难点的更是凤毛麟角，本书即是其中之一。通过使用JVM和Java平台，以及Java语言和应用程序接口，本书详尽讲解了Java性能调优的相关知识，帮助读者深入理解Java平台性能的各个方面，使程序如虎添翼。</p>
+
+<p>说实在的，看这本书，前前后后翻了很多次也没翻完，慢慢来吧，毕竟性能优化这条路也是很漫长的。</p>
+
+<p><img alt="在Java路上，我看过的一些书、源码和框架" src="./在Java路上，我看过的一些书、源码和框架 - Java开发社区 _ CTOLib码库_files/20170317183652_433.png"></p>
+
+<ul>
+	<li><a href="https://item.jd.com/11414422.html">《HotSpot实战》</a></li>
+</ul>
+
+<p>“蚓无爪牙之利，筋骨之强，上食埃土，下饮黄泉，用心一也。蟹六跪而二螯，非蛇蟮之穴无可寄托者，用心躁也”。对于技术人员来说，如果长期忽略自身技术的根基而去一昧地追求高层框架技术，这无疑是舍本求末的做法。</p>
+
+<p>我为什么会买这本书？前段时间手撕HotSpot的大部分源码，包括虚拟机启动，虚拟机参数解析，类加载，对象创建过程，YGC和FGC的实现，过程很痛苦，后来发现了此书，就入手看看和自己的理解是否有出入，以免一条道走到黑。</p>
+
+<p><img alt="在Java路上，我看过的一些书、源码和框架" src="./在Java路上，我看过的一些书、源码和框架 - Java开发社区 _ CTOLib码库_files/20170317183652_205.png"></p>
+
+<ul>
+	<li><a href="https://item.jd.com/12010270.html">《垃圾回收的算法与实现》</a></li>
+</ul>
+
+<p>Ruby之父松本行弘推荐：上古传承之魔法，彻底揭开垃圾回收的秘密！</p>
+
+<p>此书很新，在我手撕了HotSpot的GC部分源码之后，觉得可以入手看看大神是如何理解垃圾回收算法的。</p>
+
+<p><img alt="在Java路上，我看过的一些书、源码和框架" src="./在Java路上，我看过的一些书、源码和框架 - Java开发社区 _ CTOLib码库_files/20170317183653_35.png"></p>
+
+<ul>
+	<li><a href="https://item.jd.com/10661841.html">《Lucene实战（第2版）》</a></li>
+</ul>
+
+<p>适合于已具有一定java编程基本的读者，以及希望能够把强大的搜索功能添加到自己的应用程序中的开发人员</p>
+
+<p>当时因为项目需要，才入手了此书。</p>
+
+<p><img alt="在Java路上，我看过的一些书、源码和框架" src="./在Java路上，我看过的一些书、源码和框架 - Java开发社区 _ CTOLib码库_files/20170317183653_44.png"></p>
+
+<ul>
+	<li><a href="https://item.jd.com/11642529.html">《编程珠玑》</a></li>
+</ul>
+
+<p>历史上伟大的计算机科学著作之一</p>
+
+<p>融深邃思想、实战技术与趣味轶事于一炉的奇书</p>
+
+<p>带你真正领略计算机科学之美</p>
+
+<p>阅读此书，难，难，难，只有在兴趣来临时翻两页....</p>
+
+<p><img alt="在Java路上，我看过的一些书、源码和框架" src="./在Java路上，我看过的一些书、源码和框架 - Java开发社区 _ CTOLib码库_files/20170317183653_819.png"></p>
+
+<h3 id="articleHeader3">源码</h3>
+
+<p>源码这种东西，看的快，忘的也快，最好的方法是学会整理，把资料整理成自己的知识。</p>
+
+<p>好多人觉得JDK源码太多，无从下手，经常半途而非，以我的经验来说，最好的方法是当你在项目中用到了某个类，可以利用空闲时间去研究，当然这是在感兴趣的前提下，比如简单 ArrayList 是如何实现的， StringBuilder 和 StringBuffer 有什么区别， HashMap 的实现原理，带着问题去分析，从简单的类开始循序渐进，同时在分析过程中能够用自己的语言整理出来，就像一开始我写过关于ArrayList的文章 <a href="http://www.jianshu.com/p/4b7aa8a022ba">《Java Collections Framework - ArrayList》</a> ，虽然内容很简单，但也算是一种尝试，至少可以写出来了，不管效果如何，剩下的只剩坚持了，自己尝试写过之后，可以加深理解和记忆。</p>
+
+<p>看源码的时候，可以给自己定几个目标，毕竟一口吃不成胖子，只能慢慢的啃，路是走出来的，通过debug一步一步的走下去。</p>
+
+<p>1、数据结构相关的类，如String、ArrayList，LinkedList，HashMap和ConcurrentHashMap等等。</p>
+
+<p>2、线程并发相关的类，如Synchronized、ReentrantLock、ReadWriteLock、AQS和线程池的实现等。</p>
+
+<p>如果一个类的实现很复杂，比如ConcurrentHashMap，就可以试着拆分成几个模块进行分析</p>
+
+<p><a href="http://www.jianshu.com/p/c0642afe03e0">深入浅出ConcurrentHashMap（1.8）</a></p>
+
+<p><a href="http://www.jianshu.com/p/e694f1e868ec">谈谈ConcurrentHashMap1.7和1.8的不同实现</a></p>
+
+<p><a href="http://www.jianshu.com/p/23b84ba9a498">ConcurrentHashMap的红黑树实现分析</a></p>
+
+<p><a href="http://www.jianshu.com/p/f6730d5784ad">深入分析ConcurrentHashMap1.8的扩容实现</a></p>
+
+<p>如果看到后面已经不满足于JDK层面的实现原理了，可以尝试着看看HotSpot的源码，比如Synchronized关键字如何实现，String常量池如何实现，类对象如何创建，只要能想到的，都可以从源码中找到答案，答案就在那里，就看你能不能找到。</p>
+
+<p><a href="http://www.jianshu.com/p/c14364f72b7e">深入分析String.intern和String常量的实现原理</a></p>
+
+<p><a href="http://www.jianshu.com/p/c5058b6fe8e5">深入分析synchronized的JVM实现</a></p>
+
+<p><a href="http://www.jianshu.com/p/f4454164c017">深入分析Object.wait/notify实现机制</a></p>
+
+<p><a href="http://www.jianshu.com/p/a28ae76ac3b4">如何查看HotSpot VM的运行时数据</a></p>
+
+<p><a href="http://www.jianshu.com/p/9d2788fffd5f">深入分析Object.finalize方法的实现原理</a></p>
+
+<h3 id="articleHeader4">框架</h3>
+
+<p>曾有人说，你干嘛那么纠结于底层的实现，工作上又用不到了，有这时间还不如多看看框架之类的，我只能呵呵以对，框架固然重要，但是框架是会更新，会变的，而底层原理可以长久不衰，当你了解了一些JDK的底层实现，在阅读框架源码时，可以更加的得心应手。</p>
+
+<p>以自己为例，由于项目需要，加上对高性能和多并发比较感兴趣，看过比较多的Netty源码，记得刚开始研究Netty源码，也是一筹莫展，后来从NIO入手，写了 <a href="http://www.jianshu.com/p/052035037297">《深入浅出NIO Channel和Buffer》</a> ，都是一些概念性的东西，自己写一遍是为了加深理解，后来不满足JDK中的socket实现，就尝试到处找资料，于是写了 <a href="http://www.jianshu.com/p/0d497fe5484a">《深入浅出NIO Socket实现机制》</a> ，有了这些基础之后，再尝试Netty，写了《Netty入门简介》，后来基于Netty写了个简单的服务，通过debug的方式，把Netty服务的启动、请求的accept、read和write调试了N遍，这N遍过程其实还是需要耐心的，于是才有了如下的文章：</p>
+
+<p><a href="http://www.jianshu.com/p/e577803f0fb8">Netty源码分析之服务启动</a></p>
+
+<p><a href="http://www.jianshu.com/p/9acf36f7e025">Netty源码分析之NioEventLoop</a></p>
+
+<p><a href="http://www.jianshu.com/p/3876874306d5">Netty源码分析之ChannelPipeline</a></p>
+
+<p><a href="http://www.jianshu.com/p/ffc6fd82e32b">Netty源码分析之accept过程</a></p>
+
+<p><a href="http://www.jianshu.com/p/6b48196b5043">深入浅出Netty read</a></p>
+
+<p><a href="http://www.jianshu.com/p/1ad424c53e80">深入浅出Netty write</a></p>
+
+<p><a href="http://www.jianshu.com/p/c4bd37a3555b">深入浅出Netty内存管理 PoolChunk</a></p>
+
+<p><a href="http://www.jianshu.com/p/d91060311437">深入浅出Netty内存管理 PoolSubpage</a></p>
+
+<p><a href="http://www.jianshu.com/p/a1debfe4ff02">深入浅出Netty内存管理 PoolChunkList</a></p>
+
+<p><a href="http://www.jianshu.com/p/4856bd30dd56">深入浅出Netty内存管理 PoolArena</a></p>
+
+<p><a href="http://www.jianshu.com/p/f90866dcbffc">深入浅出MappedByteBuffer</a></p>
+
+<p>对源码熟悉了之后，可以尝试挖掘在框架中使用了哪些设计模式，框架的设计结构又是如何的，每一次实践都是一次进步，关键在于如何迈出第一步。</p>
+
+<p><img alt="在Java路上，我看过的一些书、源码和框架" src="./在Java路上，我看过的一些书、源码和框架 - Java开发社区 _ CTOLib码库_files/20170317183653_599.png"></p>
+
+<p>Java这条道，还有很长的路要走，共勉！</p>
+
+<p>查看原文： <a href="http://www.jianshu.com/p/4a41ee88bd82">在Java路上，我看过的一些书、源码和框架</a></p>
+
+									<script async="" src="./在Java路上，我看过的一些书、源码和框架 - Java开发社区 _ CTOLib码库_files/adsbygoogle.js.下载"></script>
+									<ins class="adsbygoogle" style="display: block; text-align: center; height: 0px;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7963911354665843" data-ad-slot="7239246954" data-adsbygoogle-status="done"><ins id="aswift_0_expand" style="display: inline-table; border: none; height: 0px; margin: 0px; padding: 0px; position: relative; visibility: visible; width: 828px; background-color: transparent;"><ins id="aswift_0_anchor" style="display: block; border: none; height: 0px; margin: 0px; padding: 0px; position: relative; visibility: visible; width: 828px; background-color: transparent; overflow: hidden; opacity: 0;"><iframe width="828" height="200" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;width:828px;height:200px;" src="./在Java路上，我看过的一些书、源码和框架 - Java开发社区 _ CTOLib码库_files/saved_resource.html"></iframe></ins></ins></ins>
+									<script>
+									     (adsbygoogle = window.adsbygoogle || []).push({});
+									</script>
+									</article>
+									
+									
+								</div>
+								
+								
+								<div class="row" style="border-bottom: 1px dotted #d8d8d8;padding-bottom: 5px;padding-top: 10px;margin: 0 10px;">
+	
+										<div class="m-t-sm col-md-6">	       	
+									      	
+									        	 <a id="pre" href="https://www.ctolib.com/topics-112083.html" class="btn btn-default btn-sm" title="使用 Java 实现基於反向传播算法的神经网路 - 下翻页快捷键：右方向键"> <span class="fa fa-arrow-circle-left"></span>上一篇</a>
+									        
+									    
+									    	
+									       	 <a id="next" href="https://www.ctolib.com/topics-112093.html" class="btn btn-default btn-sm" title="使用Curator操作ZooKeeper - 下翻页快捷键：右方向键">下一篇 <span class="fa fa-arrow-circle-right"></span></a>
+									       	
+								       	</div>
+										<div class=" col-md-6">	
+										 <div class="bdsharebuttonbox  pull-right bdshare-button-style0-32" data-bd-bind="1516857698598"><a href="https://www.ctolib.com/topics-112092.html#" class="bds_more" data-cmd="more"></a><a href="https://www.ctolib.com/topics-112092.html#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="https://www.ctolib.com/topics-112092.html#" class="bds_youdao" data-cmd="youdao" title="分享到有道云笔记"></a><a href="https://www.ctolib.com/topics-112092.html#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="https://www.ctolib.com/topics-112092.html#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a><a href="https://www.ctolib.com/topics-112092.html#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a></div>
+											<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"32"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>								       	
+										</div>
+								</div>
+								
+								
+								<div class="page-comment" style="margin: 0 10px;" data-objid="112092" data-objtype="0" data-username="shilijia" data-uid="22431" data-avatar="https://avatars2.githubusercontent.com/u/16234107?v=4">
+							    <div class="words">
+							        
+							        <ul class="list-unstyled">
+							        	
+							        
+						 				
+							        </ul>
+							    </div>
+							    
+								    <div class="comment-title" style="margin: 0 10px;">
+								        <h2>主题评论：</h2>
+								    </div>
+							
+								    <div class="submit" id="commentForm" style="margin: 0 10px;">
+								        <div class="text editormd editormd-vertical" id="comment-editormd" style="width: 100%; height: 200px;">
+								            <textarea class="form-control editormd-markdown-textarea" name="comment" id="comment" rows="5" placeholder="编辑采用Markdown格式" style="display: none;"></textarea><div class="CodeMirror cm-s-default CodeMirror-wrap CodeMirror-empty" style="font-size: 13px; width: 807px; margin-top: 39px; height: 160px;"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 4px; left: 61px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" style="position: absolute; padding: 0px; width: 1000px; height: 1em; outline: none;" tabindex="0"></textarea></div><div class="CodeMirror-vscrollbar" cm-not-content="true"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-hscrollbar" cm-not-content="true"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 49px; margin-bottom: -7px; border-right-width: 23px; min-height: 30px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><pre class="CodeMirror-placeholder" style="height: 0px; overflow: visible;">编辑采用Markdown格式</pre><div class="CodeMirror-measure"><span><span>​</span>x</span></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-cursors"><div class="CodeMirror-cursor" style="left: 12px; top: 0px; height: 22px;">&nbsp;</div></div><div class="CodeMirror-code"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-wrapper" style="left: -49px; width: 48px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">1</div></div><pre class=""><span style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre></div></div></div></div></div></div><div style="position: absolute; height: 23px; width: 1px; top: 30px;"></div><div class="CodeMirror-gutters" style="height: 180px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 28px;"></div><div class="CodeMirror-gutter CodeMirror-foldgutter"></div></div></div></div>
+								        <a href="javascript:;" class="editormd-preview-close-btn"><i class="fa fa-close "></i> </a>
+<textarea class="editormd-html-textarea" name="comment-editormd-html-code"></textarea>
+<div class="editormd-preview" style="display: none;"><div class="markdown-body editormd-preview-container"></div></div>
+<div class="editormd-container-mask" style="display: none;"></div>
+<div class="editormd-mask"></div><div class="editormd-toolbar" style="display: block;"><div class="editormd-toolbar-container"><ul class="editormd-menu"><li><a href="javascript:;" title="粗体" unselectable="on"><i class="fa fa-bold" name="bold" unselectable="on"></i></a></li><li><a href="javascript:;" title="斜体" unselectable="on"><i class="fa fa-italic" name="italic" unselectable="on"></i></a></li><li><a href="javascript:;" title="引用" unselectable="on"><i class="fa fa-quote-left" name="quote" unselectable="on"></i></a></li><li class="divider" unselectable="on">|</li><li><a href="javascript:;" title="标题1" unselectable="on"><i class="fa editormd-bold" name="h1" unselectable="on">H1</i></a></li><li><a href="javascript:;" title="标题2" unselectable="on"><i class="fa editormd-bold" name="h2" unselectable="on">H2</i></a></li><li><a href="javascript:;" title="标题3" unselectable="on"><i class="fa editormd-bold" name="h3" unselectable="on">H3</i></a></li><li><a href="javascript:;" title="标题4" unselectable="on"><i class="fa editormd-bold" name="h4" unselectable="on">H4</i></a></li><li class="divider" unselectable="on">|</li><li><a href="javascript:;" title="无序列表" unselectable="on"><i class="fa fa-list-ul" name="list-ul" unselectable="on"></i></a></li><li><a href="javascript:;" title="有序列表" unselectable="on"><i class="fa fa-list-ol" name="list-ol" unselectable="on"></i></a></li><li><a href="javascript:;" title="横线" unselectable="on"><i class="fa fa-minus" name="hr" unselectable="on"></i></a></li><li class="divider" unselectable="on">|</li><li><a href="javascript:;" title="链接" unselectable="on"><i class="fa fa-link" name="link" unselectable="on"></i></a></li><li><a href="javascript:;" title="引用链接" unselectable="on"><i class="fa fa-anchor" name="reference-link" unselectable="on"></i></a></li><li><a href="javascript:;" title="添加图片" unselectable="on"><i class="fa fa-picture-o" name="image" unselectable="on"></i></a></li><li><a href="javascript:;" title="行内代码" unselectable="on"><i class="fa fa-code" name="code" unselectable="on"></i></a></li><li><a href="javascript:;" title="添加表格" unselectable="on"><i class="fa fa-table" name="table" unselectable="on"></i></a></li><li><a href="javascript:;" title="代码块（多语言风格）" unselectable="on"><i class="fa fa-file-code-o" name="code-block" unselectable="on"></i></a></li><li class="divider" unselectable="on">|</li><li><a href="javascript:;" title="开启实时预览" unselectable="on"><i class="fa fa-eye" name="watch" unselectable="on"></i></a></li><li><a href="javascript:;" title="全窗口预览HTML（按 Shift + ESC还原）" unselectable="on"><i class="fa fa-desktop" name="preview" unselectable="on"></i></a></li><li><a href="javascript:;" title="全屏（按ESC还原）" unselectable="on"><i class="fa fa-arrows-alt" name="fullscreen" unselectable="on"></i></a></li><li class="divider" unselectable="on">|</li><li><a href="javascript:;" title="使用帮助" unselectable="on"><i class="fa fa-question-circle" name="help" unselectable="on"></i></a></li><li><a href="javascript:;" title="关于Editor.md" unselectable="on"><i class="fa fa-info-circle" name="info" unselectable="on"></i></a></li></ul></div></div></div>
+								        <div class="sub row">
+								            <ul class="help-block col-md-10">
+								                <li class="markdown_tip"> Markdown编辑器, <strong>**粗体**</strong>、~~删除线~~、<code>`单行代码`</code>
+								                </li>
+								            </ul>
+								            <ul class="col-md-2 text-right" style="list-style:none">
+								             <li>
+								                <button type="submit" title="提交" class="btn btn-danger" id="submit-btn">提交</button>
+								               </li>
+								            </ul>
+								        </div>
+								    </div>
+								
+									
+							  </div>							
+
+							<div class="row box_white sidebar " style="margin: 10px">
+								<div class="col-md-6">
+									<div class="panel panel-default ">
+									  <!-- Default panel contents -->
+									  <div class="panel-heading"><i class="glyphicon glyphicon-globe"></i>&nbsp;最新项目</div>
+									  
+									    <div class="sb-content">
+											<div class="topic-list">
+												<ul class="list-unstyled">
+													
+														<li class="truncate"><i></i><a href="https://www.ctolib.com/kennycason-kakyll.html" title="Kakyll是一个用Kotlin开发类似于Hakyll和Jekyll的静态站点生成器">Kakyll是一个用Kotlin开发类似于Hakyll和Jekyll的静态站点生成器</a></li>
+													
+														<li class="truncate"><i></i><a href="https://www.ctolib.com/eyebluecn-blog.html" title="蓝眼系列软件之《蓝眼博客》">蓝眼系列软件之《蓝眼博客》</a></li>
+													
+														<li class="truncate"><i></i><a href="https://www.ctolib.com/jchambers-fast-uuid.html" title="fast-uuid：用于快速高效地解析和编写UUID的Java库">fast-uuid：用于快速高效地解析和编写UUID的Java库</a></li>
+													
+														<li class="truncate"><i></i><a href="https://www.ctolib.com/alibaba-jetcache.html" title="JetCache 是一个基于 Java 的缓存系统封装，提供统一的 API 和注解来简化缓存的使用">JetCache 是一个基于 Java 的缓存系统封装，提供统一的 API 和注解来简化缓存的使用</a></li>
+													
+														<li class="truncate"><i></i><a href="https://www.ctolib.com/ionic-team-capacitor.html" title="Capacitor 一个跨平台的API和代码执行层，可以很容易地从Web代码中调用Native SDK">Capacitor 一个跨平台的API和代码执行层，可以很容易地从Web代码中调用Native SDK</a></li>
+													
+														<li class="truncate"><i></i><a href="https://www.ctolib.com/rstudio-rstudio.html" title="RStudio是R语言的集成开发环境（IDE）">RStudio是R语言的集成开发环境（IDE）</a></li>
+													
+														<li class="truncate"><i></i><a href="https://www.ctolib.com/nqdy666-wjsp.html" title="WEBPACK + JSP 构建多页应用">WEBPACK + JSP 构建多页应用</a></li>
+													
+														<li class="truncate"><i></i><a href="https://www.ctolib.com/aillamsun-tomcat-many-instance.html" title="tomcat-many-instance 是一个部署tomcat单机多实例工具，内涵脚本">tomcat-many-instance 是一个部署tomcat单机多实例工具，内涵脚本</a></li>
+													
+												</ul>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="panel panel-default ">
+									  <!-- Default panel contents -->
+									  <div class="panel-heading"><i class="glyphicon glyphicon-list-alt"></i>&nbsp;相关主题</div>
+									  
+									    <div class="sb-content">
+											<div class="topic-list">
+												<ul class="list-unstyled">
+													
+														<li class="truncate"><i></i><a target="_blank" href="https://www.ctolib.com/topics-35716.html" title="Java 程序员们值得一看的好书推荐">Java 程序员们值得一看的好书推荐</a></li>
+													
+														<li class="truncate"><i></i><a target="_blank" href="https://www.ctolib.com/topics-125908.html" title="《阿里巴巴》如何在三年内成长为一名技术专家">《阿里巴巴》如何在三年内成长为一名技术专家</a></li>
+													
+														<li class="truncate"><i></i><a target="_blank" href="https://www.ctolib.com/topics-114926.html" title="我的2016年Java开发书单">我的2016年Java开发书单</a></li>
+													
+														<li class="truncate"><i></i><a target="_blank" href="https://www.ctolib.com/topics-38821.html" title="给Java程序猿们推荐一些值得一看的好书">给Java程序猿们推荐一些值得一看的好书</a></li>
+													
+														<li class="truncate"><i></i><a target="_blank" href="https://www.ctolib.com/topics-125410.html" title="Java架构师的修炼之路">Java架构师的修炼之路</a></li>
+													
+														<li class="truncate"><i></i><a target="_blank" href="https://www.ctolib.com/topics-1117.html" title="最近5年133个Java面试问题列表">最近5年133个Java面试问题列表</a></li>
+													
+														<li class="truncate"><i></i><a target="_blank" href="https://www.ctolib.com/topics-35709.html" title="近5年133个Java面试问题列表">近5年133个Java面试问题列表</a></li>
+													
+														<li class="truncate"><i></i><a target="_blank" href="https://www.ctolib.com/topics-113059.html" title="Java Web 学习路线">Java Web 学习路线</a></li>
+													
+												</ul>
+											</div>
+										</div>
+									 
+									</div>
+								</div>
+							</div>	
+														
+								
+							</div>
+						</div>
+						<div class="col-lg-3 col-md-4 col-sm-5">
+							
+ 
+
+			<div class="row box_white sidebar sb-author panel">
+			  <a href="https://www.ctolib.com/user/pe-830.html">  
+			  		
+				  		<div class="panel-heading  h-xs bg-black lter wrapper-lg" style="background:url(/backgroundpic/a7295e45gy1fh33uon3ulj21jk14gqn0.jpg) center center; background-size:cover;"></div>
+	                
+			  			                
+               </a>
+               
+                <div class="panel-body clearfix m-b-n-lg">
+                  <div class="thumb-lg m-t-n-xxl pull-left">
+	                 <a href="https://www.ctolib.com/user/pe-830.html">
+                    	<img src="./在Java路上，我看过的一些书、源码和框架 - Java开发社区 _ CTOLib码库_files/14344300.png" class="profile-avatar-sm">   
+                    </a>           
+                  </div>
+                  <div class="h4 pull-left m-l-sm m-r-xs m-t-n-sm">
+                  	redrabbit
+                  </div>
+                </div>
+                  
+                  <div class="m-t-md text-center b-t b-light panel-body">
+						被 <span id="sideLiked830">579</span>人关注，获得了138个喜欢
+	      		  </div>
+	      		 <div class=" text-center m-b-xs">
+	      		 		              
+									    <button class="btn btn-primary follow " data-id="830" data-like="0">
+											<i class="fa fa-plus" aria-hidden="true"></i><span>关注</span>
+										</button>
+										
+										      		 
+	      		 </div>
+	      		                
+	                <div class="b-t b-light text-center panel-body">
+							
+她们把自己恋爱作为终极目标，有了爱人便什么都不要了，对社会作不了贡献，人生价值最少。 —— 向警予*
+	                </div>
+                
+                
+			  </div>
+						    	
+							
+						<p class="commentBar"></p>		
+						<div class="row box_white sidebar comment-nav animated fadeInDownBig">
+							<div id="sbox" class="sb-content text-center page " style="margin:10px">
+							      <a href="https://www.ctolib.com/topics-112092.html#" class="btn btn-block btn-move-top btn-default"><i class="fa fa-arrow-up"></i></a>
+							      
+							      <div class="active">
+							   		<div class="mark-like-btn">
+										<a class="share-btn like-btn " href="javascript:;" title="我要点赞" data-objid="112092" data-flag="0">
+											<i class="glyphicon glyphicon-heart-empty"></i>
+											<span class="likenum">0</span>人点赞
+										</a>
+										<a class="share-btn collect " href="javascript:;" title="稍后再读" data-objid="112092">
+											<i class="glyphicon glyphicon-bookmark"></i>
+											收藏
+										</a>
+									</div>
+							      </div>
+			 
+							      <hr style="margin-top: 10px;margin-bottom: 10px">
+							      <div class="reply-buttons">
+							        <div class="total m-b-sm">
+							         	 共有<b><span class="scmtnum">0</span></b> 条点评，<b><span class="favtnum">0</span></b>人收藏
+							        </div>
+							        
+									
+							        	<a href="https://www.ctolib.com/topics-112092.html#commentForm" class="btn btn-success btn-block btn-focus-reply">我要点评</a>
+									
+							        
+							      </div>
+							    
+							     	<a href="https://www.ctolib.com/topics-112092.html#" style="margin-top: 5px;margin-bottom: 5px" title="" class="btn btn-block btn-move-bottom btn-default"><i class="fa fa-arrow-down"></i></a>
+						      </div>
+							     <div class="row  visible-sm visible-md visible-lg" id="indexdiv" style="margin:10px;">
+									<div class="top">
+										<h3 class="title"><i class="glyphicon glyphicon-th-list"></i>&nbsp;主题目录</h3>
+										<button type="button" id="indexbox" class="btn btn-info btn-xs animated wobble">只显示目录</button>
+									</div>
+									<div id="idiv" style="max-height:250px;overflow-y: scroll;overflow:auto;">
+			                        	<ul class="articleIndex"><li class=""><a href="https://www.ctolib.com/topics-112092.html#articleHeader0">物有本末，事有终始，知所先后，则近道矣</a></li><li style="list-style:none;"><ul style="padding-left: 18px;"><li class=""><a href="https://www.ctolib.com/topics-112092.html#articleHeader1">面试经历</a></li><li class=""><a href="https://www.ctolib.com/topics-112092.html#articleHeader2">书单</a></li><li class=""><a href="https://www.ctolib.com/topics-112092.html#articleHeader3">源码</a></li><li class="active"><a href="https://www.ctolib.com/topics-112092.html#articleHeader4">框架</a></li></ul></li></ul>
+			                        </div>
+	                        	</div>
+                        	
+						    </div>						
+			
+ 
+	 
+							
+						</div>
+					</div>
+
+        </div>
+        </div>
+   
+		
+		<div class="modal fade" id="favModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		    <div class="modal-dialog">
+		        <div class="modal-content">
+		            <div class="modal-header">
+		                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+		                </button>
+		                <h4 class="modal-title" id="myModalLabel">点击收藏夹收藏</h4>
+		            </div>
+		            <div class="modal-body">
+		            	<div style="max-height:350px;overflow-y: scroll;overflow:auto;">
+						<table class="table table-hover" style="overflow: ">
+						
+						</table>
+						</div>
+		            </div>
+		            <div class="modal-footer">
+		                <button type="button" class="btn btn-info" onclick="editFavcatalog(0,&#39;&#39;,&#39;&#39;)">创建收藏夹</button> 
+		            </div>
+		        </div>
+		    </div>
+		</div>
+
+		<div class="modal fade" id="favModalSave" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		    <div class="modal-dialog">
+		        <div class="modal-content">
+		            <div class="modal-header">
+		                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+		                </button>
+		                <h4 class="modal-title" id="myModalLabel">创建收藏夹</h4>
+		            </div>
+		            <form action="https://www.ctolib.com/topics-112092.html" id="favsaveform" class="form-horizontal" method="post">
+		            <div class="modal-body">
+								<div class="form-group">
+						          <label class="col-lg-2 control-label">名称<font color="red">*</font></label>
+						          <div class="col-lg-10">
+						            <input type="text" value="" name="usercatalog.name" id="uname" required="" class="form-control">
+						          </div>
+						        </div>
+								
+						 		<div class="form-group">
+						          <label class="col-lg-2 control-label">描述</label>
+						          <div class="col-lg-10">
+						            <textarea name="usercatalog.desc" id="udesc" class="form-control"></textarea>
+						          </div>
+						        </div>
+							
+		            </div>
+		            <div class="modal-footer">
+		            	<input type="hidden" id="uid" name="usercatalog.id" value="0">
+		                <button type="button" name="savefav" id="savefav" class="btn btn-info">保存</button> 
+		                <button type="button" class="btn btn-default" data-dismiss="modal" data-toggle="modal" data-target="#messageModal">取消</button> 
+		            </div>
+		            </form>
+		        </div>
+		    </div>
+		</div>
+	
+	
+	<input type="hidden" id="is_login_status" value="1">
+
+	
+	
+
+ 
+	<div id="cto-overlay"></div>
+		
+	
+
+ <!-- footer -->
+  <footer id="footer">
+    <div class="bg-black  ">
+      <div class="container ">
+        <div class="row m-t-xl m-b-xl">
+          <div class="col-sm-3">
+            <h4 class=" m-b-xl text-white font-thin"><span class="font-bold">关注</span> 我们</h4>
+            <div class="m-b-xl">
+              <a rel="nofollow" href="http://weibo.com/ctolib/" target="_blank" class="btn btn-icon btn-rss"><i class="fa fa-lg fa-weibo m-t-xxs"></i></a>
+              <a rel="nofollow" href="https://www.facebook.com/ctolib" target="_blank" class="btn btn-icon btn-facebook"><i class="fa fa-lg fa-facebook m-t-xxs"></i></a>
+              <a rel="nofollow" href="https://twitter.com/ctolib" target="_blank" class="btn btn-icon btn-twitter"><i class="fa fa-lg fa-twitter m-t-xxs"></i></a>
+              <a rel="nofollow" href="https://github.com/ctolib" target="_blank" class="btn btn-icon btn-github"><i class="fa fa-lg fa-github m-t-xxs"></i></a>
+              <a rel="nofollow" href="https://www.ctolib.com/about.html" target="_blank" class="btn btn-icon btn-pinterest"><i class="fa fa-lg fa-rss m-t-xxs"></i></a>
+            </div>
+          </div>
+
+          <div class="col-sm-3">
+            <h4 class=" m-b text-white font-thin"><span class="font-bold">网站</span>导航</h4>
+            <ul class="list-unstyled ">
+              <li><a href="https://www.ctolib.com/android/">Android开发社区</a></li>
+              <li><a href="https://www.ctolib.com/swift/">Swift开发社区</a></li>
+              <li><a href="https://www.ctolib.com/java/">Java开发社区</a></li>
+              <li><a href="https://www.ctolib.com/python/">Python开发社区</a></li>
+              <li><a href="https://www.ctolib.com/javascript/">JavaScript开发社区</a></li> 
+ 		<li><a href="https://www.ctolib.com/php/">PHP开发社区</a></li>
+ 		<li><a href="https://www.ctolib.com/go/">Go开发社区</a></li>
+ 		<li><a href="https://www.ctolib.com/linux/">Linux开发社区</a></li>
+            </ul>
+          </div>
+          <div class="col-sm-3">
+            <h4 class="m-b text-white font-thin"><span class="font-bold">联系</span> 合作</h4>
+            <ul class="list-unstyled ">
+              <li><a rel="nofollow" href="https://www.ctolib.com/about.html">联系我们</a></li>
+              <li><a rel="nofollow" href="https://www.ctolib.com/about.html">加入我们</a></li>
+              <li><a rel="nofollow" href="https://www.ctolib.com/about.html">建议反馈</a></li>
+               <li><a href="https://www.ctolib.com/cpp/">C/C++开发社区</a></li>
+              <li><a href="https://www.ctolib.com/nodejs/">NodeJS开发社区</a></li>
+              <li><a href="https://www.ctolib.com/ruby/">Ruby开发社区</a></li>
+              <li><a href="https://www.ctolib.com/dotnet/">.Net开发社区</a></li>
+              <li><a href="https://www.ctolib.com/react/">React开发社区</a></li>
+	      	 
+            </ul>          
+          </div>
+
+          <div class="col-sm-3">
+            <h4 class=" m-b text-white font-thin"><span class="font-bold">网站</span> &amp; 相关</h4>
+            <ul class="list-unstyled ">
+              <li><a href="https://www.ctolib.com/about.html">关于我们</a></li>
+              <li><a rel="nofollow" href="https://www.ctolib.com/about.html">帮助中心</a></li>
+              <li><a href="https://www.ctolib.com/markdown.html">编辑器语法</a></li>
+            </ul>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="bg-black lt">
+      <div class="container">
+        <div class="row padder-v m-t">
+          <div class="col-xs-8">
+            <ul class="list-inline">
+	           
+			  <li><a rel="nofollow" href="https://www.ctolib.com/about.html">联系我们</a></li>
+              <li><a rel="nofollow" href="https://www.ctolib.com/about.html">加入我们</a></li>
+              <li><a rel="nofollow" href="https://www.ctolib.com/about.html">建议反馈</a></li>
+              <li><a rel="nofollow" href="http://www.miitbeian.gov.cn/">闽ICP备16010278号</a></li>
+              <li>
+		  		<a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=35020602000173" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><img src="./在Java路上，我看过的一些书、源码和框架 - Java开发社区 _ CTOLib码库_files/gabn.png" style="float:left;margin: 5px 0px 0px 5px;"><p style="float:left;height:20px;line-height:20px;margin: 5px 0px 0px 5px; color:#939393;">闽公网安备 35020602000173号</p></a>
+	     	  </li>
+		 
+            </ul> 
+          </div>
+
+          
+          <div class="col-xs-4 text-right ">
+            	<script src="./在Java路上，我看过的一些书、源码和框架 - Java开发社区 _ CTOLib码库_files/paij.js.下载" language="javascript"></script>本站CDN／存储服务由<a href="https://console.upyun.com/register/?invite=ByTD5pm_Z"><img src="./在Java路上，我看过的一些书、源码和框架 - Java开发社区 _ CTOLib码库_files/pailogo.png" width="150"></a>提供
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!-- / footer -->
+
+  
+	
+ 
+  <script src="./在Java路上，我看过的一些书、源码和框架 - Java开发社区 _ CTOLib码库_files/jquery.min.js.下载"></script>
+ <script src="./在Java路上，我看过的一些书、源码和框架 - Java开发社区 _ CTOLib码库_files/bootstrap.min.js.下载"></script>
+ 
+  <script src="./在Java路上，我看过的一些书、源码和框架 - Java开发社区 _ CTOLib码库_files/extra204.js.下载"></script>  
+  <script src="./在Java路上，我看过的一些书、源码和框架 - Java开发社区 _ CTOLib码库_files/jquery.md5.js.下载"></script>  
+  <script src="./在Java路上，我看过的一些书、源码和框架 - Java开发社区 _ CTOLib码库_files/highlight.pack.js.下载"></script>
+  <script src="./在Java路上，我看过的一些书、源码和框架 - Java开发社区 _ CTOLib码库_files/ctolib.js.下载"></script> 
+  <script src="./在Java路上，我看过的一些书、源码和框架 - Java开发社区 _ CTOLib码库_files/jquery.lazyload.min.js.下载"></script> 
+
+  <script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "//hm.baidu.com/hm.js?d3239686c33ccdb50ddddad9d3df75f4";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	
+	$(function() {
+		$("img.lazy").lazyload({
+		    threshold :100,
+		    effect : "fadeIn"
+		});
+	});
+ </script>
+ 
+
+	
+
+ 	<script src="./在Java路上，我看过的一些书、源码和框架 - Java开发社区 _ CTOLib码库_files/editormd.js.下载"></script>
+ 	
+ 	<script src="./在Java路上，我看过的一些书、源码和框架 - Java开发社区 _ CTOLib码库_files/jquery.autogrowtextarea.min.js.下载"></script>
+ 	<script src="./在Java路上，我看过的一些书、源码和框架 - Java开发社区 _ CTOLib码库_files/common.js.下载"></script>
+ 	<script src="./在Java路上，我看过的一些书、源码和框架 - Java开发社区 _ CTOLib码库_files/comment.js.下载"></script>
+ 	<script src="./在Java路上，我看过的一些书、源码和框架 - Java开发社区 _ CTOLib码库_files/userevent.js.下载"></script>
+
+	 	
+		<script type="text/javascript">
+		  var editor;
+		  $(function() {
+		    editor = createEditorMd("comment-editormd", "#submit-btn","",200);
+		  });
+	 
+		</script>
+	
+ 	
+	<script type="text/javascript">
+		var fav=0;
+		var login=1;
+		var like=0;
+		var rootpath="";
+		
+		$(".page .collect").click(function(){
+			if(login==0){//没有登录
+				openPop("#login-pop");
+			}else{
+				if(fav==0){
+					$('#favModal').modal('show');
+				}else{
+					cancleFave();
+				}
+			}
+		});
+
+	
+		function cancleFave(){
+			$.ajax({
+				   type: "GET",
+				   url: rootpath+"/user/favtopicsCancle/112092",
+				   success: function(msg){
+					   fav=0;
+					   num=0;
+					   if(!isNaN(parseInt($(".favtnum").text()))){
+						   num=parseInt($(".favtnum").text())-1;
+					   }
+					   $(".favtnum").text(num);
+					   
+						$('.page .collect').removeClass('hadlike').attr('title', '稍后再读');
+						comTip("已取消收藏！");
+				   },
+                error: function(data) {
+                   alert("取消失败！");
+                }
+			});
+		}
+
+		 
+		$("button#savefav").click(function(){
+			  if($("#uname").val()!==null){
+					$.ajax({
+						   type: "POST",
+						   url: rootpath+"/user/saveUserCatalog",
+						   data: $('#favsaveform').serialize(),
+						   success: function(msg){
+							 $('#favModalSave').modal('hide');
+							 $('#favModal').modal('show');
+						   },
+		                   error: function(data) {
+		                      alert("保存失败！");
+		                   }
+					});
+				}else{
+					alert('名称必填!');
+				}
+		});
+
+		$("#indexbox").click(function(){
+			setsbox();
+		});
+
+		function setsbox(){
+			if($("#sbox").is(":hidden")){
+				$("#idiv").attr("style","max-height:250px;overflow-y: scroll;overflow:auto;");
+			    $("#sbox").show(200);
+			}else{
+				$("#idiv").attr("style","max-height:500px;overflow-y: scroll;overflow:auto;");
+			    $("#sbox").hide(200);
+			}
+		}
+		
+ 		function favArticle(uid){
+			$.ajax({
+				   type: "GET",
+				   url: rootpath+"/user/favarticleSave",
+				   data: "usercatalogId="+uid+"&topicsId="+112092,
+				   success: function(msg){
+					   fav=1;
+					   num=1;
+					   if(!isNaN(parseInt($(".favtnum").text()))){
+						   num=parseInt($(".favtnum").text())+1;
+					   }
+					   $(".favtnum").text(num);
+						comTip("感谢收藏！");
+						$('.page .collect').addClass('hadlike').attr('title', '取消收藏');
+					    $('#favModal').modal('hide');
+				   },
+                error: function(data) {
+                   alert("保存失败！");
+                }
+			});
+	 	}
+	 	
+ 		function editFavcatalog(id,name,desc){
+ 	 		 $('#uid').val(id);
+ 	 		 $('#udesc').val(desc);
+ 	 		 $('#uname').val(name);
+			 $('#favModalSave').modal('show');
+			 $('#favModal').modal('hide');
+ 	 	}
+
+ 		function delFavcatalog(id){
+ 			if(confirm("确认要删除，该目录下的收藏也将一起删除？")){
+ 				$.ajax({
+ 				   type: "GET",
+ 				   url: rootpath+"/user/usercatalogDel/"+id,
+ 				   success: function(data){
+ 					$('#md'+id).hide();
+ 				   },
+                   error: function(data) {
+ 						alert("删除失败！");
+                 	}
+ 				});
+ 	 		}
+	 	}
+	 	
+		$('#favModal').on('show.bs.modal', function (event) {
+			var modal = $(this);
+			$.ajax({
+				   type: "GET",
+				   url: rootpath+"/user/getUserCatalog",
+				   success: function(data){
+					 modal.find('.table').empty();
+					 modal.find('.table').append("<tr><th>名称</th><th>&nbsp;&nbsp;操作</th></tr>");
+					if(data.length==0){
+						 modal.find('.table').append("<tr><td>您还没有收藏夹请先创建！</th><td></td></tr>");
+					}else{
+						$.each(data, function(i,item){
+							modal.find('.table').append("<tr id='md"+item.id+"'><td style='cursor:pointer' onclick='favArticle("+item.id+")'><span class='badge'>"+item.numt+"</span>&nbsp;&nbsp;"+item.name+"</td><td>&nbsp;<a onclick='editFavcatalog(\""+item.id+"\",\""+item.name+"\",\""+item.desc+"\")' title='修改' href='#'><i class='icon-note'></i></a>&nbsp;&nbsp;<a title='删除' onclick='delFavcatalog(\""+item.id+"\")' href='#'><i class='icon-close'></i></a></td></tr>")
+						});
+					}
+				   },
+                   error: function(data) {
+					alert("获取收藏夹失败！");
+                }
+			});
+			
+		});
+		var hhcount=0;
+		
+	    var setAIActive = function () {
+	        var target_article, hhh, target_articleIndex;
+	        target_article = $("article");
+	        target_articleIndex = $(".articleIndex");
+	        hhh = target_article.find("h1, h2, h3");
+	        window_scroll_top = $(window).scrollTop();
+	        var i=0;
+	        
+	        hhh.each(function (index, H) {
+		        i++;
+	            (index < hhh.length - 1) ? next_h_top = hhh.eq(index + 1).offset().top : next_h_top = hhh.last().offset().top;
+	            e = target_articleIndex.find("[href='#" + $(this).attr("id") + "']");
+	           target_articleIndex.find("li").removeClass("active");
+	            if ($(H).offset().top < window_scroll_top + 125 && window_scroll_top + 125 < next_h_top) {
+	                e.parent().addClass("active");
+	                return false;
+	            } else if (hhh.length == index + 1) {
+	                e.parent().addClass("active");
+	                return false;
+	            }
+	        });
+	        
+	        if(i==0){
+				$("#indexdiv").remove();
+		    }
+	    };
+	
+	    var contentIndex = function () {
+	        var e;
+	        return e = function (article, article_index, numb) {
+	            var target_article, collapse, headline, panel_collapse, target_articleIndex, u, d, location_hash;
+	            target_article = $(article);
+	            target_articleIndex = $(article_index);
+	            collapse = target_article.find(".collapse");
+	            panel_collapse = target_article.find(".panel-collapse");
+	            headline = target_article.find("h1, h2, h3");
+	
+	            $(window).scroll(function () {
+	                setAIActive();
+	            });
+	            d = 2;
+	            headline.each(function (e) {
+	                var n, r, i;
+	                i = $(this).text().trim(),
+	                "" !== i && ($(this).attr("id", "articleHeader" + e),
+	                    r = parseInt($(this)[0].tagName.slice(1)),
+	                    n = null,
+	                    0 === e || r === d ?
+	                        (n = $('<li><a href="#articleHeader' + e + '"></a></li>'), n.find("a").text(i), target_articleIndex.append(n)) :
+	                        r > d ?
+	                            (n = $("<li style='list-style:none;'><ul style='padding-left: 18px;'><li><a href=\"#articleHeader" + e + '"></a></li></ul></li>'), n.find("a").text(i), target_articleIndex.append(n), target_articleIndex = n.find("ul")) :
+	                        d > r && (1 === r ? (n = $('<li><a href="#articleHeader' + e + '"></a></li>'), n.find("a").text(i), $(article_index).append(n), target_articleIndex = $(article_index)) :
+	                            (n = $("<li style='list-style:none;'><ul style='padding-left: 18px;'><li><a href=\"#articleHeader" + e + '"></a></li></ul></li>'), n.find("a").text(i), target_articleIndex.parents("ul").parents("ul").length ? (target_articleIndex.parents("ul").parents("ul").append(n), target_articleIndex = n.find("ul")) : (n = $('<li><a href="#articleHeader' + e + '"></a></li>'), n.find("a").text(i), $(article_index).append(n), target_articleIndex = $(article_index)))), d = r)
+	            }), numb && numb(collapse, panel_collapse), location_hash = location.hash, location_hash && $(window).scrollTop($(location_hash).offset().top)
+	        }
+	    };
+	    
+	
+		(function(){
+			var c = new contentIndex();
+			c("article", ".articleIndex");
+			setAIActive();
+	
+	
+			$(window).scroll(function () {
+
+				if ($(window).scrollTop() > $(".commentBar").offset().top) {
+					
+					$(".comment-nav").addClass("tside-fixed");
+				} else {
+					$(".comment-nav").removeClass("tside-fixed");
+					
+				}
+				
+			});
+			
+			$(".item-description img").each(function(index, element) {
+				var $width=$(".item-description").width();
+				console.log($(this)[0].naturalWidth);
+				if ($(this)[0].naturalWidth>=$width) {
+					this.height = this.height*$width/$(this)[0].naturalWidth;
+					this.width=$width;
+				}
+			});
+
+	
+		})();
+		
+		$(document).ready(function(){ 
+			  var prevpage=$("#pre").attr("href"); 
+			  var nextpage=$("#next").attr("href"); 
+			  $("body").keydown(function(event){ 
+			   //if(event.keyCode==37 && prevpage!=undefined) location=prevpage; 
+			   //if(event.keyCode==39 && nextpage!=undefined) location=nextpage;
+			  }); 
+		});
+	</script>
+	<script>
+		(function(){
+		    var bp = document.createElement('script');
+		    var curProtocol = window.location.protocol.split(':')[0];
+		    if (curProtocol === 'https') {
+		        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+		    }
+		    else {
+		        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+		    }
+		    var s = document.getElementsByTagName("script")[0];
+		    s.parentNode.insertBefore(bp, s);
+		})();
+	</script>
+	<script>
+	(function(){
+	   var src = (document.location.protocol == "http:") ? "http://js.passport.qihucdn.com/11.0.1.js?973e3e5c3b05739a56f530c6ae1ec7fc":"https://jspassport.ssl.qhimg.com/11.0.1.js?973e3e5c3b05739a56f530c6ae1ec7fc";
+	   document.write('<script src="' + src + '" id="sozz"><\/script>');
+	})();
+	</script><script src="./在Java路上，我看过的一些书、源码和框架 - Java开发社区 _ CTOLib码库_files/11.0.1.js.下载" id="sozz"></script><script charset="utf-8" src="./在Java路上，我看过的一些书、源码和框架 - Java开发社区 _ CTOLib码库_files/ab77b6ea7f3fbf79.js.下载"></script>
+
+
+
+ 
+
+<div id="toTop" title="回到顶部" style="display: none;"><span class="fa fa-arrow-circle-up fa-3x pui-text-blue-400"></span></div></body></html>

@@ -1,0 +1,154 @@
+body{
+    background-color:#dee6ce !important;
+    margin:0 52px;
+    background-image: url("http://images.cnitblog.com/blog/99414/201411/061021304246128.jpg") !important;
+    background-repeat: repeat-x;
+}
+
+#home{
+    background-color:#FFFFFF;
+}
+
+#navigator 
+{
+    background-color:#31317B !important;
+}
+.menu {
+    color: #FFFFFF;
+}
+.blogStats {
+    color: #FFFFFF;
+}
+#sideBar {
+    border-style: none !important;
+}
+
+#sideBar h3, #MyIng .ing_title {
+    background-color: #738CC5;
+    margin:16px 0 0;
+}
+
+#blog-sidecolumn ul {
+    border: 1px solid #738CC5;
+}
+
+#blog-news {
+    border: 1px solid #738CC5;
+}
+#blog-calendar {
+    border: 1px solid #738CC5;
+}
+
+
+
+div.myContent h2
+{
+    padding: 5px;
+    font-family: 宋体, Arial, Helvetica, sans-serif;
+    color: #0000FF;
+    font-weight: bold;
+    text-decoration: none;
+    background-color: #CCCCCC;
+    font-size: 16px;
+}
+div.myContent h3
+{
+    font-family: 宋体, Arial, Helvetica, sans-serif;
+    color: #FF0000;
+    font-weight: bold;
+    text-decoration: none;
+    margin-left: 25px;
+    font-size: 14px;
+}
+div.myContent h4
+{
+    font-family: 宋体, Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    text-decoration: none;
+    margin-left: 25px;
+    line-height: 180%;
+    font-size: 14px;
+}
+div.myContent h5
+{
+    font-family: 宋体, Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    text-decoration: none;
+    margin-left: 30px;
+    line-height: 180%;
+    font-size: 12px;
+}
+div.myContent
+{
+    font-family: 宋体, Arial, Helvetica, sans-serif;
+    text-decoration: none;
+    line-height: 180%;
+    font-size: 12px;
+}
+div.myContent p
+{
+    text-indent: 30px;
+}
+div.myContent .red
+{
+    color: #FF0000;
+}
+div.myContent .quote
+{
+    border-style: dashed;
+    border-width: 1px;
+    border-color: inherit;
+    margin: 1em 2em;
+    padding: 0.5em 1em;
+    background-color: #C1FFFF;
+}
+
+div.myContent .copy {
+    background: none repeat scroll 0 0 #DBEAFF;
+    border: 1px solid #C0C0C0;
+    font-size: 9pt;
+    line-height: 15pt;
+    margin-bottom: 15px;
+    margin-top: 15px;
+    padding: 10px;
+}
+
+div.myContent a:hover
+{
+    font-size: 12px;
+    color: #FF0000;
+    text-decoration: overline;
+}
+div.myContent a:active
+{
+    font-size: 12px;
+    color: #FF0000;
+    text-decoration: overline;
+}
+div.myContent a:link
+{
+    font-size: 12px;
+    color: #0000FF;
+    text-decoration: none;
+}
+div.myContent a:visited
+{
+    font-size: 12px;
+    color: #0000FF;
+    text-decoration: none;
+}
+
+div.myContent ul
+{
+    margin-left: 0px;
+    padding-left: 0px;
+}
+.syntaxhighlighter
+{
+    margin: 0px !important;
+}
+.cnblogs_Highlighter
+{
+    background-color: #f9f9f9;
+    border: 1px dashed #CCCCCC;
+}
